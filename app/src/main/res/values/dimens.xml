@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- icons -->
+    <dimen name="icon_normal">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+    <!-- spacing -->
+    <dimen name="spacing_xxx_large">80dp</dimen>
+    <dimen name="spacing_xx_large">64dp</dimen>
+    <dimen name="spacing_extra_large">32dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <!-- texts -->
+    <dimen name="text_xx_large">48sp</dimen>
+    <dimen name="text_extra_large">24sp</dimen>
+
+    <dimen name="text_body_large">16sp</dimen>
+    <dimen name="text_body_medium">14sp</dimen>
+    <dimen name="text_body_small">12sp</dimen>
+
+    <dimen name="text_headline_small">24sp</dimen>
+    <dimen name="text_headline_medium">28sp</dimen>
+    <dimen name="text_headline_large">32sp</dimen>
+
+    <dimen name="text_label_small">11sp</dimen>
+    <dimen name="text_label_medium">12sp</dimen>
+    <dimen name="text_label_large">14sp</dimen>
+
+
+    <!-- radius -->
+    <!-- buttons -->
+    <dimen name="button_width_large">200dp</dimen>
+    <dimen name="button_height_large">56dp</dimen>
+    <dimen name="button_width_medium">160dp</dimen>
+    <dimen name="button_height_medium">40dp</dimen>
+</resources>
