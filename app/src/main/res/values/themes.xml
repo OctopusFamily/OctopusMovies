@@ -3,7 +3,7 @@
     <style name="Theme.MoviesApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">#F83066</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -15,7 +15,9 @@
         <!-- Customize your theme here. -->
     </style>
 
-
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">32sp</item>
+    </style>
     <style name="TextStyle">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_regular</item>
