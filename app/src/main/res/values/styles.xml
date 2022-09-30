@@ -1,11 +1,4 @@
 <resources>
-
-    <style name="Widget.Theme.MoviesApp.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
-    </style>
-
-
     <style name="text_style_headline_small" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="fontFamily">@font/poppins</item>
     </style>
@@ -33,6 +26,5 @@
     <style name="text_style_body_large" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/poppins</item>
     </style>
-
 </resources>
 
