@@ -18,12 +18,11 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="2"
-            tools:listitem="@layout/item_genres" />
+            tools:listitem="@layout/item_watch_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
