@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_move"
+        android:id="@+id/card_tv_show"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="12dp"
-        android:backgroundTint="@color/white"
         android:layout_marginBottom="8dp"
-       >
+        android:background="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/image_tv_show"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -28,17 +27,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_name_move"
+                android:id="@+id/text_name_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
+                android:layout_marginTop="16dp"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:lines="1"
                 android:textSize="16sp"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/image_tv_show"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Family Guy" />
 
@@ -46,31 +45,32 @@
                 android:id="@+id/text_star_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
-                android:text="2000"
-                tools:text="Family Guy"
                 android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout_star_rate"
+                tools:text="2000" />
 
             <TextView
-                android:id="@+id/text_type"
+                android:id="@+id/text_genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                tools:text="Animation | Comdey"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_move" />
+                app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                app:layout_constraintTop_toBottomOf="@+id/text_name_tv"
+                tools:text="Animation | Comdey" />
+
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linear_layout_star_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/text_type">
+                app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                app:layout_constraintTop_toBottomOf="@+id/text_genres">
 
                 <ImageView
                     android:id="@+id/image_star_1"
@@ -78,8 +78,8 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_star_rate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type" />
+                    app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genres" />
 
                 <ImageView
                     android:id="@+id/image_star_2"
@@ -87,8 +87,8 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_star_rate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type" />
+                    app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genres" />
 
                 <ImageView
                     android:id="@+id/image_star_3"
@@ -96,8 +96,8 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_star_rate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type" />
+                    app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genres" />
 
                 <ImageView
                     android:id="@+id/image_star_4"
@@ -105,18 +105,18 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_star_rate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type" />
+                    app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genres" />
+
                 <ImageView
                     android:id="@+id/image_star_5"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_star_outline"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/text_type" />
+                    app:layout_constraintStart_toEndOf="@+id/image_tv_show"
+                    app:layout_constraintTop_toBottomOf="@+id/text_genres" />
             </LinearLayout>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,13 +5,13 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_move"
+        android:id="@+id/card_tv_show"
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/white"
+        android:background="@color/white"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/image_tv_show"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_name_move"
+                android:id="@+id/text_name_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
@@ -44,7 +44,7 @@
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/image_tv_show"
                 tools:text="Memento" />
 
             <TextView
@@ -52,11 +52,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_marginStart="4dp"
-                tools:text="2000"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/image_calendar"
                 app:layout_constraintStart_toEndOf="@+id/image_calendar"
-                app:layout_constraintTop_toTopOf="@+id/image_calendar" />
+                app:layout_constraintTop_toTopOf="@+id/image_calendar"
+                tools:text="2000" />
 
             <ImageView
                 android:id="@+id/shap_background"
@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="@+id/image_star_rate" />
 
             <TextView
-                android:id="@+id/text_type"
+                android:id="@+id/text_genres"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_marginEnd="16dp"
@@ -85,7 +85,7 @@
                 android:layout_marginEnd="4dp"
                 android:src="@drawable/ic_star_rate"
                 app:layout_constraintBottom_toBottomOf="@+id/image_calendar"
-                app:layout_constraintEnd_toStartOf="@+id/text_type"
+                app:layout_constraintEnd_toStartOf="@+id/text_genres"
                 app:layout_constraintTop_toTopOf="@+id/image_calendar" />
 
             <ImageView
@@ -95,8 +95,8 @@
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@android:color/transparent"
                 android:src="@drawable/ic_calendar"
-                app:layout_constraintStart_toStartOf="@+id/text_name_move"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_move" />
+                app:layout_constraintStart_toStartOf="@+id/text_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/text_name_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
