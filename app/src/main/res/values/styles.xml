@@ -1,0 +1,30 @@
+<resources>
+    <style name="text_style_headline_small" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_label_small" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_label_medium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_label_large" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_body_small" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_body_medium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_body_large" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+</resources>
+
