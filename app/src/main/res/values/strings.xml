@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Movies App</string>
+    <string name="tv_shows">Tv Shows</string>
+    <string name="movies">Movies</string>
+    <string name="genres_item_image_description">Genre Item Image</string>
 </resources>
