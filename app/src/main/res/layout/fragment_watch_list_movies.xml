@@ -15,11 +15,11 @@
             android:id="@+id/habitListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/_4dp"
+            android:paddingVertical="@dimen/_4dp"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/item_genres" />
+            tools:listitem="@layout/item_watch_list" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
