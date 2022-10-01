@@ -42,7 +42,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appCompatButton"
-        style="@style/TextStyle.body_medium"
+        style="@style/text_style_body_medium"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_margin="16dp"
@@ -72,7 +72,7 @@
 
     <TextView
         android:id="@+id/text_tv_show_name"
-        style="@style/TextStyle.headline_small"
+        style="@style/text_style_headline_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -87,7 +87,7 @@
 
     <TextView
         android:id="@+id/text_number_of_seasons"
-        style="@style/TextStyle.body_small"
+        style="@style/text_style_body_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="8 Seasons"
@@ -97,7 +97,7 @@
 
     <TextView
         android:id="@+id/text_number_of_episodes"
-        style="@style/TextStyle.body_small"
+        style="@style/text_style_body_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -117,7 +117,7 @@
 
     <TextView
         android:id="@+id/text_rate"
-        style="@style/TextStyle.label_large"
+        style="@style/text_style_label_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -129,7 +129,7 @@
 
     <TextView
         android:id="@+id/text_review_count"
-        style="@style/TextStyle.body_medium"
+        style="@style/text_style_body_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -141,7 +141,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_rate"
-        style="@style/TextStyle.body_medium"
+        style="@style/text_style_body_medium"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_margin="16dp"

@@ -42,7 +42,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_play_episode"
-        style="@style/TextStyle.body_medium"
+        style="@style/text_style_body_medium"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_margin="16dp"
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/text_episode_name"
-        style="@style/TextStyle.headline_small"
+        style="@style/text_style_headline_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,7 +101,7 @@
 
     <TextView
         android:id="@+id/text_episode_rate"
-        style="@style/TextStyle.label_large"
+        style="@style/text_style_label_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
