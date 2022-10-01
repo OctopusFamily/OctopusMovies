@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_episode_main"
+        android:layout_width="match_parent"
+        android:layout_height="251dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gameofthronesback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedButtomCorners" />
+
+    <ImageView
+        android:id="@+id/ic_back_episode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        android:background="@drawable/circle_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_arrow" />
+
+    <ImageView
+        android:id="@+id/ic_save_episode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        android:background="@drawable/circle_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_save" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_play_episode"
+        style="@style/TextStyle.body_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/play_button_bg"
+        android:drawableStart="@drawable/ic_play"
+        android:drawablePadding="4dp"
+        android:drawableTint="@color/primary_color"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Play Trailer"
+        android:textAllCaps="false"
+        android:textColor="@color/primary_color"
+        app:layout_constraintBottom_toBottomOf="@+id/image_episode_main"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text_episode_name"
+        style="@style/TextStyle.headline_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Winter Is Coming"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_episode_main" />
+
+    <ImageView
+        android:id="@+id/ic_episode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/text_episode_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_episode_name"
+        app:srcCompat="@drawable/ic_episode" />
+
+    <TextView
+        android:id="@+id/text_episode_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Episode 1 |"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/ic_episode"
+        app:layout_constraintTop_toTopOf="@id/ic_episode"
+        app:layout_constraintBottom_toBottomOf="@id/ic_episode"/>
+
+    <ImageView
+        android:id="@+id/ic_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_episode_number"
+        app:layout_constraintStart_toEndOf="@id/text_episode_number"
+        app:layout_constraintTop_toTopOf="@id/text_episode_number"
+        app:srcCompat="@drawable/ic_star" />
+
+    <TextView
+        android:id="@+id/text_episode_rate"
+        style="@style/TextStyle.label_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="8.7 |"
+        android:textColor="@color/light_secondary_color"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_star"
+        app:layout_constraintStart_toEndOf="@+id/ic_star"
+        app:layout_constraintTop_toTopOf="@+id/ic_star" />
+
+    <ImageView
+        android:id="@+id/ic_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/text_episode_rate"
+        app:layout_constraintTop_toTopOf="@+id/text_episode_rate"
+        app:layout_constraintBottom_toBottomOf="@+id/text_episode_rate"
+        app:srcCompat="@drawable/ic_calendar" />
+
+    <TextView
+        android:id="@+id/text_on_air"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="2011-04-17"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
+        app:layout_constraintStart_toEndOf="@+id/ic_calendar"
+        app:layout_constraintTop_toTopOf="@+id/ic_calendar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_main_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_episode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
