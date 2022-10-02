@@ -1,4 +1,5 @@
 <resources>
+<!--    Text Styles-->
     <style name="text_style_headline_small" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="fontFamily">@font/poppins</item>
     </style>
@@ -25,6 +26,18 @@
 
     <style name="text_style_body_large" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/poppins</item>
+    </style>
+
+<!--    Shapeable Image View Styles-->
+    <style name="rounded_image_view">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_12dp</item>
+    </style>
+
+    <style name="bottom_rounded_image_view">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">@dimen/_12dp</item>
+        <item name="cornerSizeBottomRight">@dimen/_12dp</item>
     </style>
 </resources>
 
