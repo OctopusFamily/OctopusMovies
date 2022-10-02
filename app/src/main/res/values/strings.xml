@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Movies App</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="tv_shows">Tv Shows</string>
+    <string name="movies">Movies</string>
+    <string name="genres_item_image_description">Genre Item Image</string>
+    <string name="watch_list_item_image_description">Watch List Item Image</string>
+    <string name="rating_star_icon_description">Rating Star Icon</string>
 </resources>
