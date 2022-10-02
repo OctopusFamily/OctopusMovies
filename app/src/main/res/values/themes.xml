@@ -50,5 +50,19 @@
         <item name="android:textSize">@dimen/text_label_large</item>
     </style>
 
+    <!-- RatingBar -->
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#555555</item>
+        <item name="colorControlActivated">#FFE02F</item>
+    </style>
+
+    <!-- chip -->
+    <style name="chip" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="chipBackgroundColor">#80F83066</item>
+        <item name="chipCornerRadius">12dp</item>
+    </style>
+
+
 
 </resources>

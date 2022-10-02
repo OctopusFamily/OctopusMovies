@@ -9,6 +9,7 @@
     <dimen name="spacing_extra_large">32dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_medium_12">12dp</dimen>
     <dimen name="spacing_small">8dp</dimen>
     <dimen name="spacing_extra_small">4dp</dimen>
     <!-- texts -->
@@ -34,4 +35,6 @@
     <dimen name="button_height_large">56dp</dimen>
     <dimen name="button_width_medium">160dp</dimen>
     <dimen name="button_height_medium">40dp</dimen>
+
+
 </resources>

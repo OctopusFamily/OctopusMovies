@@ -8,11 +8,10 @@
         android:id="@+id/card_tv_show"
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="@dimen/spacing_extra_small"
+        android:layout_marginVertical="@dimen/spacing_extra_small"
         android:background="@color/white"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@dimen/spacing_medium_12"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/image_tv_show"
+                android:id="@+id/image_move"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
@@ -33,26 +32,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_name_tv"
-                android:layout_width="0dp"
+                android:id="@+id/text_name_move"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium_12"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textSize="16dp"
+                android:textSize="@dimen/text_body_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_tv_show"
+                app:layout_constraintTop_toBottomOf="@+id/image_move"
                 tools:text="Memento" />
 
             <TextView
                 android:id="@+id/text_star_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
-                android:layout_marginStart="4dp"
-                android:textSize="14dp"
+                android:layout_marginStart="@dimen/spacing_extra_small"
+                android:textSize="@dimen/text_body_medium"
                 app:layout_constraintBottom_toBottomOf="@+id/image_calendar"
                 app:layout_constraintStart_toEndOf="@+id/image_calendar"
                 app:layout_constraintTop_toTopOf="@+id/image_calendar"
@@ -68,11 +67,11 @@
                 app:layout_constraintTop_toTopOf="@+id/image_star_rate" />
 
             <TextView
-                android:id="@+id/text_genres"
+                android:id="@+id/text_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
-                android:layout_marginEnd="16dp"
-                android:textSize="14dp"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:textSize="@dimen/text_body_medium"
                 app:layout_constraintBottom_toBottomOf="@+id/shap_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/shap_background"
@@ -82,21 +81,21 @@
                 android:id="@+id/image_star_rate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="@dimen/spacing_extra_small"
                 android:src="@drawable/ic_star_rate"
                 app:layout_constraintBottom_toBottomOf="@+id/image_calendar"
-                app:layout_constraintEnd_toStartOf="@+id/text_genres"
+                app:layout_constraintEnd_toStartOf="@+id/text_rate"
                 app:layout_constraintTop_toTopOf="@+id/image_calendar" />
 
             <ImageView
                 android:id="@+id/image_calendar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/spacing_small"
                 android:backgroundTint="@android:color/transparent"
                 android:src="@drawable/ic_calendar"
-                app:layout_constraintStart_toStartOf="@+id/text_name_tv"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_tv" />
+                app:layout_constraintStart_toStartOf="@+id/text_name_move"
+                app:layout_constraintTop_toBottomOf="@+id/text_name_move" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
