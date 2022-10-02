@@ -5,4 +5,6 @@
     <string name="genres_item_image_description">Genre Item Image</string>
     <string name="watch_list_item_image_description">Watch List Item Image</string>
     <string name="rating_star_icon_description">Rating Star Icon</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="play_trailer_icon_description">Play Trailer Icon</string>
 </resources>
