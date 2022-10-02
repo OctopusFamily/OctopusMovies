@@ -5,6 +5,13 @@
     <string name="genres_item_image_description">Genre Item Image</string>
     <string name="watch_list_item_image_description">Watch List Item Image</string>
     <string name="rating_star_icon_description">Rating Star Icon</string>
+    <string name="episode_icon_description">Episode Icon</string>
+    <string name="episode_air_date_icon_description">Episode Air Date Icon</string>
+    <string name="watch_list_icon_description">Watch List Icon</string>
+    <string name="navigate_back_icon_description">Navigate Back Icon</string>
+    <string name="tv_show_release_date_icon_description">TV Show Release Date Icon</string>
+    <string name="tv_show_status_icon_description">TV Show Status Icon</string>
+    <string name="language_icon_description">Language Icon</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="play_trailer_icon_description">Play Trailer Icon</string>
 </resources>

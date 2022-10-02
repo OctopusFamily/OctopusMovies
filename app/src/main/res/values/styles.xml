@@ -39,5 +39,10 @@
         <item name="cornerSizeBottomLeft">@dimen/_12dp</item>
         <item name="cornerSizeBottomRight">@dimen/_12dp</item>
     </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
 
