@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedButtomCorners" />
+        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
 
     <ImageView
         android:id="@+id/ic_back_episode"
@@ -26,7 +26,8 @@
         android:background="@drawable/circle_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow" />
+        app:srcCompat="@drawable/ic_back_arrow"
+        android:contentDescription="@string/navigate_back_icon_description" />
 
     <ImageView
         android:id="@+id/ic_save_episode"
@@ -38,7 +39,8 @@
         android:background="@drawable/circle_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_save" />
+        app:srcCompat="@drawable/ic_save"
+        android:contentDescription="@string/watch_list_icon_description" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_play_episode"
@@ -52,84 +54,103 @@
         android:drawableTint="@color/primary_color"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Play Trailer"
         android:textAllCaps="false"
         android:textColor="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="@+id/image_episode_main"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Play Trailer"/>
 
     <TextView
         android:id="@+id/text_episode_name"
         style="@style/text_style_headline_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginHorizontal="@dimen/_16dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:text="Winter Is Coming"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_episode_main" />
+        app:layout_constraintTop_toBottomOf="@+id/image_episode_main"
+        tools:text="Winter Is Coming"/>
 
-    <ImageView
-        android:id="@+id/ic_episode"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/episode_more_info_linear_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/text_episode_name"
-        app:layout_constraintTop_toBottomOf="@+id/text_episode_name"
-        app:srcCompat="@drawable/ic_episode" />
+        app:layout_constraintTop_toBottomOf="@id/text_episode_name"
+        app:layout_constraintStart_toStartOf="@id/text_episode_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/text_episode_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Episode 1 |"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/ic_episode"
-        app:layout_constraintTop_toTopOf="@id/ic_episode"
-        app:layout_constraintBottom_toBottomOf="@id/ic_episode"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_episode"
+                android:contentDescription="@string/episode_icon_description" />
 
-    <ImageView
-        android:id="@+id/ic_star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_episode_number"
-        app:layout_constraintStart_toEndOf="@id/text_episode_number"
-        app:layout_constraintTop_toTopOf="@id/text_episode_number"
-        app:srcCompat="@drawable/ic_star" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8dp"
+                style="@style/text_style_body_small"
+                tools:text="Episode 1"/>
 
-    <TextView
-        android:id="@+id/text_episode_rate"
-        style="@style/text_style_label_large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="8.7 |"
-        android:textColor="@color/light_secondary_color"
-        app:layout_constraintBottom_toBottomOf="@+id/ic_star"
-        app:layout_constraintStart_toEndOf="@+id/ic_star"
-        app:layout_constraintTop_toTopOf="@+id/ic_star" />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_2dp" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ic_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/text_episode_rate"
-        app:layout_constraintTop_toTopOf="@+id/text_episode_rate"
-        app:layout_constraintBottom_toBottomOf="@+id/text_episode_rate"
-        app:srcCompat="@drawable/ic_calendar" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_8dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_star"
+                android:contentDescription="@string/rating_star_icon_description" />
 
-    <TextView
-        android:id="@+id/text_on_air"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="2011-04-17"
-        app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
-        app:layout_constraintStart_toEndOf="@+id/ic_calendar"
-        app:layout_constraintTop_toTopOf="@+id/ic_calendar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8dp"
+                style="@style/text_style_body_small"
+                tools:text="8.7"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="@dimen/_2dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_calendar"
+                android:contentDescription="@string/episode_air_date_icon_description" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                style="@style/text_style_body_small"
+                tools:text="2011-04-17" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_main_tv_show_details"
@@ -139,8 +160,6 @@
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ic_episode" />
+        app:layout_constraintTop_toBottomOf="@id/episode_more_info_linear_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

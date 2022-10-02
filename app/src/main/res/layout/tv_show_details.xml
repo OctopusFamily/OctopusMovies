@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedButtomCorners" />
+        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
 
     <ImageView
         android:id="@+id/ic_back_tv_show"
@@ -26,7 +26,8 @@
         android:background="@drawable/circle_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow" />
+        app:srcCompat="@drawable/ic_back_arrow"
+        android:contentDescription="@string/navigate_back_icon_description" />
 
     <ImageView
         android:id="@+id/ic_save_tv_show"
@@ -38,7 +39,8 @@
         android:background="@drawable/circle_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_save" />
+        app:srcCompat="@drawable/ic_save"
+        android:contentDescription="@string/watch_list_icon_description" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appCompatButton"
@@ -52,11 +54,11 @@
         android:drawableTint="@color/primary_color"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Play Trailer"
         android:textAllCaps="false"
         android:textColor="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="@+id/image_tv_show_main"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Play Trailer"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_tv_show_second"
@@ -68,7 +70,7 @@
         android:src="@drawable/gameofthrones"
         app:layout_constraintStart_toStartOf="@+id/image_tv_show_main"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedCorners" />
+        app:shapeAppearanceOverlay="@style/rounded_image_view" />
 
     <TextView
         android:id="@+id/text_tv_show_name"
@@ -79,21 +81,21 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Game of Thrones"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/image_tv_show_second"
-        app:layout_constraintTop_toBottomOf="@+id/image_tv_show_main" />
+        app:layout_constraintTop_toBottomOf="@+id/image_tv_show_main"
+        tools:text="Game of Thrones"/>
 
     <TextView
         android:id="@+id/text_number_of_seasons"
         style="@style/text_style_body_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8 Seasons"
         android:textColor="@color/on_surface_variant_color"
         app:layout_constraintStart_toStartOf="@+id/text_tv_show_name"
-        app:layout_constraintTop_toBottomOf="@+id/text_tv_show_name" />
+        app:layout_constraintTop_toBottomOf="@+id/text_tv_show_name"
+        tools:text="8 Seasons"/>
 
     <TextView
         android:id="@+id/text_number_of_episodes"
@@ -101,10 +103,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="63 Episode"
         android:textColor="@color/on_surface_variant_color"
         app:layout_constraintStart_toEndOf="@+id/text_number_of_seasons"
-        app:layout_constraintTop_toTopOf="@+id/text_number_of_seasons" />
+        app:layout_constraintTop_toTopOf="@+id/text_number_of_seasons"
+        tools:text="63 Episode"/>
 
     <ImageView
         android:id="@+id/ic_star"
@@ -113,7 +115,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/text_number_of_seasons"
         app:layout_constraintTop_toBottomOf="@+id/text_number_of_seasons"
-        app:srcCompat="@drawable/ic_star" />
+        app:srcCompat="@drawable/ic_star"
+        android:contentDescription="@string/rating_star_icon_description" />
 
     <TextView
         android:id="@+id/text_rate"
@@ -121,11 +124,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="8.7"
         android:textColor="@color/light_secondary_color"
         app:layout_constraintBottom_toBottomOf="@+id/ic_star"
         app:layout_constraintStart_toEndOf="@+id/ic_star"
-        app:layout_constraintTop_toTopOf="@+id/ic_star" />
+        app:layout_constraintTop_toTopOf="@+id/ic_star"
+        tools:text="8.7"/>
 
     <TextView
         android:id="@+id/text_review_count"
@@ -133,11 +136,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="(100)"
         android:textColor="@color/light_secondary_color"
         app:layout_constraintBottom_toBottomOf="@+id/text_rate"
         app:layout_constraintStart_toEndOf="@+id/text_rate"
-        app:layout_constraintTop_toTopOf="@+id/text_rate" />
+        app:layout_constraintTop_toTopOf="@+id/text_rate"
+        tools:text="(100)"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_rate"
@@ -149,14 +152,14 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/play_button_bg"
         android:drawableTint="@color/primary_color"
-        android:text="Rate"
         android:textAllCaps="false"
         android:textColor="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="@+id/text_review_count"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text_review_count"
-        app:layout_constraintTop_toBottomOf="@+id/text_number_of_episodes" />
+        app:layout_constraintTop_toBottomOf="@+id/text_number_of_episodes"
+        tools:text="Rate"/>
 
     <ImageView
         android:id="@+id/ic_calendar"
@@ -168,18 +171,19 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ic_star"
-        app:srcCompat="@drawable/ic_calendar" />
+        app:srcCompat="@drawable/ic_calendar"
+        android:contentDescription="@string/tv_show_release_date_icon_description" />
 
     <TextView
         android:id="@+id/text_on_air"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="2017"
         app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
         app:layout_constraintEnd_toStartOf="@id/ic_watch"
         app:layout_constraintStart_toEndOf="@+id/ic_calendar"
-        app:layout_constraintTop_toTopOf="@+id/ic_calendar" />
+        app:layout_constraintTop_toTopOf="@+id/ic_calendar"
+        tools:text="2017"/>
 
     <ImageView
         android:id="@+id/ic_watch"
@@ -189,20 +193,21 @@
         app:layout_constraintEnd_toStartOf="@+id/text_status"
         app:layout_constraintStart_toEndOf="@+id/text_on_air"
         app:layout_constraintTop_toTopOf="@+id/ic_calendar"
-        app:srcCompat="@drawable/ic_watch" />
+        app:layout_constraintBottom_toBottomOf="@id/ic_calendar"
+        app:srcCompat="@drawable/ic_watch"
+        android:contentDescription="@string/tv_show_status_icon_description" />
 
     <TextView
         android:id="@+id/text_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Ended"
-
         app:layout_constraintBottom_toBottomOf="@+id/ic_watch"
         app:layout_constraintEnd_toStartOf="@+id/ic_language"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ic_watch"
-        app:layout_constraintTop_toTopOf="@id/ic_watch" />
+        app:layout_constraintTop_toTopOf="@id/ic_watch"
+        tools:text="Ended"/>
 
     <ImageView
         android:id="@+id/ic_language"
@@ -211,21 +216,22 @@
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toStartOf="@+id/text_language"
         app:layout_constraintHorizontal_bias="0.5"
-
+        app:layout_constraintBottom_toBottomOf="@id/ic_watch"
         app:layout_constraintStart_toEndOf="@+id/text_status"
         app:layout_constraintTop_toTopOf="@id/text_status"
-        app:srcCompat="@drawable/ic_translate" />
+        app:srcCompat="@drawable/ic_translate"
+        android:contentDescription="@string/language_icon_description" />
 
     <TextView
         android:id="@+id/text_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="English"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ic_language"
-        app:layout_constraintTop_toTopOf="@id/ic_language" />
+        app:layout_constraintTop_toTopOf="@id/ic_language"
+        tools:text="English"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_main_tv_show_details"

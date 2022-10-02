@@ -20,24 +20,4 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_octopus_movies_logo</item>
     </style>
 
-    <style name="circleImageView" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="roundedButtomCorners" parent="">
-        <item name="cornerFamilyBottomLeft">rounded</item>
-        <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSizeBottomLeft">12dp</item>
-        <item name="cornerSizeBottomRight">12dp</item>
-    </style>
-
-    <style name="roundedCorners" parent="">
-        <item name="cornerFamilyBottomLeft">rounded</item>
-        <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSize">12dp</item>
-    </style>
-
-
-
 </resources>
