@@ -26,5 +26,19 @@
     <style name="text_style_body_large" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/poppins</item>
     </style>
+
+    <style name="BottomBorderRounded">
+        <item name="cornerSizeBottomLeft">12dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+
+        <item name="cornerSizeBottomRight">12dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+    <style name="AllBordersRounded12">
+        <item name="cornerSize">12dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
 </resources>
 
