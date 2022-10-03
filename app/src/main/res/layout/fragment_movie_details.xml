@@ -20,7 +20,7 @@
             tools:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/BottomBorderRounded" />
+            app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
 
         <ImageView
             android:id="@+id/ic_arrow_back"
@@ -76,7 +76,7 @@
             android:layout_marginTop="110dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ic_arrow_back"
-            app:shapeAppearanceOverlay="@style/AllBordersRounded12" />
+            app:shapeAppearanceOverlay="@style/rounded_image_view" />
 
         <TextView
             android:id="@+id/text_movie_name"
