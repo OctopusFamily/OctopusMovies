@@ -14,4 +14,11 @@
     <string name="language_icon_description">Language Icon</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="play_trailer_icon_description">Play Trailer Icon</string>
+
+    <string name="string_play_trailer">Play Trailer</string>
+    <string name="string_rate">Rate</string>
+    <string name="string_genres">Genres</string>
+    <string name="string_tagline">Tagline</string>
+    <string name="string_overview">Overview</string>
+    <string name="string_cast">Cast</string>
 </resources>
