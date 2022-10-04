@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="light_secondary_color">#4E6074</color>
+    <color name="on_surface_variant_color">#42474E</color>
+    <color name="primary_color">#F83066</color>
+
+    <color name="gray_light">#F5F5F5</color>
+    <color name="light_on_background">#1A1C1E</color>
+    <color name="light_on_surface_variant">#42474E</color>
+    <color name="medium_blue">#4E6074</color>
+    <color name="gray_medium">#92929D</color>
+    <color name="light_blue">#D1E4FC</color>
+    <color name="dark_blue">#091D2E</color>
 </resources>
