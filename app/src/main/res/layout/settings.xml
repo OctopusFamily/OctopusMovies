@@ -11,7 +11,6 @@
         android:id="@+id/card_settings_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -25,7 +24,7 @@
                 android:id="@+id/language_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_image"
@@ -62,11 +61,8 @@
                 android:text="Language"
                 style="@style/TextStyle.body_large"
                 android:textColor="@color/black"
-                android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@+id/language_icon"
                 app:layout_constraintTop_toTopOf="parent" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -75,7 +71,6 @@
         android:id="@+id/card_settings_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -89,7 +84,7 @@
                 android:id="@+id/theme_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_theme"
@@ -126,7 +121,6 @@
                 android:text="Theme"
                 style="@style/TextStyle.body_large"
                 android:textColor="@color/black"
-                android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@+id/theme_icon"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -136,7 +130,6 @@
         android:id="@+id/card_settings_adult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -150,7 +143,7 @@
                 android:id="@+id/adult_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_cut"
@@ -181,7 +174,6 @@
                 android:layout_marginStart="16dp"
                 android:text="Adult Content"
                 android:textColor="@color/black"
-                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/adult_icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -192,7 +184,6 @@
         android:id="@+id/card_settings_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -206,7 +197,7 @@
                 android:id="@+id/about_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_about"
@@ -222,7 +213,6 @@
                 android:layout_marginStart="16dp"
                 android:text="About"
                 android:textColor="@color/black"
-                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/about_icon"
                 app:layout_constraintTop_toTopOf="parent" />
