@@ -218,4 +218,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 1.0"
+        style="@style/text_style_label_small"
+        android:layout_gravity="center"
+        android:gravity="bottom"
+        android:layout_marginBottom="@dimen/_16dp"
+        android:layout_weight="1"/>
 </LinearLayout>
