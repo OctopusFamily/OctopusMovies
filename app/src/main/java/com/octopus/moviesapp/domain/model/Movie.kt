@@ -8,11 +8,11 @@ data class Movie(
     val voteCount: Int,
     val voteAverage: Float,
     val trailerUrl: String,
-    val release_date: String,
+    val releaseDate: String,
     val runtime: Int,
     val originalLanguage: String,
-    val genres: List<Genre>,
     val tagline: String,
     val overview: String,
+    val genres: List<Genre>,
     val cast: List<Person>,
 )
