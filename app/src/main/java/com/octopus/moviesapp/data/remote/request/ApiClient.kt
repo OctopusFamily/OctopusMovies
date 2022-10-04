@@ -1,12 +1,13 @@
 package com.octopus.moviesapp.data.remote.request
 
-import com.octopus.moviesapp.util.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
+
     private fun httpClientTimeOut(): OkHttpClient {
         val builder = OkHttpClient()
             .newBuilder()
@@ -20,4 +21,8 @@ object ApiClient {
         .client(httpClientTimeOut())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    val apiService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
+    }
 }
