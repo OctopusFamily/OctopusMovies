@@ -8,9 +8,10 @@ import java.util.concurrent.TimeUnit
 object ApiClient {
     private const val BASE_URL = "https://api.themoviedb.org/3/"
 
-    private fun httpClientTimeOut(): OkHttpClient {
+    private fun httpClient(): OkHttpClient {
         val builder = OkHttpClient()
             .newBuilder()
+            .addInterceptor(AuthInterceptor())
             .callTimeout(1, TimeUnit.MINUTES)
             .connectTimeout(1, TimeUnit.MINUTES)
         return builder.build()
@@ -18,7 +19,7 @@ object ApiClient {
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(httpClientTimeOut())
+        .client(httpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
