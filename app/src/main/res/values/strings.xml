@@ -21,4 +21,13 @@
     <string name="string_tagline">Tagline</string>
     <string name="string_overview">Overview</string>
     <string name="string_cast">Cast</string>
+    <string name="search_movies">Search Movies</string>
+    <string name="popular">Popular</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="movie_image_description">Movie Image</string>
+    <string name="tv_show_image_description">TV Show Image</string>
+    <string name="on_the_air">On the Air</string>
+    <string name="airing_today">Airing Today</string>
 </resources>

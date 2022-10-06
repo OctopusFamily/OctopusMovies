@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.Movie" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_12dp"
+        app:cardElevation="0dp"
+        android:layout_margin="@dimen/_4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/movie_image_description"
+                tools:src="@drawable/ic_launcher_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:layout_marginHorizontal="@dimen/_16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                style="@style/text_style_body_large"
+                tools:text="Memento" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:drawableStartCompat="@drawable/ic_small_calendar"
+                    android:drawablePadding="@dimen/_4dp"
+                    style="@style/text_style_body_medium"
+                    tools:text="2000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20dp"
+                    android:paddingHorizontal="@dimen/_8dp"
+                    app:drawableStartCompat="@drawable/ic_small_star"
+                    android:drawablePadding="@dimen/_4dp"
+                    android:textColor="@color/surface"
+                    style="@style/text_style_body_medium"
+                    android:background="@drawable/rating_side_shape"
+                    tools:text="8.4"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+
