@@ -15,7 +15,7 @@
     <color name="on_surface_variant_color">#42474E</color>
     <color name="primary_color">#F83066</color>
     <color name="on_background">#1A1C1E</color>
-    <color name="background">#FCFCFF</color>
+    <color name="background">#F3F3F3</color>
     <color name="surface">#FFFFFFFF</color>
     <color name="on_secondary_container">#091D2E</color>
     <color name="on_surface">#1A1C1E</color>
@@ -26,6 +26,7 @@
     <color name="secondary_container">#D1E4FC</color>
     <color name="on_surface_container">#1C1B1F</color>
 
+    <color name="yellow">#FFE02F</color>
 
     <color name="gray_light">#F5F5F5</color>
     <color name="light_on_background">#1A1C1E</color>
