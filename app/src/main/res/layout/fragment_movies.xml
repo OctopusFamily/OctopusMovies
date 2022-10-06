@@ -1,86 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/search_movies_edit_text"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.movies.MoviesViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="@dimen/_16dp"
-        android:layout_marginTop="@dimen/_16dp"
-        android:background="@drawable/filled_rounded_shape"
-        android:drawableEnd="@drawable/ic_search"
-        android:hint="@string/search_movies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:inputType="text"
-        android:lines="1"
-        style="@style/text_style_body_medium"
-        android:autofillHints=""
-        android:paddingHorizontal="@dimen/_16dp"
-        tools:ignore="TextFields" />
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
-    <HorizontalScrollView
-        android:id="@+id/horizontal_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8dp"
-        android:paddingHorizontal="@dimen/_16dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/search_movies_edit_text">
+        <EditText
+            android:id="@+id/search_movies_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_16dp"
+            android:background="@drawable/filled_rounded_shape"
+            android:drawableEnd="@drawable/ic_search"
+            android:hint="@string/search_movies"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="text"
+            android:lines="1"
+            style="@style/text_style_body_medium"
+            android:autofillHints=""
+            android:paddingHorizontal="@dimen/_16dp"
+            tools:ignore="TextFields" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scroll_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true">
+            android:layout_marginTop="@dimen/_8dp"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/search_movies_edit_text">
 
-            <com.google.android.material.chip.Chip
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/popular"
-                android:textColor="@color/surface"
-                app:chipBackgroundColor="@color/primary_color"
-                app:chipStrokeColor="@android:color/transparent"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:checked="true"/>
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/now_playing"
-                app:chipStrokeColor="@android:color/transparent"/>
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/popular"
+                    android:textColor="@color/surface"
+                    app:chipBackgroundColor="@color/primary_color"
+                    app:chipStrokeColor="@android:color/transparent"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:checked="true" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upcoming"
-                app:chipStrokeColor="@android:color/transparent"/>
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/now_playing"
+                    app:chipStrokeColor="@android:color/transparent" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/top_rated"
-                app:chipStrokeColor="@android:color/transparent"/>
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upcoming"
+                    app:chipStrokeColor="@android:color/transparent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movies_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingTop="@dimen/_4dp"
-        android:paddingHorizontal="@dimen/_12dp"
-        app:spanCount="2"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_movie"/>
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/top_rated"
+                    app:chipStrokeColor="@android:color/transparent" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movies_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="@dimen/_4dp"
+            android:paddingHorizontal="@dimen/_12dp"
+            app:spanCount="2"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_movie" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

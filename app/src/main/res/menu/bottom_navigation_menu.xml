@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/moviesFragment"
+        android:title="@string/movies"
+        android:icon="@drawable/ic_movies"/>
+    <item
+        android:id="@+id/TVShowsFragment"
+        android:title="@string/tv_shows"
+        android:icon="@drawable/ic_tv_shows"/>
+    <item
+        android:id="@+id/genresFragment"
+        android:title="@string/genres"
+        android:icon="@drawable/ic_genres"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"/>
+</menu>
