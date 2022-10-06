@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/_16dp"
             android:background="@drawable/filled_rounded_shape"
             android:drawableEnd="@drawable/ic_search"
-            android:hint="@string/search_movies"
+            android:hint="@string/search_tv_shows"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

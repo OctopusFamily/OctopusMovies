@@ -1,3 +1,6 @@
 package com.octopus.moviesapp.domain.model
 
-class Genre()
+data class Genre(
+    val id: Int,
+    val name: String,
+)
