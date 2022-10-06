@@ -8,19 +8,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.BR
 
-abstract class BaseAdapter<T>(var itemsList: List<T>) : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
+abstract class BaseAdapter<T>(var itemsList: List<T>) : RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() {
     @LayoutRes
     abstract fun layoutId(): Int
 
-    class BaseViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+    class ItemViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int = itemsList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return BaseViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutId(), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        return ItemViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutId(), parent, false))
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.run {
             setVariable(BR.item, itemsList[position])
         }

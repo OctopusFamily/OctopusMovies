@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.octopus.moviesapp.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.octopus.moviesapp.ui.movies.MoviesFragment"
+        android:label="MoviesFragment" />
+    <fragment
+        android:id="@+id/TVShowsFragment"
+        android:name="com.octopus.moviesapp.ui.tv_shows.TVShowsFragment"
+        android:label="TVShowsFragment" />
+    <fragment
+        android:id="@+id/genresFragment"
+        android:name="com.octopus.moviesapp.ui.genres.GenresFragment"
+        android:label="GenresFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.octopus.moviesapp.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

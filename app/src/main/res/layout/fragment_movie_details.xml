@@ -205,7 +205,7 @@
             android:id="@+id/label_movie_genres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/string_genres"
+            android:text="@string/genres"
             style="@style/text_style_label_large"
             android:textColor="@color/medium_blue"
             android:layout_marginStart="@dimen/_16dp"
