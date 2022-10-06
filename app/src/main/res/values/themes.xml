@@ -20,4 +20,8 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_octopus_movies_logo</item>
     </style>
 
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">32sp</item>
+    </style>
+
 </resources>
