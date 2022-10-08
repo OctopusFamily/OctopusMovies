@@ -8,7 +8,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val repository: MainRepository
-) : ViewModel() {
+) : ViewModel(), MoviesClicksListener {
+    override fun onMovieClick(movieId: Int) {
 
-
+    }
 }
