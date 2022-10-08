@@ -2,6 +2,8 @@ package com.octopus.moviesapp.domain.mapper
 
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.domain.model.Movie
+import com.octopus.moviesapp.util.extensions.convertToDate
+import java.util.*
 
 class MoviesMapper : Mapper<List<MovieDTO>, List<Movie>> {
     override fun map(movie: List<MovieDTO>): List<Movie> {
@@ -11,7 +13,7 @@ class MoviesMapper : Mapper<List<MovieDTO>, List<Movie>> {
                     title = it.originalTitle ?: "",
                     posterImageUrl = it.posterPath ?: "",
                     voteAverage = it.voteAverage ?: 0f,
-                    releaseDate = it.releaseDate ?: "",
+                    releaseDate = it.releaseDate?.convertToDate() ?: Date(),
                 )
             }
     }
