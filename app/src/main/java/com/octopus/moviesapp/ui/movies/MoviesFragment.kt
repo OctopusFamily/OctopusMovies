@@ -5,7 +5,10 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMoviesBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
 
-class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
+class MoviesFragment : BaseFragment<FragmentMoviesBinding>(), MoviesClicksListener {
     override fun getLayoutId(): Int = R.layout.fragment_movies
     override val viewModel: MoviesViewModel by viewModels()
+    override fun onMovieClick(movieId: Int) {
+
+    }
 }
