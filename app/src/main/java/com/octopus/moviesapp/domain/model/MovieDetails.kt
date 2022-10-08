@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.domain.model
 
+import java.util.*
+
 data class MovieDetails(
     val id: Int,
     val title: String,
@@ -8,7 +10,7 @@ data class MovieDetails(
     val voteCount: Int,
     val voteAverage: Float,
     val trailerUrl: String,
-    val releaseDate: String,
+    val releaseDate: Date,
     val runtime: Int,
     val originalLanguage: String,
     val tagline: String,

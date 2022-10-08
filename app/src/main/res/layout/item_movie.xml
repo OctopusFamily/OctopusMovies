@@ -26,7 +26,8 @@
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
                 android:contentDescription="@string/movie_image_description"
-                tools:src="@drawable/ic_launcher_background"/>
+                tools:src="@drawable/ic_launcher_background"
+                app:imageUrl="@{item.posterImageUrl}"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -37,7 +38,8 @@
                 android:ellipsize="end"
                 android:lines="1"
                 style="@style/text_style_body_large"
-                tools:text="Memento" />
+                tools:text="Memento"
+                android:text="@{item.title}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +57,8 @@
                     app:drawableStartCompat="@drawable/ic_small_calendar"
                     android:drawablePadding="@dimen/_4dp"
                     style="@style/text_style_body_medium"
-                    tools:text="2000"/>
+                    tools:text="2000"
+                    app:releaseDate="@{item.releaseDate}"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,7 +69,8 @@
                     android:textColor="@color/surface"
                     style="@style/text_style_body_medium"
                     android:background="@drawable/rating_side_shape"
-                    tools:text="8.4"/>
+                    tools:text="8.4"
+                    app:voteAverage="@{item.voteAverage}"/>
 
             </LinearLayout>
 
