@@ -1,14 +1,17 @@
 package com.octopus.moviesapp.domain.repository
 
-import com.octopus.moviesapp.data.remote.request.ApiClient
+import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.model.Movie
+import javax.inject.Inject
 
-class MainRepositoryImpl(): MainRepository {
-    val api = ApiClient.apiService
-    val moviesMapper = MoviesMapper()
+class MainRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val moviesMapper: MoviesMapper
+) : MainRepository {
+
 
     override suspend fun getPopularMovies(): List<Movie> {
-        return moviesMapper.map(api.getPopularMovies(1).body()!!.items)
+        return moviesMapper.map(apiService.getPopularMovies(1).body()!!.items)
     }
 }
