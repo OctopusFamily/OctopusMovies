@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_light">
+        android:background="@color/surface_variant">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_movie_backdrop"
@@ -28,10 +28,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
             android:background="@drawable/white_circle"
-            android:elevation="@dimen/_4dp"
-            android:padding="@dimen/_8dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:elevation="@dimen/space2x"
+            android:padding="@dimen/space4x"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -41,10 +41,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_save"
             android:background="@drawable/white_circle"
-            android:elevation="@dimen/_4dp"
-            android:padding="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:elevation="@dimen/space2x"
+            android:padding="@dimen/space4x"
+            android:layout_marginEnd="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -55,13 +55,13 @@
             android:background="@drawable/light_bordered_rectangle"
             android:text="@string/string_play_trailer"
             style="@style/text_style_body_medium"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/primary"
             android:drawableStart="@drawable/ic_play_arrow"
-            android:drawablePadding="@dimen/_2dp"
-            android:padding="@dimen/_8dp"
-            android:paddingEnd="@dimen/_12dp"
-            android:layout_marginEnd="@dimen/_16dp"
-            android:layout_marginBottom="@dimen/_16dp"
+            android:drawablePadding="@dimen/space1x"
+            android:padding="@dimen/space4x"
+            android:paddingEnd="@dimen/space6x"
+            android:layout_marginEnd="@dimen/space8x"
+            android:layout_marginBottom="@dimen/space8x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/image_movie_backdrop"/>
 
@@ -72,7 +72,7 @@
             android:scaleType="fitXY"
             tools:src="@drawable/ic_launcher_background"
             tools:elevation="8dp"
-            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="110dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ic_arrow_back"
@@ -84,9 +84,9 @@
             android:layout_height="wrap_content"
             tools:text="Movie Name"
             style="@style/text_style_headline_small"
-            android:textColor="@color/light_on_background"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:textColor="@color/primary"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintStart_toEndOf="@id/image_movie_poster"
             app:layout_constraintTop_toBottomOf="@id/image_movie_backdrop"/>
 
@@ -96,10 +96,9 @@
             android:layout_height="wrap_content"
             tools:text="8.7"
             style="@style/text_style_body_medium"
-            android:textColor="@color/medium_blue"
             android:drawableStart="@drawable/ic_star"
-            android:drawablePadding="@dimen/_4dp"
-            android:layout_marginTop="@dimen/_12dp"
+            android:drawablePadding="@dimen/space2x"
+            android:layout_marginTop="@dimen/space6x"
             app:layout_constraintStart_toStartOf="@id/text_movie_name"
             app:layout_constraintTop_toBottomOf="@id/text_movie_name"/>
 
@@ -109,8 +108,7 @@
             android:layout_height="wrap_content"
             tools:text="(124 reviews)"
             style="@style/text_style_body_medium"
-            android:textColor="@color/medium_blue"
-            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginStart="@dimen/space8x"
             app:layout_constraintStart_toEndOf="@id/text_movie_rate"
             app:layout_constraintTop_toTopOf="@id/text_movie_rate"/>
 
@@ -121,11 +119,11 @@
             android:background="@drawable/light_bordered_rectangle"
             android:text="@string/string_rate"
             style="@style/text_style_body_medium"
-            android:textColor="@color/primary_color"
-            android:paddingStart="@dimen/_16dp"  android:paddingEnd="@dimen/_16dp"
-            android:paddingTop="@dimen/_8dp" android:paddingBottom="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_4dp"
+            android:textColor="@color/primary"
+            android:paddingStart="@dimen/space8x"  android:paddingEnd="@dimen/space8x"
+            android:paddingTop="@dimen/space4x" android:paddingBottom="@dimen/space4x"
+            android:layout_marginEnd="@dimen/space8x"
+            android:layout_marginTop="@dimen/space2x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_movie_name"/>
 
@@ -136,12 +134,10 @@
             android:layout_height="wrap_content"
             tools:text="2021"
             style="@style/text_style_label_large"
-            android:textColor="@color/gray_medium"
             android:drawableStart="@drawable/ic_date"
-            android:drawableTint="@color/gray_medium"
-            android:drawablePadding="@dimen/_4dp"
-            android:layout_marginTop="@dimen/_20dp"
-            android:layout_marginStart="@dimen/_8dp"
+            android:drawablePadding="@dimen/space2x"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/space4x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/text_movie_duration_in_minutes"
             app:layout_constraintTop_toBottomOf="@id/image_movie_poster"/>
@@ -151,7 +147,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="|"
-            android:textColor="@color/gray_medium"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/text_movie_release_year"
@@ -165,10 +160,8 @@
             android:layout_height="wrap_content"
             tools:text="148 Min"
             style="@style/text_style_label_large"
-            android:textColor="@color/gray_medium"
             android:drawableStart="@drawable/ic_time"
-            android:drawableTint="@color/gray_medium"
-            android:drawablePadding="@dimen/_4dp"
+            android:drawablePadding="@dimen/space2x"
             app:layout_constraintStart_toEndOf="@id/text_movie_release_year"
             app:layout_constraintEnd_toStartOf="@id/text_movie_language"
             app:layout_constraintTop_toTopOf="@id/text_movie_release_year"/>
@@ -178,7 +171,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="|"
-            android:textColor="@color/gray_medium"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/text_movie_duration_in_minutes"
@@ -192,11 +184,9 @@
             android:layout_height="wrap_content"
             tools:text="English"
             style="@style/text_style_label_large"
-            android:textColor="@color/gray_medium"
             android:drawableStart="@drawable/ic_translate"
-            android:drawableTint="@color/gray_medium"
-            android:drawablePadding="@dimen/_4dp"
-            android:layout_marginEnd="@dimen/_8dp"
+            android:drawablePadding="@dimen/space2x"
+            android:layout_marginEnd="@dimen/space4x"
             app:layout_constraintStart_toEndOf="@id/text_movie_duration_in_minutes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_movie_release_year"/>
@@ -207,9 +197,8 @@
             android:layout_height="wrap_content"
             android:text="@string/genres"
             style="@style/text_style_label_large"
-            android:textColor="@color/medium_blue"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_movie_release_year"/>
 
@@ -219,11 +208,10 @@
             android:layout_height="wrap_content"
             tools:text="Action"
             style="@style/text_style_body_small"
-            android:textColor="@color/dark_blue"
             android:background="@drawable/item_genre_style"
-            android:padding="@dimen/_8dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_8dp"
+            android:padding="@dimen/space4x"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space4x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_movie_genres"/>
 
@@ -234,8 +222,8 @@
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_16dp"
+            android:layout_marginTop="@dimen/space4x"
+            android:layout_marginBottom="@dimen/space8x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_movie_genres" />
@@ -247,9 +235,8 @@
             android:layout_height="wrap_content"
             android:text="@string/string_tagline"
             style="@style/text_style_label_large"
-            android:textColor="@color/medium_blue"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_movie_genre"/>
 
@@ -259,8 +246,7 @@
             android:layout_height="wrap_content"
             tools:text="Winter Is Coming"
             style="@style/text_style_body_medium"
-            android:textColor="@color/light_on_background"
-            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginTop="@dimen/space4x"
             app:layout_constraintStart_toStartOf="@id/label_movie_tagline"
             app:layout_constraintTop_toBottomOf="@id/label_movie_tagline"/>
 
@@ -271,9 +257,8 @@
             android:layout_height="wrap_content"
             android:text="@string/string_overview"
             style="@style/text_style_label_large"
-            android:textColor="@color/medium_blue"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_movie_tagline"/>
 
@@ -285,10 +270,9 @@
             android:ellipsize="end"
             tools:text="In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused"
             style="@style/text_style_body_medium"
-            android:textColor="@color/light_on_background"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_marginTop="@dimen/space4x"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginEnd="@dimen/space8x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/label_movie_tagline"
             app:layout_constraintTop_toBottomOf="@id/label_movie_overview"/>
@@ -300,9 +284,8 @@
             android:layout_height="wrap_content"
             android:text="@string/string_cast"
             style="@style/text_style_label_large"
-            android:textColor="@color/medium_blue"
-            android:layout_marginStart="@dimen/_16dp"
-            android:layout_marginTop="@dimen/_16dp"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_movie_overview"/>
 
@@ -313,8 +296,8 @@
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_16dp"
+            android:layout_marginTop="@dimen/space4x"
+            android:layout_marginBottom="@dimen/space8x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/label_movie_cast" />

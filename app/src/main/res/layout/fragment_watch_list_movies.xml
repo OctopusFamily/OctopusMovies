@@ -15,7 +15,7 @@
             android:id="@+id/habitListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="@dimen/_4dp"
+            android:paddingVertical="@dimen/space2x"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
