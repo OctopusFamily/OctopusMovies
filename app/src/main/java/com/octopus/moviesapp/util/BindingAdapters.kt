@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.octopus.moviesapp.domain.sealed.RequestState
+import com.octopus.moviesapp.domain.sealed.UiState
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,18 +17,18 @@ fun loadImage(imageView: ImageView, imageUrl: String) {
 }
 
 @BindingAdapter(value = ["app:showIfRequestStateIsLoading"])
-fun <T> showIfRequestStateIsLoading(view: View, requestState: RequestState<T>) {
-    view.isVisible = requestState is RequestState.Loading
+fun <T> showIfRequestStateIsLoading(view: View, uiState: UiState<T>) {
+    view.isVisible = uiState is UiState.Loading
 }
 
 @BindingAdapter(value = ["app:showIfRequestStateIsSuccess"])
-fun <T> showIfRequestStateIsSuccess(view: View, requestState: RequestState<T>) {
-    view.isVisible = requestState is RequestState.Success
+fun <T> showIfRequestStateIsSuccess(view: View, uiState: UiState<T>) {
+    view.isVisible = uiState is UiState.Success
 }
 
 @BindingAdapter(value = ["app:showIfRequestStateIsError"])
-fun <T> showIfRequestStateIsError(view: View, requestState: RequestState<T>) {
-    view.isVisible = requestState is RequestState.Error
+fun <T> showIfRequestStateIsError(view: View, uiState: UiState<T>) {
+    view.isVisible = uiState is UiState.Error
 }
 
 @SuppressLint("SimpleDateFormat")
