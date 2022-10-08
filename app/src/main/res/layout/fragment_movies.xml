@@ -7,6 +7,11 @@
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.movies.MoviesViewModel" />
+
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
+        
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
