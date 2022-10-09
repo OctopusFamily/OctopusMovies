@@ -40,10 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/popular"
-                    android:textColor="@color/surface"
-                    app:chipBackgroundColor="@color/primary"
                     app:chipStrokeColor="@android:color/transparent"
-                    style="@style/Widget.Material3.Chip.Suggestion"
+                    style="@style/customChipStyle"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.POPULAR)}"
                     android:checked="true" />
 
@@ -51,6 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/now_playing"
+                    style="@style/customChipStyle"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"/>
 
@@ -58,12 +57,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/upcoming"
+                    style="@style/customChipStyle"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"/>
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/customChipStyle"
                     android:text="@string/top_rated"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"/>
