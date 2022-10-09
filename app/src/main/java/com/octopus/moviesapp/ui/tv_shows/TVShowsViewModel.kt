@@ -8,5 +8,9 @@ import javax.inject.Inject
 @HiltViewModel
 class TVShowsViewModel @Inject constructor(
     private val repository: MainRepository
-) : BaseViewModel() {
+) : BaseViewModel(), TVShowsClicksListener {
+
+    override fun onTVShowClick(tvShowId: Int) {
+
+    }
 }
