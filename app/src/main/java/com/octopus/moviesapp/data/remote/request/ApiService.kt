@@ -2,7 +2,6 @@ package com.octopus.moviesapp.data.remote.request
 
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
-import com.octopus.moviesapp.data.remote.response.SingleItemResponse
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import retrofit2.Response
@@ -16,33 +15,19 @@ interface ApiService {
     @GET("/movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movieId: Int
-    ): Response<SingleItemResponse<MovieDTO>>
+    ): Response<MovieDTO>
 
-    @GET("/movie/now_playing")
-    suspend fun getNowPlayingMovies(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<MovieDTO>>
-
-    @GET("movie/popular")
-    suspend fun getPopularMovies(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<MovieDTO>>
-
-    @GET("/movie/upcoming")
-    suspend fun getUpcomingMovies(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<MovieDTO>>
-
-    @GET("/movie/top_rated")
-    suspend fun getTopRatedMovies(
-        @Query("page") page: Int
+    @GET("/movie/{movie_type}")
+    suspend fun getMoviesByType(
+        @Path("movie_type") moviesCategory: String,
+        @Query("page") page: Int,
     ): Response<MultiItemsResponse<MovieDTO>>
 
     // TVShows End Point
-    @GET("/tv/{yv_id}")
+    @GET("/tv/{tv_id}")
     suspend fun getTVShowById(
-        @Path("movie_id") tvShowId: Int
-    ): Response<SingleItemResponse<TVShowDTO>>
+        @Path("tv_id") tvShowId: Int
+    ): Response<TVShowDTO>
 
     @GET("/tv/top_rated")
     suspend fun getTopRatedTVShows(
