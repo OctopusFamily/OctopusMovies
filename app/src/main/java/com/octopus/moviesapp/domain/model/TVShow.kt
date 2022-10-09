@@ -1,9 +1,11 @@
 package com.octopus.moviesapp.domain.model
 
+import java.util.*
+
 data class TVShow(
     val posterImage: String,
     val coverImage: String,
-    val started: String,
+    val started: Date,
     val name: String,
     val status: String,
     val overview: String,
