@@ -6,6 +6,8 @@ import com.octopus.moviesapp.domain.model.Person
 import com.octopus.moviesapp.domain.model.Season
 
 data class TVShowDTO(
+    @SerializedName("id")
+    val id: Int?,
     @SerializedName("backdrop_path")
     val posterImage: String?,
     @SerializedName("first_air_date")
