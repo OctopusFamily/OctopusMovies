@@ -10,8 +10,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_4dp"
-        app:cardCornerRadius="@dimen/_12dp">
+        android:layout_margin="@dimen/space2x"
+        app:cardCornerRadius="@dimen/space6x">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:id="@+id/title_article"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16dp"
+                android:layout_margin="@dimen/space8x"
                 android:textAlignment="center"
                 android:ellipsize="marquee"
                 android:singleLine="true"

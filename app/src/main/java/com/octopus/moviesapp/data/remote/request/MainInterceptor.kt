@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.data.remote.request
 
+import com.octopus.moviesapp.util.Constants.API_KEY
+import com.octopus.moviesapp.util.Constants.API_KEY_QP
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -15,8 +17,5 @@ class MainInterceptor : Interceptor {
         return chain.proceed(chain.request().newBuilder().url(original).build())
     }
 
-    companion object {
-        const val API_KEY_QP = "api_key"
-        const val API_KEY = "b9d3ba8b72ba567399d6d66e73ee78fa"
-    }
+
 }
