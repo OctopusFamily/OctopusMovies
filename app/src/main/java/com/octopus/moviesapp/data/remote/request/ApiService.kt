@@ -23,6 +23,12 @@ interface ApiService {
         @Query("page") page: Int,
     ): Response<MultiItemsResponse<MovieDTO>>
 
+    @GET("movie/{TVShow_category}")
+    suspend fun getTvShowByCategory(
+        @Path("TVShow_category") TVShowCategory: String,
+        @Query("page") page: Int,
+    ): Response<MultiItemsResponse<TVShowDTO>>
+
     // TVShows End Point
     @GET("tv/{tv_id}")
     suspend fun getTVShowById(
