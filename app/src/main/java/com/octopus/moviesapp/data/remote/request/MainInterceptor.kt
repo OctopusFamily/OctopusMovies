@@ -6,7 +6,6 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 class MainInterceptor : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
             .url()
@@ -16,6 +15,4 @@ class MainInterceptor : Interceptor {
 
         return chain.proceed(chain.request().newBuilder().url(original).build())
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.util.extensions
+package com.octopus.moviesapp.util
 
 import java.text.SimpleDateFormat
 import java.util.*

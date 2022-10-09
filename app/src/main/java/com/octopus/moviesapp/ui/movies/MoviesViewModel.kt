@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.movies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.enums.MoviesType
+import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.repository.MainRepository
 import com.octopus.moviesapp.domain.sealed.UiState
@@ -19,23 +19,30 @@ class MoviesViewModel @Inject constructor(
     override fun onMovieClick(movieId: Int) {
 
     }
-    private val stateOfListMovies = MutableLiveData<UiState<List<Movie>>>()
 
-    private fun collectListOfPopularMovies() {
+    private val stateOfListMovies = MutableLiveData<UiState<List<Movie>>>()
+    private var currentMoviesCategory = MoviesCategory.POPULAR
+
+    init {
+        getMoviesByType(currentMoviesCategory)
+    }
+
+    fun onChipClick(moviesCategory: MoviesCategory) {
+        if (moviesCategory != currentMoviesCategory) {
+            getMoviesByType(moviesCategory)
+            currentMoviesCategory = moviesCategory
+        }
+    }
+
+    fun tryLoadMoviesAgain() {
+        getMoviesByType(currentMoviesCategory)
+    }
+
+    private fun getMoviesByType(type: MoviesCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getPopularMovies() }.collectLatest {
+            wrapResponse { repository.getMoviesByType(type) }.collectLatest {
                 stateOfListMovies.postValue(it)
             }
         }
     }
-
-    private var currentMovieType = MoviesType.POPULAR
-    fun onChipClick(moviesType: MoviesType) {
-        if (moviesType != currentMovieType) {
-            getMoviesByType(moviesType)
-            currentMovieType = moviesType
-        }
-    }
-
-    private fun getMoviesByType(moviesType: MoviesType) {}
 }

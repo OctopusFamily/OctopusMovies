@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.movies.MoviesViewModel" />
@@ -14,32 +13,14 @@
             type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
 
         <variable
-            name="movieType"
-            type="com.octopus.moviesapp.domain.enums.MoviesType" />
-
+            name="moviesCategory"
+            type="com.octopus.moviesapp.domain.enums.MoviesCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
-
-        <EditText
-            android:id="@+id/search_movies_edit_text"
-            style="@style/text_style_body_medium"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="@dimen/space8x"
-            android:layout_marginTop="@dimen/space8x"
-            android:background="@drawable/filled_rounded_shape"
-            android:drawableEnd="@drawable/ic_search"
-            android:hint="@string/search_movies"
-            android:inputType="text"
-            android:lines="1"
-            style="@style/text_style_body_medium"
-            android:autofillHints=""
-            android:paddingHorizontal="@dimen/_16dp"
-            tools:ignore="TextFields" />
 
         <HorizontalScrollView
             android:id="@+id/horizontal_scroll_view"
@@ -48,7 +29,7 @@
             android:layout_marginTop="@dimen/space4x"
             android:paddingHorizontal="@dimen/space8x"
             android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@id/search_movies_edit_text">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
@@ -63,25 +44,29 @@
                     app:chipBackgroundColor="@color/primary"
                     app:chipStrokeColor="@android:color/transparent"
                     style="@style/Widget.Material3.Chip.Suggestion"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.POPULAR)}"
                     android:checked="true" />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/now_playing"
-                    app:chipStrokeColor="@android:color/transparent" />
+                    app:chipStrokeColor="@android:color/transparent"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"/>
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/upcoming"
-                    app:chipStrokeColor="@android:color/transparent" />
+                    app:chipStrokeColor="@android:color/transparent"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"/>
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/top_rated"
-                    app:chipStrokeColor="@android:color/transparent" />
+                    app:chipStrokeColor="@android:color/transparent"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"/>
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
