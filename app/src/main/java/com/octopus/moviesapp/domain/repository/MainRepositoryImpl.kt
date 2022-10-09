@@ -10,7 +10,6 @@ class MainRepositoryImpl @Inject constructor(
     private val moviesMapper: MoviesMapper
 ) : MainRepository {
 
-
     override suspend fun getPopularMovies(): List<Movie> {
         return moviesMapper.map(apiService.getPopularMovies(1).body()!!.items)
     }

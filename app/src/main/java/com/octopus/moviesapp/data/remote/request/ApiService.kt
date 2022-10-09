@@ -23,7 +23,7 @@ interface ApiService {
         @Query("page") page: Int
     ): Response<MultiItemsResponse<MovieDTO>>
 
-    @GET("/movie/popular")
+    @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("page") page: Int
     ): Response<MultiItemsResponse<MovieDTO>>

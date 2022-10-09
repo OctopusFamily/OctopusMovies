@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.remote.di
+package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
