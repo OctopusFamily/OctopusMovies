@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.TVShow" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -20,6 +26,7 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
+                android:src="@{item.posterImageUrl}"
                 tools:src="@drawable/ic_launcher_background"
                 android:contentDescription="@string/tv_show_image_description" />
 
@@ -37,6 +44,7 @@
                     android:ellipsize="end"
                     android:textAlignment="center"
                     android:lines="1"
+                    android:text="@{item.title}"
                     style="@style/text_style_body_large"
                     tools:text="Family Guy" />
 
@@ -47,6 +55,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textAlignment="center"
+                    app:setGenresItem="@{item.genres}"
                     style="@style/text_style_body_small"
                     tools:text="Animation | Comedy" />
 
@@ -55,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/space2x"
                     android:numStars="5"
-                    android:rating="3"
+                    android:rating="@{item.voteAverage}"
                     android:stepSize="0.1"
                     android:layout_gravity="center"
                     style="@android:style/Widget.Material.RatingBar.Small"/>
@@ -65,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space2x"
                     android:ellipsize="end"
+                    app:releaseDate="@{item.started}"
                     android:textAlignment="center"
                     android:lines="1"
                     style="@style/text_style_body_medium"
