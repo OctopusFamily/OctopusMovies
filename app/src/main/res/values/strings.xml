@@ -34,4 +34,6 @@
     <string name="settings">Settings</string>
     <string name="octopus_movies">Octopus Movies</string>
     <string name="search_tv_shows">Search TV Shows</string>
+    <string name="failed_to_load_movies">Failed to load movies</string>
+    <string name="try_load_movies_again">Try Load Movies Again</string>
 </resources>

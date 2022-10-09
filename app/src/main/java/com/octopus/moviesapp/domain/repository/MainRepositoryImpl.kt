@@ -11,7 +11,7 @@ class MainRepositoryImpl @Inject constructor(
     private val moviesMapper: MoviesMapper,
 ) : MainRepository {
     
-    override suspend fun getMoviesByType(moviesCategory: MoviesCategory): List<Movie> {
-        return moviesMapper.map(apiService.getMoviesByType(moviesCategory.pathName, 1).body()!!.items)
+    override suspend fun getMoviesByCategory(moviesCategory: MoviesCategory): List<Movie> {
+        return moviesMapper.map(apiService.getMoviesByCategory(moviesCategory.pathName, 1).body()!!.items)
     }
 }

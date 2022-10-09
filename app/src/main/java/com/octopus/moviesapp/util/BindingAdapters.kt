@@ -16,18 +16,18 @@ fun loadImage(imageView: ImageView, imageUrl: String) {
     Glide.with(imageView).load(imageUrl).into(imageView)
 }
 
-@BindingAdapter(value = ["app:showIfRequestStateIsLoading"])
+@BindingAdapter(value = ["app:showWhenStateIsLoading"])
 fun <T> showIfRequestStateIsLoading(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Loading
 }
 
-@BindingAdapter(value = ["app:showIfRequestStateIsSuccess"])
-fun <T> showIfRequestStateIsSuccess(view: View, uiState: UiState<T>) {
+@BindingAdapter(value = ["app:showWhenStateIsSuccess"])
+fun <T> showWhenStateIsSuccess(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Success
 }
 
-@BindingAdapter(value = ["app:showIfRequestStateIsError"])
-fun <T> showIfRequestStateIsError(view: View, uiState: UiState<T>) {
+@BindingAdapter(value = ["app:showWhenStateIsError"])
+fun <T> showWhenStateIsError(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Error
 }
 
