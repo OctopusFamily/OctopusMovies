@@ -15,4 +15,9 @@ data class TvShowDetails(
     val started: Date,
     val runtime: Int,
     val originalLanguage: String,
+    val tagline: String,
+    val overview: String,
+    val genres: List<Genre>,
+    val cast: List<Person>,
+    val seasons: List<Season>,
 )
