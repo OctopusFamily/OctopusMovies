@@ -26,7 +26,7 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@{item.posterImageUrl}"
+                app:imageUrl="@{item.posterImageUrl}"
                 tools:src="@drawable/ic_launcher_background"
                 android:contentDescription="@string/tv_show_image_description" />
 
@@ -43,9 +43,9 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:textAlignment="center"
-                    android:lines="1"
+                    android:lines="2"
                     android:text="@{item.title}"
-                    style="@style/text_style_body_large"
+                    style="@style/text_style_body_medium"
                     tools:text="Family Guy" />
 
                 <TextView
