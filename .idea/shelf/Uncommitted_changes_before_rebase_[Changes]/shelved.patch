@@ -1,0 +1,35 @@
+Index: app/src/main/java/com/octopus/moviesapp/domain/mapper/MoviesMapper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.octopus.moviesapp.domain.mapper\r\n\r\nimport com.octopus.moviesapp.data.remote.response.dto.MovieDTO\r\nimport com.octopus.moviesapp.domain.model.Movie\r\n\r\nclass MoviesMapper : Mapper<List<MovieDTO>, List<Movie>> {\r\n    override fun map(movie: List<MovieDTO>): List<Movie> {\r\n            return   movie.map {\r\n                Movie(\r\n                    id = it.id ?: 0,\r\n                    title = it.originalTitle ?: \"\",\r\n                    posterImageUrl = it.posterPath ?: \"\",\r\n                    voteAverage = it.voteAverage ?: 0f,\r\n                    releaseDate = it.releaseDate ?: \"\",\r\n                )\r\n            }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/octopus/moviesapp/domain/mapper/MoviesMapper.kt b/app/src/main/java/com/octopus/moviesapp/domain/mapper/MoviesMapper.kt
+--- a/app/src/main/java/com/octopus/moviesapp/domain/mapper/MoviesMapper.kt	(revision 05b5b85bf37179272456898b52b0e9089f6ee17d)
++++ b/app/src/main/java/com/octopus/moviesapp/domain/mapper/MoviesMapper.kt	(date 1665259072972)
+@@ -5,14 +5,14 @@
+ 
+ class MoviesMapper : Mapper<List<MovieDTO>, List<Movie>> {
+     override fun map(movie: List<MovieDTO>): List<Movie> {
+-            return   movie.map {
+-                Movie(
+-                    id = it.id ?: 0,
+-                    title = it.originalTitle ?: "",
+-                    posterImageUrl = it.posterPath ?: "",
+-                    voteAverage = it.voteAverage ?: 0f,
+-                    releaseDate = it.releaseDate ?: "",
+-                )
+-            }
++        return movie.map {
++            Movie(
++                id = it.id ?: 0,
++                title = it.originalTitle ?: "",
++                posterImageUrl = it.posterPath ?: "",
++                voteAverage = it.voteAverage ?: 0f,
++                releaseDate = it.releaseDate ?: "",
++            )
++        }
+     }
+ }
+\ No newline at end of file

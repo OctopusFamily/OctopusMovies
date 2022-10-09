@@ -2,6 +2,7 @@ package com.octopus.moviesapp.data.remote.request
 
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
+import com.octopus.moviesapp.data.remote.response.SingleItemResponse
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.domain.enums.MoviesType

@@ -12,9 +12,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_12dp"
+        app:cardCornerRadius="@dimen/space6x"
         app:cardElevation="0dp"
-        android:layout_margin="@dimen/_4dp">
+        android:layout_margin="@dimen/space2x">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,26 +26,28 @@
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
                 android:contentDescription="@string/movie_image_description"
-                tools:src="@drawable/ic_launcher_background"/>
+                tools:src="@drawable/ic_launcher_background"
+                app:imageUrl="@{item.posterImageUrl}"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16dp"
-                android:layout_marginBottom="@dimen/_4dp"
-                android:layout_marginHorizontal="@dimen/_16dp"
+                android:layout_marginTop="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space2x"
+                android:layout_marginHorizontal="@dimen/space8x"
                 android:ellipsize="end"
                 android:lines="1"
                 style="@style/text_style_body_large"
-                tools:text="Memento" />
+                tools:text="Memento"
+                android:text="@{item.title}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/_16dp"
-                android:layout_marginBottom="@dimen/_16dp"
+                android:layout_marginStart="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space8x"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -53,20 +55,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:drawableStartCompat="@drawable/ic_small_calendar"
-                    android:drawablePadding="@dimen/_4dp"
+                    android:drawablePadding="@dimen/space2x"
                     style="@style/text_style_body_medium"
-                    tools:text="2000"/>
+                    tools:text="2000"
+                    app:releaseDate="@{item.releaseDate}"/>
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_20dp"
-                    android:paddingHorizontal="@dimen/_8dp"
+                    android:layout_height="20dp"
+                    android:paddingHorizontal="@dimen/space4x"
                     app:drawableStartCompat="@drawable/ic_small_star"
-                    android:drawablePadding="@dimen/_4dp"
+                    android:drawablePadding="@dimen/space2x"
                     android:textColor="@color/surface"
                     style="@style/text_style_body_medium"
                     android:background="@drawable/rating_side_shape"
-                    tools:text="8.4"/>
+                    tools:text="8.4"
+                    app:voteAverage="@{item.voteAverage}"/>
 
             </LinearLayout>
 

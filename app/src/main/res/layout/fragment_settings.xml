@@ -23,7 +23,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/_0dp">
+            app:cardElevation="@dimen/space_zero">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -69,7 +69,6 @@
                     android:layout_marginTop="8dp"
                     android:text="Language"
                     style="@style/text_style_body_large"
-                    android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@+id/language_icon"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,7 +83,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/_0dp">
+            app:cardElevation="@dimen/space_zero">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -130,7 +129,6 @@
                     android:layout_marginTop="8dp"
                     android:text="Theme"
                     style="@style/text_style_body_large"
-                    android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@+id/theme_icon"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,7 +142,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/_0dp">
+            app:cardElevation="@dimen/space_zero">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -184,7 +182,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="Adult Content"
-                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/adult_icon"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -199,7 +196,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/_0dp">
+            app:cardElevation="@dimen/space_zero">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -224,7 +221,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="About"
-                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/about_icon"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -238,7 +234,7 @@
             style="@style/text_style_label_small"
             android:layout_gravity="center"
             android:gravity="bottom"
-            android:layout_marginBottom="@dimen/_16dp"
+            android:layout_marginBottom="@dimen/space8x"
             android:layout_weight="1" />
     </LinearLayout>
 </layout>

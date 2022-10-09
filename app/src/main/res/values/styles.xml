@@ -31,13 +31,13 @@
     <!--    Shapeable Image View Styles-->
     <style name="rounded_image_view">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/_12dp</item>
+        <item name="cornerSize">@dimen/space6x</item>
     </style>
 
     <style name="bottom_rounded_image_view">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">@dimen/_12dp</item>
-        <item name="cornerSizeBottomRight">@dimen/_12dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/space6x</item>
+        <item name="cornerSizeBottomRight">@dimen/space6x</item>
     </style>
 
     <style name="circleImageView" parent="">
