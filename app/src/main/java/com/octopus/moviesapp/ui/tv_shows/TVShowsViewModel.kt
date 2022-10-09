@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.tv_shows
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.enums.TVShowsCategory
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.repository.MainRepository
@@ -27,11 +28,27 @@ class TVShowsViewModel @Inject constructor(
 
     private var currentTVShowsCategory = TVShowsCategory.POPULAR
 
-    private fun getTVShowsByCategory(type: TVShowsCategory) {
+    init {
+        getTVShowsByCategory(currentTVShowsCategory)
+    }
+
+    fun onChipClick(tvShowsCategory: TVShowsCategory) {
+        if (tvShowsCategory != currentTVShowsCategory) {
+            getTVShowsByCategory(tvShowsCategory)
+            currentTVShowsCategory = tvShowsCategory
+        }
+    }
+
+    fun tryLoadTVShowsAgain() {
+        getTVShowsByCategory(currentTVShowsCategory)
+    }
+
+    private fun getTVShowsByCategory(category: TVShowsCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getTVShowByCategory(type,1) }.collectLatest {
+            wrapResponse { repository.getTVShowsByCategory(category, 1) }.collectLatest {
                 _tvShowsListState.postValue(it)
             }
         }
     }
+
 }

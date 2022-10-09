@@ -23,10 +23,10 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     private fun handleEvents() {
         viewModel.moviesListState.observe(viewLifecycleOwner) { state ->
             if (state is UiState.Success) {
-                    binding.moviesRecyclerView.adapter = MoviesAdapter(state.data , viewModel)
-                }
+                binding.moviesRecyclerView.adapter = MoviesAdapter(state.data, viewModel)
             }
         }
+    }
 
 
 }

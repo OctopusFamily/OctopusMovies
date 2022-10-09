@@ -124,8 +124,5 @@
                 app:tint="@color/on_background"/>
         </LinearLayout>
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

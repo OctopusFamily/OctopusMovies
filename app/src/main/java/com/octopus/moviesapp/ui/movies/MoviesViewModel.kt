@@ -25,6 +25,7 @@ class MoviesViewModel @Inject constructor(
     val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
 
     private var currentMoviesCategory = MoviesCategory.POPULAR
+
     init {
         getMoviesByCategory(currentMoviesCategory)
     }
@@ -40,9 +41,9 @@ class MoviesViewModel @Inject constructor(
         getMoviesByCategory(currentMoviesCategory)
     }
 
-    private fun getMoviesByCategory(type: MoviesCategory) {
+    private fun getMoviesByCategory(category: MoviesCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getMoviesByCategory(type) }.collectLatest {
+            wrapResponse { repository.getMoviesByCategory(category, 1) }.collectLatest {
                 _moviesListState.postValue(it)
             }
         }
