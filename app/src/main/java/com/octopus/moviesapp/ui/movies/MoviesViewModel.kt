@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.movies
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.enums.MoviesCategory
@@ -20,8 +21,11 @@ class MoviesViewModel @Inject constructor(
 
     }
 
-    private val stateOfListMovies = MutableLiveData<UiState<List<Movie>>>()
+    private val _stateOfListMovies = MutableLiveData<UiState<List<Movie>>>()
+    val stateOfListMovies: LiveData<UiState<List<Movie>>> get() = _stateOfListMovies
+
     private var currentMoviesCategory = MoviesCategory.POPULAR
+
 
     init {
         getMoviesByType(currentMoviesCategory)
@@ -41,7 +45,7 @@ class MoviesViewModel @Inject constructor(
     private fun getMoviesByType(type: MoviesCategory) {
         viewModelScope.launch {
             wrapResponse { repository.getMoviesByType(type) }.collectLatest {
-                stateOfListMovies.postValue(it)
+                _stateOfListMovies.postValue(it)
             }
         }
     }
