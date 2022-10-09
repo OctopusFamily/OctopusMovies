@@ -29,24 +29,10 @@ interface ApiService {
         @Path("tv_id") tvShowId: Int
     ): Response<TVShowDTO>
 
-    @GET("/tv/top_rated")
-    suspend fun getTopRatedTVShows(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<TVShowDTO>>
-
-    @GET("/tv/popular")
-    suspend fun getPopularTVShows(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<TVShowDTO>>
-
-    @GET("/tv/on_the_air")
-    suspend fun getOnTheAirTVShows(
-        @Query("page") page: Int
-    ): Response<MultiItemsResponse<TVShowDTO>>
-
-    @GET("/tv/airing_today")
-    suspend fun getAiringTodayTVShows(
-        @Query("page") page: Int
+    @GET("/tv/{tv_type}")
+    suspend fun getTvShowByType(
+        @Path("tv_type") tvShowCategory: String,
+        @Query("page") page: Int,
     ): Response<MultiItemsResponse<TVShowDTO>>
 
     // Genres End Point
