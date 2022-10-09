@@ -21,31 +21,29 @@ class MoviesViewModel @Inject constructor(
 
     }
 
-    private val _stateOfListMovies = MutableLiveData<UiState<List<Movie>>>()
-    val stateOfListMovies: LiveData<UiState<List<Movie>>> get() = _stateOfListMovies
+    private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
+    val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
 
     private var currentMoviesCategory = MoviesCategory.POPULAR
-
-
     init {
-        getMoviesByType(currentMoviesCategory)
+        getMoviesByCategory(currentMoviesCategory)
     }
 
     fun onChipClick(moviesCategory: MoviesCategory) {
         if (moviesCategory != currentMoviesCategory) {
-            getMoviesByType(moviesCategory)
+            getMoviesByCategory(moviesCategory)
             currentMoviesCategory = moviesCategory
         }
     }
 
     fun tryLoadMoviesAgain() {
-        getMoviesByType(currentMoviesCategory)
+        getMoviesByCategory(currentMoviesCategory)
     }
 
-    private fun getMoviesByType(type: MoviesCategory) {
+    private fun getMoviesByCategory(type: MoviesCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getMoviesByType(type) }.collectLatest {
-                _stateOfListMovies.postValue(it)
+            wrapResponse { repository.getMoviesByCategory(type) }.collectLatest {
+                _moviesListState.postValue(it)
             }
         }
     }

@@ -76,7 +76,7 @@
             android:layout_height="0dp"
             android:paddingTop="@dimen/space2x"
             android:paddingHorizontal="@dimen/space6x"
-            app:showWhenStateIsSuccess="@{viewModel.stateOfListMovies}"
+            app:showWhenStateIsSuccess="@{viewModel.moviesListState}"
             app:spanCount="2"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -87,7 +87,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.stateOfListMovies}"
+            app:showWhenStateIsLoading="@{viewModel.moviesListState}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,16 +100,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            app:showWhenStateIsError="@{viewModel.stateOfListMovies}"
+            app:showWhenStateIsError="@{viewModel.moviesListState}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="@dimen/space8x">
 
             <TextView
-                style="@style/MaterialAlertDialog.Material3.Body.Text"
+                style="@style/text_style_body_large"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@string/failed_to_load_movies"
                 android:textAlignment="center"
@@ -119,10 +118,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:textColor="@color/primary"
-                android:contentDescription=""
+                android:contentDescription="@string/try_load_movies_again"
                 android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"
-                android:src="@drawable/ic_baseline_refresh_24"
-                />
+                android:src="@drawable/ic_refresh"
+                app:tint="@color/on_background"/>
         </LinearLayout>
 
 
