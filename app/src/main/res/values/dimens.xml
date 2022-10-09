@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    Space Dimensions-->
-    <dimen name="_0dp">0dp</dimen>
-    <dimen name="_2dp">2dp</dimen>
-    <dimen name="_4dp">4dp</dimen>
-    <dimen name="_8dp">8dp</dimen>
-    <dimen name="_12dp">12dp</dimen>
-    <dimen name="_16dp">16dp</dimen>
-    <dimen name="_20dp">20dp</dimen>
-    <dimen name="_24dp">24dp</dimen>
-    <dimen name="_28dp">28dp</dimen>
-    <dimen name="_32dp">32dp</dimen>
-    <dimen name="_36dp">36dp</dimen>
-    <dimen name="_40dp">40dp</dimen>
-    <dimen name="_44dp">44dp</dimen>
-    <dimen name="_48dp">48dp</dimen>
-    <dimen name="_52dp">52dp</dimen>
-    <dimen name="_56dp">56dp</dimen>
-    <dimen name="_60dp">60dp</dimen>
+    <dimen name="space_zero">0dp</dimen>
+    <dimen name="space1x">2dp</dimen>
+    <dimen name="space2x">4dp</dimen>
+    <dimen name="space4x">8dp</dimen>
+    <dimen name="space6x">12dp</dimen>
+    <dimen name="space8x">16dp</dimen>
+    <dimen name="space12x">24dp</dimen>
+    <dimen name="space14x">28dp</dimen>
+    <dimen name="space16x">32dp</dimen>
+    <dimen name="space18x">36dp</dimen>
+
 </resources>
