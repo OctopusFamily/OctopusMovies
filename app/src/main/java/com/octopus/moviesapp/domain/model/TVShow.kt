@@ -7,6 +7,6 @@ data class TVShow(
     val title: String,
     val posterImageUrl: String,
     val voteAverage: Float,
-    val started: String,
+    val started: Date,
     val genres: List<Genre>,
 )
