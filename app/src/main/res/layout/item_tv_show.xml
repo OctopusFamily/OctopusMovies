@@ -7,12 +7,16 @@
         <variable
             name="item"
             type="com.octopus.moviesapp.domain.model.TVShow" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:cardElevation="0dp"
+        android:onClick="@{() -> listener.onTVShowClick(item)}"
         app:cardCornerRadius="@dimen/space6x"
         android:layout_margin="@dimen/space2x">
 
@@ -25,7 +29,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:imageUrl="@{item.posterImageUrl}"
                 tools:src="@drawable/ic_launcher_background"
                 android:contentDescription="@string/tv_show_image_description" />

@@ -17,9 +17,8 @@ import javax.inject.Inject
 class MoviesViewModel @Inject constructor(
     private val repository: MainRepository
 ) : BaseViewModel(), MoviesClicksListener {
-    override fun onMovieClick(movieId: Int) {
 
-    }
+
 
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
@@ -28,6 +27,18 @@ class MoviesViewModel @Inject constructor(
 
     init {
         getMoviesByCategory(currentMoviesCategory)
+    }
+
+    private fun getMoviesByCategory(category: MoviesCategory) {
+        viewModelScope.launch {
+            wrapResponse { repository.getMoviesByCategory(category, 1) }.collectLatest {
+                _moviesListState.postValue(it)
+            }
+        }
+    }
+
+    override fun onMovieClick(movies: Movie) {
+
     }
 
     fun onChipClick(moviesCategory: MoviesCategory) {
@@ -39,13 +50,5 @@ class MoviesViewModel @Inject constructor(
 
     fun tryLoadMoviesAgain() {
         getMoviesByCategory(currentMoviesCategory)
-    }
-
-    private fun getMoviesByCategory(category: MoviesCategory) {
-        viewModelScope.launch {
-            wrapResponse { repository.getMoviesByCategory(category, 1) }.collectLatest {
-                _moviesListState.postValue(it)
-            }
-        }
     }
 }

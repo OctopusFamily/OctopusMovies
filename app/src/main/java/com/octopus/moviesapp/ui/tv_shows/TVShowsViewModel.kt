@@ -19,9 +19,6 @@ class TVShowsViewModel @Inject constructor(
     private val repository: MainRepository
 ) : BaseViewModel(), TVShowsClicksListener {
 
-    override fun onTVShowClick(tvShowId: Int) {
-
-    }
 
     private val _tvShowsListState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val tvShowsListState: LiveData<UiState<List<TVShow>>> get() = _tvShowsListState
@@ -32,6 +29,19 @@ class TVShowsViewModel @Inject constructor(
         getTVShowsByCategory(currentTVShowsCategory)
     }
 
+
+
+    private fun getTVShowsByCategory(category: TVShowsCategory) {
+        viewModelScope.launch {
+            wrapResponse { repository.getTVShowsByCategory(category, 1) }.collectLatest {
+                _tvShowsListState.postValue(it)
+            }
+        }
+    }
+
+    override fun onTVShowClick(tvShow: TVShow) {
+
+    }
     fun onChipClick(tvShowsCategory: TVShowsCategory) {
         if (tvShowsCategory != currentTVShowsCategory) {
             getTVShowsByCategory(tvShowsCategory)
@@ -41,14 +51,6 @@ class TVShowsViewModel @Inject constructor(
 
     fun tryLoadTVShowsAgain() {
         getTVShowsByCategory(currentTVShowsCategory)
-    }
-
-    private fun getTVShowsByCategory(category: TVShowsCategory) {
-        viewModelScope.launch {
-            wrapResponse { repository.getTVShowsByCategory(category, 1) }.collectLatest {
-                _tvShowsListState.postValue(it)
-            }
-        }
     }
 
 }
