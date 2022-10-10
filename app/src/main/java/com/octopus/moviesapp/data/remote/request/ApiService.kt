@@ -35,8 +35,9 @@ interface ApiService {
         @Query("page") page: Int,
     ): Response<MultiItemsResponse<TVShowDTO>>
 
-    @GET("/genre/{genre_list}")
+    // Genres End Point
+    @GET("/genre/{genre}/list")
     suspend fun getGenresByList(
-        @Path("genre_list") genresList: String,
+        @Path("genre") genresList: String,
     ): Response<GenresResponse>
 }
