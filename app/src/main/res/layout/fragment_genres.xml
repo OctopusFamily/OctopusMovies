@@ -8,6 +8,14 @@
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.genres.GenresViewModel" />
+
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.genres.GenresClicksListener" />
+
+        <variable
+            name="genresList"
+            type="com.octopus.moviesapp.domain.enums.GenresList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,24 +56,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:showWhenStateIsSuccess="@{viewModel.genresListState}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout_genres"
+            app:showWhenStateIsSuccess="@{viewModel.genreListState}"
             app:spanCount="2" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.genresListState}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:indeterminateTint="@color/primary"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsLoading="@{viewModel.genreListState}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,7 +84,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsError="@{viewModel.genresListState}">
+            app:showWhenStateIsError="@{viewModel.genreListState}">
 
             <TextView
                 style="@style/text_style_body_large"
