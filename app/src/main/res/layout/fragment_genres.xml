@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.genres.GenresViewModel" />
@@ -17,36 +19,40 @@
             android:id="@+id/tabLayout_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextColor="@color/on_surface_variant"
-            app:tabIndicatorColor="@color/primary"
-            app:tabSelectedTextColor="@color/primary"
-            app:tabMode="auto"
-            app:tabTextAppearance="@style/text_style_body_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/primary"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/primary"
+            app:tabTextAppearance="@style/text_style_body_medium"
+            app:tabTextColor="@color/on_surface_variant">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabItem_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_shows" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabItem_movies"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/movies" />
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager_genres"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_genres"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout_genres" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout_genres"
+            app:spanCount="2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

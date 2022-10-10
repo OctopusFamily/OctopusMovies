@@ -52,17 +52,6 @@
                     style="@style/text_style_body_medium"
                     tools:text="Family Guy" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space2x"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:textAlignment="center"
-                    app:setGenresItem="@{item.genres}"
-                    style="@style/text_style_body_small"
-                    tools:text="Animation | Comedy" />
-
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
