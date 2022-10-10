@@ -1,18 +1,23 @@
 package com.octopus.moviesapp.domain.repository
 
 import com.octopus.moviesapp.data.remote.request.ApiService
+import com.octopus.moviesapp.domain.enums.GenresList
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.enums.TVShowsCategory
+import com.octopus.moviesapp.domain.mapper.GenresMapper
 import com.octopus.moviesapp.domain.mapper.TVShowMapper
+import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.TVShow
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val moviesMapper: MoviesMapper,
     private val tvShowMapper: TVShowMapper,
+    private val genresMapper: GenresMapper,
 ) : MainRepository {
 
     override suspend fun getMoviesByCategory(
@@ -30,6 +35,14 @@ class MainRepositoryImpl @Inject constructor(
     ): List<TVShow> {
         return tvShowMapper.map(
             apiService.getTVShowsByCategory(tvShowCategory.pathName, 1).body()!!.items
+        )
+    }
+
+    override suspend fun getGenresByList(
+        genresList: GenresList
+    ): List<Genre> {
+        return genresMapper.map(
+            apiService.getGenresByList(genresList.pathName).body()!!.itemsList
         )
     }
 }
