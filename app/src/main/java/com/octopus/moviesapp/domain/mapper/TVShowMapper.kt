@@ -13,7 +13,6 @@ class TVShowMapper : Mapper<List<TVShowDTO>, List<TVShow>> {
                 title = it.name ?: "",
                 posterImageUrl = it.posterImage?.buildUrl() ?: "",
                 voteAverage = it.voteAverage ?: 0F,
-                genres = it.genres ?: emptyList(),
                 id = it.id ?: 0,
                 started = it.started?.convertToDate() ?: Date()
             )
