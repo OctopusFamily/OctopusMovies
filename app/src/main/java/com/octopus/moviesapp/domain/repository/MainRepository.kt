@@ -11,6 +11,4 @@ interface MainRepository {
     suspend fun getMoviesByCategory(moviesCategory: MoviesCategory, page: Int): List<Movie>
     suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow>
     suspend fun getGenresByList(genresByList: GenresList): List<Genre>
-
-
 }

@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.di
 
-import androidx.room.ProvidedAutoMigrationSpec
 import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.domain.mapper.GenresMapper
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
@@ -45,5 +44,4 @@ object RepositoryModule {
     fun provideGenresMapper(): GenresMapper {
         return GenresMapper()
     }
-
 }
