@@ -38,4 +38,6 @@
     <string name="try_load_movies_again">Try Load Movies Again</string>
     <string name="try_load_tv_show_again">Try load tv show again</string>
     <string name="failed_to_load_tv_shows">failed to load tv shows</string>
+    <string name="try_load_genres_again">try load genres again</string>
+    <string name="failed_to_load_genres">Failed to load genres</string>
 </resources>
