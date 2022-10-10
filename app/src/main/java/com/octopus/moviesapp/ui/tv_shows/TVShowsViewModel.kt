@@ -9,6 +9,8 @@ import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.repository.MainRepository
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,10 +27,13 @@ class TVShowsViewModel @Inject constructor(
 
     private var currentTVShowsCategory = TVShowsCategory.POPULAR
 
+    private val _navigateToTVShowDetails = MutableLiveData<Event<Int?>>()
+    val navigateToTVShowDetails: LiveData<Event<Int?>> = _navigateToTVShowDetails
+
+
     init {
         getTVShowsByCategory(currentTVShowsCategory)
     }
-
 
 
     private fun getTVShowsByCategory(category: TVShowsCategory) {
@@ -40,8 +45,9 @@ class TVShowsViewModel @Inject constructor(
     }
 
     override fun onTVShowClick(tvShow: TVShow) {
-
+        _navigateToTVShowDetails.postEvent(tvShow.id)
     }
+
     fun onChipClick(tvShowsCategory: TVShowsCategory) {
         if (tvShowsCategory != currentTVShowsCategory) {
             getTVShowsByCategory(tvShowsCategory)
