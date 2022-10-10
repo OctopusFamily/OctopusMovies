@@ -15,18 +15,21 @@ class MainRepositoryImpl @Inject constructor(
     private val tvShowMapper: TVShowMapper,
 ) : MainRepository {
 
-    override suspend fun getMoviesByCategory(moviesCategory: MoviesCategory): List<Movie> {
+    override suspend fun getMoviesByCategory(
+        moviesCategory: MoviesCategory,
+        page: Int
+    ): List<Movie> {
         return moviesMapper.map(
             apiService.getMoviesByCategory(moviesCategory.pathName, 1).body()!!.items
         )
     }
 
-    override suspend fun getTVShowByCategory(
+    override suspend fun getTVShowsByCategory(
         tvShowCategory: TVShowsCategory,
         page: Int
     ): List<TVShow> {
         return tvShowMapper.map(
-            apiService.getTvShowByCategory(tvShowCategory.pathName, 1).body()!!.items
+            apiService.getTVShowsByCategory(tvShowCategory.pathName, 1).body()!!.items
         )
     }
 }
