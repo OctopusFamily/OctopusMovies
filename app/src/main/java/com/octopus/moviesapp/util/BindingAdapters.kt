@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.util
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -46,5 +47,10 @@ fun setVoteAverage(view: TextView, rating: Float) {
 
 @BindingAdapter(value = ["app:setGenresItem"])
 fun setGenresItem(view: TextView, items: List<Genre>) {
-    view.text = items.joinToString(" | ") { it.name }
+    view.text = items.joinToString(" | ") { itcs ->
+        itcs.name
+    }
+    Log.d("SSDSDSD", "setGenresItem: ${items.joinToString(" | ") { itcs ->
+        itcs.id.toString()
+    }}")
 }

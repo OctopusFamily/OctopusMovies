@@ -21,7 +21,6 @@ class TVShowsViewModel @Inject constructor(
     private val repository: MainRepository
 ) : BaseViewModel(), TVShowsClicksListener {
 
-
     private val _tvShowsListState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val tvShowsListState: LiveData<UiState<List<TVShow>>> get() = _tvShowsListState
 
@@ -30,11 +29,9 @@ class TVShowsViewModel @Inject constructor(
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int?>>()
     val navigateToTVShowDetails: LiveData<Event<Int?>> = _navigateToTVShowDetails
 
-
     init {
         getTVShowsByCategory(currentTVShowsCategory)
     }
-
 
     private fun getTVShowsByCategory(category: TVShowsCategory) {
         viewModelScope.launch {
@@ -58,5 +55,4 @@ class TVShowsViewModel @Inject constructor(
     fun tryLoadTVShowsAgain() {
         getTVShowsByCategory(currentTVShowsCategory)
     }
-
 }
