@@ -1,6 +1,8 @@
 package com.octopus.moviesapp.di
 
+import androidx.room.ProvidedAutoMigrationSpec
 import com.octopus.moviesapp.data.remote.request.ApiService
+import com.octopus.moviesapp.domain.mapper.GenresMapper
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.mapper.TVShowMapper
 import com.octopus.moviesapp.domain.repository.MainRepository
@@ -20,9 +22,10 @@ object RepositoryModule {
     fun provideRepository(
         apiService: ApiService,
         moviesMapper: MoviesMapper,
-        tvShowMapper: TVShowMapper
+        tvShowMapper: TVShowMapper,
+        genresMapper: GenresMapper,
     ): MainRepository {
-        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper)
+        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper)
     }
 
     @Singleton
@@ -36,4 +39,11 @@ object RepositoryModule {
     fun provideTvShowsMapper(): TVShowMapper {
         return TVShowMapper()
     }
+
+    @Singleton
+    @Provides
+    fun provideGenresMapper(): GenresMapper {
+        return GenresMapper()
+    }
+
 }
