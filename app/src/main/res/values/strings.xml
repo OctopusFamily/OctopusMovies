@@ -40,4 +40,8 @@
     <string name="failed_to_load_tv_shows">failed to load tv shows</string>
     <string name="try_load_genres_again">try load genres again</string>
     <string name="failed_to_load_genres">Failed to load genres</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>
