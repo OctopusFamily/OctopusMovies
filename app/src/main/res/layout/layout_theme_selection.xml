@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/english_language_radio_button"
+                android:id="@+id/light_theme_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/light"
@@ -28,7 +28,7 @@
                 style="@style/text_style_label_large"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/arabic_language_radio_button"
+                android:id="@+id/dark_theme_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dark"
