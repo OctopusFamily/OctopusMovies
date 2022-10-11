@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class TrailerDTO(
     @SerializedName("key")
-    val key: String
+    val key: String?
 )
