@@ -1,10 +1,9 @@
 package com.octopus.moviesapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
+import com.octopus.moviesapp.data.remote.response.dto.CastDTO
 
 data class CastResponse(
-    @SerializedName("character")
-    val character: String,
-    @SerializedName("poster_path")
-    val poster_path: String
+    @SerializedName("cast")
+    val itemsList: List<CastDTO>
 )
