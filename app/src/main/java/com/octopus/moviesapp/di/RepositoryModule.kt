@@ -1,11 +1,9 @@
 package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.data.remote.request.ApiService
-import com.octopus.moviesapp.domain.mapper.GenresMapper
-import com.octopus.moviesapp.domain.mapper.MoviesMapper
-import com.octopus.moviesapp.domain.mapper.TVShowMapper
 import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.data.repository.MainRepositoryImpl
+import com.octopus.moviesapp.domain.mapper.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +21,9 @@ object RepositoryModule {
         moviesMapper: MoviesMapper,
         tvShowMapper: TVShowMapper,
         genresMapper: GenresMapper,
+        castMapper: CastMapper,
+        trailerMapper:TrailerMapper
     ): MainRepository {
-        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper)
+        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper, castMapper,trailerMapper)
     }
 }
