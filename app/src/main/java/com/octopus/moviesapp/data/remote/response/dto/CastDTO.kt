@@ -8,5 +8,5 @@ data class CastDTO(
     @SerializedName("original_name")
     val name: String,
     @SerializedName("profile_path")
-    val profile_path: String
+    val profile_path: String,
 )
