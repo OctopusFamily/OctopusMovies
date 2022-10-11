@@ -14,8 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="Theme.MoviesApp.SplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_octopus_movies_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.MoviesApp</item>
         <item name="windowSplashScreenBackground">#FFFFFF</item>
-        <item name="windowSplashScreenIconBackgroundColor">#FFFFFF</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_octopus_movies_logo</item>
     </style>
 </resources>
