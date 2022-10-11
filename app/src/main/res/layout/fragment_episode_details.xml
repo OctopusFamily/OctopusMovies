@@ -10,36 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="251dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/gameofthronesback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
+        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+        tools:src="@drawable/ic_launcher_foreground"/>
 
     <ImageView
-        android:id="@+id/ic_back_episode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:background="@drawable/circle_bg"
+        android:src="@drawable/ic_back_arrow"
+        android:background="@drawable/circular_shape"
+        android:elevation="@dimen/space2x"
+        android:padding="@dimen/space4x"
+        android:layout_marginStart="@dimen/space8x"
+        android:layout_marginTop="@dimen/space8x"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back_arrow"
+        app:tint="@color/primary"
         android:contentDescription="@string/navigate_back_icon_description" />
 
     <ImageView
-        android:id="@+id/ic_save_episode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:background="@drawable/circle_bg"
+        android:src="@drawable/ic_save"
+        android:background="@drawable/circular_shape"
+        android:elevation="@dimen/space2x"
+        android:padding="@dimen/space4x"
+        android:layout_marginEnd="@dimen/space8x"
+        android:layout_marginTop="@dimen/space8x"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_save"
+        app:tint="@color/primary"
         android:contentDescription="@string/watch_list_icon_description" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -48,7 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        android:background="@drawable/play_button_bg"
         android:drawableStart="@drawable/ic_play"
         android:drawablePadding="4dp"
         android:drawableTint="@color/primary"

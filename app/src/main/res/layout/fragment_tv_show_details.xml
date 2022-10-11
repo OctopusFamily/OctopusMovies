@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="251dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/gameofthronesback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
+        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+        tools:src="@drawable/ic_launcher_foreground"/>
 
     <ImageView
         android:id="@+id/ic_back_tv_show"
@@ -67,10 +67,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="196dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/gameofthrones"
         app:layout_constraintStart_toStartOf="@+id/image_tv_show_main"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/rounded_image_view" />
+        app:shapeAppearanceOverlay="@style/rounded_image_view"
+        tools:src="@drawable/ic_launcher_foreground"/>
 
     <TextView
         android:id="@+id/text_tv_show_name"
