@@ -5,4 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class MultiItemsResponse<T>(
     @SerializedName("results")
     val items: List<T>,
+    @SerializedName("total_pages")
+    val totalPages: Int,
 )

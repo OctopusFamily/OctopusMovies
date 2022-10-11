@@ -71,13 +71,14 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
+<!--        app:showWhenStateIsSuccess="@{viewModel.moviesListState}"-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movies_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingTop="@dimen/space2x"
             android:paddingHorizontal="@dimen/space6x"
-            app:showWhenStateIsSuccess="@{viewModel.moviesListState}"
+
             app:spanCount="2"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -85,45 +86,45 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_movie" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.moviesListState}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary"
-           />
+<!--        <ProgressBar-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:showWhenStateIsLoading="@{viewModel.moviesListState}"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:indeterminateTint="@color/primary"-->
+<!--           />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:showWhenStateIsError="@{viewModel.moviesListState}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="@dimen/space8x">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical"-->
+<!--            app:showWhenStateIsError="@{viewModel.moviesListState}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginHorizontal="@dimen/space8x">-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/failed_to_load_movies"
-                android:textAlignment="center"
-                android:textColor="@color/surface_variant" />
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:text="@string/failed_to_load_movies"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/surface_variant" />-->
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:textColor="@color/primary"
-                android:contentDescription="@string/try_load_movies_again"
-                android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"
-                android:src="@drawable/ic_refresh"
-                app:tint="@color/on_background"/>
-        </LinearLayout>
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:contentDescription="@string/try_load_movies_again"-->
+<!--                android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"-->
+<!--                android:src="@drawable/ic_refresh"-->
+<!--                app:tint="@color/on_background"/>-->
+<!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

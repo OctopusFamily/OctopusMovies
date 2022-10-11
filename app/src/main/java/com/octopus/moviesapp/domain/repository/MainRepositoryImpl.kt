@@ -1,5 +1,8 @@
 package com.octopus.moviesapp.domain.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.domain.enums.GenresList
 import com.octopus.moviesapp.domain.enums.MoviesCategory
@@ -10,6 +13,8 @@ import com.octopus.moviesapp.domain.mapper.TVShowMapper
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.pagerSourse.MoviesPagingSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -20,12 +25,11 @@ class MainRepositoryImpl @Inject constructor(
 ) : MainRepository {
 
     override suspend fun getMoviesByCategory(
-        moviesCategory: MoviesCategory,
-        page: Int
-    ): List<Movie> {
-        return moviesMapper.map(
-            apiService.getMoviesByCategory(moviesCategory.pathName, 1).body()!!.items
-        )
+        moviesCategory: MoviesCategory, page: Int
+    ): Flow<PagingData<Movie>> {
+        return Pager(config = PagingConfig(pageSize = 22), pagingSourceFactory = {
+            MoviesPagingSource(apiService, moviesMapper, moviesCategory.pathName)
+        }).flow
     }
 
     override suspend fun getTVShowsByCategory(

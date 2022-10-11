@@ -3,10 +3,10 @@ package com.octopus.moviesapp.ui.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.repository.MainRepository
-import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.postEvent
@@ -21,8 +21,10 @@ class MoviesViewModel @Inject constructor(
 ) : BaseViewModel(), MoviesClicksListener {
 
 
-    private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
-    val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
+    private val _moviesListState = MutableLiveData<
+            PagingData<Movie>>()
+    val moviesListState: LiveData<
+            PagingData<Movie>> get() = _moviesListState
 
     private var currentMoviesCategory = MoviesCategory.POPULAR
 
@@ -36,8 +38,11 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMoviesByCategory(category: MoviesCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getMoviesByCategory(category, 1) }.collectLatest {
-                _moviesListState.postValue(it)
+            wrapResponse {
+                repository.getMoviesByCategory(category, 1).collectLatest {
+
+                    _moviesListState.postValue(it)
+                }
             }
         }
     }
