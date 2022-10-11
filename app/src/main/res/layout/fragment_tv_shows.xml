@@ -35,7 +35,8 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true">
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.POPULAR)}"
                     android:text="@string/popular"
                     app:chipStrokeColor="@android:color/transparent"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     android:checked="true" />
 
                 <com.google.android.material.chip.Chip
@@ -51,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.ON_THE_AIR)}"
                     android:text="@string/on_the_air"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
@@ -59,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.AIRING_TODAY)}"
                     android:text="@string/airing_today"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.TOP_RATED)}"
                     android:text="@string/top_rated"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     app:chipStrokeColor="@android:color/transparent" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -105,7 +106,8 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsError="@{viewModel.tvShowsListState}">
+            app:showWhenStateIsError="@{viewModel.tvShowsListState}"
+            tools:ignore="UseCompoundDrawables">
 
             <TextView
                 style="@style/text_style_body_large"

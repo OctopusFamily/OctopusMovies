@@ -11,33 +11,33 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    // Movies End Point
+    // Movies End Points
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
-        @Path("movie_id") movieId: Int
-    ): Response<MovieDTO>
+        @Path("movie_id") movieId: Int,
+    ): MovieDTO
 
     @GET("movie/{movie_category}")
     suspend fun getMoviesByCategory(
         @Path("movie_category") moviesCategory: String,
         @Query("page") page: Int,
-    ): Response<MultiItemsResponse<MovieDTO>>
+    ): MultiItemsResponse<MovieDTO>
 
-    // TVShows End Point
+    // TVShows End Points
     @GET("tv/{tv_id}")
     suspend fun getTVShowById(
         @Path("tv_id") tvShowId: Int
-    ): Response<TVShowDTO>
+    ): TVShowDTO
 
     @GET("tv/{tv_category}")
     suspend fun getTVShowsByCategory(
         @Path("tv_category") tvShowCategory: String,
         @Query("page") page: Int,
-    ): Response<MultiItemsResponse<TVShowDTO>>
+    ): MultiItemsResponse<TVShowDTO>
 
-    // Genres End Point
-    @GET("/genre/{genre}/list")
-    suspend fun getGenresByList(
-        @Path("genre") genresList: String,
-    ): Response<GenresResponse>
+    // GenresType End Points
+    @GET("genre/{genre_type}/list")
+    suspend fun getGenresByType(
+        @Path("genre_type") genresType: String,
+    ): GenresResponse
 }

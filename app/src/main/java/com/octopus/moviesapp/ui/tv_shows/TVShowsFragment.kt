@@ -20,7 +20,6 @@ class TVShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         handleEvents()
     }
 
-
     private fun handleEvents() {
         viewModel.tvShowsListState.observe(viewLifecycleOwner) { state ->
             if (state is UiState.Success) {

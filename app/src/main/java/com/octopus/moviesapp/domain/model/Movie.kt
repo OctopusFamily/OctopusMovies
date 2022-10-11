@@ -8,5 +8,4 @@ data class Movie(
     val posterImageUrl: String,
     val voteAverage: Float,
     val releaseDate: Date,
-
     )

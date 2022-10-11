@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.genres.GenresViewModel" />
@@ -14,8 +13,8 @@
             type="com.octopus.moviesapp.ui.genres.GenresClicksListener" />
 
         <variable
-            name="genresList"
-            type="com.octopus.moviesapp.domain.enums.GenresList" />
+            name="genresType"
+            type="com.octopus.moviesapp.domain.enums.GenresType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +23,7 @@
         android:background="@color/background">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout_genres"
+            android:id="@+id/genres_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,33 +35,37 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/primary"
             app:tabTextAppearance="@style/text_style_body_medium"
-            app:tabTextColor="@color/on_surface_variant">
+            app:tabTextColor="@color/on_surface_variant"
+            android:background="@color/on_primary">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_tv"
+                android:id="@+id/movies_tab_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/movies"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tv_shows_tab_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_shows" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_movies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/movies" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_genres"
+            android:id="@+id/genres_recycler_View"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingTop="4dp"
+            android:paddingHorizontal="12dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout_genres"
-            app:showWhenStateIsSuccess="@{viewModel.genreListState}"
-            app:spanCount="2" />
+            app:layout_constraintTop_toBottomOf="@+id/genres_tab_layout"
+            app:showWhenStateIsSuccess="@{viewModel.genresListState}"
+            app:spanCount="2"
+            tools:listitem="@layout/item_genre"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -72,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsLoading="@{viewModel.genreListState}" />
+            app:showWhenStateIsLoading="@{viewModel.genresListState}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,7 +87,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsError="@{viewModel.genreListState}">
+            app:showWhenStateIsError="@{viewModel.genresListState}"
+            tools:ignore="UseCompoundDrawables">
 
             <TextView
                 style="@style/text_style_body_large"
@@ -98,11 +102,11 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="@string/try_load_genres_again"
-                android:onClick="@{}"
+                android:onClick="@{()->viewModel.tryLoadGenresAgain()}"
                 android:src="@drawable/ic_refresh"
                 android:textColor="@color/primary"
-                app:tint="@color/on_background" />
+                app:tint="@color/on_background"
+                android:contentDescription="@string/try_load_genres_again" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

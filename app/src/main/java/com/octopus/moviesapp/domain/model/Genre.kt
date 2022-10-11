@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.domain.model
 
-import com.octopus.moviesapp.domain.enums.GenresList
+import com.octopus.moviesapp.domain.enums.GenresType
 
 data class Genre(
     val id: Int,
     val name: String,
-    val type: GenresList,
+    val type: GenresType,
 )

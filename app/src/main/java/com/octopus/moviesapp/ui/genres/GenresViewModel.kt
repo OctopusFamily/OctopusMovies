@@ -1,13 +1,11 @@
 package com.octopus.moviesapp.ui.genres
 
-import com.octopus.moviesapp.domain.enums.GenresList
+import com.octopus.moviesapp.domain.enums.GenresType
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.repository.MainRepository
+import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.domain.sealed.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,35 +18,31 @@ class GenresViewModel @Inject constructor(
     private val repository: MainRepository
 ) : BaseViewModel(), GenresClicksListener {
 
+    private val _genresListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
+    val genresListState: LiveData<UiState<List<Genre>>> get() = _genresListState
 
-
-    private val _genreListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
-    val genreListState: LiveData<UiState<List<Genre>>> get() = _genreListState
-
-    private var currentGenresList = GenresList.TV
-
+    private var currentGenresType = GenresType.TV
 
     init {
-        getGenresByList(currentGenresList)
+        getGenresByList(currentGenresType)
     }
 
-    override fun onGenreClick(genreId: Int, genreType: GenresList) {}
+    override fun onGenreClick(genreId: Int, genreType: GenresType) {}
 
-    private fun getGenresByList(currentGenresList: GenresList) {
+    fun onTapSelected(genresType: GenresType) {
+        getGenresByList(genresType)
+        currentGenresType = genresType
+    }
+
+    fun tryLoadGenresAgain() {
+        getGenresByList(currentGenresType)
+    }
+
+    private fun getGenresByList(currentGenresType: GenresType) {
         viewModelScope.launch {
-            wrapResponse { repository.getGenresByList(currentGenresList) }.collectLatest {
-                _genreListState.postValue(it)
+            wrapResponse { repository.getGenresByType(currentGenresType) }.collectLatest {
+                _genresListState.postValue(it)
             }
         }
     }
-
-
-    fun onTapClicked(genresList: GenresList) {
-        if (genresList != currentGenresList) {
-            getGenresByList(genresList)
-            currentGenresList = genresList
-        }
-    }
-
-
 }

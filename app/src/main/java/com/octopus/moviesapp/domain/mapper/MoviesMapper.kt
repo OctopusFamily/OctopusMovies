@@ -5,8 +5,9 @@ import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.util.buildUrl
 import com.octopus.moviesapp.util.convertToDate
 import java.util.*
+import javax.inject.Inject
 
-class MoviesMapper : Mapper<List<MovieDTO>, List<Movie>> {
+class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>> {
     override fun map(input: List<MovieDTO>): List<Movie> {
         return input.map {
             Movie(

@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/images_season"
+            android:id="@+id/cover_image_view"
             android:layout_width="0dp"
             android:layout_height="250dp"
             android:scaleType="fitXY"
@@ -22,97 +22,70 @@
             app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
             tools:src="@tools:sample/avatars" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/space4x"
-            android:layout_marginBottom="@dimen/space4x"
-            android:elevation="2dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/images_season"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/play_trailer_rectangle"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/ic_play"
-                    android:contentDescription="@string/play_trailer_icon_description" />
-
-                <TextView
-                    style="@style/text_style_body_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="@dimen/space12x"
-                    android:text="@string/play_trailer"
-                    android:textColor="#F83066" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            app:icon="@drawable/ic_play"
+            app:iconTint="@color/primary"
+            app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/play_trailer" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_tv_shows"
-            android:layout_width="97dp"
-            android:layout_height="156dp"
+            android:id="@+id/poster_image_view"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="-50dp"
+            android:layout_marginTop="186dp"
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/images_season"
+            app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/rounded_image_view"
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/text_number_the_season"
+            android:id="@+id/season_number_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginTop="@dimen/space4x"
-            app:layout_constraintStart_toEndOf="@+id/image_tv_shows"
-            app:layout_constraintTop_toBottomOf="@+id/images_season"
+            android:lines="1"
+            android:ellipsize="end"
+            style="@style/text_style_headline_small"
+            android:textColor="@color/primary"
+            app:layout_constraintTop_toBottomOf="@id/cover_image_view"
+            app:layout_constraintStart_toEndOf="@id/poster_image_view"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/text_style_body_large"
             tools:text="Season 1" />
 
-        <TextView
-            android:id="@+id/text_count_of_episodes"
-            style="@style/text_style_body_small"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/text_number_the_season"
-            app:layout_constraintTop_toBottomOf="@+id/text_number_the_season"
-            tools:text="Episodes 10" />
+            app:layout_constraintTop_toBottomOf="@id/season_number_text_view"
+            app:layout_constraintStart_toStartOf="@id/season_number_text_view"
+            app:layout_constraintEnd_toEndOf="@id/season_number_text_view">
+            <TextView
+                style="@style/text_style_body_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Episodes 10" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/materialDivider"
-            android:layout_width="1dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            app:dividerColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/text_count_of_episodes"
-            app:layout_constraintStart_toEndOf="@+id/text_count_of_episodes"
-            app:layout_constraintTop_toTopOf="@+id/text_count_of_episodes" />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/space6x"
+                app:dividerColor="@color/primary" />
 
-
-        <TextView
-            android:id="@+id/text_date_of_season"
-            style="@style/text_style_body_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/materialDivider"
-            app:layout_constraintTop_toTopOf="@+id/text_count_of_episodes"
-            tools:text="2022-04-22" />
+            <TextView
+                style="@style/text_style_body_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2022-04-22" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
