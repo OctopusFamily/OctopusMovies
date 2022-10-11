@@ -41,8 +41,8 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
-    override fun onMovieClick(movies: Movie) {
-        _navigateToMoviesDetails.postEvent(movies.id)
+    override fun onMovieClick(movieId: Int) {
+        _navigateToMoviesDetails.postEvent(movieId)
     }
 
     fun onChipClick(moviesCategory: MoviesCategory) {
