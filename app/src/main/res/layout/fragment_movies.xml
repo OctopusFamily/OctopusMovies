@@ -34,14 +34,16 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true">
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                style="@style/Widget.Material3.Chip.Suggestion">
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/popular"
                     app:chipStrokeColor="@android:color/transparent"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.POPULAR)}"
                     android:checked="true" />
 
@@ -49,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/now_playing"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"/>
 
@@ -57,14 +59,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/upcoming"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"/>
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/customChipStyle"
+                    style="@style/ChipStyle"
                     android:text="@string/top_rated"
                     app:chipStrokeColor="@android:color/transparent"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"/>
@@ -93,8 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary"
-           />
+            android:indeterminateTint="@color/primary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,7 +105,8 @@
             app:showWhenStateIsError="@{viewModel.moviesListState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="@dimen/space8x">
+            android:layout_marginHorizontal="@dimen/space8x"
+            tools:ignore="UseCompoundDrawables">
 
             <TextView
                 style="@style/text_style_body_large"

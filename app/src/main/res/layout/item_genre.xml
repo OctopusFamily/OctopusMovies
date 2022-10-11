@@ -26,7 +26,6 @@
                 android:id="@+id/text_genre_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space8x"
                 android:textAlignment="center"
                 android:ellipsize="marquee"
                 android:singleLine="true"

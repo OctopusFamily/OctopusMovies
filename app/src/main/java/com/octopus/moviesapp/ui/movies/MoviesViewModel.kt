@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.repository.MainRepository
+import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event
@@ -28,7 +28,6 @@ class MoviesViewModel @Inject constructor(
 
     private val _navigateToMoviesDetails = MutableLiveData<Event<Int?>>()
     val navigateToMoviesDetails: LiveData<Event<Int?>> = _navigateToMoviesDetails
-
 
     init {
         getMoviesByCategory(currentMoviesCategory)

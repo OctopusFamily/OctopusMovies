@@ -1,16 +1,17 @@
 package com.octopus.moviesapp.domain.mapper
 
 import com.octopus.moviesapp.data.remote.response.dto.GenreDTO
-import com.octopus.moviesapp.domain.enums.GenresList
+import com.octopus.moviesapp.domain.enums.GenresType
 import com.octopus.moviesapp.domain.model.Genre
+import javax.inject.Inject
 
-class GenresMapper : DuoMapper<List<GenreDTO>, GenresList, List<Genre>> {
-    override fun map(firstInput: List<GenreDTO>, secondInput: GenresList): List<Genre> {
-        return firstInput.map {
+class GenresMapper @Inject constructor() : Mapper<Pair<List<GenreDTO>, GenresType>, List<Genre>> {
+    override fun map(input: Pair<List<GenreDTO>, GenresType>): List<Genre> {
+        return input.first.map {
             Genre(
                 id = it.id ?: 0,
                 name = it.name ?: "",
-                type = secondInput,
+                type = input.second,
             )
         }
     }

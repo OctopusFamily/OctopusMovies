@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.repository
+package com.octopus.moviesapp.data.repository
 
 import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.domain.enums.GenresType
@@ -21,27 +21,27 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun getMoviesByCategory(
         moviesCategory: MoviesCategory,
-        page: Int
+        page: Int,
     ): List<Movie> {
         return moviesMapper.map(
-            apiService.getMoviesByCategory(moviesCategory.pathName, 1).body()!!.items
+            apiService.getMoviesByCategory(moviesCategory.pathName, page).items
         )
     }
 
     override suspend fun getTVShowsByCategory(
         tvShowCategory: TVShowsCategory,
-        page: Int
+        page: Int,
     ): List<TVShow> {
         return tvShowMapper.map(
-            apiService.getTVShowsByCategory(tvShowCategory.pathName, 1).body()!!.items
+            apiService.getTVShowsByCategory(tvShowCategory.pathName, page).items
         )
     }
 
     override suspend fun getGenresByType(
-        genresType: GenresType
+        genresType: GenresType,
     ): List<Genre> {
         return genresMapper.map(
-            apiService.getGenresByType(genresType.pathName).body()!!.itemsList, genresType
+            Pair(apiService.getGenresByType(genresType.pathName).itemsList, genresType)
         )
     }
 }

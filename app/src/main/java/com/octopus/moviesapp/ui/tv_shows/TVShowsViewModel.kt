@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.enums.TVShowsCategory
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.domain.repository.MainRepository
+import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event

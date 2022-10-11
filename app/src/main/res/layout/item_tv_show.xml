@@ -45,9 +45,10 @@
                     android:id="@+id/text_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space4x"
                     android:ellipsize="end"
                     android:textAlignment="center"
-                    android:lines="2"
+                    android:maxLines="2"
                     android:text="@{item.title}"
                     style="@style/text_style_body_medium"
                     tools:text="Family Guy" />
