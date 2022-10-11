@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.repository
 
 import com.octopus.moviesapp.data.remote.request.ApiService
-import com.octopus.moviesapp.domain.enums.GenresList
+import com.octopus.moviesapp.domain.enums.GenresType
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.enums.TVShowsCategory
 import com.octopus.moviesapp.domain.mapper.GenresMapper
@@ -37,11 +37,11 @@ class MainRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getGenresByList(
-        genresByList: GenresList
+    override suspend fun getGenresByType(
+        genresType: GenresType
     ): List<Genre> {
         return genresMapper.map(
-            apiService.getGenresByList(genresByList.pathName).body()!!.itemsList, genresByList
+            apiService.getGenresByType(genresType.pathName).body()!!.itemsList, genresType
         )
     }
 }
