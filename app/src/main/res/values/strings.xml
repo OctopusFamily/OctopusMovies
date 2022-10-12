@@ -44,5 +44,11 @@
     <string name="arabic">Arabic</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="try_to_load_movie_details_again">Try to load Movie Details again</string>
+    <string name="failed_to_load_movie_details">Failed to load Movie Details</string>
+    <string name="duration">%1$d Min</string>
+    <string name="reviews">(%1$d reviews)</string>
+    <string name="coming_soon">Coming soon..</string>
     <string name="more">Read more</string>
+    <string name="text_holder">In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused</string>
 </resources>

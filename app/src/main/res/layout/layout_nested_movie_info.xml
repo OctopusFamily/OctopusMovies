@@ -35,7 +35,7 @@
 
     <kr.co.prnd.readmore.ReadMoreTextView
         android:id="@+id/text_overview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/text_style_body_medium"
         android:layout_marginHorizontal="@dimen/space8x"
@@ -43,5 +43,5 @@
         app:readMoreColor="@color/primary"
         app:readMoreMaxLine="3"
         app:readMoreText="@string/more"
-        tools:text="In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused " />
+        android:text="@string/text_holder" />
 </androidx.appcompat.widget.LinearLayoutCompat>
