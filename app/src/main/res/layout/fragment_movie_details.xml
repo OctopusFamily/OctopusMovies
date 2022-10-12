@@ -12,175 +12,230 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/background"
+        app:showWhenStateIsSuccess="@{viewModel.movieDetailsState}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover_image_view"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="fitXY"
-            tools:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/bottom_rounded_image_view" />
+            app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+            android:src="@drawable/ic_launcher_foreground"
+            tools:src="@drawable/ic_launcher_background" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_arrow"
-            android:background="@drawable/circular_shape"
-            android:elevation="@dimen/space2x"
-            android:padding="@dimen/space4x"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
+            android:background="@drawable/circular_shape"
+            android:contentDescription="@string/navigate_back_icon_description"
+            android:elevation="@dimen/space2x"
+            android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+            android:padding="@dimen/space4x"
+            android:src="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primary"
-            android:contentDescription="@string/navigate_back_icon_description" />
+            app:tint="@color/primary" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_save"
-            android:background="@drawable/circular_shape"
-            android:elevation="@dimen/space2x"
-            android:padding="@dimen/space4x"
-            android:layout_marginEnd="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
+            android:layout_marginEnd="@dimen/space8x"
+            android:background="@drawable/circular_shape"
+            android:contentDescription="@string/watch_list_icon_description"
+            android:elevation="@dimen/space2x"
+            android:onClick="@{() -> viewModel.onSaveToWatchListClick()}"
+            android:padding="@dimen/space4x"
+            android:src="@drawable/ic_save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primary"
-            android:contentDescription="@string/watch_list_icon_description" />
+            app:tint="@color/primary" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:onClick="@{() -> viewModel.onPlayTrailerClick()}"
+            android:text="@string/play_trailer"
             android:textAllCaps="false"
             android:textColor="@color/primary"
-            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
             app:icon="@drawable/ic_play"
             app:iconTint="@color/primary"
             app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/play_trailer" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/poster_image_view"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:scaleType="fitXY"
-            tools:src="@drawable/ic_launcher_background"
-            android:elevation="8dp"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="186dp"
+            android:elevation="2dp"
+            android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/rounded_image_view" />
+            app:shapeAppearanceOverlay="@style/rounded_image_view"
+            android:src="@drawable/ic_launcher_foreground"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/name_text_view"
+            style="@style/text_style_headline_small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="Movie Name"
-            android:lines="1"
-            android:ellipsize="end"
-            style="@style/text_style_headline_small"
-            android:textColor="@color/primary"
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginTop="@dimen/space4x"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{viewModel.movieDetails.title}"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/poster_image_view"
             app:layout_constraintTop_toBottomOf="@id/cover_image_view"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            tools:text="Movie Name" />
 
         <LinearLayout
             android:id="@+id/rating_linear_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/name_text_view"
-            app:layout_constraintStart_toEndOf="@id/poster_image_view"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="@dimen/space8x"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/text_style_body_medium"
-                app:drawableStartCompat="@drawable/ic_star"
-                android:drawablePadding="@dimen/space2x"
-                tools:text="8.7"/>
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/poster_image_view"
+            app:layout_constraintTop_toBottomOf="@id/name_text_view">
 
             <TextView
+                style="@style/text_style_body_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/space2x"
+                app:drawableStartCompat="@drawable/ic_star"
+                app:voteAverage="@{viewModel.movieDetails.voteAverage}"
+                tools:text="8.7" />
+
+            <TextView
+                style="@style/text_style_body_medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space4x"
                 android:layout_weight="1"
-                style="@style/text_style_body_medium"
-                tools:text="(124 reviews)"
-                android:lines="1"
                 android:ellipsize="end"
-                android:layout_marginHorizontal="@dimen/space4x"/>
+                android:lines="1"
+                app:setReviews="@{viewModel.movieDetails.voteCount}"
+                tools:text="(124 reviews)" />
 
             <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onRateClick()}"
                 android:text="@string/string_rate"
                 android:textAllCaps="false"
-                android:textColor="@color/primary"
-                style="@style/Widget.Material3.Button.ElevatedButton"/>
+                android:textColor="@color/primary" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/more_info_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rating_linear_layout"
-            android:layout_marginTop="@dimen/space8x"
             android:layout_marginHorizontal="@dimen/space8x"
-            android:gravity="center">
+            android:layout_marginTop="@dimen/space8x"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/rating_linear_layout">
+
             <TextView
+                style="@style/text_style_label_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_style_label_large"
                 android:drawablePadding="@dimen/space4x"
                 app:drawableStartCompat="@drawable/ic_date"
-                tools:text="2021"/>
+                app:releaseDate="@{viewModel.movieDetails.releaseDate}"
+                tools:text="2021" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/space6x"/>
+                android:layout_marginHorizontal="@dimen/space6x" />
 
             <TextView
+                style="@style/text_style_label_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_style_label_large"
                 android:drawablePadding="@dimen/space4x"
                 app:drawableStartCompat="@drawable/ic_time"
-                tools:text="148 Min"/>
+                app:setRuntime="@{viewModel.movieDetails.runtime}"
+                tools:text="148 Min" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/space6x"/>
+                android:layout_marginHorizontal="@dimen/space6x" />
 
             <TextView
+                style="@style/text_style_label_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_style_label_large"
                 android:drawablePadding="@dimen/space4x"
+                android:text="@{viewModel.movieDetails.originalLanguage}"
                 app:drawableStartCompat="@drawable/ic_language"
-                tools:text="English"/>
+                tools:text="English" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_details_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/more_info_linear_layout"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="@dimen/space4x"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/more_info_linear_layout" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showWhenStateIsLoading="@{viewModel.movieDetailsState}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:showWhenStateIsError="@{viewModel.movieDetailsState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="@dimen/space8x"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/failed_to_load_movie_details"
+                android:textAlignment="center"
+                android:textColor="@color/surface_variant" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:textColor="@color/primary"
+                android:contentDescription="@string/try_to_load_movie_details_again"
+                android:onClick="@{()->viewModel.tryLoadMovieDetailsAgain()}"
+                android:src="@drawable/ic_refresh"
+                app:tint="@color/on_background"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

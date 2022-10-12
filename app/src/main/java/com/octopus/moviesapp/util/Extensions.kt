@@ -1,19 +1,17 @@
 package com.octopus.moviesapp.util
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun String.convertToDate(): Date {
     val formatter = SimpleDateFormat("yyyy-MM-dd", Locale("en"))
     return formatter.parse(this) ?: Date()
-}
-
-
-fun String.buildUrl(): String {
-    return "https://image.tmdb.org/t/p/w342$this"
 }
 
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
@@ -25,4 +23,16 @@ inline fun <T> LiveData<Event<T>>.observeEvent(
     crossinline onEventUnhandledContent: (T) -> Unit
 ) {
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
+}
+
+fun String.buildImageUrl(): String {
+    return Constants.IMAGE_BASE_URL + this
+}
+
+fun String.buildYouTubeURL(): String {
+    return Constants.YOUTUBE_BASE_URL + this
+}
+
+fun Context.showShortToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

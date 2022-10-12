@@ -2,8 +2,10 @@ package com.octopus.moviesapp.data.remote.request
 
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
+import com.octopus.moviesapp.data.remote.response.dto.CastDTO
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
+import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,6 +24,16 @@ interface ApiService {
         @Path("movie_category") moviesCategory: String,
         @Query("page") page: Int,
     ): MultiItemsResponse<MovieDTO>
+
+    @GET("movie/{movieID}/credits")
+    suspend fun getMovieTrailersById(
+        @Path("movieID") movieId: Int,
+    ): MultiItemsResponse<TrailerDTO>
+
+    @GET("movie/{movieID}/videos")
+    suspend fun getMovieCastById(
+        @Path("movieID") movieId: Int,
+    ): MultiItemsResponse<CastDTO>
 
     // TVShows End Points
     @GET("tv/{tv_id}")

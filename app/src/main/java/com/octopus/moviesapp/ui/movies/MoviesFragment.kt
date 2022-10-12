@@ -28,7 +28,12 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
                 binding.moviesRecyclerView.adapter = MoviesAdapter(state.data, viewModel)
             }
         }
+        viewModel.navigateToMovieDetails.observeEvent(viewLifecycleOwner) { movieId ->
+            navigateToMovieDetails(movieId)
+        }
     }
 
-
+    private fun navigateToMovieDetails(movieId: Int) {
+        requireView().findNavController().navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailsFragment(movieId))
+    }
 }
