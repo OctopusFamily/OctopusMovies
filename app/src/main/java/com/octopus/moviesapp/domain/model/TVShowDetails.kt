@@ -2,7 +2,7 @@ package com.octopus.moviesapp.domain.model
 
 import java.util.*
 
-data class TvShowDetails(
+data class TVShowDetails(
     val id: Int,
     val title: String,
     val coverImageUrl: String,
