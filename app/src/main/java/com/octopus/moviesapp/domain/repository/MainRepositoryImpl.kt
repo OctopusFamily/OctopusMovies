@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.domain.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -24,7 +25,7 @@ class MainRepositoryImpl @Inject constructor(
     private val genresMapper: GenresMapper,
 ) : MainRepository {
 
-    override suspend fun getMoviesByCategory(
+    override fun getMoviesByCategory(
         moviesCategory: MoviesCategory, page: Int
     ): Flow<PagingData<Movie>> {
         return Pager(config = PagingConfig(pageSize = 22), pagingSourceFactory = {
