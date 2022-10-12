@@ -9,7 +9,7 @@ import java.util.*
 import javax.inject.Inject
 
 class MovieDetailsMapper @Inject constructor(
-    private val genresMapper: GenresMapper
+    private val genresMapper: GenresMapper,
 ) : Mapper<MovieDTO, MovieDetails> {
     override fun map(input: MovieDTO): MovieDetails {
         val genresList = input.genres ?: emptyList()
@@ -25,7 +25,7 @@ class MovieDetailsMapper @Inject constructor(
             originalLanguage = input.originalLanguage ?: "",
             tagline = input.tagline ?: "",
             overview = input.overview ?: "",
-            genres = genresMapper.map(Pair(genresList, GenresType.MOVIE))
+            genres = genresMapper.map(Pair(genresList, GenresType.MOVIE)),
         )
     }
 }

@@ -4,30 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.movie_details.MovieDetailsViewModel" />
-
-        <variable
-            name="listener"
-            type="com.octopus.moviesapp.ui.movie_details.MovieDetailsClicksListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/background"
+        app:showWhenStateIsSuccess="@{viewModel.movieDetailsState}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover_image_view"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="fitXY"
-            app:imageUrl="@{viewModel.movieDetails.coverImageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+            android:src="@drawable/ic_launcher_foreground"
             tools:src="@drawable/ic_launcher_background" />
 
         <ImageView
@@ -38,7 +34,7 @@
             android:background="@drawable/circular_shape"
             android:contentDescription="@string/navigate_back_icon_description"
             android:elevation="@dimen/space2x"
-            android:onClick="@{() -> viewModel.onBackPressed()}"
+            android:onClick="@{() -> viewModel.onNavigateBackClick()}"
             android:padding="@dimen/space4x"
             android:src="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +49,7 @@
             android:background="@drawable/circular_shape"
             android:contentDescription="@string/watch_list_icon_description"
             android:elevation="@dimen/space2x"
-            android:onClick="@{() -> viewModel.onSavePressed()}"
+            android:onClick="@{() -> viewModel.onSaveToWatchListClick()}"
             android:padding="@dimen/space4x"
             android:src="@drawable/ic_save"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:onClick="@{() -> viewModel.onWatchTrailerPressed()}"
+            android:onClick="@{() -> viewModel.onPlayTrailerClick()}"
             android:text="@string/play_trailer"
             android:textAllCaps="false"
             android:textColor="@color/primary"
@@ -80,12 +76,12 @@
             android:layout_height="150dp"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="186dp"
-            android:elevation="8dp"
+            android:elevation="2dp"
             android:scaleType="fitXY"
-            app:imageUrl="@{viewModel.movieDetails.posterImageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/rounded_image_view"
+            android:src="@drawable/ic_launcher_foreground"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -131,14 +127,14 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="@{viewModel.movieDetails.voteCount}"
+                app:setReviews="@{viewModel.movieDetails.voteCount}"
                 tools:text="(124 reviews)" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onRatePressed()}"
+                android:onClick="@{() -> viewModel.onRateClick()}"
                 android:text="@string/string_rate"
                 android:textAllCaps="false"
                 android:textColor="@color/primary" />
@@ -173,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/space4x"
                 app:drawableStartCompat="@drawable/ic_time"
-                app:runtime="@{viewModel.movieDetails.runtime}"
+                app:setRuntime="@{viewModel.movieDetails.runtime}"
                 tools:text="148 Min" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -200,6 +196,46 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/more_info_linear_layout" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showWhenStateIsLoading="@{viewModel.movieDetailsState}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:showWhenStateIsError="@{viewModel.movieDetailsState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="@dimen/space8x"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/failed_to_load_movie_details"
+                android:textAlignment="center"
+                android:textColor="@color/surface_variant" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:textColor="@color/primary"
+                android:contentDescription="@string/try_to_load_movie_details_again"
+                android:onClick="@{()->viewModel.tryLoadMovieDetailsAgain()}"
+                android:src="@drawable/ic_refresh"
+                app:tint="@color/on_background"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
