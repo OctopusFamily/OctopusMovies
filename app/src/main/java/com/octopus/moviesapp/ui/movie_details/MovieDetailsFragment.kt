@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_movie_details
     override val viewModel: MovieDetailsViewModel by viewModels()
+    override var bottomNavigationViewVisibility = View.GONE
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 

@@ -10,12 +10,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.octopus.moviesapp.BR
+import com.octopus.moviesapp.ui.main.MainActivity
 
 abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
 
     @LayoutRes
     abstract fun getLayoutId(): Int
     abstract val viewModel: ViewModel
+    protected open var bottomNavigationViewVisibility = View.VISIBLE
 
     private var _binding: VDB? = null
     val binding: VDB get() = _binding!!
@@ -31,6 +33,14 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
             setVariable(BR.viewModel, this@BaseFragment.viewModel)
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity is MainActivity) {
+            val mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
+        }
     }
 
     override fun onDestroyView() {
