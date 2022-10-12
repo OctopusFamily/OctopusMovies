@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.sealed.UiState
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,5 +73,21 @@ fun setRuntime(view: TextView, duration: Int?) {
 fun setReviews(view: TextView, reviews: Int?) {
     reviews?.let {
         view.text = context.getString(R.string.reviews, reviews)
+    }
+}
+
+@BindingAdapter(value = ["app:seasonStatus"])
+fun seasonStatus(view: TextView, seasonNumber: Int) {
+    when (seasonNumber) {
+        1 -> view.text = "$seasonNumber Season"
+        2 -> view.text = "$seasonNumber Seasons"
+    }
+}
+
+@BindingAdapter(value = ["app:episodeStatus"])
+fun episodeStatus(view: TextView, episodeNumber: Int) {
+    when (episodeNumber) {
+        1 -> view.text = "$episodeNumber Episode"
+        2 -> view.text = "$episodeNumber Episodes"
     }
 }
