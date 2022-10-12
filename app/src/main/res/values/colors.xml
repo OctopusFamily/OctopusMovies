@@ -5,32 +5,32 @@
     <color name="primary">#F83066</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="primary_container">#F6d8e0</color>
-    <color name="on_primary_container">#840729</color>
+    <color name="on_primary_container">#4a0316</color>
 
-    <color name="secondary">#840729</color>
-    <color name="on_secondary">#840729</color>
-    <color name="secondary_container">#840729</color>
-    <color name="on_secondary_container">#091D2E</color>
+    <color name="secondary">#bf5572</color>
+    <color name="on_secondary">#fff</color>
+    <color name="secondary_container">#f8ecf0</color>
+    <color name="on_secondary_container">#38151e</color>
 
-    <color name="tertiary">#840729</color>
-    <color name="on_tertiary">#840729</color>
-    <color name="tertiary_container">#840729</color>
-    <color name="on_tertiary_container">#091D2E</color>
+    <color name="tertiary">#bf5555</color>
+    <color name="on_tertiary">#ffff</color>
+    <color name="tertiary_container">#f8ecec</color>
+    <color name="on_tertiary_container">#381515</color>
 
-    <color name="error">#840729</color>
-    <color name="on_error">#840729</color>
-    <color name="error_container">#840729</color>
-    <color name="on_error_container">#091D2E</color>
+    <color name="error">#ba1a1a</color>
+    <color name="on_error">#ffff</color>
+    <color name="error_container">#ffdad6</color>
+    <color name="on_error_container">#410002</color>
 
-    <color name="background">#F3E6EA</color>
+    <color name="background">#f3f3f3</color>
     <color name="on_background">#840729</color>
 
-    <color name="surface">#FFFFFFFF</color>
-    <color name="on_surface">#1A1C1E</color>
-    <color name="surface_variant">#42474E</color>
+    <color name="surface">#fcfcff</color>
+    <color name="on_surface">#1a1c1e</color>
+    <color name="surface_variant">#dee3eb</color>
     <color name="on_surface_variant">#42474E</color>
 
-    <color name="out_line">#FFE02F</color>
-    <color name="yellow">#FFE02F</color>
+    <color name="out_line">#72777F</color>
+    <color name="yellow">#FFB800</color>
 
 </resources>

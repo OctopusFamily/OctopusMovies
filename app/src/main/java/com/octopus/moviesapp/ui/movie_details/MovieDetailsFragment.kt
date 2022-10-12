@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding
 import com.octopus.moviesapp.domain.sealed.UiState
@@ -41,5 +42,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
+        viewModel.navigateBack.observeEvent(viewLifecycleOwner){
+             findNavController().popBackStack()
+        }
+
     }
 }
