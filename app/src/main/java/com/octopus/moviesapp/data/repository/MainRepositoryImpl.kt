@@ -42,6 +42,14 @@ class MainRepositoryImpl @Inject constructor(
         return castMapper.map(apiService.getMovieCastById(movieId).items)
     }
 
+    override suspend fun getTVShowCastById(tvShowId: Int): List<Cast> {
+        return castMapper.map(apiService.getTVShowCastById(tvShowId).items)
+    }
+
+    override suspend fun getTVShowsTrailersById(tvShowId: Int): Trailer {
+        return trailerMapper.map(apiService.getTVShowsTrailersById(tvShowId).items)
+    }
+
     // TV Shows Resources
     override suspend fun getTVShowsByCategory(
         tvShowCategory: TVShowsCategory,
