@@ -25,12 +25,12 @@ interface ApiService {
         @Query("page") page: Int,
     ): MultiItemsResponse<MovieDTO>
 
-    @GET("movie/{movieID}/credits")
+    @GET("movie/{movieID}/videos")
     suspend fun getMovieTrailersById(
         @Path("movieID") movieId: Int,
     ): MultiItemsResponse<TrailerDTO>
 
-    @GET("movie/{movieID}/videos")
+    @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
         @Path("movieID") movieId: Int,
     ): MultiItemsResponse<CastDTO>
@@ -40,6 +40,16 @@ interface ApiService {
     suspend fun getTVShowById(
         @Path("tv_id") tvShowId: Int
     ): TVShowDTO
+
+    @GET("tv/{tv_id}/credits")
+    suspend fun getTVShowCastById(
+        @Path("tv_id") tvShowId: Int,
+    ): MultiItemsResponse<CastDTO>
+
+    @GET("tv/{tv_id}/videos")
+    suspend fun getTVShowsTrailersById(
+        @Path("tv_id") tvShowId: Int,
+    ): MultiItemsResponse<TrailerDTO>
 
     @GET("tv/{tv_category}")
     suspend fun getTVShowsByCategory(

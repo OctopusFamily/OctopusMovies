@@ -10,11 +10,9 @@ import javax.inject.Inject
 
 class TVShowDetailsMapper @Inject constructor(
     private val genresMapper: GenresMapper,
-    private val castMapper: CastMapper
 ) : Mapper<TVShowDTO, TVShowDetails> {
     override fun map(input: TVShowDTO): TVShowDetails {
         val genresList = input.genres ?: emptyList()
-        val castList = input.cast ?: emptyList()
         return TVShowDetails(
             id = input.id ?: 0,
             title = input.name ?: "",
@@ -30,7 +28,6 @@ class TVShowDetailsMapper @Inject constructor(
             overview = input.overview ?: "",
             genres = genresMapper.map(Pair(genresList, GenresType.TV)),
             seasons = emptyList(),
-            cast = castMapper.map(castList)
         )
 
     }
