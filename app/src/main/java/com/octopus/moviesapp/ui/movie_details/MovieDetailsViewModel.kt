@@ -2,7 +2,6 @@ package com.octopus.moviesapp.ui.movie_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.enums.GenresType
 import com.octopus.moviesapp.domain.model.Cast
@@ -40,5 +39,12 @@ class MovieDetailsViewModel @Inject constructor(
                 _movieCastState.postValue(it)
             }
         }
+    }
+
+    private val _movieId = MutableLiveData<Int>()
+    val movieId: LiveData<Int> = _movieId
+
+    fun getMovieId(id: Int){
+        _movieId.postValue(id)
     }
 }
