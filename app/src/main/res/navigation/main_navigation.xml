@@ -11,7 +11,11 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.octopus.moviesapp.ui.movies.MoviesFragment"
-        android:label="MoviesFragment" />
+        android:label="MoviesFragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/TVShowsFragment"
         android:name="com.octopus.moviesapp.ui.tv_shows.TVShowsFragment"
@@ -24,4 +28,12 @@
         android:id="@+id/settingsFragment"
         android:name="com.octopus.moviesapp.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.octopus.moviesapp.ui.movie_details.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
