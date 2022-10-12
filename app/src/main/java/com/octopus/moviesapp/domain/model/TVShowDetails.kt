@@ -17,4 +17,5 @@ data class TVShowDetails(
     val overview: String,
     val genres: List<Genre>,
     val seasons: List<Season>,
+    val cast: List<Cast>,
 )
