@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.ui.main
 
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.octopus.moviesapp.R
@@ -9,6 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    override val viewModel: MainViewModel by viewModels()
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
