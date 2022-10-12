@@ -2,23 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="viewModel"
-            type="com.octopus.moviesapp.ui.trailer.TrailerViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
+        android:layout_height="match_parent">
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view_dialog"
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_player_view_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:enableAutomaticInitialization="true"
-            app:handleNetworkEvents="true"
-            app:videoId="S0Q4gqBUs7c"
-            app:autoPlay="true" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
