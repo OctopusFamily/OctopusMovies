@@ -159,7 +159,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
-                app:setReviews="@{viewModel.tvShowDetails.voteCount}"
+                app:text="@{String.valueOf(viewModel.tvShowDetails.voteCount)}"
                 tools:text="(124 reviews)" />
 
             <com.google.android.material.button.MaterialButton

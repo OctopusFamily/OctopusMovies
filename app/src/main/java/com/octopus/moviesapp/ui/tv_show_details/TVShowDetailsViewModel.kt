@@ -21,6 +21,7 @@ class TVShowDetailsViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
+    val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
     private val _rateTvShow = MutableLiveData<Event<Int>>()
     val rateTvShow: LiveData<Event<Int>> get() = _rateTvShow
 
@@ -52,23 +53,21 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     private var tvShowID = 0
-    fun loadMovieDetails(movieId: Int) {
+    fun loadTVShowDetails(movieId: Int) {
         tvShowID = movieId
         getTVShowDetails(movieId)
     }
 
-    fun onLoadMovieDetailsSuccess(movieDetails: MovieDetails) {
-//        _tvShowDetails.postValue(movieDetails)
+    fun onLoadTVShowDetailsSuccess(movieDetails: MovieDetails) {
     }
-    fun tryLoadMovieDetailsAgain() {
-        loadMovieDetails(tvShowID)
+
+    fun tryLoadTVShowDetailsAgain() {
+        loadTVShowDetails(tvShowID)
     }
 
     private fun getTVShowDetails(tvID: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getMovieDetailsById(tvID) }.collectLatest {
-//                _tvShowDetailsState.postValue(it)
-            }
+
         }
     }
 

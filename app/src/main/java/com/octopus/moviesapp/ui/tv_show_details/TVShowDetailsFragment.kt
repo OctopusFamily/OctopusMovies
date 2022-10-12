@@ -18,11 +18,9 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_show_details
     override val viewModel: TVShowDetailsViewModel by viewModels()
 
-    private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onStart() {
         super.onStart()
-        viewModel.loadMovieDetails(args.movieId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,9 +30,6 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
 
     private fun handleEvents() {
         viewModel.tvShowDetails.observe(viewLifecycleOwner) { uiState ->
-//            if (uiState is UiState.Success) {
-//                viewModel.onLoadMovieDetailsSuccess(uiState.data)
-//            }
         }
         viewModel.rateTvShow.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
