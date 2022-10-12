@@ -8,14 +8,16 @@ import kotlinx.coroutines.flow.flow
 
 abstract class BaseViewModel : ViewModel() {
     protected fun <T> wrapResponse(response: suspend () -> T): Flow<UiState<T>> {
+        Log.d("tests", "Wraper")
         return flow {
             emit(UiState.Loading)
             try {
+                Log.d("tests", "Inside Try")
                 val res = response()
-                Log.d("MALT", "res: $res")
+                Log.d("tests", "res: $res")
                 emit(UiState.Success(res))
             } catch (e: Exception) {
-                Log.d("MALT", "error: ${e.message}")
+                Log.d("tests", "error: ${e.message}")
                 emit(UiState.Error(e.message.toString()))
             }
         }

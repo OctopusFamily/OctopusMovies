@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.ui.movies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +10,7 @@ import com.octopus.moviesapp.databinding.FragmentMoviesBinding
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     private fun collectUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getMovies().collectLatest { movies ->
+                Log.d("tests", "Movie Fragment $movies")
                 adapter?.submitData(movies)
             }
         }
@@ -41,6 +44,4 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
 //            }
 //        }
 //    }
-
-
 }

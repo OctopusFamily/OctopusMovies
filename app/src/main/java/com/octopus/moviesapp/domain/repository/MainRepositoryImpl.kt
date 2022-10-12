@@ -25,10 +25,12 @@ class MainRepositoryImpl @Inject constructor(
     private val genresMapper: GenresMapper,
 ) : MainRepository {
 
-    override fun getMoviesByCategory(
-        moviesCategory: MoviesCategory, page: Int
+    override suspend fun getMoviesByCategory(
+        moviesCategory: MoviesCategory
     ): Flow<PagingData<Movie>> {
-        return Pager(config = PagingConfig(pageSize = 22), pagingSourceFactory = {
+        Log.d("tests","GG")
+        Log.d("tests",apiService.getMoviesByCategory("popular", page = 1).toString())
+        return Pager(config = PagingConfig(pageSize = 20), pagingSourceFactory = {
             MoviesPagingSource(apiService, moviesMapper, moviesCategory.pathName)
         }).flow
     }

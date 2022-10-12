@@ -38,23 +38,24 @@ class MoviesViewModel @Inject constructor(
 
 
     init {
-        getMoviesByCategory(currentMoviesCategory)
+        Log.d("tests","start")
+//        getMoviesByCategory(currentMoviesCategory)
     }
 
-    private fun getMoviesByCategory(category: MoviesCategory) {
-        viewModelScope.launch {
-            wrapResponse {
-                Log.v("tests","start")
-                repository.getMoviesByCategory(category, 1).collectLatest {
-                Log.v("tests","get ${it.toString()}")
-//                    _moviesListState.postValue(it)
-                }
-            }
-        }
-    }
+//    private fun getMoviesByCategory(category: MoviesCategory) {
+//        viewModelScope.launch {
+//            wrapResponse {
+//                Log.d("tests","start")
+//                repository.getMoviesByCategory(category, 1).collectLatest {
+//                Log.d("tests","get ${it.toString()}")
+////                    _moviesListState.postValue(it)
+//                }
+//            }
+//        }
+//    }
 
-    fun getMovies(): Flow<PagingData<Movie>> {
-        return repository.getMoviesByCategory(currentMoviesCategory, 1).map { it ->
+     suspend fun getMovies(): Flow<PagingData<Movie>> {
+        return repository.getMoviesByCategory(currentMoviesCategory).map { it ->
             it
         }.cachedIn(viewModelScope)
     }
@@ -65,13 +66,13 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun onChipClick(moviesCategory: MoviesCategory) {
-        if (moviesCategory != currentMoviesCategory) {
-            getMoviesByCategory(moviesCategory)
-            currentMoviesCategory = moviesCategory
-        }
+//        if (moviesCategory != currentMoviesCategory) {
+////            getMoviesByCategory(moviesCategory)
+//            currentMoviesCategory = moviesCategory
+//        }
     }
 
     fun tryLoadMoviesAgain() {
-        getMoviesByCategory(currentMoviesCategory)
+//        getMoviesByCategory(currentMoviesCategory)
     }
 }

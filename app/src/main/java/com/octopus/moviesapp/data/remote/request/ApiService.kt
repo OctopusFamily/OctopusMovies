@@ -21,7 +21,7 @@ interface ApiService {
     suspend fun getMoviesByCategory(
         @Path("movie_category") moviesCategory: String,
         @Query("page") page: Int,
-    ): Response<MultiItemsResponse<MovieDTO>>
+    ): MultiItemsResponse<MovieDTO>
 
     // TVShows End Point
     @GET("tv/{tv_id}")
