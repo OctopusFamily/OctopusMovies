@@ -79,15 +79,15 @@ fun setReviews(view: TextView, reviews: Int?) {
 @BindingAdapter(value = ["app:seasonStatus"])
 fun seasonStatus(view: TextView, seasonNumber: Int) {
     when (seasonNumber) {
-        1 -> view.text = context.getString(seasonNumber, "Season")
-        else -> view.text = context.getString(seasonNumber, "Seasons")
+        1 -> view.text = context.getString(R.string.season, seasonNumber)
+        else -> view.text = context.getString(R.string.seasons, seasonNumber)
     }
 }
 
 @BindingAdapter(value = ["app:episodeStatus"])
 fun episodeStatus(view: TextView, episodeNumber: Int) {
     when (episodeNumber) {
-        1 -> view.text = context.getString(episodeNumber, "Episode")
-        else -> view.text = context.getString(episodeNumber, "Episodes")
+        1 -> view.text = context.getString(R.string.episode, episodeNumber)
+        else -> view.text = context.getString(R.string.episodes, episodeNumber)
     }
 }
