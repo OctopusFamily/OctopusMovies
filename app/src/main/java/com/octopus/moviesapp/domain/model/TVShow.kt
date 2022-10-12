@@ -8,5 +8,4 @@ data class TVShow(
     val posterImageUrl: String,
     val voteAverage: Float,
     val started: Date,
-
 )
