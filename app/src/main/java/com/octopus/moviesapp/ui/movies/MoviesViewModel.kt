@@ -20,7 +20,6 @@ class MoviesViewModel @Inject constructor(
     private val repository: MainRepository
 ) : BaseViewModel(), MoviesClicksListener {
 
-
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
 

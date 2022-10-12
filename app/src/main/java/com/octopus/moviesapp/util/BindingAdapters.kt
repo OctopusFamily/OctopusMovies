@@ -50,7 +50,11 @@ fun setGenresItem(view: TextView, items: List<Genre>) {
     view.text = items.joinToString(" | ") { itcs ->
         itcs.name
     }
-    Log.d("SSDSDSD", "setGenresItem: ${items.joinToString(" | ") { itcs ->
-        itcs.id.toString()
-    }}")
+    Log.d(
+        "SSDSDSD", "setGenresItem: ${
+            items.joinToString(" | ") { itcs ->
+                itcs.id.toString()
+            }
+        }"
+    )
 }
