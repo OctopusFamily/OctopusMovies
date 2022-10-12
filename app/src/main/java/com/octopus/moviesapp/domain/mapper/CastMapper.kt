@@ -10,7 +10,7 @@ class CastMapper @Inject constructor() : Mapper<List<CastDTO>, List<Cast>> {
             Cast(
                 id = it.id ?: 0,
                 name = it.name ?: "",
-                profile_path = it.profile_path ?: "",
+                profileImageUrl = it.profile_path ?: "",
             )
         }
     }

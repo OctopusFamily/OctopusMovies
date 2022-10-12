@@ -16,7 +16,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     override fun onStart() {
         super.onStart()
-
-        viewModel.getMovieId(args.movieId)
+        viewModel.loadMovieDetails(args.movieId)
     }
 }

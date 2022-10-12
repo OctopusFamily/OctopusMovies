@@ -1,11 +1,11 @@
 package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.data.remote.request.ApiService
-import com.octopus.moviesapp.domain.mapper.GenresMapper
-import com.octopus.moviesapp.domain.mapper.MoviesMapper
-import com.octopus.moviesapp.domain.mapper.TVShowMapper
+import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.data.repository.MainRepositoryImpl
+import com.octopus.moviesapp.domain.mapper.*
+import com.octopus.moviesapp.domain.model.MovieDetails
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,16 @@ object RepositoryModule {
         moviesMapper: MoviesMapper,
         tvShowMapper: TVShowMapper,
         genresMapper: GenresMapper,
+        castMapper: CastMapper,
+        trailerMapper:TrailerMapper,
+        movieDetailsMapper: MovieDetailsMapper,
     ): MainRepository {
-        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper)
+        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper, castMapper, trailerMapper, movieDetailsMapper)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMovieDetailsMapper(genresMapper: GenresMapper): Mapper<MovieDTO, MovieDetails> {
+        return MovieDetailsMapper(genresMapper)
     }
 }

@@ -25,6 +25,16 @@ interface ApiService {
         @Query("page") page: Int,
     ): MultiItemsResponse<MovieDTO>
 
+    @GET("movie/{movieID}/credits")
+    suspend fun getMovieTrailersById(
+        @Path("movieID") movieId: Int,
+    ): MultiItemsResponse<TrailerDTO>
+
+    @GET("movie/{movieID}/videos")
+    suspend fun getMovieCastById(
+        @Path("movieID") movieId: Int,
+    ): MultiItemsResponse<CastDTO>
+
     // TVShows End Points
     @GET("tv/{tv_id}")
     suspend fun getTVShowById(
@@ -42,14 +52,4 @@ interface ApiService {
     suspend fun getGenresByType(
         @Path("genre_type") genresType: String,
     ): GenresResponse
-
-    @GET("movie/{movieID}/credits")
-    suspend fun getMovieTrailersById(
-        @Path("movieID") movieId: Int,
-    ): MultiItemsResponse<TrailerDTO>
-
-    @GET("movie/{movieID}/videos")
-    suspend fun getMovieCastById(
-        @Path("movieID") movieId: Int,
-    ): MultiItemsResponse<CastDTO>
 }
