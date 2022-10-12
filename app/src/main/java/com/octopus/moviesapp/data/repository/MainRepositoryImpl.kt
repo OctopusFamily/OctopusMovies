@@ -1,15 +1,13 @@
 package com.octopus.moviesapp.data.repository
 
 import com.octopus.moviesapp.data.remote.request.ApiService
+import com.octopus.moviesapp.data.remote.response.dto.CastDTO
+import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import com.octopus.moviesapp.domain.enums.GenresType
 import com.octopus.moviesapp.domain.enums.MoviesCategory
 import com.octopus.moviesapp.domain.enums.TVShowsCategory
-import com.octopus.moviesapp.domain.mapper.GenresMapper
-import com.octopus.moviesapp.domain.mapper.MoviesMapper
-import com.octopus.moviesapp.domain.mapper.TVShowMapper
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.mapper.*
+import com.octopus.moviesapp.domain.model.*
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -17,8 +15,12 @@ class MainRepositoryImpl @Inject constructor(
     private val moviesMapper: MoviesMapper,
     private val tvShowMapper: TVShowMapper,
     private val genresMapper: GenresMapper,
+    private val castMapper:CastMapper,
+    private val trailerMapper: TrailerMapper,
+    private val movieDetailsMapper: MovieDetailsMapper,
 ) : MainRepository {
 
+    // Movies Resources
     override suspend fun getMoviesByCategory(
         moviesCategory: MoviesCategory,
         page: Int,
@@ -28,6 +30,19 @@ class MainRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun getMovieDetailsById(movieId: Int): MovieDetails {
+        return movieDetailsMapper.map(apiService.getMovieById(movieId))
+    }
+
+    override suspend fun getMovieTrailerById(movieId: Int): Trailer {
+        return trailerMapper.map(apiService.getMovieTrailersById(movieId).items)
+    }
+
+    override suspend fun getMovieCastById(movieId: Int): List<Cast> {
+        return castMapper.map(apiService.getMovieCastById(movieId).items)
+    }
+
+    // TV Shows Resources
     override suspend fun getTVShowsByCategory(
         tvShowCategory: TVShowsCategory,
         page: Int,
@@ -37,6 +52,7 @@ class MainRepositoryImpl @Inject constructor(
         )
     }
 
+    // Genres Resources
     override suspend fun getGenresByType(
         genresType: GenresType,
     ): List<Genre> {

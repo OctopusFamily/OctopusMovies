@@ -9,12 +9,10 @@ data class MovieDetails(
     val posterImageUrl: String,
     val voteCount: Int,
     val voteAverage: Float,
-    val trailerUrl: String,
     val releaseDate: Date,
     val runtime: Int,
     val originalLanguage: String,
     val tagline: String,
     val overview: String,
     val genres: List<Genre>,
-    val cast: List<Person>,
 )
