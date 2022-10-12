@@ -26,8 +26,8 @@ class MoviesViewModel @Inject constructor(
 
     private var currentMoviesCategory = MoviesCategory.POPULAR
 
-    private val _navigateToMoviesDetails = MutableLiveData<Event<Int?>>()
-    val navigateToMoviesDetails: LiveData<Event<Int?>> = _navigateToMoviesDetails
+    private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
+    val navigateToMovieDetails: LiveData<Event<Int>> = _navigateToMovieDetails
 
     init {
         getMoviesByCategory(currentMoviesCategory)
@@ -42,7 +42,7 @@ class MoviesViewModel @Inject constructor(
     }
 
     override fun onMovieClick(movieId: Int) {
-        _navigateToMoviesDetails.postEvent(movieId)
+        _navigateToMovieDetails.postEvent(movieId)
     }
 
     fun onChipClick(moviesCategory: MoviesCategory) {

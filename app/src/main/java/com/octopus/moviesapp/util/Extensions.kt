@@ -12,11 +12,6 @@ fun String.convertToDate(): Date {
     return formatter.parse(this) ?: Date()
 }
 
-
-fun String.buildUrl(): String {
-    return "https://image.tmdb.org/t/p/w342$this"
-}
-
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
     postValue(Event(content))
 }
@@ -28,6 +23,10 @@ inline fun <T> LiveData<Event<T>>.observeEvent(
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
 }
 
-fun String.buildUrlTrailerYoutube(): String {
-    return Constants.YOUTUBE_URL + this
+fun String.buildImageUrl(): String {
+    return Constants.IMAGE_BASE_URL + this
+}
+
+fun String.buildYouTubeURL(): String {
+    return Constants.YOUTUBE_BASE_URL + this
 }
