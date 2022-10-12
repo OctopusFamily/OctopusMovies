@@ -18,6 +18,7 @@ class MainRepositoryImpl @Inject constructor(
     private val castMapper:CastMapper,
     private val trailerMapper: TrailerMapper,
     private val movieDetailsMapper: MovieDetailsMapper,
+    private val tvShowDetailsMapper: TVShowDetailsMapper,
 ) : MainRepository {
 
     // Movies Resources
@@ -40,6 +41,10 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieCastById(movieId: Int): List<Cast> {
         return castMapper.map(apiService.getMovieCastById(movieId).items)
+    }
+
+    override suspend fun getTVShowDetailsById(tvShowId: Int): TVShowDetails {
+       return tvShowDetailsMapper.map(apiService.getTVShowById(tvShowId))
     }
 
     override suspend fun getTVShowCastById(tvShowId: Int): List<Cast> {
