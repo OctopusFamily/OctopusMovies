@@ -2,8 +2,6 @@ package com.octopus.moviesapp.data.remote.response.dto
 
 import com.google.gson.annotations.SerializedName
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.Person
-import com.octopus.moviesapp.domain.model.Season
 
 data class TVShowDTO(
     @SerializedName("id")
@@ -26,12 +24,10 @@ data class TVShowDTO(
     val numberOfEpisode: Int?,
     @SerializedName("season_number")
     val numberOfSeason: Int?,
-    @SerializedName("languages")
-    val languages: List<String>?,
+    @SerializedName("original_language")
+    val originalLanguage: String?,
     @SerializedName("genres")
     val genres: List<Genre>?,
     @SerializedName("seasons")
-    val season: List<Season>?,
-    @SerializedName("created_by")
-    val createdBy: List<Person>?,
+    val season: List<SeasonDTO>?,
 )
