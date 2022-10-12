@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.movie_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,10 +21,6 @@ class MovieDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
 ) : BaseViewModel() {
 
-    fun loadMovieDetails(movieId: Int) {
-        Log.d("MALT", "ID: $movieId")
-    }
-
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
     val movieDetailsState: LiveData<UiState<MovieDetails>> get() = _movieDetailsState
 
@@ -34,6 +29,59 @@ class MovieDetailsViewModel @Inject constructor(
 
     private val _movieCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
     val movieCastState: LiveData<UiState<List<Cast>>> get() = _movieCastState
+
+    private val _movieDetails = MutableLiveData<MovieDetails>()
+    val movieDetails: LiveData<MovieDetails> get() = _movieDetails
+
+    private val _movieTrailer = MutableLiveData<Trailer>()
+
+    private val _navigateBack = MutableLiveData(Event(false))
+    val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
+
+    private val _playTrailer = MutableLiveData<Event<String>>()
+    val playTrailer: LiveData<Event<String>> get() = _playTrailer
+
+    private val _saveToWatchList = MutableLiveData<Event<Int>>()
+    val saveToWatchList: LiveData<Event<Int>> get() = _saveToWatchList
+
+    private val _rateMovie = MutableLiveData<Event<Int>>()
+    val rateMovie: LiveData<Event<Int>> get() = _rateMovie
+
+    private var movieID = 0
+    fun loadMovieDetails(movieId: Int) {
+        movieID = movieId
+        getMovieDetails(movieId)
+    }
+
+    fun tryLoadMovieDetailsAgain() {
+        loadMovieDetails(movieID)
+    }
+
+    fun onLoadMovieDetailsSuccess(movieDetails: MovieDetails) {
+        _movieDetails.postValue(movieDetails)
+    }
+
+    fun onLoadTrailerSuccess(movieTrailer: Trailer) {
+        _movieTrailer.postValue(movieTrailer)
+    }
+
+    fun onNavigateBackClick() {
+        _navigateBack.postEvent(true)
+    }
+
+    fun onSaveToWatchListClick() {
+        _saveToWatchList.postEvent(0)
+    }
+
+    fun onPlayTrailerClick() {
+        _movieTrailer.value?.let { trailer ->
+            _playTrailer.postEvent(trailer.url)
+        }
+    }
+
+    fun onRateClick() {
+        _rateMovie.postEvent(0)
+    }
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {

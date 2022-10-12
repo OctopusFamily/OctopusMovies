@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.util
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,4 +31,8 @@ fun String.buildImageUrl(): String {
 
 fun String.buildYouTubeURL(): String {
     return Constants.YOUTUBE_BASE_URL + this
+}
+
+fun Context.showShortToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

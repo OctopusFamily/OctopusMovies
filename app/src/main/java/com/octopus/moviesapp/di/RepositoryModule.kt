@@ -29,10 +29,4 @@ object RepositoryModule {
     ): MainRepository {
         return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper, castMapper, trailerMapper, movieDetailsMapper)
     }
-
-    @Singleton
-    @Provides
-    fun provideMovieDetailsMapper(genresMapper: GenresMapper): Mapper<MovieDTO, MovieDetails> {
-        return MovieDetailsMapper(genresMapper)
-    }
 }
