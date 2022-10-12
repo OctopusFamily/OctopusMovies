@@ -8,7 +8,7 @@ data class TVShowDTO(
     val id: Int?,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
-    @SerializedName("backdrop_path")
+    @SerializedName("poster_path")
     val posterImage: String?,
     @SerializedName("first_air_date")
     val started: String?,
@@ -34,5 +34,4 @@ data class TVShowDTO(
     val genres: List<GenreDTO>?,
     @SerializedName("seasons")
     val season: List<SeasonDTO>?,
-    val cast: List<CastDTO>?,
 )
