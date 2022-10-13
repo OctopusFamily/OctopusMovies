@@ -18,10 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_show_details
     override val viewModel: TVShowDetailsViewModel by viewModels()
+    override var bottomNavigationViewVisibility = View.GONE
 
+
+    private val args: TVShowDetailsFragmentArgs by navArgs()
 
     override fun onStart() {
         super.onStart()
+        viewModel.loadTVShowDetails(args.tvShowId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +34,10 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     }
 
     private fun handleEvents() {
-        viewModel.tvShowDetails.observe(viewLifecycleOwner) { uiState ->
+        viewModel.tvShowDetailsState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                viewModel.onLoadTVShowDetailsSuccess(uiState.data)
+            }
         }
         viewModel.rateTvShow.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))

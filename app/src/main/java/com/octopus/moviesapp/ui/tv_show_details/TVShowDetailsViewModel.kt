@@ -61,7 +61,8 @@ class TVShowDetailsViewModel @Inject constructor(
         getTVShowDetails(movieId)
     }
 
-    fun onLoadTVShowDetailsSuccess(movieDetails: MovieDetails) {
+    fun onLoadTVShowDetailsSuccess(tvShowDetails: TVShowDetails) {
+        _tvShowDetails.postValue(tvShowDetails)
     }
 
     fun tryLoadTVShowDetailsAgain() {
@@ -70,7 +71,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private fun getTVShowDetails(tvID: Int) {
         viewModelScope.launch {
-
+            wrapResponse { repository.getTVShowDetailsById(tvID) }.collectLatest {
+                _tvShowDetailsState.postValue(it)
+            }
         }
     }
 
