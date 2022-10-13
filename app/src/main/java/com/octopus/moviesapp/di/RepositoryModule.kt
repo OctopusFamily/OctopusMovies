@@ -26,7 +26,16 @@ object RepositoryModule {
         castMapper: CastMapper,
         trailerMapper:TrailerMapper,
         movieDetailsMapper: MovieDetailsMapper,
+        tvShowDetailsMapper: TVShowDetailsMapper
     ): MainRepository {
-        return MainRepositoryImpl(apiService, moviesMapper, tvShowMapper, genresMapper, castMapper, trailerMapper, movieDetailsMapper)
+        return MainRepositoryImpl(
+            apiService,
+            moviesMapper,
+            tvShowMapper,
+            genresMapper,
+            castMapper,
+            trailerMapper,
+            movieDetailsMapper,
+            tvShowDetailsMapper)
     }
 }
