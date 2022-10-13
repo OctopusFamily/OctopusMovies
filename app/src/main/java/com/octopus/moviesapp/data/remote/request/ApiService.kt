@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.data.remote.request
 
+import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
 import com.octopus.moviesapp.data.remote.response.dto.CastDTO
@@ -33,7 +34,7 @@ interface ApiService {
     @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
         @Path("movieID") movieId: Int,
-    ): MultiItemsResponse<CastDTO>
+    ): CastResponse
 
     // TVShows End Points
     @GET("tv/{tv_id}")

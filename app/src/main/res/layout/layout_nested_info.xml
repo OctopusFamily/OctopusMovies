@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="@dimen/space4x">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genres"
+                android:textColor="@color/on_surface"
+                style="@style/text_style_label_large"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space2x" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/genres_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/space6x"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/space4x"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_tagline"
+                android:textColor="@color/on_surface"
+                style="@style/text_style_label_large"
+                android:layout_marginHorizontal="@dimen/space8x" />
+
+            <TextView
+                android:id="@+id/tagline_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Winter Is Coming"
+                android:textColor="@color/on_surface_variant"
+                style="@style/text_style_body_small"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginTop="@dimen/space2x" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_overview"
+                style="@style/text_style_label_large"
+                android:textColor="@color/on_surface"
+                android:layout_marginTop="@dimen/space8x"
+                android:layout_marginHorizontal="@dimen/space8x" />
+
+            <kr.co.prnd.readmore.ReadMoreTextView
+                android:id="@+id/overview_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_style_body_small"
+                android:textColor="@color/on_surface_variant"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginTop="@dimen/space2x"
+                app:readMoreColor="@color/primary"
+                app:readMoreMaxLine="3"
+                app:readMoreText="@string/read_more"
+                tools:text="@string/text_holder" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

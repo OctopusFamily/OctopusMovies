@@ -3,12 +3,15 @@ package com.octopus.moviesapp.ui.movie_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding
+import com.octopus.moviesapp.domain.sealed.RecyclerViewItem
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.nested.NestedCastListener
+import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.observeEvent
 import com.octopus.moviesapp.util.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,31 +24,71 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 
-    override fun onStart() {
-        super.onStart()
+    private val itemsList = mutableListOf<RecyclerViewItem>()
+    private lateinit var movieDetailsAdapter: MovieDetailsAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.loadMovieDetails(args.movieId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        movieDetailsAdapter = MovieDetailsAdapter(itemsList, viewModel as NestedGenresListener, viewModel as NestedCastListener)
+        handleMovieDetails()
+        handleMovieCast()
         handleEvents()
+        observeTrailerState()
     }
 
     private fun handleEvents() {
-        viewModel.movieDetailsState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadMovieDetailsSuccess(uiState.data)
-            }
-        }
         viewModel.rateMovie.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
-        viewModel.navigateBack.observeEvent(viewLifecycleOwner){
+        viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
              findNavController().popBackStack()
         }
+        viewModel.playTrailer.observeEvent(viewLifecycleOwner) {
+            // Replace this with intent!
+        }
+    }
 
+    private fun handleMovieDetails() {
+        viewModel.movieDetailsState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                viewModel.onLoadMovieDetailsSuccess(uiState.data)
+                if (itemsList.isNotEmpty()) {
+                    itemsList[0] = RecyclerViewItem.MovieDetailsInfoItem(uiState.data)
+                    movieDetailsAdapter.setItems(newList = itemsList)
+                } else {
+                    itemsList.add(RecyclerViewItem.MovieDetailsInfoItem(uiState.data))
+                }
+                binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
+            }
+        }
+    }
+
+    private fun handleMovieCast() {
+        viewModel.movieCastState.observe(viewLifecycleOwner) { castUiState ->
+            if (castUiState is UiState.Success) {
+                if (itemsList.isNotEmpty()) {
+                    itemsList.add(RecyclerViewItem.MovieDetailsCastItem(castUiState.data))
+                    movieDetailsAdapter.setItems(newList = itemsList)
+                } else {
+                    itemsList.add(RecyclerViewItem.MovieDetailsCastItem(castUiState.data))
+                }
+            }
+        }
+    }
+
+    private fun observeTrailerState() {
+        viewModel.movieTrailerState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                viewModel.onLoadTrailerSuccess(uiState.data)
+            }
+        }
     }
 }
