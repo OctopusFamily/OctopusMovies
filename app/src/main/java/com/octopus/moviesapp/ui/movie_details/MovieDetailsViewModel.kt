@@ -35,7 +35,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private val _movieTrailer = MutableLiveData<Trailer>()
 
-    private val _navigateBack = MutableLiveData(Event(false))
+    private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
     private val _playTrailer = MutableLiveData<Event<String>>()

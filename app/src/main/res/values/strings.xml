@@ -47,7 +47,6 @@
     <string name="try_to_load_movie_details_again">Try to load Movie Details again</string>
     <string name="failed_to_load_movie_details">Failed to load Movie Details</string>
     <string name="duration">%1$d Min</string>
-    <string name="reviews">(%1$d reviews)</string>
     <string name="season">(%1$d season)</string>
     <string name="seasons">(%1$d seasons)</string>
     <string name="episode">(%1$d episode)</string>
