@@ -10,6 +10,7 @@ import com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.trailer.TrailerActivity
+import com.octopus.moviesapp.util.Constants.TRAILER_KEY
 import com.octopus.moviesapp.util.observeEvent
 import com.octopus.moviesapp.util.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,10 +44,15 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
-        viewModel.playTrailer.observeEvent(viewLifecycleOwner) {
-            val intent = Intent(requireContext(), TrailerActivity::class.java)
-            intent.putExtra("trailersKey", it)
-            startActivity(intent)
+        viewModel.playTrailer.observeEvent(viewLifecycleOwner) { trailerKey ->
+            sendToTrailerActivity(trailerKey)
+        }
+    }
+
+    private fun sendToTrailerActivity(trailerKey: String) {
+        Intent(requireContext(), TrailerActivity::class.java).run {
+            putExtra(TRAILER_KEY, trailerKey)
+            startActivity(this)
         }
     }
 }

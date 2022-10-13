@@ -11,6 +11,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityTrailerBinding
+import com.octopus.moviesapp.util.Constants.TRAILER_KEY
 
 class TrailerActivity : YouTubeBaseActivity() {
 
@@ -29,7 +30,6 @@ class TrailerActivity : YouTubeBaseActivity() {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
@@ -43,7 +43,7 @@ class TrailerActivity : YouTubeBaseActivity() {
                     provider: YouTubePlayer.Provider,
                     youTubePlayer: YouTubePlayer, b: Boolean
                 ) {
-                    val videoId = intent.extras!!.getString("trailersKey")
+                    val videoId = intent.extras!!.getString(TRAILER_KEY)
                     youTubePlayer.loadVideo(videoId, 0)
                     youTubePlayer.setFullscreen(true)
                     youTubePlayer.play()
