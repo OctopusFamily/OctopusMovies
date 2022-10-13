@@ -187,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/space4x"
                 app:drawableStartCompat="@drawable/ic_date"
+                app:releaseDate="@{viewModel.tvShowDetails.started}"
                 tools:text="2021" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -200,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/space4x"
                 app:drawableStartCompat="@drawable/ic_time"
-                app:releaseDate="@{viewModel.tvShowDetails.started}"
+                android:text="@{viewModel.tvShowDetails.status}"
                 tools:text="Ended" />
 
             <com.google.android.material.divider.MaterialDivider

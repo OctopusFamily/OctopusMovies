@@ -26,6 +26,7 @@ class TVShowDetailsMapper @Inject constructor(
             originalLanguage = input.originalLanguage ?: "",
             tagline = input.tagline ?: "",
             overview = input.overview ?: "",
+            status = input.status ?: "",
             genres = genresMapper.map(Pair(genresList, GenresType.TV)),
             seasons = emptyList(),
         )

@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         style="@style/text_style_body_medium"
         android:layout_marginHorizontal="@dimen/space8x"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/space4x"
         app:readMoreColor="@color/primary"
         app:readMoreMaxLine="3"
-        app:readMoreText="@string/more"
-        android:text="@string/text_holder" />
+        app:readMoreText="@string/read_more"
+        tools:text="@string/text_holder" />
 </androidx.appcompat.widget.LinearLayoutCompat>
