@@ -15,6 +15,7 @@ data class TVShowDetails(
     val originalLanguage: String,
     val tagline: String,
     val overview: String,
+    val status: String,
     val genres: List<Genre>,
     val seasons: List<Season>,
 )
