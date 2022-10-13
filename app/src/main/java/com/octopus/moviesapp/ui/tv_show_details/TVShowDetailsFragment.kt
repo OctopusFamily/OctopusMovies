@@ -18,6 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_show_details
     override val viewModel: TVShowDetailsViewModel by viewModels()
+    override var bottomNavigationViewVisibility = View.GONE
+
 
     private val args: TVShowDetailsFragmentArgs by navArgs()
 
