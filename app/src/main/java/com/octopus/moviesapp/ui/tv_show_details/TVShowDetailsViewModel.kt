@@ -27,7 +27,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
-    private val _navigateBack = MutableLiveData(Event(false))
+
+    private val _navigateBack = MutableLiveData<Event<Boolean>>()
+    val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
     private val _saveToWatchList = MutableLiveData<Event<Int>>()
     val saveToWatchList: LiveData<Event<Int>> get() = _saveToWatchList
@@ -58,7 +60,8 @@ class TVShowDetailsViewModel @Inject constructor(
         getTVShowDetails(movieId)
     }
 
-    fun onLoadTVShowDetailsSuccess(movieDetails: MovieDetails) {
+    fun onLoadTVShowDetailsSuccess(tvShowDetails: TVShowDetails) {
+        _tvShowDetails.postValue(tvShowDetails)
     }
 
     fun tryLoadTVShowDetailsAgain() {
@@ -67,7 +70,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private fun getTVShowDetails(tvID: Int) {
         viewModelScope.launch {
-
+            wrapResponse { repository.getTVShowDetailsById(tvID) }.collectLatest {
+                _tvShowDetailsState.postValue(it)
+            }
         }
     }
 
