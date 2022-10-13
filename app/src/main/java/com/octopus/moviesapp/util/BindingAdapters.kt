@@ -14,9 +14,9 @@ import java.util.*
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
-    imageUrl?.let { url ->
-        Glide.with(imageView).load(url).into(imageView)
-    }
+
+    Glide.with(imageView).load(imageUrl).placeholder(R.drawable.rotate).into(imageView)
+
 }
 
 @BindingAdapter(value = ["app:showWhenStateIsLoading"])

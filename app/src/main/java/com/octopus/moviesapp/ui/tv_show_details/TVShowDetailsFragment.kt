@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.tv_show_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
@@ -36,6 +37,9 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         }
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
+        }
+        viewModel.navigateBack.observeEvent(viewLifecycleOwner){
+            findNavController().popBackStack()
         }
     }
 }
