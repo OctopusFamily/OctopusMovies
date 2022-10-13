@@ -22,6 +22,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
     val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
+
     private val _rateTvShow = MutableLiveData<Event<Int>>()
     val rateTvShow: LiveData<Event<Int>> get() = _rateTvShow
 
