@@ -52,7 +52,7 @@
     <string name="episode">%1$d episode</string>
     <string name="episodes">%1$d episodes</string>
     <string name="coming_soon">Coming soon..</string>
-    <string name="read_more">Read more</string>
+    <string name="read_more">...Read more</string>
     <string name="text_holder">In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused</string>
     <string name="string_seasons">Seasons</string>
 </resources>
