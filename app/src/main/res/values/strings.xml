@@ -58,4 +58,5 @@
     <string name="string_seasons">Seasons</string>
     <string name="season_number">S%1$d</string>
     <string name="no_source_available">No Source Available!</string>
+    <string name="home_screen_not_available">Home screen will be available after we finish all other screens :)</string>
 </resources>

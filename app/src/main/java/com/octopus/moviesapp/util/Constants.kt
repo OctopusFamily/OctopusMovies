@@ -7,4 +7,5 @@ object Constants {
     const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w342"
     const val TRAILER_KEY = "trailersKey"
     const val YOUTUBE = "YouTube"
+    const val SHARED_PREFERENCES_NAME = "octopusMovies"
 }

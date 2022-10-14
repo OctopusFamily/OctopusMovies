@@ -17,17 +17,25 @@
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center_vertical"
             android:paddingHorizontal="@dimen/space8x"
             android:background="@color/surface">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/octopus_movies"
                 android:textColor="@color/primary"
-                style="@style/text_style_headline_small"/>
+                style="@style/text_style_headline_small"
+                android:layout_marginEnd="@dimen/space8x"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                app:tint="@color/primary"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -35,6 +43,18 @@
             android:layout_height="@dimen/space_zero"
             app:layout_constraintTop_toBottomOf="@id/top_app_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_screen_not_available"
+            android:textColor="@color/on_surface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/space8x"
+            android:textAlignment="center"
+            style="@style/text_style_body_medium"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
