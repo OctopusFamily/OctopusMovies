@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/season_imageView"
+        tools:background="@drawable/ic_launcher_background"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:layout_marginHorizontal="@dimen/space6x"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/rounded_image_view" />
+    
+    <TextView
+        android:layout_width="23dp"
+        android:layout_height="26dp"
+        tools:text="S1"
+        android:textColor="@color/on_primary"
+        style="@style/text_style_body_small"
+        app:layout_constraintTop_toTopOf="@id/season_imageView"
+        app:layout_constraintStart_toStartOf="@id/season_imageView"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:paddingVertical="@dimen/space2x"
+        android:background="@drawable/text_bg"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
