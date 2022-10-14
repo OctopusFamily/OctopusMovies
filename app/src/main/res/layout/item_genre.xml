@@ -7,6 +7,9 @@
         <variable
             name="item"
             type="com.octopus.moviesapp.domain.model.Genre" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.genres.GenresClicksListener" />
 
     </data>
 
@@ -14,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="0dp"
+        android:onClick="@{()-> listener.onGenreClick(item)}"
         android:layout_margin="@dimen/space2x"
         app:cardCornerRadius="@dimen/space6x"
         app:cardBackgroundColor="@color/on_primary">

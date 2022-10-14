@@ -18,7 +18,8 @@ interface MainRepository {
     suspend fun getTVShowDetailsById(tvShowId: Int): TVShowDetails
     suspend fun getTVShowCastById(tvShowId: Int): List<Cast>
     suspend fun getTVShowsTrailersById(tvShowId: Int): Trailer
-
+    suspend fun getListOfMoviesByGenresId(genreId: Int): List<Movie>
+    suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow>
     // TV Shows Resources
     suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow>
 
