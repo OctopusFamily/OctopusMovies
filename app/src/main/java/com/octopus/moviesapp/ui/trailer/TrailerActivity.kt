@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -12,8 +11,9 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityTrailerBinding
 import com.octopus.moviesapp.util.Constants.TRAILER_KEY
+import com.octopus.moviesapp.util.showShortToast
 
-class TrailerActivity : YouTubeBaseActivity() {
+class TrailerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
     private var _binding: ActivityTrailerBinding? = null
     private val binding: ActivityTrailerBinding get() = _binding!!
@@ -38,35 +38,30 @@ class TrailerActivity : YouTubeBaseActivity() {
     }
 
     private fun playYoutubeVideo() {
-        binding.youtubePlayerViewHome.initialize(
-            "",
-            object : YouTubePlayer.OnInitializedListener {
-                override fun onInitializationSuccess(
-                    provider: YouTubePlayer.Provider,
-                    youTubePlayer: YouTubePlayer, b: Boolean
-                ) {
-                    val videoId = intent.extras!!.getString(TRAILER_KEY)
-                    youTubePlayer.loadVideo(videoId, 0)
-                    youTubePlayer.setFullscreen(true)
-                    youTubePlayer.play()
-                }
-
-                override fun onInitializationFailure(
-                    provider: YouTubePlayer.Provider,
-                    youTubeInitializationResult: YouTubeInitializationResult
-                ) {
-                    Toast.makeText(
-                        applicationContext,
-                        "Error in playing, please try again",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        )
+        binding.youtubePlayerViewHome.initialize(getString(R.string.google_api_key), this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onInitializationSuccess(
+        p0: YouTubePlayer.Provider?,
+        p1: YouTubePlayer?,
+        p2: Boolean
+    ) {
+        intent.extras?.let { bundle ->
+            p1?.loadVideo(bundle.getString(TRAILER_KEY), 0)
+            p1?.setFullscreen(true)
+            p1?.play()
+        }
+    }
+
+    override fun onInitializationFailure(
+        p0: YouTubePlayer.Provider?,
+        p1: YouTubeInitializationResult?
+    ) {
+        showShortToast("Failed to play the video!")
     }
 }
