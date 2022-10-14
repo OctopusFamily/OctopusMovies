@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.Season" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/season_imageView"
+            tools:background="@drawable/ic_launcher_background"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
+            android:layout_marginHorizontal="@dimen/space2x"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{item.imageUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/rounded_image_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/on_primary"
+            style="@style/text_style_body_medium"
+            app:layout_constraintTop_toTopOf="@id/season_imageView"
+            app:layout_constraintStart_toStartOf="@id/season_imageView"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:paddingTop="@dimen/space1x"
+            android:paddingHorizontal="@dimen/space2x"
+            app:setSeasonNumber="@{item.seasonNumber}"
+            android:background="@drawable/filled_rounded_shape"
+            tools:text="S1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

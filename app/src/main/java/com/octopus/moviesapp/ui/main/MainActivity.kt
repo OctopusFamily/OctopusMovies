@@ -1,20 +1,25 @@
 package com.octopus.moviesapp.ui.main
 
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityMainBinding
-import com.octopus.moviesapp.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : AppCompatActivity() {
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
 
-    override val viewModel: MainViewModel by viewModels()
-
-    override fun getLayoutId(): Int = R.layout.activity_main
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        installSplashScreen()
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -22,4 +27,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 
+    fun setBottomNavigationVisibility(visibility: Int) {
+        binding.bottomNavigationView.visibility= visibility
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

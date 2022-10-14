@@ -9,6 +9,8 @@ import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.nested.NestedCastListener
+import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
-) : BaseViewModel() {
+) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
     val movieDetailsState: LiveData<UiState<MovieDetails>> get() = _movieDetailsState
@@ -35,7 +37,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private val _movieTrailer = MutableLiveData<Trailer>()
 
-    private val _navigateBack = MutableLiveData(Event(false))
+    private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
     private val _playTrailer = MutableLiveData<Event<String>>()
@@ -51,6 +53,8 @@ class MovieDetailsViewModel @Inject constructor(
     fun loadMovieDetails(movieId: Int) {
         movieID = movieId
         getMovieDetails(movieId)
+        getMovieCast(movieId)
+        getMovieTrailer(movieId)
     }
 
     fun tryLoadMovieDetailsAgain() {

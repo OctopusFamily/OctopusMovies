@@ -1,12 +1,11 @@
 package com.octopus.moviesapp.data.remote.request
 
+import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
-import com.octopus.moviesapp.data.remote.response.dto.CastDTO
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -25,21 +24,31 @@ interface ApiService {
         @Query("page") page: Int,
     ): MultiItemsResponse<MovieDTO>
 
-    @GET("movie/{movieID}/credits")
+    @GET("movie/{movieID}/videos")
     suspend fun getMovieTrailersById(
         @Path("movieID") movieId: Int,
     ): MultiItemsResponse<TrailerDTO>
 
-    @GET("movie/{movieID}/videos")
+    @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
         @Path("movieID") movieId: Int,
-    ): MultiItemsResponse<CastDTO>
+    ): CastResponse
 
     // TVShows End Points
     @GET("tv/{tv_id}")
     suspend fun getTVShowById(
         @Path("tv_id") tvShowId: Int
     ): TVShowDTO
+
+    @GET("tv/{tv_id}/credits")
+    suspend fun getTVShowCastById(
+        @Path("tv_id") tvShowId: Int,
+    ): CastResponse
+
+    @GET("tv/{tv_id}/videos")
+    suspend fun getTVShowsTrailersById(
+        @Path("tv_id") tvShowId: Int,
+    ): MultiItemsResponse<TrailerDTO>
 
     @GET("tv/{tv_category}")
     suspend fun getTVShowsByCategory(

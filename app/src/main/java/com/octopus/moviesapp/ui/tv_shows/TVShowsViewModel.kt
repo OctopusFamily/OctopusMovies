@@ -26,8 +26,8 @@ class TVShowsViewModel @Inject constructor(
 
     private var currentTVShowsCategory = TVShowsCategory.POPULAR
 
-    private val _navigateToTVShowDetails = MutableLiveData<Event<Int?>>()
-    val navigateToTVShowDetails: LiveData<Event<Int?>> = _navigateToTVShowDetails
+    private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
+    val navigateToTVShowDetails: LiveData<Event<Int>> = _navigateToTVShowDetails
 
     init {
         getTVShowsByCategory(currentTVShowsCategory)
