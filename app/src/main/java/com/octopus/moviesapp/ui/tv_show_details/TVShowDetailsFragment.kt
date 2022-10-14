@@ -23,7 +23,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_show_details
     override val viewModel: TVShowDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
-    
+
     private val args: TVShowDetailsFragmentArgs by navArgs()
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
@@ -36,7 +36,8 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvShowDetailsAdapter = TVShowDetailsAdapter(itemsList,
+        tvShowDetailsAdapter = TVShowDetailsAdapter(
+            itemsList,
             viewModel as NestedGenresListener,
             viewModel as NestedCastListener,
             viewModel as NestedSeasonsListener,
@@ -44,6 +45,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         handleTVShowDetails()
         handleTVShowCast()
         handleEvents()
+        observeTrailerState()
     }
 
     private fun handleEvents() {
@@ -73,6 +75,14 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.data.seasons))
                 tvShowDetailsAdapter.setItems(itemsList)
                 binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
+            }
+        }
+    }
+
+    private fun observeTrailerState() {
+        viewModel.tvTrailerState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                viewModel.onLoadTrailerSuccess(uiState.data)
             }
         }
     }
