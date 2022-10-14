@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/cover_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="251dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+        tools:src="@drawable/ic_launcher_background"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_arrow"
+        android:background="@drawable/circular_shape"
+        android:elevation="@dimen/space2x"
+        android:padding="@dimen/space4x"
+        android:layout_marginStart="@dimen/space8x"
+        android:layout_marginTop="@dimen/space8x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary"
+        android:contentDescription="@string/navigate_back_icon_description" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        android:background="@drawable/circular_shape"
+        android:elevation="@dimen/space2x"
+        android:padding="@dimen/space4x"
+        android:layout_marginEnd="@dimen/space8x"
+        android:layout_marginTop="@dimen/space8x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primary"
+        android:contentDescription="@string/watch_list_icon_description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/primary"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+        app:icon="@drawable/ic_play"
+        app:iconTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/play_trailer" />
+
+    <TextView
+        android:id="@+id/name_text_view"
+        style="@style/text_style_headline_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space8x"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover_image_view"
+        tools:text="Winter Is Coming"/>
+
+    <LinearLayout
+        android:id="@+id/episode_more_info_linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_text_view"
+        app:layout_constraintStart_toStartOf="@id/name_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/space8x"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_body_medium"
+            android:drawablePadding="@dimen/space4x"
+            app:drawableStartCompat="@drawable/ic_episode_small"
+            tools:text="Episode 1"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/space6x"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_body_medium"
+            android:drawablePadding="@dimen/space4x"
+            app:drawableStartCompat="@drawable/ic_star_small"
+            tools:text="8.7"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/space6x" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_style_body_medium"
+            android:drawablePadding="@dimen/space4x"
+            app:drawableStartCompat="@drawable/ic_date_small"
+            tools:text="2011"/>
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:srcCompat="@drawable/ic_episode"-->
+<!--                android:contentDescription="@string/episode_icon_description" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="@dimen/space4x"-->
+<!--                style="@style/text_style_body_small"-->
+<!--                tools:text="Episode 1"/>-->
+
+<!--            <com.google.android.material.divider.MaterialDivider-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginVertical="@dimen/space1x" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginHorizontal="@dimen/space4x"-->
+<!--            android:gravity="center_vertical">-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:srcCompat="@drawable/ic_star"-->
+<!--                android:contentDescription="@string/rating_star_icon_description" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="@dimen/space4x"-->
+<!--                style="@style/text_style_body_small"-->
+<!--                tools:text="8.7"/>-->
+
+<!--            <com.google.android.material.divider.MaterialDivider-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginVertical="@dimen/space1x" />-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:srcCompat="@drawable/ic_calendar"-->
+<!--                android:contentDescription="@string/episode_air_date_icon_description" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                style="@style/text_style_body_small"-->
+<!--                tools:text="2011-04-17" />-->
+<!--        </LinearLayout>-->
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_main_tv_show_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/episode_more_info_linear_layout"
+        android:layout_marginTop="@dimen/space4x"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

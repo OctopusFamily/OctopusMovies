@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,12 +41,6 @@ object NetworkModule {
             .callTimeout(1, TimeUnit.MINUTES)
             .connectTimeout(1, TimeUnit.MINUTES)
         return builder.build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideMainInterceptor(): MainInterceptor {
-        return MainInterceptor()
     }
 
     @Singleton

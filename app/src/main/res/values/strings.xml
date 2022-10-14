@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Movies App</string>
-    <string name="tv_shows">Tv Shows</string>
+    <string name="tv_shows">TV Shows</string>
     <string name="movies">Movies</string>
     <string name="genres_item_image_description">Genre Item Image</string>
     <string name="watch_list_item_image_description">Watch List Item Image</string>
@@ -14,6 +14,7 @@
     <string name="language_icon_description">Language Icon</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="play_trailer_icon_description">Play Trailer Icon</string>
+    <string name="google_api_key">AIzaSyA0uE_fQx_VmiMsREynV4D7S2Wqw8la0L0</string>
 
     <string name="string_play_trailer">Play Trailer</string>
     <string name="string_rate">Rate</string>
@@ -34,6 +35,27 @@
     <string name="settings">Settings</string>
     <string name="octopus_movies">Octopus Movies</string>
     <string name="search_tv_shows">Search TV Shows</string>
-    <string name="failed_to_load_movies">Failed to load movies</string>
+    <string name="failed_to_load_movies">Failed to load Movies</string>
     <string name="try_load_movies_again">Try Load Movies Again</string>
+    <string name="try_load_tv_show_again">Try load TV Shows again</string>
+    <string name="failed_to_load_tv_shows">Failed to load TV Shows</string>
+    <string name="try_load_genres_again">Try load Genres again</string>
+    <string name="failed_to_load_genres">Failed to load Genres</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="try_to_load_movie_details_again">Try to load Movie Details again</string>
+    <string name="failed_to_load_movie_details">Failed to load Movie Details</string>
+    <string name="duration">%1$d Min</string>
+    <string name="season">%1$d season</string>
+    <string name="seasons">%1$d seasons</string>
+    <string name="episode">%1$d episode</string>
+    <string name="episodes">%1$d episodes</string>
+    <string name="coming_soon">Coming soon..</string>
+    <string name="read_more">…Read more</string>
+    <string name="text_holder">In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused</string>
+    <string name="string_seasons">Seasons</string>
+    <string name="season_number">S%1$d</string>
+    <string name="no_source_available">No Source Available!</string>
 </resources>

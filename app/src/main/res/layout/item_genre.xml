@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.Genre" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.genres.GenresClicksListener" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:onClick="@{()-> listener.onGenreClick(item)}"
+        android:layout_margin="@dimen/space2x"
+        app:cardCornerRadius="@dimen/space6x"
+        app:cardBackgroundColor="@color/on_primary">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:padding="@dimen/space8x">
+
+            <TextView
+                android:id="@+id/text_genre_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                style="@style/text_style_body_large"
+                android:layout_marginVertical="@dimen/space12x"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Action"
+                android:text="@{item.name}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -7,6 +7,9 @@
         <variable
             name="item"
             type="com.octopus.moviesapp.domain.model.Movie" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,12 +22,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> listener.onMovieClick(item.id)}"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/movie_image_description"
                 tools:src="@drawable/ic_launcher_background"
                 app:imageUrl="@{item.posterImageUrl}"/>
@@ -54,7 +58,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:drawableStartCompat="@drawable/ic_small_calendar"
+                    app:drawableStartCompat="@drawable/ic_date_small"
                     android:drawablePadding="@dimen/space2x"
                     style="@style/text_style_body_medium"
                     tools:text="2000"
@@ -64,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:paddingHorizontal="@dimen/space4x"
-                    app:drawableStartCompat="@drawable/ic_small_star"
+                    app:drawableStartCompat="@drawable/ic_star_small"
                     android:drawablePadding="@dimen/space2x"
                     android:textColor="@color/surface"
                     style="@style/text_style_body_medium"

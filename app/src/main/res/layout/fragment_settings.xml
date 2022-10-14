@@ -36,7 +36,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_image"
+                    android:src="@drawable/ic_language"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_next"
+                    android:src="@drawable/ic_forward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_next"
+                    android:src="@drawable/ic_forward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -160,7 +160,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_adult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,10 +170,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="16dp"
-                    android:thumb="@drawable/ic_handle"
-                    android:checked="false"
-                    android:track="@drawable/switch_selector"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:checked="false" />
 
                 <TextView
                     android:id="@+id/label_adult"
