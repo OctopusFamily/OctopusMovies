@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.tv_show_details.TVShowDetailsViewModel" />
@@ -125,7 +124,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/on_surface_variant"
-                    app:seasonStatus="@{viewModel.tvShowDetails.numberOfSeason}"
+                    app:setSeasons="@{viewModel.tvShowDetails.seasonsNumber}"
                     tools:text="8 Seasons" />
 
                 <TextView
@@ -136,7 +135,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/on_surface_variant"
-                    app:episodeStatus="@{viewModel.tvShowDetails.numberOfEpisode}"
+                    app:setEpisodes="@{viewModel.tvShowDetails.episodesNumber}"
                     tools:text="63 Episode" />
             </LinearLayout>
 
@@ -155,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space2x"
-                    android:text="@{String.valueOf(viewModel.tvShowDetails.voteAverage)}"
+                    app:voteAverage="@{viewModel.tvShowDetails.voteAverage}"
                     app:drawableStartCompat="@drawable/ic_star"
                     tools:text="8.7" />
 
@@ -167,8 +166,10 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:lines="1"
+                    app:drawableStartCompat="@drawable/ic_people"
+                    android:drawablePadding="@dimen/space2x"
                     android:text="@{String.valueOf(viewModel.tvShowDetails.voteCount)}"
-                    tools:text="(124 reviews)" />
+                    tools:text="124" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.Material3.Button.ElevatedButton"
