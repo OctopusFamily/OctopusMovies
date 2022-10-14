@@ -139,7 +139,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="@{String.valueOf(viewModel.movieDetails.voteCount)}"
-                    app:drawableStartCompat="@drawable/ic_baseline_people_24"
+                    app:drawableStartCompat="@drawable/ic_people"
                     tools:text="124" />
 
                 <com.google.android.material.button.MaterialButton

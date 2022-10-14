@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.movie_details
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -12,6 +13,9 @@ import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.ui.trailer.TrailerActivity
+import com.octopus.moviesapp.util.Constants.TRAILER_KEY
+import com.octopus.moviesapp.util.navigateToTrailerActivity
 import com.octopus.moviesapp.util.observeEvent
 import com.octopus.moviesapp.util.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,10 +53,14 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
         viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
-             findNavController().popBackStack()
+            findNavController().popBackStack()
         }
-        viewModel.playTrailer.observeEvent(viewLifecycleOwner) {
-            // Replace this with intent!
+        viewModel.playTrailer.observeEvent(viewLifecycleOwner) { trailerKey ->
+            if (trailerKey.isNotEmpty()) {
+                requireContext().navigateToTrailerActivity(trailerKey)
+            } else {
+                requireContext().showShortToast(getString(R.string.no_source_available))
+            }
         }
     }
 
@@ -60,26 +68,18 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.movieDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadMovieDetailsSuccess(uiState.data)
-                if (itemsList.isNotEmpty()) {
-                    itemsList[0] = RecyclerViewItem.MovieInfoItem(uiState.data)
-                    movieDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.MovieInfoItem(uiState.data))
-                }
+                itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.data))
+                movieDetailsAdapter.setItems(itemsList)
                 binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
             }
         }
     }
 
     private fun handleMovieCast() {
-        viewModel.movieCastState.observe(viewLifecycleOwner) { castUiState ->
-            if (castUiState is UiState.Success) {
-                if (itemsList.isNotEmpty()) {
-                    itemsList.add(RecyclerViewItem.CastItem(castUiState.data))
-                    movieDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.CastItem(castUiState.data))
-                }
+        viewModel.movieCastState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                itemsList.add(RecyclerViewItem.CastItem(uiState.data))
+                movieDetailsAdapter.setItems(itemsList)
             }
         }
     }

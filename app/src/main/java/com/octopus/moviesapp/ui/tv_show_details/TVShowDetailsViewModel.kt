@@ -8,6 +8,7 @@ import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
@@ -28,11 +29,16 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
     val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
 
+    private val _tvTrailerState = MutableLiveData<UiState<Trailer>>(UiState.Loading)
+    val tvTrailerState: LiveData<UiState<Trailer>> get() = _tvTrailerState
+
     private val _rateTvShow = MutableLiveData<Event<Int>>()
     val rateTvShow: LiveData<Event<Int>> get() = _rateTvShow
 
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
+
+    private val _tvTrailer = MutableLiveData<Trailer>()
 
     private val _tvShowCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
     val tvShowCastState: LiveData<UiState<List<Cast>>> get() = _tvShowCastState
@@ -50,8 +56,35 @@ class TVShowDetailsViewModel @Inject constructor(
     val tvShowDetails: LiveData<TVShowDetails> get() = _tvShowDetails
 
 
-    fun onPlayTrailerClick() {
 
+
+    private var tvShowID = 0
+    fun loadTVShowDetails(tvShowId: Int) {
+        tvShowID = tvShowId
+        getTVShowDetails(tvShowId)
+        getTVShowCast(tvShowId)
+        getTVTrailer(tvShowId)
+    }
+
+
+
+
+    private fun getTVTrailer(tvShowId: Int) {
+        viewModelScope.launch {
+            wrapResponse { repository.getTVShowsTrailersById(tvShowId) }.collectLatest {
+                _tvTrailerState.postValue(it)
+            }
+        }
+    }
+
+    fun onLoadTrailerSuccess(tvTrailer: Trailer) {
+        _tvTrailer.postValue(tvTrailer)
+    }
+
+    fun onPlayTrailerClick() {
+        _tvTrailer.value?.let { trailer ->
+            _playTrailer.postEvent(trailer.url)
+        }
     }
 
     fun onRateClick() {
@@ -66,12 +99,6 @@ class TVShowDetailsViewModel @Inject constructor(
         _navigateBack.postEvent(true)
     }
 
-    private var tvShowID = 0
-    fun loadTVShowDetails(tvShowId: Int) {
-        tvShowID = tvShowId
-        getTVShowDetails(tvShowId)
-        getTVShowCast(tvShowId)
-    }
 
     fun onLoadTVShowDetailsSuccess(tvShowDetails: TVShowDetails) {
         _tvShowDetails.postValue(tvShowDetails)
@@ -89,11 +116,13 @@ class TVShowDetailsViewModel @Inject constructor(
         }
     }
 
+
+
     private fun getTVShowCast(tvShowId: Int) {
         viewModelScope.launch {
             wrapResponse { repository.getTVShowCastById(tvShowId) }.collectLatest {
                 _tvShowCastState.postValue(it)
-                Log.i("wsh","$it")
+                Log.i("wsh", "$it")
             }
         }
     }

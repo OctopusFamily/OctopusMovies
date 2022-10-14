@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setBottomNavigationVisibility(visibility: Int) {
-        binding.bottomNavigationView.visibility= visibility
+        binding.bottomNavigationView.visibility = visibility
     }
 
     override fun onDestroy() {
