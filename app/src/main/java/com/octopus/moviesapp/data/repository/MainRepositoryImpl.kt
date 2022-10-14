@@ -55,6 +55,13 @@ class MainRepositoryImpl @Inject constructor(
         return trailerMapper.map(apiService.getTVShowsTrailersById(tvShowId).items)
     }
 
+    override suspend fun getListOfMoviesByGenresId(genreId: Int): List<Movie> {
+        return moviesMapper.map(apiService.getListOfMoviesByGenresId(genreId).items)
+    }
+
+    override suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow> {
+        return tvShowMapper.map(apiService.getListOfTvShowsByGenresId(genreId).items)    }
+
     // TV Shows Resources
     override suspend fun getTVShowsByCategory(
         tvShowCategory: TVShowsCategory,

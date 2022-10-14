@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="viewModel"
-        type="com.octopus.moviesapp.ui.movies_genre.MoviesGenreViewModel" />
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.tv_shows_genre.TVShowsGenreViewModel" />
     </data>
 
     <LinearLayout
@@ -26,9 +26,9 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
                 android:contentDescription="@string/navigate_back_icon_description"
                 android:padding="@dimen/space8x"
-                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -53,16 +53,15 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movies_recycler_view"
+            android:id="@+id/tv_show_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            app:showWhenStateIsSuccess="@{viewModel.tvShowGenreState}"
             android:paddingHorizontal="@dimen/space6x"
             android:paddingTop="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:showWhenStateIsSuccess="@{viewModel.movieGenreState}"
-            app:spanCount="2"
-            tools:listitem="@layout/item_movie" />
+            tools:listitem="@layout/item_tv_show" />
 
     </LinearLayout>
 </layout>

@@ -61,4 +61,14 @@ interface ApiService {
     suspend fun getGenresByType(
         @Path("genre_type") genresType: String,
     ): GenresResponse
+
+    @GET("discover/movie")
+    suspend fun getListOfMoviesByGenresId(
+        @Query("with_genres") genreId: Int
+    ): MultiItemsResponse<MovieDTO>
+
+    @GET("discover/tv")
+    suspend fun getListOfTvShowsByGenresId(
+        @Query("with_genres") genreId: Int
+    ): MultiItemsResponse<TVShowDTO>
 }
