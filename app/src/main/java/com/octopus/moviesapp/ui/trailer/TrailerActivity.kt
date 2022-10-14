@@ -15,11 +15,12 @@ import com.octopus.moviesapp.util.Constants.TRAILER_KEY
 
 class TrailerActivity : YouTubeBaseActivity() {
 
-    private lateinit var binding: ActivityTrailerBinding
+    private var _binding: ActivityTrailerBinding? = null
+    private val binding: ActivityTrailerBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_trailer)
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_trailer)
         playYoutubeVideo()
         initializeViews()
     }
@@ -30,6 +31,7 @@ class TrailerActivity : YouTubeBaseActivity() {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
@@ -61,5 +63,10 @@ class TrailerActivity : YouTubeBaseActivity() {
                 }
             }
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
