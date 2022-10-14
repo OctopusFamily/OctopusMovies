@@ -13,6 +13,7 @@ import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
+import com.octopus.moviesapp.util.navigateToTrailerActivity
 import com.octopus.moviesapp.util.observeEvent
 import com.octopus.moviesapp.util.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +55,13 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         }
         viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
             findNavController().popBackStack()
+        }
+        viewModel.playTrailer.observeEvent(viewLifecycleOwner) { trailerKey ->
+            if (trailerKey.isNotEmpty()) {
+                requireContext().navigateToTrailerActivity(trailerKey)
+            } else {
+                requireContext().showShortToast(getString(R.string.no_source_available))
+            }
         }
     }
 
