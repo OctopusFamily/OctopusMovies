@@ -60,26 +60,18 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.movieDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadMovieDetailsSuccess(uiState.data)
-                if (itemsList.isNotEmpty()) {
-                    itemsList[0] = RecyclerViewItem.MovieInfoItem(uiState.data)
-                    movieDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.MovieInfoItem(uiState.data))
-                }
+                itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.data))
+                movieDetailsAdapter.setItems(itemsList)
                 binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
             }
         }
     }
 
     private fun handleMovieCast() {
-        viewModel.movieCastState.observe(viewLifecycleOwner) { castUiState ->
-            if (castUiState is UiState.Success) {
-                if (itemsList.isNotEmpty()) {
-                    itemsList.add(RecyclerViewItem.CastItem(castUiState.data))
-                    movieDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.CastItem(castUiState.data))
-                }
+        viewModel.movieCastState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                itemsList.add(RecyclerViewItem.CastItem(uiState.data))
+                movieDetailsAdapter.setItems(itemsList)
             }
         }
     }

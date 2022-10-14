@@ -7,30 +7,29 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.sealed.UiState
 import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
-
-    Glide.with(imageView).load(imageUrl).placeholder(R.drawable.rotate).into(imageView)
-
+    imageUrl?.let { url ->
+        Glide.with(imageView).load(url).placeholder(R.drawable.rotate).error(R.drawable.ic_octopus_movies_logo).into(imageView)
+    }
 }
 
 @BindingAdapter(value = ["app:showWhenStateIsLoading"])
-fun <T> showIfRequestStateIsLoading(view: View, uiState: UiState<T>) {
+fun <T> showWhenUiStateIsLoading(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Loading
 }
 
 @BindingAdapter(value = ["app:showWhenStateIsSuccess"])
-fun <T> showWhenStateIsSuccess(view: View, uiState: UiState<T>) {
+fun <T> showWhenUiStateIsSuccess(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Success
 }
 
 @BindingAdapter(value = ["app:showWhenStateIsError"])
-fun <T> showWhenStateIsError(view: View, uiState: UiState<T>) {
+fun <T> showWhenUiStateIsError(view: View, uiState: UiState<T>) {
     view.isVisible = uiState is UiState.Error
 }
 
@@ -49,13 +48,6 @@ fun setVoteAverage(view: TextView, rating: Float?) {
     }
 }
 
-@BindingAdapter(value = ["app:setGenresItem"])
-fun setGenresItem(view: TextView, items: List<Genre>) {
-    view.text = items.joinToString(" | ") { itcs ->
-        itcs.name
-    }
-}
-
 @BindingAdapter(value = ["app:setRuntime"])
 fun setRuntime(view: TextView, duration: Int?) {
     duration?.let {
@@ -63,25 +55,29 @@ fun setRuntime(view: TextView, duration: Int?) {
     }
 }
 
-@BindingAdapter(value = ["app:setReviews"])
-fun setReviews(view: TextView, reviews: Int?) {
-    reviews?.let {
-        view.text = it.toString()
+@BindingAdapter(value = ["app:setSeasons"])
+fun setSeasons(view: TextView, seasonsNumber: Int?) {
+    seasonsNumber?.let {
+        when (it) {
+            1 -> view.text = view.context.getString(R.string.season, it)
+            else -> view.text = view.context.getString(R.string.seasons, it)
+        }
     }
 }
 
-@BindingAdapter(value = ["app:seasonStatus"])
-fun seasonStatus(view: TextView, seasonNumber: Int) {
-    when (seasonNumber) {
-        1 -> view.text = view.context.getString(R.string.season, seasonNumber)
-        else -> view.text = view.context.getString(R.string.seasons, seasonNumber)
+@BindingAdapter(value = ["app:setEpisodes"])
+fun setEpisodes(view: TextView, episodesNumber: Int?) {
+    episodesNumber?.let {
+        when (it) {
+            1 -> view.text = view.context.getString(R.string.episode, it)
+            else -> view.text = view.context.getString(R.string.episodes, it)
+        }
     }
 }
 
-@BindingAdapter(value = ["app:episodeStatus"])
-fun episodeStatus(view: TextView, episodeNumber: Int) {
-    when (episodeNumber) {
-        1 -> view.text = view.context.getString(R.string.episode, episodeNumber)
-        else -> view.text = view.context.getString(R.string.episodes, episodeNumber)
+@BindingAdapter(value = ["app:setSeasonNumber"])
+fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
+    seasonNumber?.let {
+        view.text = view.context.getString(R.string.season_number, it)
     }
 }

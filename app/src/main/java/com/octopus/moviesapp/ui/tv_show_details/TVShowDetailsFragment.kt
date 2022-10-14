@@ -22,15 +22,14 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_show_details
     override val viewModel: TVShowDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
-
-
+    
     private val args: TVShowDetailsFragmentArgs by navArgs()
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var tvShowDetailsAdapter: TVShowDetailsAdapter
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.loadTVShowDetails(args.tvShowId)
     }
 
@@ -39,18 +38,14 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         tvShowDetailsAdapter = TVShowDetailsAdapter(itemsList,
             viewModel as NestedGenresListener,
             viewModel as NestedCastListener,
-            viewModel as NestedSeasonsListener)
+            viewModel as NestedSeasonsListener,
+        )
         handleTVShowDetails()
         handleTVShowCast()
         handleEvents()
     }
 
     private fun handleEvents() {
-        viewModel.tvShowDetailsState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadTVShowDetailsSuccess(uiState.data)
-            }
-        }
         viewModel.rateTvShow.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
@@ -66,29 +61,19 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         viewModel.tvShowDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadTVShowDetailsSuccess(uiState.data)
-                if (itemsList.isNotEmpty()) {
-                    itemsList[0] = RecyclerViewItem.TVShowInfoItem(uiState.data)
-                    itemsList[2] = RecyclerViewItem.SeasonItem(uiState.data.seasons)
-
-                    tvShowDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.TVShowInfoItem(uiState.data))
-                    itemsList.add(RecyclerViewItem.SeasonItem(uiState.data.seasons))
-                }
+                itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.data))
+                itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.data.seasons))
+                tvShowDetailsAdapter.setItems(itemsList)
                 binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
             }
         }
     }
 
     private fun handleTVShowCast() {
-        viewModel.tvShowCastState.observe(viewLifecycleOwner) { castUiState ->
-            if (castUiState is UiState.Success) {
-                if (itemsList.isNotEmpty()) {
-                    itemsList[1] = RecyclerViewItem.CastItem(castUiState.data)
-                    tvShowDetailsAdapter.setItems(newList = itemsList)
-                } else {
-                    itemsList.add(RecyclerViewItem.CastItem(castUiState.data))
-                }
+        viewModel.tvShowCastState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                itemsList.add(RecyclerViewItem.CastItem(uiState.data))
+                tvShowDetailsAdapter.setItems(itemsList)
             }
         }
     }

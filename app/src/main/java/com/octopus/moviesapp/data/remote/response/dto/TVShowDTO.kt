@@ -24,14 +24,14 @@ data class TVShowDTO(
     val voteAverage: Float?,
     @SerializedName("vote_count")
     val voteCount: Int?,
-    @SerializedName("episode_count")
-    val numberOfEpisode: Int?,
-    @SerializedName("season_number")
-    val numberOfSeason: Int?,
+    @SerializedName("number_of_episodes")
+    val episodesNumber: Int?,
+    @SerializedName("number_of_seasons")
+    val seasonsNumber: Int?,
     @SerializedName("original_language")
     val originalLanguage: String?,
     @SerializedName("genres")
     val genres: List<GenreDTO>?,
     @SerializedName("seasons")
-    val season: List<SeasonDTO>?,
+    val seasons: List<SeasonDTO>?,
 )
