@@ -45,7 +45,7 @@ interface ApiService {
     @GET("tv/{tv_id}/credits")
     suspend fun getTVShowCastById(
         @Path("tv_id") tvShowId: Int,
-    ): MultiItemsResponse<CastDTO>
+    ): CastResponse
 
     @GET("tv/{tv_id}/videos")
     suspend fun getTVShowsTrailersById(

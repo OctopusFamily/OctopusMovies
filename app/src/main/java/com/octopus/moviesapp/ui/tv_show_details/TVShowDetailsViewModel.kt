@@ -1,13 +1,18 @@
 package com.octopus.moviesapp.ui.tv_show_details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.MainRepository
-import com.octopus.moviesapp.domain.model.MovieDetails
+import com.octopus.moviesapp.domain.model.Cast
+import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.nested.NestedCastListener
+import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
-) : BaseViewModel() {
+) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
     val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
@@ -28,6 +33,12 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
+
+    private val _tvShowCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
+    val tvShowCastState: LiveData<UiState<List<Cast>>> get() = _tvShowCastState
+
+    private val _tvShowSeasonsState = MutableLiveData<UiState<List<Season>>>(UiState.Loading)
+    val tvShowSeasonsState: LiveData<UiState<List<Season>>> get() = _tvShowSeasonsState
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
@@ -56,9 +67,10 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     private var tvShowID = 0
-    fun loadTVShowDetails(movieId: Int) {
-        tvShowID = movieId
-        getTVShowDetails(movieId)
+    fun loadTVShowDetails(tvShowId: Int) {
+        tvShowID = tvShowId
+        getTVShowDetails(tvShowId)
+        getTVShowCast(tvShowId)
     }
 
     fun onLoadTVShowDetailsSuccess(tvShowDetails: TVShowDetails) {
@@ -77,4 +89,12 @@ class TVShowDetailsViewModel @Inject constructor(
         }
     }
 
+    private fun getTVShowCast(tvShowId: Int) {
+        viewModelScope.launch {
+            wrapResponse { repository.getTVShowCastById(tvShowId) }.collectLatest {
+                _tvShowCastState.postValue(it)
+                Log.i("wsh","$it")
+            }
+        }
+    }
 }

@@ -48,7 +48,7 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getTVShowCastById(tvShowId: Int): List<Cast> {
-        return castMapper.map(apiService.getTVShowCastById(tvShowId).items)
+        return castMapper.map(apiService.getTVShowCastById(tvShowId).itemsList)
     }
 
     override suspend fun getTVShowsTrailersById(tvShowId: Int): Trailer {
