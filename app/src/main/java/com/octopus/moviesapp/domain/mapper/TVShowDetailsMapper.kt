@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.mapper
 
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.domain.enums.GenresType
+import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.convertToDate

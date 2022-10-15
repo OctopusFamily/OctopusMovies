@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.ui.base
 
 import androidx.lifecycle.ViewModel
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

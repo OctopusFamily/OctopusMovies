@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.movie_details
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,13 +7,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding
-import com.octopus.moviesapp.domain.sealed.RecyclerViewItem
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.RecyclerViewItem
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.ui.trailer.TrailerActivity
-import com.octopus.moviesapp.util.Constants.TRAILER_KEY
 import com.octopus.moviesapp.util.navigateToTrailerActivity
 import com.octopus.moviesapp.util.observeEvent
 import com.octopus.moviesapp.util.showShortToast

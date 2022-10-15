@@ -3,15 +3,15 @@ package com.octopus.moviesapp.ui.movie_details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.MainRepository
+import com.octopus.moviesapp.data.repository.MoviesRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val moviesRepository: MoviesRepository,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
@@ -89,7 +89,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getMovieDetailsById(movieId) }.collectLatest {
+            wrapResponse { moviesRepository.getMovieDetailsById(movieId) }.collectLatest {
                 _movieDetailsState.postValue(it)
             }
         }
@@ -97,7 +97,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieTrailer(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getMovieTrailerById(movieId) }.collectLatest {
+            wrapResponse { moviesRepository.getMovieTrailerById(movieId) }.collectLatest {
                 _movieTrailerState.postValue(it)
             }
         }
@@ -105,7 +105,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieCast(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getMovieCastById(movieId) }.collectLatest {
+            wrapResponse { moviesRepository.getMovieCastById(movieId) }.collectLatest {
                 _movieCastState.postValue(it)
             }
         }

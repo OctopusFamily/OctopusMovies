@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.model
 
 import android.os.Parcelable
-import com.octopus.moviesapp.domain.enums.GenresType
+import com.octopus.moviesapp.domain.types.GenresType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

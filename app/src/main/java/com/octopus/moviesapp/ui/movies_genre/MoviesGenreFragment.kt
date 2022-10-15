@@ -8,10 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMoviesGenreBinding
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.genres.GenresFragmentDirections
 import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 

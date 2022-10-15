@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.sealed
+package com.octopus.moviesapp.util
 
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.MovieDetails

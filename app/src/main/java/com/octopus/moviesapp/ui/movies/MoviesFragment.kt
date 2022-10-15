@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMoviesBinding
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint

@@ -7,11 +7,10 @@ import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentGenresBinding
-import com.octopus.moviesapp.domain.enums.GenresType
+import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movies.MoviesFragmentDirections
 import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 

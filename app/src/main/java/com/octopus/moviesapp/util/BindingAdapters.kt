@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.sealed.UiState
 import java.text.SimpleDateFormat
 import java.util.*
 
