@@ -11,6 +11,9 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.local.DataStorePreferences
 import com.octopus.moviesapp.databinding.ActivityMainBinding
+import com.octopus.moviesapp.util.SettingsService
+import com.octopus.moviesapp.util.SettingsService.updateAppTheme
+import com.octopus.moviesapp.util.SettingsService.updateBaseContextLocale
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,9 +24,14 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private val settingsService = SettingsService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        settingsService.run {
+            updateAppTheme()
+            updateBaseContextLocale(this@MainActivity)
+        }
         installSplashScreen()
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }

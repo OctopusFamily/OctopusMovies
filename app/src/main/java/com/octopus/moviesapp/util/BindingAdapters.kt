@@ -2,11 +2,14 @@ package com.octopus.moviesapp.util
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.domain.enums.Language
+import com.octopus.moviesapp.domain.enums.Theme
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -78,5 +81,45 @@ fun setEpisodes(view: TextView, episodesNumber: Int?) {
 fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
     seasonNumber?.let {
         view.text = view.context.getString(R.string.season_number, it)
+    }
+}
+
+@BindingAdapter(value = ["app:currentLanguage"])
+fun setCurrentLanguage(textView: TextView, currentLanguage: Language?) {
+    currentLanguage?.let { language ->
+        when (language) {
+            Language.ENGLISH -> textView.text = "English"
+            Language.ARABIC -> textView.text = "Arabic"
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:chosenLanguage"])
+fun setchosenLanguage(radioGroup: RadioGroup, currentLanguage: Language?) {
+    currentLanguage?.let { language ->
+        when (language) {
+            Language.ENGLISH -> radioGroup.check(R.id.english_language_radio_button)
+            Language.ARABIC -> radioGroup.check(R.id.arabic_language_radio_button)
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:currentTheme"])
+fun setCurrentTheme(textView: TextView, currentTheme: Theme?) {
+    currentTheme?.let { theme ->
+        when (theme) {
+            Theme.LIGHT -> textView.text = "Light"
+            Theme.DARK -> textView.text = "Dark"
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:chosenTheme"])
+fun setchosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
+    currentTheme?.let { theme ->
+        when (theme) {
+            Theme.LIGHT -> radioGroup.check(R.id.light_theme_radio_button)
+            Theme.DARK -> radioGroup.check(R.id.dark_theme_radio_button)
+        }
     }
 }
