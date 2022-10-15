@@ -1,42 +1,33 @@
 package com.octopus.moviesapp.di
 
-import com.octopus.moviesapp.data.remote.request.ApiService
-import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.data.repository.MainRepository
-import com.octopus.moviesapp.data.repository.MainRepositoryImpl
+import com.octopus.moviesapp.data.repository.*
 import com.octopus.moviesapp.domain.mapper.*
-import com.octopus.moviesapp.domain.model.MovieDetails
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object RepositoryModule {
+@InstallIn(ViewModelComponent::class)
+abstract class RepositoryModule {
 
-    @Singleton
-    @Provides
-    fun provideRepository(
-        apiService: ApiService,
-        moviesMapper: MoviesMapper,
-        tvShowMapper: TVShowMapper,
-        genresMapper: GenresMapper,
-        castMapper: CastMapper,
-        trailerMapper:TrailerMapper,
-        movieDetailsMapper: MovieDetailsMapper,
-        tvShowDetailsMapper: TVShowDetailsMapper
-    ): MainRepository {
-        return MainRepositoryImpl(
-            apiService,
-            moviesMapper,
-            tvShowMapper,
-            genresMapper,
-            castMapper,
-            trailerMapper,
-            movieDetailsMapper,
-            tvShowDetailsMapper,
-        )
-    }
+    @ViewModelScoped
+    @Binds
+    abstract fun provideMoviesRepository(
+        moviesRepositoryImpl: MoviesRepositoryImpl,
+    ): MoviesRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun provideTVShowsRepository(
+        tvShowsRepositoryImpl: TVShowsRepositoryImpl,
+    ): TVShowsRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun provideGenresRepository(
+        genresRepositoryImpl: GenresRepositoryImpl,
+    ): GenresRepository
 }

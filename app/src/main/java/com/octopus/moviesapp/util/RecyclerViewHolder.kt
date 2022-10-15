@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.sealed
+package com.octopus.moviesapp.util
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

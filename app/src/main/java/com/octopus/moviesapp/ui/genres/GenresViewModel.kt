@@ -1,15 +1,14 @@
 package com.octopus.moviesapp.ui.genres
 
-import android.util.Log
-import com.octopus.moviesapp.domain.enums.GenresType
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.data.repository.GenresRepository
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.data.repository.MainRepository
+import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenresViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val genresRepository: GenresRepository,
 ) : BaseViewModel(), GenresClicksListener {
 
     private val _genresListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
@@ -41,7 +40,6 @@ class GenresViewModel @Inject constructor(
         when (genre.type) {
             GenresType.MOVIE -> {
                 _navigateToGenreMovie.postEvent(genre)
-                Log.i("asia","movieType")
             }
             GenresType.TV -> {
                 _navigateToGenreTVShow.postEvent(genre)
@@ -60,7 +58,7 @@ class GenresViewModel @Inject constructor(
 
     private fun getGenresByList(currentGenresType: GenresType) {
         viewModelScope.launch {
-            wrapResponse { repository.getGenresByType(currentGenresType) }.collectLatest {
+            wrapResponse { genresRepository.getGenresByType(currentGenresType) }.collectLatest {
                 _genresListState.postValue(it)
             }
         }

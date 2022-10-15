@@ -1,13 +1,12 @@
 package com.octopus.moviesapp.di
 
-import com.octopus.moviesapp.data.remote.request.ApiService
-import com.octopus.moviesapp.data.remote.request.MainInterceptor
+import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
 import com.octopus.moviesapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,24 +19,18 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(
-        okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
-    ): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
-        return retrofit.create(ApiService::class.java)
+    fun provideTMDBApiService(
+        retrofit: Retrofit,
+    ): TMDBApiService {
+        return retrofit.create(TMDBApiService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(mainInterceptor: MainInterceptor): OkHttpClient {
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val builder = OkHttpClient()
             .newBuilder()
-            .addInterceptor(mainInterceptor)
+            .addInterceptor(authInterceptor)
             .callTimeout(1, TimeUnit.MINUTES)
             .connectTimeout(1, TimeUnit.MINUTES)
         return builder.build()
@@ -47,6 +40,19 @@ object NetworkModule {
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
     }
 }
 

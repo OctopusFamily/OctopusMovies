@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.sealed
+package com.octopus.moviesapp.util
 
 sealed class UiState<out T> {
     data class Success<T>(val data: T) : UiState<T>()

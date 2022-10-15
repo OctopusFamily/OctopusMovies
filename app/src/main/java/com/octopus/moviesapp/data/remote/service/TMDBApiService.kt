@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.remote.request
+package com.octopus.moviesapp.data.remote.service
 
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ApiService {
+interface TMDBApiService {
 
     // Movies End Points
     @GET("movie/{movie_id}")
@@ -56,19 +56,19 @@ interface ApiService {
         @Query("page") page: Int,
     ): MultiItemsResponse<TVShowDTO>
 
-    // GenresType End Points
+    // Genres End Points
     @GET("genre/{genre_type}/list")
     suspend fun getGenresByType(
         @Path("genre_type") genresType: String,
     ): GenresResponse
 
     @GET("discover/movie")
-    suspend fun getListOfMoviesByGenresId(
+    suspend fun getMoviesByGenresId(
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<MovieDTO>
 
     @GET("discover/tv")
-    suspend fun getListOfTvShowsByGenresId(
+    suspend fun getTVShowsByGenresId(
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
 }

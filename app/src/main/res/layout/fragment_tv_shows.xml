@@ -13,7 +13,7 @@
             type="com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener" />
         <variable
             name="tvShowCategory"
-            type="com.octopus.moviesapp.domain.enums.TVShowsCategory" />
+            type="com.octopus.moviesapp.domain.types.TVShowsCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

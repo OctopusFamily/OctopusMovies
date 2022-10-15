@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.MainRepository
+import com.octopus.moviesapp.data.repository.TVShowsRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
-    private val repository: MainRepository,
+    private val tvShowsRepository: TVShowsRepository,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
@@ -71,7 +71,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private fun getTVTrailer(tvShowId: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getTVShowsTrailersById(tvShowId) }.collectLatest {
+            wrapResponse { tvShowsRepository.getTVShowsTrailersById(tvShowId) }.collectLatest {
                 _tvTrailerState.postValue(it)
             }
         }
@@ -110,7 +110,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private fun getTVShowDetails(tvID: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getTVShowDetailsById(tvID) }.collectLatest {
+            wrapResponse { tvShowsRepository.getTVShowDetailsById(tvID) }.collectLatest {
                 _tvShowDetailsState.postValue(it)
             }
         }
@@ -120,7 +120,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private fun getTVShowCast(tvShowId: Int) {
         viewModelScope.launch {
-            wrapResponse { repository.getTVShowCastById(tvShowId) }.collectLatest {
+            wrapResponse { tvShowsRepository.getTVShowCastById(tvShowId) }.collectLatest {
                 _tvShowCastState.postValue(it)
                 Log.i("wsh", "$it")
             }

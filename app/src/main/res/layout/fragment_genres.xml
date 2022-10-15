@@ -14,7 +14,7 @@
 
         <variable
             name="genresType"
-            type="com.octopus.moviesapp.domain.enums.GenresType" />
+            type="com.octopus.moviesapp.domain.types.GenresType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

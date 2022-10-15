@@ -3,10 +3,10 @@ package com.octopus.moviesapp.ui.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.enums.MoviesCategory
+import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.data.repository.MainRepository
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.data.repository.MoviesRepository
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.postEvent
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val moviesRepository: MoviesRepository,
 ) : BaseViewModel(), MoviesClicksListener {
 
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
@@ -34,7 +34,7 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMoviesByCategory(category: MoviesCategory) {
         viewModelScope.launch {
-            wrapResponse { repository.getMoviesByCategory(category, 1) }.collectLatest {
+            wrapResponse { moviesRepository.getMoviesByCategory(category, 1) }.collectLatest {
                 _moviesListState.postValue(it)
             }
         }

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.enums.RecyclerViewItemType
-import com.octopus.moviesapp.domain.sealed.RecyclerViewHolder
-import com.octopus.moviesapp.domain.sealed.RecyclerViewItem
+import com.octopus.moviesapp.domain.types.RecyclerViewItemType
+import com.octopus.moviesapp.util.RecyclerViewHolder
+import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 

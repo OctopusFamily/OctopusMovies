@@ -14,7 +14,7 @@
 
         <variable
             name="moviesCategory"
-            type="com.octopus.moviesapp.domain.enums.MoviesCategory" />
+            type="com.octopus.moviesapp.domain.types.MoviesCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

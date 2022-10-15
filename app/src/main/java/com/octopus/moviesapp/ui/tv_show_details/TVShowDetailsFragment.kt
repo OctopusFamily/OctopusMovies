@@ -7,8 +7,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
-import com.octopus.moviesapp.domain.sealed.RecyclerViewItem
-import com.octopus.moviesapp.domain.sealed.UiState
+import com.octopus.moviesapp.util.RecyclerViewItem
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
