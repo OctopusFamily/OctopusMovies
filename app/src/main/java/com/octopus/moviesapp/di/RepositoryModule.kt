@@ -36,6 +36,7 @@ object RepositoryModule {
             castMapper,
             trailerMapper,
             movieDetailsMapper,
-            tvShowDetailsMapper)
+            tvShowDetailsMapper,
+        )
     }
 }
