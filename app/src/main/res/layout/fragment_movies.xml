@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.movies.MoviesViewModel" />
@@ -32,44 +33,47 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.chip.ChipGroup
+                style="@style/Widget.Material3.Chip.Suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
                 app:selectionRequired="true"
-                style="@style/Widget.Material3.Chip.Suggestion">
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/popular"
-                    app:chipStrokeColor="@android:color/transparent"
-                    style="@style/ChipStyle"
                     android:onClick="@{()->viewModel.onChipClick(moviesCategory.POPULAR)}"
-                    android:checked="true" />
+                    android:text="@string/popular"
+                    app:checked="@{viewModel.currentMoviesCategory.pathName}"
+                    app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"
                     android:text="@string/now_playing"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"/>
+                    app:checked="@{viewModel.currentMoviesCategory.pathName}"
+                    app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"
                     android:text="@string/upcoming"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"/>
+                    app:checked="@{viewModel.currentMoviesCategory.pathName}"
+                    app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/ChipStyle"
+                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"
                     android:text="@string/top_rated"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"/>
+                    app:checked="@{viewModel.currentMoviesCategory.pathName}"
+                    app:chipStrokeColor="@android:color/transparent" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
@@ -77,35 +81,35 @@
             android:id="@+id/movies_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingTop="@dimen/space2x"
+            android:orientation="vertical"
             android:paddingHorizontal="@dimen/space6x"
+            android:paddingTop="@dimen/space2x"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
             app:showWhenStateIsSuccess="@{viewModel.moviesListState}"
             app:spanCount="2"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_movie" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.moviesListState}"
-            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsLoading="@{viewModel.moviesListState}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space8x"
             android:gravity="center"
             android:orientation="vertical"
-            app:showWhenStateIsError="@{viewModel.moviesListState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="@dimen/space8x"
+            app:showWhenStateIsError="@{viewModel.moviesListState}"
             tools:ignore="UseCompoundDrawables">
 
             <TextView
@@ -120,11 +124,11 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:textColor="@color/primary"
                 android:contentDescription="@string/try_load_movies_again"
                 android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"
                 android:src="@drawable/ic_refresh"
-                app:tint="@color/on_background"/>
+                android:textColor="@color/primary"
+                app:tint="@color/on_background" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

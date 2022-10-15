@@ -6,7 +6,10 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabItem
 import com.octopus.moviesapp.R
+import kotlinx.android.synthetic.main.item_watch_list.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -80,3 +83,18 @@ fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
         view.text = view.context.getString(R.string.season_number, it)
     }
 }
+
+@BindingAdapter(value = ["app:checked"])
+fun checked(view: Chip, pathName: String?) {
+    pathName?.replace("_", " ")?.let {
+        view.isChecked = view.text.toString().lowercase() == it
+    }
+}
+
+/**for testing  **/
+//@BindingAdapter(value = ["app:selected"])
+//fun selected(view: TabItem?, pathName: String?) {
+//    pathName?.replace("_", " ")?.let {
+//        view?.isSelected = view?.text.toString().lowercase() == it
+//    }
+//}

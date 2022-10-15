@@ -48,6 +48,7 @@
                 android:id="@+id/tv_shows_tab_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="@string/tv_shows" />
         </com.google.android.material.tabs.TabLayout>
 

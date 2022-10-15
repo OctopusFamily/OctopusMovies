@@ -23,7 +23,7 @@ class TVShowsViewModel @Inject constructor(
     private val _tvShowsListState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val tvShowsListState: LiveData<UiState<List<TVShow>>> get() = _tvShowsListState
 
-    private var currentTVShowsCategory = TVShowsCategory.POPULAR
+     var currentTVShowsCategory = TVShowsCategory.POPULAR
 
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
     val navigateToTVShowDetails: LiveData<Event<Int>> = _navigateToTVShowDetails

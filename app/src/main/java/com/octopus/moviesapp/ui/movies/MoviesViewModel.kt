@@ -23,10 +23,14 @@ class MoviesViewModel @Inject constructor(
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val moviesListState: LiveData<UiState<List<Movie>>> get() = _moviesListState
 
-    private var currentMoviesCategory = MoviesCategory.POPULAR
+    var currentMoviesCategory = MoviesCategory.POPULAR
 
     private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
     val navigateToMovieDetails: LiveData<Event<Int>> = _navigateToMovieDetails
+
+    companion object GetCurrentMoviesCategory {
+        fun callMe() = println("I'm called.")
+    }
 
     init {
         getMoviesByCategory(currentMoviesCategory)

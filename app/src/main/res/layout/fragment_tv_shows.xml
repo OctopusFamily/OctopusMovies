@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.tv_shows.TVShowsViewModel" />
@@ -11,6 +12,7 @@
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener" />
+
         <variable
             name="tvShowCategory"
             type="com.octopus.moviesapp.domain.types.TVShowsCategory" />
@@ -35,40 +37,43 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:selectionRequired="true">
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.POPULAR)}"
                     android:text="@string/popular"
-                    app:chipStrokeColor="@android:color/transparent"
-                    style="@style/ChipStyle"
-                    android:checked="true" />
+                    app:checked="@{viewModel.currentTVShowsCategory.pathName}"
+                    app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.ON_THE_AIR)}"
                     android:text="@string/on_the_air"
-                    style="@style/ChipStyle"
+                    app:checked="@{viewModel.currentTVShowsCategory.pathName}"
                     app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.AIRING_TODAY)}"
                     android:text="@string/airing_today"
-                    style="@style/ChipStyle"
+                    app:checked="@{viewModel.currentTVShowsCategory.pathName}"
                     app:chipStrokeColor="@android:color/transparent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/ChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.onChipClick(tvShowCategory.TOP_RATED)}"
                     android:text="@string/top_rated"
-                    style="@style/ChipStyle"
+                    app:checked="@{viewModel.currentTVShowsCategory.pathName}"
                     app:chipStrokeColor="@android:color/transparent" />
 
             </com.google.android.material.chip.ChipGroup>

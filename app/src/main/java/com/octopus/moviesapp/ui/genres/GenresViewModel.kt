@@ -29,10 +29,9 @@ class GenresViewModel @Inject constructor(
     private val _navigateToGenreTVShow = MutableLiveData<Event<Genre>>()
     val navigateToGenreTVShow: LiveData<Event<Genre>> get() = _navigateToGenreTVShow
 
-    private var currentGenresType = GenresType.MOVIE
+    var currentGenresType = GenresType.MOVIE
 
     init {
-        currentGenresType
        getGenresByList(currentGenresType)
     }
 
