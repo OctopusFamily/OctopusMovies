@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.util
 
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -81,6 +82,29 @@ fun setEpisodes(view: TextView, episodesNumber: Int?) {
 fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
     seasonNumber?.let {
         view.text = view.context.getString(R.string.season_number, it)
+    }
+}
+
+@BindingAdapter(value = ["app:showIfTrue"])
+fun showIfTrue(view: View, condition: Boolean) {
+    view.isVisible = condition
+}
+
+@BindingAdapter(value = ["app:showPasswordIfTrue"])
+fun showPasswordIfTrue(editText: EditText, condition: Boolean) {
+    if (condition) {
+        editText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+    } else {
+        editText.transformationMethod = PasswordTransformationMethod.getInstance()
+    }
+}
+
+@BindingAdapter(value = ["app:changePasswordIcon"])
+fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
+    if (condition) {
+        imageView.setImageResource(R.drawable.ic_eye_off)
+    } else {
+        imageView.setImageResource(R.drawable.ic_eye)
     }
 }
 
