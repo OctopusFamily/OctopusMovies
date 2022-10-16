@@ -46,6 +46,9 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_moviesGenreFragment"
+            app:destination="@id/moviesGenreFragment" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
@@ -54,6 +57,9 @@
         <argument
             android:name="tvShowId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_TVShowDetailsFragment_to_TVShowsGenreFragment"
+            app:destination="@id/TVShowsGenreFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesGenreFragment"
