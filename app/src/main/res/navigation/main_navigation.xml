@@ -38,7 +38,11 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.octopus.moviesapp.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.octopus.moviesapp.ui.movie_details.MovieDetailsFragment"
@@ -78,4 +82,8 @@
             android:name="genre"
             app:argType="com.octopus.moviesapp.domain.model.Genre" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.octopus.moviesapp.ui.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>
