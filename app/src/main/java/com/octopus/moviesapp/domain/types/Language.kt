@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.enums
+package com.octopus.moviesapp.domain.types
 
 
 enum class Language(val languageCode: String) {

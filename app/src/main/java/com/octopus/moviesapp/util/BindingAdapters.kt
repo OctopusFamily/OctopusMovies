@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.util
 
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -9,8 +11,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.enums.Language
-import com.octopus.moviesapp.domain.enums.Theme
+import com.octopus.moviesapp.domain.types.Language
+import com.octopus.moviesapp.domain.types.Theme
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -112,14 +114,14 @@ fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
 fun setCurrentLanguage(textView: TextView, currentLanguage: Language?) {
     currentLanguage?.let { language ->
         when (language) {
-            Language.ENGLISH -> textView.text = "English"
-            Language.ARABIC -> textView.text = "Arabic"
+            Language.ENGLISH -> textView.text = textView.context.getString(R.string.english)
+            Language.ARABIC -> textView.text = textView.context.getString(R.string.arabic)
         }
     }
 }
 
 @BindingAdapter(value = ["app:chosenLanguage"])
-fun setchosenLanguage(radioGroup: RadioGroup, currentLanguage: Language?) {
+fun setChosenLanguage(radioGroup: RadioGroup, currentLanguage: Language?) {
     currentLanguage?.let { language ->
         when (language) {
             Language.ENGLISH -> radioGroup.check(R.id.english_language_radio_button)
@@ -132,14 +134,14 @@ fun setchosenLanguage(radioGroup: RadioGroup, currentLanguage: Language?) {
 fun setCurrentTheme(textView: TextView, currentTheme: Theme?) {
     currentTheme?.let { theme ->
         when (theme) {
-            Theme.LIGHT -> textView.text = "Light"
-            Theme.DARK -> textView.text = "Dark"
+            Theme.LIGHT -> textView.text = textView.context.getString(R.string.light)
+            Theme.DARK -> textView.text = textView.context.getString(R.string.dark)
         }
     }
 }
 
 @BindingAdapter(value = ["app:chosenTheme"])
-fun setchosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
+fun setChosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
     currentTheme?.let { theme ->
         when (theme) {
             Theme.LIGHT -> radioGroup.check(R.id.light_theme_radio_button)

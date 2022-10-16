@@ -1,57 +1,48 @@
 package com.octopus.moviesapp.util
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import com.octopus.moviesapp.domain.enums.Language
-import com.octopus.moviesapp.domain.enums.Theme
+import androidx.core.os.LocaleListCompat
+import com.octopus.moviesapp.domain.types.Language
+import com.octopus.moviesapp.domain.types.Theme
 import java.util.*
 
 object SettingsService {
-    var firstTimeLaunch = true
-    var currentLanguage: Language = Language.ENGLISH
-
-    fun updateBaseContextLocale(context: Context): Context {
-        val locale = Locale(currentLanguage.languageCode)
-        Locale.setDefault(locale)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) updateResourcesLocale(context, locale)
-        return updateResourcesLocaleLegacy(context, locale)
+    fun updateAppLanguage(newLanguage: Language) {
+        val localeList = LocaleListCompat.create(Locale(newLanguage.languageCode))
+        AppCompatDelegate.setApplicationLocales(localeList)
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun updateResourcesLocale(
-        context: Context,
-        locale: Locale
-    ): Context {
-        val configuration: Configuration = context.resources.configuration
-        configuration.setLocale(locale)
-        return context.createConfigurationContext(configuration)
+    fun getCurrentLanguage(): Language {
+        val languageCode = AppCompatDelegate.getApplicationLocales()[Constants.FIRST_INDEX]?.language ?: Locale.getDefault().language
+        return Language.fromLanguageCode(languageCode)
     }
 
-    @Suppress("DEPRECATION")
-    private fun updateResourcesLocaleLegacy(
-        context: Context,
-        locale: Locale
-    ): Context {
-        val resources: Resources = context.resources
-        val configuration: Configuration = resources.configuration
-        configuration.locale = locale
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-        return context
-    }
-
-    var currentTheme: Theme = Theme.LIGHT
-    fun updateAppTheme() {
-        when (currentTheme) {
+    fun updateAppTheme(newTheme: Theme) {
+        when (newTheme) {
             Theme.LIGHT -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             Theme.DARK -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
+        }
+    }
+
+    fun getCurrentAppTheme(context: Context): Theme {
+        return when (AppCompatDelegate.getDefaultNightMode()) {
+            AppCompatDelegate.MODE_NIGHT_NO -> Theme.LIGHT
+            AppCompatDelegate.MODE_NIGHT_YES -> Theme.DARK
+            else -> getCurrentAppThemeBelowAPI13(context)
+        }
+    }
+
+    private fun getCurrentAppThemeBelowAPI13(context: Context): Theme {
+        return when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> Theme.LIGHT
+            Configuration.UI_MODE_NIGHT_YES -> Theme.DARK
+            else -> Theme.LIGHT
         }
     }
 }
