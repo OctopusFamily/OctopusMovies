@@ -32,5 +32,6 @@
 
     <color name="out_line">#72777F</color>
     <color name="yellow">#FFB800</color>
+    <color name="blue">#2196F3</color>
 
 </resources>

@@ -22,4 +22,9 @@ sealed class RecyclerViewItem {
         val seasonsList: List<Season>
     ): RecyclerViewItem()
 
+    data class ImageSliderItem(
+        val title: String,
+        val imagesUrls: List<String>
+    ): RecyclerViewItem()
+
 }

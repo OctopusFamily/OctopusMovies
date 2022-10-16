@@ -23,7 +23,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/space_zero">
+            app:cardElevation="@dimen/space_zero"
+            android:onClick="@{()->viewModel.onLanguageChoiceClick()}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -55,7 +56,8 @@
                     android:id="@+id/text_language_chosen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English"
+                    tools:text="English"
+                    app:currentLanguage="@{viewModel.currentLanguage}"
                     android:textColor="#C2000000"
                     style="@style/text_style_body_small"
                     app:layout_constraintStart_toStartOf="@+id/label_language"
@@ -83,7 +85,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="@dimen/space_zero">
+            app:cardElevation="@dimen/space_zero"
+            android:onClick="@{()->viewModel.onThemeChoiceClick()}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -115,7 +118,8 @@
                     android:id="@+id/text_theme_chosen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="light"
+                    tools:text="light"
+                    app:currentTheme="@{viewModel.currentLTheme}"
                     android:textColor="#C2000000"
                     style="@style/text_style_body_small"
                     app:layout_constraintStart_toStartOf="@+id/label_theme"
