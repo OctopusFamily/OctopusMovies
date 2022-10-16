@@ -7,12 +7,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
- interface NetworkStatedf {
-     fun state(): LiveData<Boolean>
-
-}
-
-class NetworkState(context: Context) : ConnectivityManager.NetworkCallback(),NetworkStatedf {
+class NetworkState(context: Context) : ConnectivityManager.NetworkCallback(){
 
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -21,9 +16,9 @@ class NetworkState(context: Context) : ConnectivityManager.NetworkCallback(),Net
     private val _state: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val state: MutableLiveData<Boolean> get() = _state
 
-//    init {
-//        listenerNetworkState()
-//    }
+    init {
+        listenerNetworkState()
+    }
 
     private fun listenerNetworkState() {
 
@@ -60,11 +55,6 @@ class NetworkState(context: Context) : ConnectivityManager.NetworkCallback(),Net
         super.onLost(network)
         Log.v("testss", "NetworkStateImpl onLost ")
         noConnection()
-    }
-
-    override fun state(): LiveData<Boolean> {
-        listenerNetworkState()
-        return _state
     }
 
 }

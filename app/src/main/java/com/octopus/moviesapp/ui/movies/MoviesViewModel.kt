@@ -37,7 +37,7 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMoviesData() {
 
-        networkState.state().observeForever {
+        networkState.state.observeForever {
             if (it) {
                 getMoviesByCategory(currentMoviesCategory)
             } else {
