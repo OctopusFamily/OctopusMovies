@@ -59,4 +59,24 @@
     <string name="season_number">S%1$d</string>
     <string name="no_source_available">No Source Available!</string>
     <string name="home_screen_not_available">Home screen will be available after we finish all other screens :)</string>
+    <string name="login">Login</string>
+    <string name="skip">Skip</string>
+    <string name="register">Register</string>
+    <string name="do_not_have_an_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="toggle_password_visibility">Toggle Password Visibility</string>
+
+    <string name="username_is_empty_error">Username can\'t be empty!</string>
+    <string name="username_length_error">Username must be 3 ~ 30 characters length!</string>
+    <string name="username_is_digits_only_error">Username must contain 1 letter at least!</string>
+    <string name="username_has_whitespace_error">Username can\'t contain any whitespaces!</string>
+
+    <string name="password_is_empty_error">Password can\'t be empty!</string>
+    <string name="password_length_error">Password must be 8 ~ 16 characters length!</string>
+    <string name="password_has_whitespace_error">Password can\'t contain any whitespaces!</string>
+    <string name="password_is_digits_only_error">Password must contain 1 letter at least!</string>
+    <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
+    <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
 </resources>
