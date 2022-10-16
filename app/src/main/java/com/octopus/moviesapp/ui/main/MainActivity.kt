@@ -1,21 +1,15 @@
 package com.octopus.moviesapp.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.data.local.DataStorePref
-import com.octopus.moviesapp.data.local.DataStorePreferences
 import com.octopus.moviesapp.databinding.ActivityMainBinding
+import com.octopus.moviesapp.util.SettingsService
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

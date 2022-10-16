@@ -29,7 +29,8 @@
             android:layout_marginTop="@dimen/space4x"
             android:paddingHorizontal="@dimen/space8x"
             android:scrollbars="none"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:clipToPadding="false">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
