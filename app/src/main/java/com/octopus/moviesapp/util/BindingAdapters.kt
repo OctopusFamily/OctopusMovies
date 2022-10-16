@@ -5,11 +5,14 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.domain.types.Language
+import com.octopus.moviesapp.domain.types.Theme
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -104,5 +107,45 @@ fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
         imageView.setImageResource(R.drawable.ic_eye_off)
     } else {
         imageView.setImageResource(R.drawable.ic_eye)
+    }
+}
+
+@BindingAdapter(value = ["app:currentLanguage"])
+fun setCurrentLanguage(textView: TextView, currentLanguage: Language?) {
+    currentLanguage?.let { language ->
+        when (language) {
+            Language.ENGLISH -> textView.text = textView.context.getString(R.string.english)
+            Language.ARABIC -> textView.text = textView.context.getString(R.string.arabic)
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:chosenLanguage"])
+fun setChosenLanguage(radioGroup: RadioGroup, currentLanguage: Language?) {
+    currentLanguage?.let { language ->
+        when (language) {
+            Language.ENGLISH -> radioGroup.check(R.id.english_language_radio_button)
+            Language.ARABIC -> radioGroup.check(R.id.arabic_language_radio_button)
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:currentTheme"])
+fun setCurrentTheme(textView: TextView, currentTheme: Theme?) {
+    currentTheme?.let { theme ->
+        when (theme) {
+            Theme.LIGHT -> textView.text = textView.context.getString(R.string.light)
+            Theme.DARK -> textView.text = textView.context.getString(R.string.dark)
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:chosenTheme"])
+fun setChosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
+    currentTheme?.let { theme ->
+        when (theme) {
+            Theme.LIGHT -> radioGroup.check(R.id.light_theme_radio_button)
+            Theme.DARK -> radioGroup.check(R.id.dark_theme_radio_button)
+        }
     }
 }

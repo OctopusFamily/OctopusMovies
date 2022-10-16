@@ -8,4 +8,5 @@ object Constants {
     const val TRAILER_KEY = "trailersKey"
     const val YOUTUBE = "YouTube"
     const val SHARED_PREFERENCES_NAME = "octopusMovies"
+    const val FIRST_INDEX = 0
 }
