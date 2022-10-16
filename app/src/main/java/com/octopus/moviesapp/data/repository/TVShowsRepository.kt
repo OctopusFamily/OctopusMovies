@@ -11,4 +11,5 @@ interface TVShowsRepository {
     suspend fun getTVShowCastById(tvShowId: Int): List<Cast>
     suspend fun getTVShowsTrailersById(tvShowId: Int): Trailer
     suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow>
+    suspend fun getSearchTVShow(tvShowName: String): List<TVShow>
 }

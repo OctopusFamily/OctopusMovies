@@ -35,6 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_search"
+                android:padding="@dimen/space4x"
+                android:onClick="@{()-> viewModel.onClickSearch()}"
                 app:tint="@color/primary"/>
         </LinearLayout>
 

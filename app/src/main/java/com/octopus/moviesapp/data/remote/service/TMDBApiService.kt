@@ -4,6 +4,7 @@ import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
+import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import retrofit2.http.GET
@@ -71,4 +72,20 @@ interface TMDBApiService {
     suspend fun getTVShowsByGenresId(
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
+
+    // Search End Points
+    @GET("search/movie")
+    suspend fun getSearchMovie(
+        @Query("query") movieName: String
+    ): MultiItemsResponse<MovieDTO>
+
+    @GET("search/tv")
+    suspend fun getSearchTVShow(
+        @Query("query") tvShowName: String
+    ): MultiItemsResponse<TVShowDTO>
+
+    @GET("search/person")
+    suspend fun getSearchPerson(
+        @Query("query") personName: String
+    ): MultiItemsResponse<PersonDTO>
 }
