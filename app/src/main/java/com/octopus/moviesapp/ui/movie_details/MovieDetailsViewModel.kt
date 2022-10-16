@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.movie_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.model.Cast
@@ -12,7 +13,7 @@ import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.NetworkStateImpl
+import com.octopus.moviesapp.util.NetworkState
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
-    private val NetworkStateImpl: NetworkStateImpl
+    private val networkState: NetworkState
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
@@ -54,21 +55,28 @@ class MovieDetailsViewModel @Inject constructor(
     private var movieID = 0
     fun loadMovieDetails(movieId: Int) {
         movieID = movieId
-        getMovieDetails(movieId)
-        getMovieCast(movieId)
-        getMovieTrailer(movieId)
+        networkState.state.observeForever {
+            if (it) {
+                getMovieDetailsData()
+            } else {
+                _movieDetailsState.postValue(UiState.Error())
+            }
+        }
+//        Transformations.map(
+//            networkState.state
+//        ) {
+//
+//        }
+    }
+
+    private fun getMovieDetailsData() {
+        getMovieDetails(movieID)
+        getMovieCast(movieID)
+        getMovieTrailer(movieID)
     }
 
     fun tryLoadMovieDetailsAgain() {
-        viewModelScope.launch {
-            NetworkStateImpl.state().collect {
-                if (it) {
-                    loadMovieDetails(movieID)
-                } else {
-                    _movieDetailsState.postValue(UiState.Error())
-                }
-            }
-        }
+        loadMovieDetails(movieID)
     }
 
     fun onLoadMovieDetailsSuccess(movieDetails: MovieDetails) {

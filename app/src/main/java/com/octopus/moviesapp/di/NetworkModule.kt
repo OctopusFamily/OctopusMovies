@@ -1,11 +1,15 @@
 package com.octopus.moviesapp.di
 
+import android.content.Context
 import com.octopus.moviesapp.data.remote.request.ApiService
 import com.octopus.moviesapp.data.remote.request.MainInterceptor
 import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.util.NetworkState
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -48,6 +52,10 @@ object NetworkModule {
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+
+    @Provides
+    fun bindNetworkState(@ApplicationContext context: Context): NetworkState =
+        NetworkState(context)
 }
 
 

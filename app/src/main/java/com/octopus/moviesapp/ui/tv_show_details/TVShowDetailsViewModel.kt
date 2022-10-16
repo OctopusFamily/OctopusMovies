@@ -15,7 +15,7 @@ import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.NetworkStateImpl
+import com.octopus.moviesapp.util.NetworkState
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -25,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
     private val repository: MainRepository,
-    private val NetworkStateImpl: NetworkStateImpl
+    private val NetworkState: NetworkState
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
@@ -107,16 +107,7 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     fun tryLoadTVShowDetailsAgain() {
-
-        viewModelScope.launch {
-            NetworkStateImpl.state().collect {
-                if (it) {
-                    loadTVShowDetails(tvShowID)
-                } else {
-                    _tvTrailerState.postValue(UiState.Error())
-                }
-            }
-        }
+        loadTVShowDetails(tvShowID)
     }
 
     private fun getTVShowDetails(tvID: Int) {

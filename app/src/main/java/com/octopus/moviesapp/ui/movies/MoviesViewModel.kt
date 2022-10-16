@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.MainRepository
 import com.octopus.moviesapp.domain.enums.MoviesCategory
@@ -9,7 +10,7 @@ import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.sealed.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.NetworkStateImpl
+import com.octopus.moviesapp.util.NetworkState
 import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val repository: MainRepository,
-    private val NetworkStateImpl: NetworkStateImpl
+    private val networkState: NetworkState
 ) : BaseViewModel(), MoviesClicksListener {
 
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
@@ -31,7 +32,19 @@ class MoviesViewModel @Inject constructor(
     val navigateToMovieDetails: LiveData<Event<Int>> = _navigateToMovieDetails
 
     init {
-        getMoviesByCategory(currentMoviesCategory)
+        getMoviesData()
+    }
+
+    private fun getMoviesData() {
+
+        networkState.state().observeForever {
+            if (it) {
+                getMoviesByCategory(currentMoviesCategory)
+            } else {
+                _moviesListState.postValue(UiState.Error())
+            }
+        }
+
     }
 
     private fun getMoviesByCategory(category: MoviesCategory) {
@@ -54,14 +67,6 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun tryLoadMoviesAgain() {
-        viewModelScope.launch {
-            NetworkStateImpl.state().collect {
-                if (it) {
-                    getMoviesByCategory(currentMoviesCategory)
-                } else {
-                    _moviesListState.postValue(UiState.Error())
-                }
-            }
-        }
+        getMoviesData()
     }
 }
