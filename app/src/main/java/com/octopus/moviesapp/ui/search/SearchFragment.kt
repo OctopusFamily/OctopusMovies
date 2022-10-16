@@ -6,8 +6,6 @@ import androidx.fragment.app.viewModels
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movies.MoviesAdapter
-import com.octopus.moviesapp.ui.tv_shows.TVShowsAdapter
 import com.octopus.moviesapp.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,27 +23,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun handleEvents() {
 
-        when (viewModel.isMovieChipChecked.value) {
-            true -> {
-                viewModel.searchMovieState.observe(viewLifecycleOwner) { state ->
-                    if (state is UiState.Success)
-                        binding.searchRecyclerView.adapter = MoviesAdapter(state.data, viewModel)
-                }
-            }
-            else -> {
 
-                viewModel.searchTVShowState.observe(viewLifecycleOwner){ state ->
-                    if (state is UiState.Success)
-                        binding.searchRecyclerView.adapter = TVShowsAdapter(state.data, viewModel)
-                }
-
-            }
+        viewModel.searchResult.observe(viewLifecycleOwner) { state ->
+            if (state is UiState.Success)
+                binding.searchRecyclerView.adapter = SearchAdapter(state.data, viewModel)
         }
-
-
     }
 
 
-
-
 }
+
+
+
+

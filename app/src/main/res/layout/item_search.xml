@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Movie" />
+            type="com.octopus.moviesapp.domain.model.SearchResult" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />

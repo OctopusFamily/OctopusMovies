@@ -7,6 +7,7 @@ import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.data.remote.response.dto.search.SearchDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -88,4 +89,10 @@ interface TMDBApiService {
     suspend fun getSearchPerson(
         @Query("query") personName: String
     ): MultiItemsResponse<PersonDTO>
+
+    @GET("search/multi")
+    suspend fun getSearchMultiMedia(
+        @Query("query") query: String
+    ): MultiItemsResponse<SearchDTO>
+
 }

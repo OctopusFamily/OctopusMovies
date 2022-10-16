@@ -45,7 +45,7 @@
             android:minHeight="50dp"
             android:padding="@dimen/space4x"
             android:singleLine="true"
-            android:text="@={viewModel.searchResult}"
+            android:text="@={viewModel.searchQuery}"
             android:textColor="@color/primary"
             android:textColorHint="@color/surface_variant"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -69,7 +69,7 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.getSearchMovie()}"
+                android:onClick="@{()->viewModel.filterByMovie()}"
                 android:checked="true"
 
                 android:text="@string/movies"
@@ -79,7 +79,7 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.getSearchTVShow()}"
+                android:onClick="@{()->viewModel.filterByTv()}"
                 android:text="@string/tv_shows"
                 app:chipStrokeColor="@android:color/transparent" />
 
