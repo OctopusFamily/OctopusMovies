@@ -58,4 +58,8 @@
     <string name="string_seasons">Seasons</string>
     <string name="season_number">S%1$d</string>
     <string name="no_source_available">No Source Available!</string>
+    <string name="try_again">Try Again</string>
+    <string name="oops">Oops!</string>
+    <string name="there_is_no_internet_connection">There is no internet connection</string>
+    <string name="retry">Retry</string>
 </resources>

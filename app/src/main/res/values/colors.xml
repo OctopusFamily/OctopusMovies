@@ -33,4 +33,6 @@
     <color name="out_line">#72777F</color>
     <color name="yellow">#FFB800</color>
 
+    <color name="font_primary_color">#1a1c1e</color>
+
 </resources>
