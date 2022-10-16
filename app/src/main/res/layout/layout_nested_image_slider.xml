@@ -12,7 +12,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:margin_horizontal="@dimens/space_8x"
+            android:layout_marginHorizontal="@dimen/space8x"
             android:text="Movies"/>
 
         <com.denzcoskun.imageslider.ImageSlider

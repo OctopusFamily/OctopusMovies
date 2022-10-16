@@ -49,7 +49,7 @@ fun setReleaseDate(view: TextView, date: Date?) {
 @BindingAdapter(value = ["app:voteAverage"])
 fun setVoteAverage(view: TextView, rating: Float?) {
     rating?.let {
-        view.text = String.format("%.1f", it).toDouble().toString()
+        view.text = String.format(Locale.ENGLISH,"%.1f", it).toDouble().toString()
     }
 }
 
