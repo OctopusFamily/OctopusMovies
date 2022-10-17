@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.TVShowsRepository
-import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.domain.model.Season
-import com.octopus.moviesapp.domain.model.TVShowDetails
-import com.octopus.moviesapp.domain.model.Trailer
+import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
@@ -54,6 +51,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private val _tvShowDetails = MutableLiveData<TVShowDetails>()
     val tvShowDetails: LiveData<TVShowDetails> get() = _tvShowDetails
+
+    private val _navigateToTVShowsGenre = MutableLiveData<Event<Genre>>()
+    val navigateToTVShowsGenre: LiveData<Event<Genre>> get() = _navigateToTVShowsGenre
 
 
 
@@ -125,5 +125,9 @@ class TVShowDetailsViewModel @Inject constructor(
                 Log.i("wsh", "$it")
             }
         }
+    }
+
+    override fun onGenreClick(genre: Genre) {
+        _navigateToTVShowsGenre.postEvent(genre)
     }
 }
