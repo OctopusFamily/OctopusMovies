@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -34,17 +35,10 @@ class SearchViewModel @Inject constructor(
         getSearchMultiMedia()
         when (_isMovieChipChecked.value) {
             true -> {
-                val searchResultValue = _searchResult.value
-
-                if (searchResultValue is UiState.Success) {
-                    _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "movie" }))
-                }
+             filterByMovie()
             }
             else -> {
-                val searchResultValue = _searchResult.value
-                if (searchResultValue is UiState.Success) {
-                    _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "tv" }))
-                }
+            filterByTv()
             }
         }
     }
@@ -57,12 +51,27 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun filterByTv() {
+
+   fun onChipMovieSelected(){
+       _isMovieChipChecked.postValue(true)
+    }
+
+    fun onChipTVSelected(){
         _isMovieChipChecked.postValue(false)
+    }
+    fun filterByTv() {
+        val searchResultValue = _searchResult.value
+        if (searchResultValue is UiState.Success) {
+            _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "tv" }))
+        }
     }
 
     fun filterByMovie() {
-        _isMovieChipChecked.postValue(true)
+        val searchResultValue = _searchResult.value
+
+        if (searchResultValue is UiState.Success) {
+            _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "movie" }))
+        }
     }
 
     override fun onMovieClick(movieId: Int) {

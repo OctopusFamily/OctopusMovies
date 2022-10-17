@@ -69,9 +69,8 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.filterByMovie()}"
                 android:checked="true"
-
+                android:onClick="@{()->viewModel.onChipMovieSelected()}"
                 android:text="@string/movies"
                 app:chipStrokeColor="@android:color/transparent" />
 
@@ -79,7 +78,7 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.filterByTv()}"
+                android:onClick="@{()->viewModel.onChipTVSelected()}"
                 android:text="@string/tv_shows"
                 app:chipStrokeColor="@android:color/transparent" />
 
@@ -87,6 +86,7 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="Actors"
                 app:chipStrokeColor="@android:color/transparent" />
         </com.google.android.material.chip.ChipGroup>
