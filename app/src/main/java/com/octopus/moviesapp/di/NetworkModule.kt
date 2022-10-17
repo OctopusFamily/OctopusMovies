@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.di
 
+import com.google.gson.Gson
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
 import com.octopus.moviesapp.util.Constants
@@ -53,6 +54,12 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 }
 

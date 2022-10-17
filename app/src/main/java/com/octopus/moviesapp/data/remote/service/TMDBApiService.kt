@@ -6,9 +6,10 @@ import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
+import com.octopus.moviesapp.data.remote.response.login.SessionResponse
+import retrofit2.Response
+import retrofit2.http.*
 
 interface TMDBApiService {
 
@@ -71,4 +72,16 @@ interface TMDBApiService {
     suspend fun getTVShowsByGenresId(
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
+
+    @GET("authentication/token/new")
+    suspend fun getRequestToken(): Response<RequestTokenResponse>
+
+    @JvmSuppressWildcards
+    @FormUrlEncoded
+    @POST("authentication/token/validate_with_login")
+    suspend fun validateRequestTokenWithLogin(@FieldMap body: Map<String, Any>): Response<RequestTokenResponse>
+
+    @FormUrlEncoded
+    @POST("authentication/session/new")
+    suspend fun createSession(@Field("request_token") requestToken: String): Response<SessionResponse>
 }

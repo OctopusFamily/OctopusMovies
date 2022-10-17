@@ -8,4 +8,10 @@ object Constants {
     const val TRAILER_KEY = "trailersKey"
     const val YOUTUBE = "YouTube"
     const val SHARED_PREFERENCES_NAME = "octopusMovies"
+    const val TMDB_SIGNUP_URL="https://www.themoviedb.org/signup"
+
+}
+
+object DataStorePreferencesKeys{
+    const val SESSION_ID_KEY = "session_id"
 }

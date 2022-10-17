@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="ViewModel"
+            type="com.octopus.moviesapp.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +59,7 @@
                     android:paddingHorizontal="16dp"
                     android:drawablePadding="16dp"
                     android:autofillHints=""
+                    android:text="@={ViewModel.userName}"
                     android:inputType="textEmailAddress"
                     style="@style/text_style_body_large"
                     android:background="@drawable/filled_light_rounded_shape"/>
@@ -89,6 +92,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:autofillHints=""
+                        android:text="@={ViewModel.password}"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="16dp"
@@ -139,6 +143,7 @@
             android:text="@string/login"
             android:textColor="@color/on_primary"
             android:textAllCaps="false"
+            android:onClick="@{() -> ViewModel.onClickLogin()}"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="@dimen/space18x"
             app:backgroundTint="@color/primary"
@@ -162,6 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
+                android:onClick="@{() -> ViewModel.onClickSignUp()}"
                 android:textColor="@color/blue"
                 style="@style/text_style_label_large"
                 android:layout_marginHorizontal="@dimen/space2x"/>
