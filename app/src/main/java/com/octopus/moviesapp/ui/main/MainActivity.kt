@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityMainBinding
+import com.octopus.moviesapp.ui.settings.SettingsViewModel
 import com.octopus.moviesapp.util.SettingsService
 import dagger.hilt.android.AndroidEntryPoint
 

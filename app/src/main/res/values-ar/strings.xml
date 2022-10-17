@@ -41,10 +41,10 @@
     <string name="failed_to_load_tv_shows">Failed to load TV Shows</string>
     <string name="try_load_genres_again">Try load Genres again</string>
     <string name="failed_to_load_genres">Failed to load Genres</string>
-    <string name="english">English</string>
-    <string name="arabic">Arabic</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="english">إنجليزي</string>
+    <string name="arabic">عربي</string>
+    <string name="light">فاتح</string>
+    <string name="dark">داكن</string>
     <string name="try_to_load_movie_details_again">Try to load Movie Details again</string>
     <string name="failed_to_load_movie_details">Failed to load Movie Details</string>
     <string name="duration">%1$d Min</string>

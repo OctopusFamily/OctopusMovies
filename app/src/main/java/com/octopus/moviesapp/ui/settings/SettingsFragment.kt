@@ -16,12 +16,10 @@ import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
+class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_settings
     override val viewModel: SettingsViewModel by viewModels()
-
     private val settingsService = SettingsService
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleEvents()
