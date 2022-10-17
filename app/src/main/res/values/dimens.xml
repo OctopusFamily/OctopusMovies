@@ -12,4 +12,7 @@
     <dimen name="space16x">32dp</dimen>
     <dimen name="space18x">36dp</dimen>
 
+
+    <dimen name="size_lottie">200dp</dimen>
+
 </resources>
