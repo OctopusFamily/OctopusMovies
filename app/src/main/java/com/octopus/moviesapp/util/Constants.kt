@@ -9,4 +9,6 @@ object Constants {
     const val YOUTUBE = "YouTube"
     const val SHARED_PREFERENCES_NAME = "octopusMovies"
     const val FIRST_INDEX = 0
+
+    const val URL_INTERNET_CHECKER = "https://www.google.com"
 }
