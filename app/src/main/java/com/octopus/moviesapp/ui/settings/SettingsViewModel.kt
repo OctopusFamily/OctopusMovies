@@ -8,7 +8,7 @@ import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.SettingsService
-import com.octopus.moviesapp.util.postEvent
+import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

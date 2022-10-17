@@ -19,8 +19,8 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     ) : RecyclerViewHolder(binding) {
         fun bind(movieDetails: MovieDetails, genresListener: NestedGenresListener) {
             binding.run {
-                taglineTextView.text = movieDetails.tagline
-                overviewTextView.text = movieDetails.overview
+                setTaglineText(taglineTextView, movieDetails.tagline)
+                setOverviewText(overviewTextView, movieDetails.overview)
                 genresRecyclerView.adapter =
                     NestedGenresAdapter(movieDetails.genres, genresListener)
             }
@@ -40,8 +40,8 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     ) : RecyclerViewHolder(binding) {
         fun bind(tvShowDetails: TVShowDetails, genresListener: NestedGenresListener) {
             binding.run {
-                taglineTextView.text = tvShowDetails.tagline
-                overviewTextView.text = tvShowDetails.overview
+                setTaglineText(taglineTextView, tvShowDetails.tagline)
+                setOverviewText(overviewTextView, tvShowDetails.overview)
                 genresRecyclerView.adapter =
                     NestedGenresAdapter(tvShowDetails.genres, genresListener)
             }

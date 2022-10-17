@@ -12,9 +12,9 @@ import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.util.navigateToTrailerActivity
-import com.octopus.moviesapp.util.observeEvent
-import com.octopus.moviesapp.util.showShortToast
+import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
+import com.octopus.moviesapp.util.extensions.observeEvent
+import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

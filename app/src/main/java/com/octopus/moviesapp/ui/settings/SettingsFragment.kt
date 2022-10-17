@@ -12,7 +12,7 @@ import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.SettingsService
-import com.octopus.moviesapp.util.observeEvent
+import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

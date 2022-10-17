@@ -3,7 +3,7 @@ package com.octopus.moviesapp.domain.mapper
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.convertToDate
+import com.octopus.moviesapp.util.extensions.convertToDate
 import java.util.*
 import javax.inject.Inject
 

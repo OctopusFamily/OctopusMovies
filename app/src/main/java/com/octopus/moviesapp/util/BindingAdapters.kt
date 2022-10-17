@@ -149,3 +149,21 @@ fun setChosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
         }
     }
 }
+
+@BindingAdapter(value = ["app:Tagline"])
+fun setTaglineText(textView: TextView, textValue: String) {
+    if (textValue.isEmpty()){
+        textView.text = textView.context.getString(R.string.there_is_no_tagline)
+    } else{
+        textView.text = textValue
+    }
+}
+
+@BindingAdapter(value = ["app:Overview"])
+fun setOverviewText(textView: TextView, textValue: String) {
+    if (textValue.isEmpty()){
+        textView.text = textView.context.getString(R.string.there_is_no_overview)
+    } else{
+        textView.text = textValue
+    }
+}
