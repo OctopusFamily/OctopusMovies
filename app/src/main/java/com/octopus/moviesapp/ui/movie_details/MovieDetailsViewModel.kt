@@ -58,10 +58,8 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             internetState.getCurrentNetworkStatus().collectLatest {
                 if (it) {
-                    Log.v("here", "true getMoviesData")
                     getMovieDetails()
                 } else {
-                    Log.v("here", "error getMoviesData")
                     _movieDetailsState.postValue(UiState.Error(""))
                 }
             }
