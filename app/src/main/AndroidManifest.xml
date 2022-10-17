@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
     <application
         android:name=".MyApplication"
@@ -19,7 +24,9 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.trailer.TrailerActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
