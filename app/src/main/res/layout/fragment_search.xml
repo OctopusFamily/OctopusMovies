@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.search.SearchViewModel" />
@@ -36,7 +37,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:afterTextChanged="@{()-> viewModel.getSearchMultiMedia()}"
+            android:afterTextChanged="@{()-> viewModel.onChangeSearchQuery()}"
             android:background="@drawable/search_background"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/space4x"

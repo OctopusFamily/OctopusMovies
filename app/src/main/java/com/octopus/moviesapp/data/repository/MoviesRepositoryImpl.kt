@@ -43,7 +43,11 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
-        val searchResult = tmdbApiService.getSearchMultiMedia(query)
-        return searchResultMapper.map(searchResult.items)
+        return if (query.isBlank())
+            emptyList()
+        else {
+            val searchResult = tmdbApiService.getSearchMultiMedia(query)
+            searchResultMapper.map(searchResult.items)
+        }
     }
 }
