@@ -36,19 +36,19 @@ class SearchViewModel @Inject constructor(
     val searchQuery = MutableLiveData("")
 
 
-    fun getSearch() {
-        getSearchMultiMedia()
-        when (_isMovieChipChecked.value) {
-            true -> {
-             filterByMovie()
-            }
-            else -> {
-            filterByTv()
-            }
-        }
-    }
+//    fun getSearch() {
+//        getSearchMultiMedia()
+//        when (_isMovieChipChecked.value) {
+//            true -> {
+//             filterByMovie()
+//            }
+//            else -> {
+//            filterByTv()
+//            }
+//        }
+//    }
 
-    private fun getSearchMultiMedia() {
+     fun getSearchMultiMedia() {
         viewModelScope.launch {
             wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery.value.toString()) }.debounce(2000) .collect() {
                 _searchResult.postValue(it)
@@ -58,11 +58,13 @@ class SearchViewModel @Inject constructor(
 
 
    fun onChipMovieSelected(){
-       _isMovieChipChecked.postValue(true)
+      getSearchMultiMedia()
+       filterByMovie()
     }
 
     fun onChipTVSelected(){
-        _isMovieChipChecked.postValue(false)
+        getSearchMultiMedia()
+        filterByTv()
     }
 
     fun oChipSelected(searchType: SearchType){
