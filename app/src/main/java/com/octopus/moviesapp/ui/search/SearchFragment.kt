@@ -22,7 +22,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun handleEvents() {
-        viewModel.searchResult.observe(viewLifecycleOwner) { state ->
+        viewModel.searchFilter.observe(viewLifecycleOwner) { state ->
             if (state is UiState.Success)
                 binding.searchRecyclerView.adapter = SearchAdapter(state.data, viewModel)
         }

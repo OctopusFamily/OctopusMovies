@@ -63,14 +63,14 @@
                     style="@android:style/Widget.Material.RatingBar.Small"/>
 
                 <TextView
+                    style="@style/text_style_body_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space2x"
                     android:ellipsize="end"
-                    app:releaseDate="@{item.releaseDate}"
-                    android:textAlignment="center"
                     android:lines="1"
-                    style="@style/text_style_body_medium"
+                    android:textAlignment="center"
+                    android:text="@{item.mediaType}"
                     tools:text="2000" />
             </LinearLayout>
 

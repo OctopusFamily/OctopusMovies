@@ -8,12 +8,14 @@ import com.octopus.moviesapp.data.repository.MoviesRepository
 import com.octopus.moviesapp.data.repository.TVShowsRepository
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.types.SearchType
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 import com.octopus.moviesapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +29,9 @@ class SearchViewModel @Inject constructor(
 
     private val _searchResult = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
     val searchResult: LiveData<UiState<List<SearchResult>>> = _searchResult
+
+    private val _searchFilter = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
+    val searchFilter: LiveData<UiState<List<SearchResult>>> = _searchFilter
 
     val searchQuery = MutableLiveData("")
 
@@ -45,7 +50,7 @@ class SearchViewModel @Inject constructor(
 
     private fun getSearchMultiMedia() {
         viewModelScope.launch {
-            wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery.value.toString()) }.collectLatest {
+            wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery.value.toString()) }.debounce(2000) .collect() {
                 _searchResult.postValue(it)
             }
         }
@@ -59,18 +64,29 @@ class SearchViewModel @Inject constructor(
     fun onChipTVSelected(){
         _isMovieChipChecked.postValue(false)
     }
-    fun filterByTv() {
+
+    fun oChipSelected(searchType: SearchType){
+        if(searchType == SearchType.MOVIE)
+            filterByMovie()
+        else
+            filterByTv()
+
+    }
+
+    private fun filterByTv() {
         val searchResultValue = _searchResult.value
         if (searchResultValue is UiState.Success) {
-            _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "tv" }))
+            _searchFilter.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "tv" }))
+            Log.e("searchTV", searchFilter.value.toString())
         }
     }
 
-    fun filterByMovie() {
+    private fun filterByMovie() {
         val searchResultValue = _searchResult.value
 
         if (searchResultValue is UiState.Success) {
-            _searchResult.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "movie" }))
+            _searchFilter.postValue(UiState.Success(searchResultValue.data.filter { it.mediaType == "movie" }))
+            Log.e("searchMovie", searchFilter.value.toString())
         }
     }
 
