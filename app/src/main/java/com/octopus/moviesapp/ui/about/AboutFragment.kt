@@ -8,15 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentAboutBinding
-import com.octopus.moviesapp.databinding.FragmentSettingsBinding
-import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
-import com.octopus.moviesapp.databinding.LayoutThemeSelectionBinding
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
-import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.SettingsService
 import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +34,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
             openURL.data = Uri.parse(Constants.GITHUB_URL)
             startActivity(openURL)
         }
-
     }
 
 }
