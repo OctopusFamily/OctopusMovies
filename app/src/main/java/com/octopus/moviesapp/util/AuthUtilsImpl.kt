@@ -37,9 +37,6 @@ class AuthUtilsImpl @Inject constructor(
             password.contains(" ") -> {
                 context.getString(R.string.password_has_whitespace_error)
             }
-            !password.isEnglishLettersAndDigitsOnly() -> {
-                context.getString(R.string.password_is_not_valid_error)
-            }
             password.isDigitsOnly() -> {
                 context.getString(R.string.password_is_digits_only_error)
             }

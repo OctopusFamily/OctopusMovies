@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val textValidation: AuthUtilsImpl
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val userName = MutableLiveData<String?>()
     val password = MutableLiveData<String?>()
@@ -37,29 +36,48 @@ class LoginViewModel @Inject constructor(
     val loginEvent = _loginEvent
 
     private val _signUpEvent = MutableLiveData(Event(false))
-    val signUpEvent : LiveData<Event<Boolean>>
-    get() = _signUpEvent
+    val signUpEvent: LiveData<Event<Boolean>>
+        get() = _signUpEvent
 
+    private val _isShowPassWordEnabled = MutableLiveData(false)
+    val isShowPassWordEnabled: LiveData<Boolean>
+        get() = _isShowPassWordEnabled
+
+    private val _isSkip = MutableLiveData(Event(false))
+    val isSkip = _isSkip
 
     fun onClickSignUp() {
-        Log.d("signup","true")
         _signUpEvent.postValue(Event(true))
     }
+
     fun onClickLogin() {
-        Log.d("click","clicked")
-        login()
-     }
+        if (checkFormValidation())  login()
+        else checkFormValidation()
+    }
+
+    fun onClickSkip(){
+        _isSkip.postValue(Event(true))
+    }
+
+    fun onClickShowPassWord() {
+        if (_isShowPassWordEnabled.value == false) {
+            _isShowPassWordEnabled.postValue(true)
+        } else {
+            _isShowPassWordEnabled.postValue(false)
+        }
+    }
+
     private fun login() {
         viewModelScope.launch {
-            accountRepository.login(userName.value.toString(),
-                password.value.toString()).collect {
-                Log.d("test",it.toString())
+            accountRepository.login(
+                userName.value.toString(),
+                password.value.toString()
+            ).collect {
                 when (it) {
                     is UiState.Error -> onLoginError(it.message)
                     UiState.Loading -> _loginRequestState.postValue(it)
                     is UiState.Success -> onLoginSuccessfully()
-                 }
-                Log.d("test",it.toString())
+                }
             }
         }
     }
@@ -76,33 +94,31 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    private fun checkPasswordValidation() : Boolean{
-        val passwordFieldState = textValidation.validatePassword(password.toString())
+    private fun checkPasswordValidation(): Boolean {
+        val passwordFieldState = textValidation.validatePassword(password.value)
 
-       return if (passwordFieldState == null){
-           _passwordHelperText.postValue("")
-           true
-        }
-        else{
+        return if (passwordFieldState == null) {
+            _passwordHelperText.postValue("")
+            true
+        } else {
             _passwordHelperText.postValue(passwordFieldState.toString())
-           false
-       }
-
-    }
-
-    private fun checkUserNameValidation() : Boolean {
-        val userNameFieldState = textValidation.validateUsername(userName.toString())
-       return if (userNameFieldState == null){
-           _userNameHelperText.postValue("")
-           true
+            false
         }
-        else{
-            _userNameHelperText.postValue(userNameFieldState.toString())
-           false
-       }
+
     }
 
-    private fun checkFormValidation() : Boolean {
+    private fun checkUserNameValidation(): Boolean {
+        val userNameFieldState = textValidation.validateUsername(userName.value.toString())
+        return if (userNameFieldState == null) {
+            _userNameHelperText.postValue("")
+            true
+        } else {
+            _userNameHelperText.postValue(userNameFieldState.toString())
+            false
+        }
+    }
+
+    private fun checkFormValidation(): Boolean {
         val isUserNameValid = checkUserNameValidation()
         val isPasswordValid = checkPasswordValidation()
 

@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="ViewModel"
+            name="viewModel"
             type="com.octopus.moviesapp.ui.login.LoginViewModel" />
     </data>
 
@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/skip"
+                android:onClick="@{()-> viewModel.onClickSkip()}"
                 android:textColor="@color/out_line"
                 style="@style/text_style_body_medium"
                 android:layout_marginStart="16dp"/>
@@ -59,7 +60,7 @@
                     android:paddingHorizontal="16dp"
                     android:drawablePadding="16dp"
                     android:autofillHints=""
-                    android:text="@={ViewModel.userName}"
+                    android:text="@={viewModel.userName}"
                     android:inputType="textEmailAddress"
                     style="@style/text_style_body_large"
                     android:background="@drawable/filled_light_rounded_shape"/>
@@ -69,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space2x"
                     android:lines="1"
+                    android:text="@{viewModel.userNameHelperText}"
                     android:ellipsize="end"
                     android:textColor="@color/error"
                     style="@style/text_style_label_small"
@@ -92,7 +94,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:autofillHints=""
-                        android:text="@={ViewModel.password}"
+                        android:text="@={viewModel.password}"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="16dp"
@@ -100,6 +102,7 @@
                         android:hint="@string/password"
                         android:textColor="@color/on_surface_variant"
                         android:inputType="textPassword"
+                        app:showPasswordIfTrue="@{viewModel.isShowPassWordEnabled}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         style="@style/text_style_body_large"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -111,6 +114,8 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:onClick="@{() -> viewModel.onClickShowPassWord()}"
+                        app:changePasswordIcon="@{viewModel.isShowPassWordEnabled}"
                         android:contentDescription="@string/toggle_password_visibility"
                         app:tint="@color/tertiary"
                         tools:src="@drawable/ic_eye" />
@@ -120,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lines="1"
+                    android:text="@{viewModel.passwordHelperText}"
                     android:ellipsize="end"
                     android:layout_marginTop="@dimen/space2x"
                     android:textColor="@color/error"
@@ -143,7 +149,7 @@
             android:text="@string/login"
             android:textColor="@color/on_primary"
             android:textAllCaps="false"
-            android:onClick="@{() -> ViewModel.onClickLogin()}"
+            android:onClick="@{() -> viewModel.onClickLogin()}"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="@dimen/space18x"
             app:backgroundTint="@color/primary"
@@ -167,11 +173,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
-                android:onClick="@{() -> ViewModel.onClickSignUp()}"
+                android:onClick="@{() -> viewModel.onClickSignUp()}"
                 android:textColor="@color/blue"
                 style="@style/text_style_label_large"
                 android:layout_marginHorizontal="@dimen/space2x"/>
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

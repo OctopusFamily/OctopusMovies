@@ -32,11 +32,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
 
+        viewModel.isSkip.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                navigateToHomeFragment()
+            }
+        }
+
         viewModel.loginEvent.observeEvent(viewLifecycleOwner) {
-            if (it)
-             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            if (it) {
+                navigateToHomeFragment()
+            }
+
         }
     }
 
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+    }
 
 }
