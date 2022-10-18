@@ -12,8 +12,12 @@ import java.util.Date
 import java.util.Locale
 
 fun String.convertToDate(): Date {
-    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale("en"))
-    return formatter.parse(this) ?: Date()
+    return if (this.isEmpty()) {
+        Date()
+    } else {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale("en"))
+        formatter.parse(this) ?: Date()
+    }
 }
 
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {

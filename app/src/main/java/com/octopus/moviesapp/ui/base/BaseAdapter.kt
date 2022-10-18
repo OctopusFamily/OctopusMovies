@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.DiffResult
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.BR
 
 abstract class BaseAdapter<T>(
     var itemsList: List<T>,
     private val listener: BaseInteractionListener
-) : RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() {
+) : RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() { 
     @LayoutRes
     abstract fun layoutId(): Int
 

@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+
+
+
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 

@@ -7,16 +7,14 @@ import com.octopus.moviesapp.util.convertToDate
 import java.util.*
 import javax.inject.Inject
 
-class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>> {
-    override fun map(input: List<MovieDTO>): List<Movie> {
-        return input.map {
-            Movie(
-                id = it.id ?: 0,
-                title = it.originalTitle ?: "",
-                posterImageUrl = it.posterPath ?.buildImageUrl() ?: "",
-                voteAverage = it.voteAverage ?: 0f,
-                releaseDate = it.releaseDate?.convertToDate() ?: Date(),
-            )
-        }
+class MoviesMapper @Inject constructor() : Mapper<MovieDTO, Movie> {
+    override fun map(input: MovieDTO): Movie {
+        return Movie(
+            id = input.id ?: 0,
+            title = input.title ?: "",
+            posterImageUrl = input.posterPath?.buildImageUrl() ?: "",
+            voteAverage = input.voteAverage ?: 0f,
+            releaseDate = input.releaseDate?.convertToDate() ?: Date(),
+        )
     }
 }

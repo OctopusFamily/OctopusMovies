@@ -15,7 +15,7 @@ class MovieDetailsMapper @Inject constructor(
         val genresList = input.genres ?: emptyList()
         return MovieDetails(
             id = input.id ?: 0,
-            title = input.originalTitle ?: "",
+            title = input.title ?: "",
             coverImageUrl = input.backdropPath?.buildImageUrl() ?: "",
             posterImageUrl = input.posterPath?.buildImageUrl() ?: "",
             voteCount = input.voteCount ?: 0,
