@@ -4,12 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -24,14 +18,10 @@ class InternetState(
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    suspend fun getCurrentNetworkStatus(): Flow<Boolean> {
-
+    suspend fun getCurrentNetworkStatus(): Boolean {
         return if (capabilityInternet()) {
             checkConnection()
-        } else flow {
-            emit(false)
-        }
-
+        } else false
     }
 
     private fun capabilityInternet(): Boolean {
@@ -40,40 +30,32 @@ class InternetState(
         return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
-    private suspend fun checkConnection(): Flow<Boolean> {
+    private suspend fun checkConnection(): Boolean {
+        var isConnection: Boolean
 
-        return callbackFlow {
+        withContext(Dispatchers.IO) {
+            val startTime = System.currentTimeMillis()
 
-            withContext(Dispatchers.IO) {
-                val startTime = System.currentTimeMillis()
+            val response: Response? = try {
+                client.newCall(request).execute()
+            } catch (e: Exception) {
+                null
+            }
 
-                val response: Response? = try {
+            val responseCode = response?.code() ?: 500
+            val timeTaken = System.currentTimeMillis() - startTime
 
-                    client.newCall(request).execute()
-
-                } catch (e: Exception) {
-                    null
-                }
-
-                val responseCode = response?.code() ?: 500
-                val timeTaken = System.currentTimeMillis() - startTime
-
-                withContext(Dispatchers.Main) {
-                    if (!responseCode.toString().startsWith("2")) {
-                        launch { send(false) }
-                    } else {
-                        if ((timeTaken > 3000)) {
-                            launch { send(false) }
-                        } else {
-                            launch { send(true) }
-                        }
-                    }
+            withContext(Dispatchers.Main) {
+                isConnection = if (responseCode != 200) {
+                    false
+                } else {
+                    timeTaken <= 3000
                 }
             }
-            awaitClose {
-                channel.close()
-            }
-        }.distinctUntilChanged()
+        }
+
+        return isConnection
+
     }
 
 

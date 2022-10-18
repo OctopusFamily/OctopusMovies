@@ -36,15 +36,12 @@ class TVShowsViewModel @Inject constructor(
 
     private fun getTVShowsByCategory(category: TVShowsCategory) {
         viewModelScope.launch {
-            internetState.getCurrentNetworkStatus().collectLatest {
-                if (it) {
-                    loadTVShowsByCategory(category)
-                } else {
-                    _tvShowsListState.postValue(UiState.Error(""))
-                }
+            if (internetState.getCurrentNetworkStatus()) {
+                loadTVShowsByCategory(category)
+            } else {
+                _tvShowsListState.postValue(UiState.Error(""))
             }
         }
-
     }
 
     private fun loadTVShowsByCategory(category: TVShowsCategory) {

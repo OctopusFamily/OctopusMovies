@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.movie_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -55,13 +54,12 @@ class MovieDetailsViewModel @Inject constructor(
     private var movieID = 0
     fun loadMovieDetails(movieId: Int) {
         movieID = movieId
+
         viewModelScope.launch {
-            internetState.getCurrentNetworkStatus().collectLatest {
-                if (it) {
-                    getMovieDetails()
-                } else {
-                    _movieDetailsState.postValue(UiState.Error(""))
-                }
+            if (internetState.getCurrentNetworkStatus()) {
+                getMovieDetails()
+            } else {
+                _movieDetailsState.postValue(UiState.Error(""))
             }
         }
 

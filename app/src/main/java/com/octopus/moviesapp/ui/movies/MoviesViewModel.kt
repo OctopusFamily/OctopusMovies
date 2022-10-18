@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.movies
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -37,15 +36,12 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMoviesByCategory(category: MoviesCategory) {
         viewModelScope.launch {
-            internetState.getCurrentNetworkStatus().collectLatest {
-                if (it) {
-                    loadMoviesByCategory(category)
-                } else {
-                    _moviesListState.postValue(UiState.Error(""))
-                }
+            if (internetState.getCurrentNetworkStatus()) {
+                loadMoviesByCategory(category)
+            } else {
+                _moviesListState.postValue(UiState.Error(""))
             }
         }
-
     }
     private fun loadMoviesByCategory(category: MoviesCategory){
         viewModelScope.launch {
