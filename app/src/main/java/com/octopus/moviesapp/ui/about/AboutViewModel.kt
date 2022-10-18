@@ -21,9 +21,8 @@ class AboutViewModel @Inject constructor() : ViewModel() {
         _navigateBack.postEvent(true)
     }
 
-    fun onNavigateGithubClick() {
+    fun onGithubLinkClick() {
         _navigateGithubLink.postEvent(true)
-
     }
 
 }
