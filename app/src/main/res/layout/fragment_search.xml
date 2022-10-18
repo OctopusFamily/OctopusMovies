@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.search.SearchViewModel" />
+        <variable
+            name="searchType"
+            type="com.octopus.moviesapp.domain.types.SearchType" />
 
     </data>
 
@@ -87,7 +90,7 @@
                 style="@style/ChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:onClick="@{()->viewModel.onChipActorSelected()}"
                 android:text="Actors"
                 app:chipStrokeColor="@android:color/transparent" />
         </com.google.android.material.chip.ChipGroup>

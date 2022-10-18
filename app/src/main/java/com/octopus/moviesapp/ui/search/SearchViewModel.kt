@@ -8,10 +8,13 @@ import com.octopus.moviesapp.data.repository.MoviesRepository
 import com.octopus.moviesapp.data.repository.TVShowsRepository
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.types.SearchType
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
+import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -20,14 +23,23 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val repositoryMovie: MoviesRepository,
-    private val repositoryTVShow: TVShowsRepository
-) : BaseViewModel(), MoviesClicksListener, TVShowsClicksListener {
+) : BaseViewModel(),SearchClicksListener {
 
     private val _searchResult = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
     val searchResult: LiveData<UiState<List<SearchResult>>> = _searchResult
 
+    private val _navigateToDetails = MutableLiveData<Event<Int>>()
+    val navigateToDetails: LiveData<Event<Int>> = _navigateToDetails
+
+
     val searchQuery = MutableLiveData("")
-    private val _searchFilter = MutableLiveData("movie")
+
+    private val _searchFilter = MutableLiveData<String>()
+    val searchFilter: LiveData<String> = _searchFilter
+
+    init {
+    _searchFilter.value = SearchType.MOVIE.pathName
+    }
 
     fun onChangeSearchQuery() {
         getSearchMultiMedia()
@@ -37,23 +49,29 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             wrapResponse {
                 repositoryMovie.getSearchMultiMedia(searchQuery.value.toString())
-            }.debounce(
-                2000
-            ).collect {
-                if (it is UiState.Success) {
-                    filterByType(it.data, _searchFilter.value.toString())
-                }
+                    }.debounce(2000).collect {
+                        if (it is UiState.Success) {
+                            filterByType(it.data, _searchFilter.value.toString())
+                        }
             }
         }
     }
 
     fun onChipMovieSelected() {
-        _searchFilter.value = "movie"
+        _searchFilter.value = SearchType.MOVIE.pathName
+        Log.i("chipMovie = ",  _searchFilter.value.toString())
         getSearchMultiMedia()
     }
 
     fun onChipTVSelected() {
-        _searchFilter.value = "tv"
+        _searchFilter.value = SearchType.TV.pathName
+        Log.i("chipTv = ",  _searchFilter.value.toString())
+        getSearchMultiMedia()
+    }
+
+    fun onChipActorSelected() {
+        _searchFilter.value = SearchType.PERSON.pathName
+        Log.i("chipPerson = ",  _searchFilter.value.toString())
         getSearchMultiMedia()
     }
 
@@ -63,7 +81,8 @@ class SearchViewModel @Inject constructor(
         }))
     }
 
-    override fun onMovieClick(movieId: Int) {}
 
-    override fun onTVShowClick(tvShow: TVShow) {}
+    override fun onItemClick(searchId: SearchResult) {
+       _navigateToDetails.postEvent(searchId.id)
+    }
 }

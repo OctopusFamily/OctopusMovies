@@ -7,7 +7,7 @@ import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 
 class SearchAdapter (
     item: List<SearchResult>,
-    listener: MoviesClicksListener,
+    listener: SearchClicksListener,
 ) : BaseAdapter<SearchResult>(item, listener) {
     override fun layoutId(): Int = R.layout.item_search
 }

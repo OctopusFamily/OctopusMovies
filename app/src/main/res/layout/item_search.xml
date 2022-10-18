@@ -9,13 +9,14 @@
             type="com.octopus.moviesapp.domain.model.SearchResult" />
         <variable
             name="listener"
-            type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
+            type="com.octopus.moviesapp.ui.search.SearchClicksListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="130dp"
         app:cardElevation="0dp"
+        android:onClick="@{() -> listener.onItemClick(item)}"
         app:cardCornerRadius="@dimen/space6x"
         android:layout_margin="@dimen/space2x">
 

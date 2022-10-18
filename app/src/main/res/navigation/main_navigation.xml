@@ -85,5 +85,12 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.octopus.moviesapp.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_TVShowDetailsFragment"
+            app:destination="@id/TVShowDetailsFragment" />
+    </fragment>
 </navigation>
