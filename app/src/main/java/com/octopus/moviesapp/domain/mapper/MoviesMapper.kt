@@ -3,8 +3,7 @@ package com.octopus.moviesapp.domain.mapper
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.extensions.convertToDate
-import java.util.*
+import com.octopus.moviesapp.util.convertStringToDate
 import javax.inject.Inject
 
 class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>> {
@@ -13,9 +12,9 @@ class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>> {
             Movie(
                 id = it.id ?: 0,
                 title = it.originalTitle ?: "",
-                posterImageUrl = it.posterPath ?.buildImageUrl() ?: "",
+                posterImageUrl = buildImageUrl(it.posterPath),
                 voteAverage = it.voteAverage ?: 0f,
-                releaseDate = it.releaseDate?.convertToDate() ?: Date(),
+                releaseDate = convertStringToDate(it.releaseDate),
             )
         }
     }
