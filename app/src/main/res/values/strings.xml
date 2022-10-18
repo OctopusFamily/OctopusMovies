@@ -84,4 +84,7 @@
 
     <string name="there_is_no_overview">There\'s no overview</string>
     <string name="there_is_no_tagline">There\'s no tagline</string>
+    <string name="about">About</string>
+    <string name="version">Version 1.0</string>
+    <string name="github">Github</string>
 </resources>

@@ -3,13 +3,16 @@ package com.octopus.moviesapp.ui.tv_show_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
+import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.movie_details.MovieDetailsFragmentDirections
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
@@ -65,6 +68,9 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 requireContext().showShortToast(getString(R.string.no_source_available))
             }
         }
+        viewModel.navigateToTVShowsGenre.observeEvent(viewLifecycleOwner){ genre ->
+            navigateToTVShowsGenreFragment(genre)
+        }
     }
 
     private fun handleTVShowDetails() {
@@ -94,6 +100,11 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 tvShowDetailsAdapter.setItems(itemsList)
             }
         }
+    }
+
+    private fun navigateToTVShowsGenreFragment(genre: Genre){
+        requireView().findNavController()
+            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
     }
 }
 

@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.octopus.moviesapp.domain.model.Genre" />
+
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.nested.NestedGenresListener" />
     </data>
 
     <LinearLayout
@@ -18,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
+            android:onClick="@{()-> listener.onGenreClick(item)}"
             android:textColor="@color/secondary"
             app:chipStrokeColor="@android:color/transparent"
             app:chipBackgroundColor="@color/primary_container"

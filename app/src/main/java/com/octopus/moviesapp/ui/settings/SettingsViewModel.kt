@@ -14,7 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(@ApplicationContext context: Context): ViewModel() {
+class SettingsViewModel @Inject constructor(@ApplicationContext context: Context) : ViewModel() {
 
     private val _languageChoiceClicked = MutableLiveData(Event(false))
     val languageChoiceClicked: LiveData<Event<Boolean>> get() = _languageChoiceClicked
@@ -27,6 +27,9 @@ class SettingsViewModel @Inject constructor(@ApplicationContext context: Context
 
     private val _currentTheme = MutableLiveData<Theme>()
     val currentLTheme: LiveData<Theme> get() = _currentTheme
+
+    private val _navigateToAbout = MutableLiveData<Event<Boolean>>()
+    val navigateToAbout: LiveData<Event<Boolean>> get() = _navigateToAbout
 
     private val settingsService = SettingsService
 
@@ -51,6 +54,10 @@ class SettingsViewModel @Inject constructor(@ApplicationContext context: Context
     fun handleThemeChange(newTheme: Theme) {
         settingsService.updateAppTheme(newTheme)
         _currentTheme.postValue(newTheme)
+    }
+
+    fun onAboutClick() {
+        _navigateToAbout.postEvent(true)
     }
 
 }
