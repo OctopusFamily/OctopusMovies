@@ -1,7 +1,5 @@
 package com.octopus.moviesapp.ui.about
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -10,7 +8,8 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentAboutBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.observeEvent
+import com.octopus.moviesapp.util.extensions.observeEvent
+import com.octopus.moviesapp.util.extensions.openUrlInBrowser
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,10 +28,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
             findNavController().popBackStack()
         }
 
-        viewModel.navigateGithubLink.observeEvent(viewLifecycleOwner) {
-            val openURL = Intent(Intent.ACTION_VIEW)
-            openURL.data = Uri.parse(Constants.GITHUB_URL)
-            startActivity(openURL)
+        viewModel.openGithubLinkInBrowser.observeEvent(viewLifecycleOwner) {
+            requireContext().openUrlInBrowser(Constants.GITHUB_URL)
         }
     }
 
