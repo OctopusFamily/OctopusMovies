@@ -11,5 +11,7 @@
     <dimen name="space14x">28dp</dimen>
     <dimen name="space16x">32dp</dimen>
     <dimen name="space18x">36dp</dimen>
+    <dimen name="space24x">48dp</dimen>
+
 
 </resources>
