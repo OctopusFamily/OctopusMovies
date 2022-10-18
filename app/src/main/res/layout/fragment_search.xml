@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:afterTextChanged="@{()-> viewModel.onChangeSearchQuery()}"
+            android:onTextChanged="@{()-> viewModel.getSearchMultiMedia()}"
             android:background="@drawable/search_background"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/space4x"
@@ -64,33 +64,35 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            app:onCheckedChanged="@{viewModel::onChipSelected}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_input"
             app:selectionRequired="true"
+            app:checkedChip="@id/movie_chip"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 style="@style/ChipStyle"
+                android:id="@+id/movie_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:onClick="@{()->viewModel.onChipMovieSelected()}"
                 android:text="@string/movies"
                 app:chipStrokeColor="@android:color/transparent" />
 
             <com.google.android.material.chip.Chip
                 style="@style/ChipStyle"
+                android:id="@+id/tv_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.onChipTVSelected()}"
                 android:text="@string/tv_shows"
                 app:chipStrokeColor="@android:color/transparent" />
 
             <com.google.android.material.chip.Chip
                 style="@style/ChipStyle"
+                android:id="@+id/actor_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->viewModel.onChipActorSelected()}"
                 android:text="Actors"
                 app:chipStrokeColor="@android:color/transparent" />
         </com.google.android.material.chip.ChipGroup>

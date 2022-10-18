@@ -3,9 +3,12 @@ package com.octopus.moviesapp.util
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.octopus.moviesapp.ui.trailer.TrailerActivity
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -48,4 +51,9 @@ fun String.isEnglishLettersOnly(): Boolean {
 
 fun String.isEnglishLettersAndDigitsOnly(): Boolean {
     return this.matches("^[a-zA-Z0-9]*$".toRegex())
+}
+
+fun ChipGroup.getSelectedChipIndex() : Int {
+    val selectedChip = this.children.filter { (it as Chip).isChecked }.first()
+    return this.children.indexOf(selectedChip)
 }

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         app:cardElevation="0dp"
-        android:onClick="@{() -> listener.onItemClick(item)}"
+        android:onClick="@{() -> listener.onItemClick(item.id)}"
         app:cardCornerRadius="@dimen/space6x"
         android:layout_margin="@dimen/space2x">
 

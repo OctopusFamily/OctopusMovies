@@ -2,14 +2,13 @@ package com.octopus.moviesapp.ui.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
 import com.octopus.moviesapp.domain.types.SearchType
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.tv_shows.TVShowsFragmentDirections
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,33 +25,43 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun handleEvents() {
-        viewModel.searchResult.observe(viewLifecycleOwner) { state ->
-            if (state is UiState.Success)
-                binding.searchRecyclerView.adapter = SearchAdapter(state.data, viewModel)
+        viewModel.filteredSearchResults.observe(viewLifecycleOwner) { searchResults ->
+                binding.searchRecyclerView.adapter = SearchAdapter(searchResults, viewModel)
         }
 
 
         viewModel.navigateToDetails.observeEvent(viewLifecycleOwner) { id ->
-            if (viewModel.searchFilter.value  == SearchType.MOVIE.pathName)
-                navigateToMovieDetails(id)
-            else
-                navigateToTVShowDetails(id)
+            when (viewModel.searchType.value) {
+                SearchType.MOVIE.pathName -> navigateToMovieDetails(id)
+                SearchType.TV.pathName -> navigateToTVShowDetails(id)
+                SearchType.PERSON.pathName -> navigateToPersonDetails(id)
+            }
+
         }
-
-
 
     }
 
     private fun navigateToTVShowDetails(tvShowId: Int) {
-        requireView().findNavController()
-            .navigate(SearchFragmentDirections
-                .actionSearchFragmentToTVShowDetailsFragment(tvShowId))
+        findNavController().navigate(
+            SearchFragmentDirections
+                .actionSearchFragmentToTVShowDetailsFragment(tvShowId)
+        )
     }
 
     private fun navigateToMovieDetails(movieId: Int) {
-        requireView().findNavController()
-            .navigate(SearchFragmentDirections
-                .actionSearchFragmentToMovieDetailsFragment(movieId))
+        findNavController().navigate(
+            SearchFragmentDirections
+                .actionSearchFragmentToMovieDetailsFragment(movieId)
+        )
+    }
+
+    private fun navigateToPersonDetails(personId: Int) {
+        Toast.makeText(
+            this.context,
+            "the id of the clicked person is $personId",
+            Toast.LENGTH_SHORT
+        ).show()
+        //TODO : not yet implement
     }
 
 

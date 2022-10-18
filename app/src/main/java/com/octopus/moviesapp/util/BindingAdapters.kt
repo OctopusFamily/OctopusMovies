@@ -9,14 +9,18 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.ChipGroup
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
     imageUrl?.let { url ->
-        Glide.with(imageView).load(url).placeholder(R.drawable.rotate).error(R.drawable.ic_octopus_movies_logo).into(imageView)
+        Glide.with(imageView).load(url).placeholder(R.drawable.rotate)
+            .error(R.drawable.ic_octopus_movies_logo).into(imageView)
     }
 }
 
@@ -106,3 +110,11 @@ fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
         imageView.setImageResource(R.drawable.ic_eye)
     }
 }
+
+@BindingAdapter("app:onCheckedChanged")
+fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickListener) {
+    chipGroupView.setOnCheckedStateChangeListener { chipGroup, _ ->
+        onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
+    }
+}
+
