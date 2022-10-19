@@ -35,6 +35,7 @@ abstract class RepositoryModule {
 
     @ViewModelScoped
     @Binds
-    abstract fun bindAccountRepository(accountRepositoryImp: AccountRepositoryImp): AccountRepository
-
+    abstract fun bindPersonRepository(
+        personRepositoryImpl: PersonRepositoryImpl,
+    ): PersonRepository
 }
