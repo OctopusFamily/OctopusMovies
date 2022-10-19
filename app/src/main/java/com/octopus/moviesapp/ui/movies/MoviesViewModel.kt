@@ -8,6 +8,7 @@ import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.data.repository.MoviesRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
