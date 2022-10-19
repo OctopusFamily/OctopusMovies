@@ -138,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space6x"
                 android:text="@string/forgot_password"
+                android:onClick="@{() -> viewModel.onClickResetPassWord()}"
                 style="@style/text_style_body_medium"
                 android:textColor="@color/blue"/>
         </LinearLayout>

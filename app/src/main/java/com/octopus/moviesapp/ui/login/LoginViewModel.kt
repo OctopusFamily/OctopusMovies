@@ -47,6 +47,9 @@ class LoginViewModel @Inject constructor(
     private val _isSkip = MutableLiveData(Event(false))
     val isSkip = _isSkip
 
+    private val _isResetPassword = MutableLiveData(Event(false))
+    val isResetPassword = _isResetPassword
+
     private val _isDialogShow = MutableLiveData(false)
     val isDialogShow: LiveData<Boolean>
         get() = _isDialogShow
@@ -59,6 +62,10 @@ class LoginViewModel @Inject constructor(
     fun onClickLogin() {
         if (checkFormValidation()) _isDialogShow.postValue(true)
         else checkFormValidation()
+    }
+
+    fun onClickResetPassWord() {
+        _isResetPassword.postValue(Event(true))
     }
 
     fun onClickSkip(){

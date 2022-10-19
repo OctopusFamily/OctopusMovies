@@ -5,7 +5,7 @@ import com.octopus.moviesapp.data.DataClassParser
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
-import com.octopus.moviesapp.util.DataStorePreferencesKeys
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,7 +18,7 @@ class AccountRepositoryImp @Inject constructor(
     private val dataClassParser: DataClassParser,
 ) : AccountRepository {
     override fun getSessionId(): Flow<String?> {
-        return dataStorePref.readString(DataStorePreferencesKeys.SESSION_ID_KEY)
+        return dataStorePref.readString(Constants.SESSION_ID_KEY)
     }
     override suspend fun login(
         userName: String,
@@ -65,7 +65,7 @@ class AccountRepositoryImp @Inject constructor(
     }
 
     private suspend fun saveSessionId(sessionId: String) {
-        dataStorePref.writeString(DataStorePreferencesKeys.SESSION_ID_KEY, sessionId)
+        dataStorePref.writeString(Constants.SESSION_ID_KEY, sessionId)
     }
 
 }

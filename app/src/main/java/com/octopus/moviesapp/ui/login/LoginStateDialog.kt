@@ -10,7 +10,7 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.LoginStateDialogBinding
 import com.octopus.moviesapp.ui.base.BaseDialog
 import com.octopus.moviesapp.util.UiState
-import com.octopus.moviesapp.util.setWidthPercent
+import com.octopus.moviesapp.util.extensions.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
