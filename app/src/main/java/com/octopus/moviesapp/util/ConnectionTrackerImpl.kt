@@ -3,75 +3,51 @@ package com.octopus.moviesapp.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.InetSocketAddress
 import java.net.Socket
 import javax.inject.Inject
 
-class InternetStateImpl @Inject constructor(
+class ConnectionTrackerImpl @Inject constructor(
     context: Context,
-    private val socket: Socket,
-    private val socketAddress: InetSocketAddress,
-) : ConnectionStatus {
-
+) : ConnectionTracker {
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    suspend fun getCurrentNetworkStatus(): Boolean {
-        return if (capabilityInternet()) {
-            checkIntUsingSocket()
-//            checkConnection()
+    override suspend fun isInternetConnectionAvailable(): Boolean {
+        return if (isConnectedToWifiOrCellular()) {
+            checkInternetAvailability()
         } else false
     }
 
-    private suspend fun checkIntUsingSocket(): Boolean {
-        return try {
-            val socket = Socket()
-            val socketAddress = InetSocketAddress("8.8.8.8", 53) // 853
-            withContext(Dispatchers.IO) {
-                socket.connect(socketAddress, 3000)
-                socket.close()
-            }
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    private fun capabilityInternet(): Boolean {
+    private fun isConnectedToWifiOrCellular(): Boolean {
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
-//    private fun checkConnection(): Boolean {
-//        var isConnection: Boolean
-//
-//        val startTime = System.currentTimeMillis()
-//
-//        val response: Response? = try {
-//            client.newCall(request).execute()
-//        } catch (e: Exception) {
-//            null
-//        }
-//
-//        val responseCode = response?.code() ?: 500
-//        val timeTaken = System.currentTimeMillis() - startTime
-//
-//        isConnection = if (responseCode != 200) {
-//            false
-//        } else {
-//            timeTaken <= 3000
-//        }
-//
-////        withContext(Dispatchers.Main) {
-////
-////        }
-////
-////        withContext(Dispatchers.IO) {
-////
-////        }
-//
-//        return isConnection
-//
-//    }
+    private suspend fun checkInternetAvailability(): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                val socket = Socket()
+                val socketAddress = InetSocketAddress(HOST_NAME, PORT)
+                socket.connect(socketAddress, CONNECTION_TIMEOUT)
+                socket.close()
+            }
+            true
+        } catch (e: Exception) {
+            Log.d("MALT", "ERROR: $e")
+            false
+        }
+    }
+
+
+//    private val socket: Socket,
+//    private val socketAddress: InetSocketAddress,
+
+    companion object {
+        private const val HOST_NAME = "8.8.8.8"
+        private const val PORT = 53
+        private const val CONNECTION_TIMEOUT = 3000
+    }
 }

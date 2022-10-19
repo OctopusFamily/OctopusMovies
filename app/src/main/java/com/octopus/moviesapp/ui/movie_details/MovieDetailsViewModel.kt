@@ -10,10 +10,7 @@ import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.InternetState
-import com.octopus.moviesapp.util.UiState
-import com.octopus.moviesapp.util.postEvent
+import com.octopus.moviesapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
-    private val internetState: InternetState
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
@@ -56,7 +53,7 @@ class MovieDetailsViewModel @Inject constructor(
         movieID = movieId
 
         viewModelScope.launch {
-            if (internetState.getCurrentNetworkStatus()) {
+            if (connectionTracker.isInternetConnectionAvailable()) {
                 getMovieDetails()
             } else {
                 _movieDetailsState.postValue(UiState.Error(""))

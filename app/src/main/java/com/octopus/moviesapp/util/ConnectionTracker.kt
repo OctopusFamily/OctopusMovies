@@ -1,5 +1,5 @@
 package com.octopus.moviesapp.util
 
-interface ConnectionStatus {
+interface ConnectionTracker {
     suspend fun isInternetConnectionAvailable(): Boolean
 }

@@ -3,8 +3,9 @@ package com.octopus.moviesapp.di
 import android.content.Context
 import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.InternetState
+import com.octopus.moviesapp.util.ConnectionTrackerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.InetSocketAddress
+import java.net.Socket
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -62,25 +65,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    @Named("networkStatesRequest")
-    fun networkStatesRequest(
-    ): Request {
-        return Request.Builder().url(Constants.URL_INTERNET_CHECKER)
-            .method("GET", null).build()
-    }
-
-
-    @Singleton
-    @Provides
-    fun networkState(
+    fun provideConnectionTracker(
         @ApplicationContext context: Context,
-        okHttpClient: OkHttpClient,
-        @Named("networkStatesRequest") request: Request
-    ): InternetState {
-        return InternetState(context, okHttpClient, request)
+    ): ConnectionTracker {
+        return ConnectionTrackerImpl(context)
     }
-
-
 }
 
 
