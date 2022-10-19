@@ -11,4 +11,5 @@ object Constants {
     const val FIRST_INDEX = 0
     const val GITHUB_URL = "https://github.com/OctopusFamily/OctopusMovies"
     const val URL_INTERNET_CHECKER = "https://www.google.com"
+    const val DARK_MODE = "dark_mode"
 }
