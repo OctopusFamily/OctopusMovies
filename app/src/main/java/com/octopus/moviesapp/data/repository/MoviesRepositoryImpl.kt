@@ -38,16 +38,8 @@ class MoviesRepositoryImpl @Inject constructor(
         return castMapper.map(tmdbApiService.getMovieCastById(movieId).itemsList)
     }
 
-    override suspend fun searchMovie(movieName: String): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getSearchMovie(movieName).items)
-    }
-
     override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
-        return if (query.isBlank())
-            emptyList()
-        else {
-            val searchResult = tmdbApiService.getSearchMultiMedia(query)
-            searchResultMapper.map(searchResult.items)
-        }
+        return searchResultMapper.map( tmdbApiService.getSearchMultiMedia(query).items)
+
     }
 }

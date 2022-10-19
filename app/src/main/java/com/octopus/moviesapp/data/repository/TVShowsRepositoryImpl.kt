@@ -32,7 +32,4 @@ class TVShowsRepositoryImpl @Inject constructor(
         return tvShowMapper.map(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
     }
 
-    override suspend fun searchTVShow(tvShowName: String): List<TVShow> {
-        return tvShowMapper.map(tmdbApiService.getSearchTVShow(tvShowName).items)
-    }
 }

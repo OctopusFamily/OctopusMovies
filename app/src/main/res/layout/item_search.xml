@@ -14,7 +14,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         app:cardElevation="0dp"
         android:onClick="@{() -> listener.onItemClick(item.id)}"
         app:cardCornerRadius="@dimen/space6x"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_horizontal">
 
             <ImageView
                 android:layout_width="150dp"
@@ -47,32 +47,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space4x"
                     android:ellipsize="end"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:maxLines="2"
                     android:text="@{item.title}"
                     style="@style/text_style_body_medium"
                     tools:text="Family Guy" />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/space2x"
-                    android:numStars="5"
-                    android:rating="@{item.voteAverage}"
-                    android:stepSize="0.1"
-                    android:layout_gravity="center"
-                    style="@android:style/Widget.Material.RatingBar.Small"/>
-
                 <TextView
-                    style="@style/text_style_body_medium"
+                    android:id="@+id/text_overview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space2x"
+                    android:layout_marginBottom="@dimen/space2x"
                     android:ellipsize="end"
-                    android:lines="1"
-                    android:textAlignment="center"
-                    android:text="@{item.mediaType}"
-                    tools:text="2000" />
+                    android:textAlignment="textStart"
+                    android:maxLines="2"
+                    android:lines="2"
+                    android:text="@{item.overview}"
+                    style="@style/text_style_label_small"
+                    tools:text="Family Guy" />
+
+
             </LinearLayout>
 
 

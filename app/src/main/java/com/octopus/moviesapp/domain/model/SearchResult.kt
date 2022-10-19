@@ -9,4 +9,6 @@ data class SearchResult(
     val voteAverage: Float,
     val releaseDate: Date,
     val mediaType: String,
+    val originalLanguage: String?,
+    val overview: String?,
 )

@@ -36,4 +36,9 @@ abstract class BaseAdapter<T>(
             setVariable(BR.listener, listener)
         }
     }
+
+    fun setItems(newList : List<T>){
+        itemsList = newList
+       notifyDataSetChanged()
+    }
 }

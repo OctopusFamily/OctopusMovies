@@ -1,9 +1,11 @@
-package com.octopus.moviesapp.data.remote.response.dto.search
+package com.octopus.moviesapp.data.remote.response.dto
 
 
 import com.google.gson.annotations.SerializedName
 
 data class SearchDTO(
+    @SerializedName("profile_path")
+    val profile_path: String?,
     @SerializedName("adult")
     val adult: Boolean?,
     @SerializedName("backdrop_path")
