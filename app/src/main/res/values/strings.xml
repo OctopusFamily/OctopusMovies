@@ -82,6 +82,12 @@
     <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
     <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
 
+    <string name="there_is_no_overview">There\'s no overview</string>
+    <string name="there_is_no_tagline">There\'s no tagline</string>
+    <string name="about">About</string>
+    <string name="version">Version 1.0</string>
+    <string name="github">Github</string>
+
     <string name="oops">Oops!</string>
     <string name="there_is_no_internet_connection">There is no internet connection</string>
     <string name="retry">Retry</string>

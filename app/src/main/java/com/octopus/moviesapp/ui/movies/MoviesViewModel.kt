@@ -47,6 +47,7 @@ class MoviesViewModel @Inject constructor(
             }
         }
     }
+
     override fun onMovieClick(movieId: Int) {
         _navigateToMovieDetails.postEvent(movieId)
     }

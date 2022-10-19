@@ -11,7 +11,7 @@ import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.util.observeEvent
+import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.MoviesRepository
 import com.octopus.moviesapp.domain.model.Cast
+import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -47,6 +50,9 @@ class MovieDetailsViewModel @Inject constructor(
 
     private val _rateMovie = MutableLiveData<Event<Int>>()
     val rateMovie: LiveData<Event<Int>> get() = _rateMovie
+
+    private val _navigateToMoviesGenre = MutableLiveData<Event<Genre>>()
+    val navigateToMoviesGenre: LiveData<Event<Genre>> get() = _navigateToMoviesGenre
 
     private var movieID = 0
     fun loadMovieDetails(movieId: Int) {
@@ -120,5 +126,9 @@ class MovieDetailsViewModel @Inject constructor(
                 _movieCastState.postValue(it)
             }
         }
+    }
+
+    override fun onGenreClick(genre: Genre) {
+        _navigateToMoviesGenre.postEvent(genre)
     }
 }
