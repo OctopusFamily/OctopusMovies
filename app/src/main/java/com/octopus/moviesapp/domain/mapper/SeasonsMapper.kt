@@ -13,7 +13,7 @@ class SeasonsMapper @Inject constructor() : Mapper<List<SeasonDTO>, List<Season>
                 Season(
                     id = seasonDTO.id ?: 0,
                     seasonNumber = seasonDTO.seasonNumber ?: 0,
-                    imageUrl = seasonDTO.posterPath?.buildImageUrl() ?: "",
+                    imageUrl = buildImageUrl(seasonDTO.posterPath),
                 )
             }
         }

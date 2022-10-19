@@ -1,16 +1,24 @@
 package com.octopus.moviesapp.di
 
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import android.content.Context
 import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
+import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.util.ConnectionTrackerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.InetSocketAddress
+import java.net.Socket
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -54,9 +62,15 @@ object NetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideConnectionTracker(
+        @ApplicationContext context: Context,
+    ): ConnectionTracker {
+        return ConnectionTrackerImpl(context)
+    }
 }
-
-
 
 
 
