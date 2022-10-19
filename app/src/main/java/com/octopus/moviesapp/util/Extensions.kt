@@ -2,7 +2,11 @@ package com.octopus.moviesapp.util
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Rect
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -48,4 +52,13 @@ fun String.isEnglishLettersOnly(): Boolean {
 
 fun String.isEnglishLettersAndDigitsOnly(): Boolean {
     return this.matches("^[a-zA-Z0-9]*$".toRegex())
+}
+
+fun DialogFragment.setWidthPercent(percentage: Int) {
+    val percent = percentage.toFloat() / 100
+    val dm = Resources.getSystem().displayMetrics
+    val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
+    val percentWidth = rect.width() * percent
+    dialog?.window?.setLayout(percentWidth.toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+    dialog?.setCanceledOnTouchOutside(false)
 }

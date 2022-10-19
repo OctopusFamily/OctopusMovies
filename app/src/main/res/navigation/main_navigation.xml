@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@id/loginFragment">
 
@@ -83,7 +84,27 @@
         android:name="com.octopus.moviesapp.ui.login.LoginFragment"
         android:label="LoginFragment" >
         <action
+            android:id="@+id/action_loginFragment_to_loadingDialog"
+            app:destination="@id/loadingDialog" />
+        <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/loadingDialog"
+        android:name="com.octopus.moviesapp.ui.login.LoginStateDialog"
+        android:label="LoadingDialog"
+        tools:layout="@layout/login_state_dialog">
+        <action
+            android:id="@+id/action_loadingDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue='""' />
+    </dialog>
 </navigation>

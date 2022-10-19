@@ -38,13 +38,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
 
-        viewModel.loginEvent.observeEvent(viewLifecycleOwner) {
+        viewModel.isDialogShow.observe(viewLifecycleOwner) {
             if (it) {
-                navigateToHomeFragment()
+                navigateToLoadingDialog()
             }
 
         }
     }
+
+    private fun navigateToLoadingDialog() {
+        val username = viewModel.userName.value.toString()
+        val password = viewModel.password.value.toString()
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToLoadingDialog(username,password))
+     }
 
     private fun navigateToHomeFragment() {
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())

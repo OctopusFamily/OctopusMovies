@@ -106,3 +106,13 @@ fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
         imageView.setImageResource(R.drawable.ic_eye)
     }
 }
+
+@BindingAdapter(value = ["app:showWhenLoading"])
+fun <T> showWhenLoading(view: View, state: UiState<T>?) {
+    view.isVisible = (state is UiState.Loading)
+}
+
+@BindingAdapter(value = ["app:showWhenError"])
+fun <T> showWhenError(view: View, state: UiState<T>?) {
+    view.isVisible = (state is UiState.Error)
+}

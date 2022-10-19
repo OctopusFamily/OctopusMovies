@@ -2,13 +2,13 @@ package com.octopus.moviesapp.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.AccountRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.AuthUtilsImpl
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
-import com.octopus.moviesapp.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,11 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val textValidation: AuthUtilsImpl
+    private val textValidation: AuthUtilsImpl,
+    saveStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
     val userName = MutableLiveData<String?>()
     val password = MutableLiveData<String?>()
+
+    private val args = LoginStateDialogArgs.fromSavedStateHandle(saveStateHandle)
 
     private val _userNameHelperText = MutableLiveData("")
     val userNameHelperText = _userNameHelperText
@@ -32,8 +35,6 @@ class LoginViewModel @Inject constructor(
     private val _loginRequestState = MutableLiveData<UiState<Boolean>>()
     val loginRequestState = _loginRequestState
 
-    private val _loginEvent = MutableLiveData<Event<Boolean>>()
-    val loginEvent = _loginEvent
 
     private val _signUpEvent = MutableLiveData(Event(false))
     val signUpEvent: LiveData<Event<Boolean>>
@@ -46,12 +47,17 @@ class LoginViewModel @Inject constructor(
     private val _isSkip = MutableLiveData(Event(false))
     val isSkip = _isSkip
 
+    private val _isDialogShow = MutableLiveData(false)
+    val isDialogShow: LiveData<Boolean>
+        get() = _isDialogShow
+
+
     fun onClickSignUp() {
         _signUpEvent.postValue(Event(true))
     }
 
     fun onClickLogin() {
-        if (checkFormValidation())  login()
+        if (checkFormValidation()) _isDialogShow.postValue(true)
         else checkFormValidation()
     }
 
@@ -67,11 +73,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun login() {
-        viewModelScope.launch {
+      fun login() {
+         viewModelScope.launch {
             accountRepository.login(
-                userName.value.toString(),
-                password.value.toString()
+                userName = args.username,
+                password = args.password
             ).collect {
                 when (it) {
                     is UiState.Error -> onLoginError(it.message)
@@ -84,8 +90,6 @@ class LoginViewModel @Inject constructor(
 
     private fun onLoginSuccessfully() {
         _loginRequestState.postValue(UiState.Success(true))
-        _loginEvent.postEvent(true)
-
     }
 
     private fun onLoginError(message: String) {
