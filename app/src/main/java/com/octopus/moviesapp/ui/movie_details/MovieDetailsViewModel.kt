@@ -11,6 +11,7 @@ import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
@@ -56,9 +58,21 @@ class MovieDetailsViewModel @Inject constructor(
     private var movieID = 0
     fun loadMovieDetails(movieId: Int) {
         movieID = movieId
-        getMovieDetails(movieId)
-        getMovieCast(movieId)
-        getMovieTrailer(movieId)
+
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                getMovieDetails()
+            } else {
+                _movieDetailsState.postValue(UiState.Error(""))
+            }
+        }
+
+    }
+
+    private fun getMovieDetails() {
+        getMovieDetails(movieID)
+        getMovieCast(movieID)
+        getMovieTrailer(movieID)
     }
 
     fun tryLoadMovieDetailsAgain() {

@@ -85,4 +85,8 @@
     <string name="about">About</string>
     <string name="version">Version 1.0</string>
     <string name="github">Github</string>
+
+    <string name="oops">Oops!</string>
+    <string name="there_is_no_internet_connection">There is no internet connection</string>
+    <string name="retry">Retry</string>
 </resources>

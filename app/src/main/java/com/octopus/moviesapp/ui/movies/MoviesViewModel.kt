@@ -6,9 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.data.repository.MoviesRepository
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -18,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), MoviesClicksListener {
 
     private val _moviesListState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
@@ -33,6 +33,15 @@ class MoviesViewModel @Inject constructor(
     }
 
     private fun getMoviesByCategory(category: MoviesCategory) {
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                loadMoviesByCategory(category)
+            } else {
+                _moviesListState.postValue(UiState.Error(""))
+            }
+        }
+    }
+    private fun loadMoviesByCategory(category: MoviesCategory){
         viewModelScope.launch {
             wrapResponse { moviesRepository.getMoviesByCategory(category, 1) }.collectLatest {
                 _moviesListState.postValue(it)

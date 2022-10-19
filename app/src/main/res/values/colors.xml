@@ -34,4 +34,5 @@
     <color name="yellow">#FFB800</color>
     <color name="blue">#2196F3</color>
 
+    <color name="font_primary_color">#1a1c1e</color>
 </resources>
