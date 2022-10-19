@@ -3,6 +3,8 @@ package com.octopus.moviesapp.util
 import android.content.Context
 import androidx.core.text.isDigitsOnly
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.util.extensions.isEnglishLettersAndDigitsOnly
+import com.octopus.moviesapp.util.extensions.isEnglishLettersOnly
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

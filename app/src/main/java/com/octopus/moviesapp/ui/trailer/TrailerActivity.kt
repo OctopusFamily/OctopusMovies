@@ -11,7 +11,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityTrailerBinding
 import com.octopus.moviesapp.util.Constants.TRAILER_KEY
-import com.octopus.moviesapp.util.showShortToast
+import com.octopus.moviesapp.util.extensions.showShortToast
 
 class TrailerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 

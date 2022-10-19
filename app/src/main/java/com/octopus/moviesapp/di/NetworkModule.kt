@@ -2,11 +2,15 @@ package com.octopus.moviesapp.di
 
 import com.google.gson.Gson
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import android.content.Context
 import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
+import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.util.ConnectionTrackerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -61,8 +65,16 @@ object NetworkModule {
     fun provideGson(): Gson {
         return Gson()
     }
-}
 
+
+    @Singleton
+    @Provides
+    fun provideConnectionTracker(
+        @ApplicationContext context: Context,
+    ): ConnectionTracker {
+        return ConnectionTrackerImpl(context)
+    }
+}
 
 
 

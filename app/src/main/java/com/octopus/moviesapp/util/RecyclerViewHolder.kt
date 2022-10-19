@@ -2,7 +2,9 @@ package com.octopus.moviesapp.util
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.models.SlideModel
 import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
+import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
 import com.octopus.moviesapp.databinding.LayoutNestedInfoBinding
 import com.octopus.moviesapp.databinding.LayoutNestedSeasonsBinding
 import com.octopus.moviesapp.domain.model.Cast
@@ -19,8 +21,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
             binding.run {
                 taglineTextView.text = movieDetails.tagline
                 overviewTextView.text = movieDetails.overview
-                genresRecyclerView.adapter =
-                    NestedGenresAdapter(movieDetails.genres, genresListener)
+                genresRecyclerView.adapter = NestedGenresAdapter(movieDetails.genres, genresListener)
             }
         }
     }
@@ -55,4 +56,13 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
         }
     }
 
+    class ImageSliderViewHolder(
+        val binding: LayoutNestedImageSliderBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(title: String, imagesUrls: List<String>) {
+            val imagesList = imagesUrls.map { SlideModel(it) }
+            binding.imageSlider.setImageList(imagesList)
+            binding.title.text = title
+        }
+    }
 }

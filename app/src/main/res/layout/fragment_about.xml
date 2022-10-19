@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.about.AboutViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/top_app_bar_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/on_primary"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space8x"
+                android:contentDescription="@string/navigate_back_icon_description"
+                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+                android:padding="@dimen/space4x"
+                android:src="@drawable/ic_back_arrow"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/about"
+                android:textColor="@color/primary"
+                style="@style/text_style_body_large"
+                android:layout_marginHorizontal="@dimen/space8x"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_version"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/space8x"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/top_app_bar_linear_layout"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_octopus_logo" />
+
+            <TextView
+                style="@style/text_style_headline_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space16x"
+                android:elevation="1dp"
+                android:text="@string/app_name"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space4x"
+                android:gravity="center"
+                android:text="The Chance 2022"
+                style="@style/text_style_body_large"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space12x"
+                android:gravity="center"
+                android:text="Octopus Move uses the TMDB API but is not endorsed or certified by TMDB ."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/text_style_body_large"/>
+
+            <TextView
+                android:id="@+id/text_github"
+                style="@style/text_style_body_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
+                android:elevation="1dp"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.onGithubLinkClick()}"
+                android:text="@string/github"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/space2x"
+                android:drawableTint="@color/blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:drawableEndCompat="@drawable/ic_open_link" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/version"
+                android:layout_marginTop="@dimen/space18x"
+                style="@style/text_style_body_medium" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
