@@ -32,4 +32,16 @@ abstract class RepositoryModule {
     abstract fun bindGenresRepository(
         genresRepositoryImpl: GenresRepositoryImpl,
     ): GenresRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindPersonRepository(
+        personRepositoryImpl: PersonRepositoryImpl,
+    ): PersonRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindAccountRepository(
+        accountRepositoryImp: AccountRepositoryImp
+    ) : AccountRepository
 }

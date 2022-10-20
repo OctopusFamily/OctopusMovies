@@ -103,8 +103,6 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     }
 
     private fun navigateToTVShowsGenreFragment(genre: Genre){
-        requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
-    }
+      }
 }
 
