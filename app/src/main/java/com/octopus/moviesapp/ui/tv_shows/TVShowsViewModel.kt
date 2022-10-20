@@ -18,6 +18,7 @@ import javax.inject.Inject
 class TVShowsViewModel @Inject constructor(
     private val tvShowsRepository: TVShowsRepository,
     private val connectionTracker: ConnectionTracker,
+
 ) : BaseViewModel(), TVShowsClicksListener {
 
     private val _tvShowsListState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
