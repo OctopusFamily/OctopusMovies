@@ -18,6 +18,7 @@ class TVShowsGenreFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_shows_genre
     override val viewModel: TVShowsGenreViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
+    private  lateinit var tvShowsGenreAdapter : TVShowsGenreAdapter
 
     private val args: TVShowsGenreFragmentArgs by navArgs()
 
@@ -25,14 +26,21 @@ class TVShowsGenreFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadTVShow(args.genre.id, args.genre.name)
        handleEvents()
+        setAdapter()
 
     }
 
-    private fun handleEvents() {
+    private fun setAdapter(){
         viewModel.tvShowGenreState.observe(viewLifecycleOwner) { state ->
-            if (state is UiState.Success)
-                binding.tvShowRecyclerView.adapter = TVShowsGenreAdapter(state.data, viewModel)
+            if (state is UiState.Success) {
+                tvShowsGenreAdapter = TVShowsGenreAdapter(state.data, viewModel)
+                binding.tvShowRecyclerView.adapter = tvShowsGenreAdapter
+            }
         }
+    }
+
+    private fun handleEvents() {
+
         viewModel.navigateToTVShowDetails.observeEvent(viewLifecycleOwner) { tvShowbId ->
             navigateToTVShowDetails(tvShowbId)
         }

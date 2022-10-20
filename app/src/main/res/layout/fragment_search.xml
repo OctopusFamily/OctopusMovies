@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.search.SearchViewModel" />
+        <variable
+            name="searchType"
+            type="com.octopus.moviesapp.domain.types.SearchType" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space12x"
+            android:background="@drawable/circular_shape"
+            android:contentDescription="@string/navigate_back_icon_description"
+            android:onClick="@{() -> viewModel.onBackClick()}"
+            android:padding="@dimen/space4x"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+        <EditText
+            android:id="@+id/search_input"
+            style="@style/text_style_body_medium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_background"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/space4x"
+            android:hint="@string/Search"
+            android:imeOptions="actionSearch"
+            android:padding="@dimen/space4x"
+            android:singleLine="true"
+            android:text="@={viewModel.searchQuery}"
+            android:textColor="@color/primary"
+            android:textColorHint="@color/surface_variant"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:onCheckedChanged="@{viewModel::onChipSelected}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_input"
+            app:selectionRequired="true"
+            app:checkedChip="@id/movie_chip"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipStyle"
+                android:id="@+id/movie_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/movies"
+                app:chipStrokeColor="@android:color/transparent" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipStyle"
+                android:id="@+id/tv_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_shows"
+                app:chipStrokeColor="@android:color/transparent" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/ChipStyle"
+                android:id="@+id/actor_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actors"
+                app:chipStrokeColor="@android:color/transparent" />
+        </com.google.android.material.chip.ChipGroup>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/space6x"
+            android:paddingTop="@dimen/space2x"
+            app:showWhenStateIsSuccess="@{viewModel.searchResult}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:spanCount="1"
+            tools:listitem="@layout/item_search" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showWhenStateIsLoading="@{viewModel.searchResult}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space8x"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/search_recycler_view"
+            app:layout_constraintStart_toEndOf="@+id/search_recycler_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsError="@{viewModel.searchResult}"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/failed_to_load_movies"
+                android:textAlignment="center"
+                android:textColor="@color/surface_variant" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/try_load_movies_again"
+                android:onClick="@{()->viewModel.tryLoadDataAgain(viewModel.searchQuery)}"
+                android:src="@drawable/ic_refresh"
+                android:textColor="@color/primary"
+                app:tint="@color/on_background" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

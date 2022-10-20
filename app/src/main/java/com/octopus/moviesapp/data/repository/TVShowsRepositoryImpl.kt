@@ -31,4 +31,5 @@ class TVShowsRepositoryImpl @Inject constructor(
     override suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow> {
         return tvShowsMapper.map(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
     }
+
 }

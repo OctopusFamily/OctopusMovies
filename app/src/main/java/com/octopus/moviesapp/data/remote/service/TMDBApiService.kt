@@ -115,4 +115,10 @@ interface TMDBApiService {
         @Field("description") description: String = ""
     ): CreateListResponse
 
+    // Search End Points
+    @GET("search/multi")
+    suspend fun getSearchMultiMedia(
+        @Query("query") query: String
+    ): MultiItemsResponse<SearchDTO>
+
 }
