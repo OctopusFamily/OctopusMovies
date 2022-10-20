@@ -60,6 +60,9 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
+
+
+
     fun tryLoadMoviesAgain() {
         getMoviesByCategory(currentMoviesCategory)
     }

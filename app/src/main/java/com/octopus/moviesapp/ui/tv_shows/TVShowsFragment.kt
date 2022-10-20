@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowsBinding
+import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
@@ -21,6 +22,11 @@ class TVShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         handleEvents()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onChipClick(TVShowsCategory.POPULAR)
+    }
+
     private fun handleEvents() {
         viewModel.tvShowsListState.observe(viewLifecycleOwner) { state ->
             if (state is UiState.Success) {
@@ -33,7 +39,8 @@ class TVShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     }
 
     private fun navigateToTVShowDetails(tvShowId: Int) {
-        requireView().findNavController().navigate(TVShowsFragmentDirections.actionTVShowsFragmentToTVShowDetailsFragment(tvShowId))
-
+        requireView().findNavController()
+            .navigate(TVShowsFragmentDirections
+                .actionTVShowsFragmentToTVShowDetailsFragment(tvShowId))
     }
 }

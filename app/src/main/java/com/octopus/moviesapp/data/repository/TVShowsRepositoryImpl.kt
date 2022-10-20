@@ -14,14 +14,14 @@ class TVShowsRepositoryImpl @Inject constructor(
     private val castMapper: CastMapper,
     private val trailerMapper: TrailerMapper,
     private val tvShowDetailsMapper: TVShowDetailsMapper,
-    private val tvShowMapper: TVShowMapper,
+    private val tvShowsMapper: TVShowsMapper,
 ) : TVShowsRepository {
     override suspend fun getTVShowDetailsById(tvShowId: Int): TVShowDetails {
         return tvShowDetailsMapper.map(tmdbApiService.getTVShowById(tvShowId))
     }
 
     override suspend fun getTVShowCastById(tvShowId: Int): List<Cast> {
-        return castMapper.map(tmdbApiService.getTVShowCastById(tvShowId).itemsList)
+        return castMapper.map(tmdbApiService.getTVShowCastById(tvShowId).items)
     }
 
     override suspend fun getTVShowsTrailersById(tvShowId: Int): Trailer {
@@ -29,6 +29,7 @@ class TVShowsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow> {
-        return tvShowMapper.map(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
+        return tvShowsMapper.map(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
     }
+
 }

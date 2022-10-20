@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.tv_show_details
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.TVShowsRepository
 import com.octopus.moviesapp.domain.model.Cast
@@ -11,6 +12,7 @@ import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.movie_details.MovieDetailsFragmentArgs
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
@@ -28,7 +30,8 @@ import javax.inject.Inject
 class TVShowDetailsViewModel @Inject constructor(
     private val tvShowsRepository: TVShowsRepository,
     private val connectionTracker: ConnectionTracker,
-) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
+    saveStateHandle: SavedStateHandle,
+    ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
     val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
@@ -62,10 +65,19 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _navigateToTVShowsGenre = MutableLiveData<Event<Genre>>()
     val navigateToTVShowsGenre: LiveData<Event<Genre>> get() = _navigateToTVShowsGenre
 
+    private val _navigateToPersonDetails = MutableLiveData<Event<Int>>()
+    val navigateToPersonDetails: LiveData<Event<Int>> get() = _navigateToPersonDetails
+
+    private val args = TVShowDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
+
+
+    init {
+        loadTVShowDetails(args.tvShowId)
+    }
+
 
     private var tvShowID = 0
-
-    fun loadTVShowDetails(tvShowId: Int) {
+    private fun loadTVShowDetails(tvShowId: Int) {
         tvShowID = tvShowId
 
         viewModelScope.launch {
@@ -79,9 +91,9 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     private fun getTVShowDetailsInfo(tvShowId: Int) {
-        getTVShowDetails(tvShowId)
-        getTVShowCast(tvShowId)
-        getTVTrailer(tvShowId)
+        getTVShowDetails(args.tvShowId)
+        getTVShowCast(args.tvShowId)
+        getTVTrailer(args.tvShowId)
     }
 
 
@@ -121,7 +133,7 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     fun tryLoadTVShowDetailsAgain() {
-        loadTVShowDetails(tvShowID)
+        loadTVShowDetails(args.tvShowId)
     }
 
     private fun getTVShowDetails(tvID: Int) {
@@ -145,5 +157,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     override fun onGenreClick(genre: Genre) {
         _navigateToTVShowsGenre.postEvent(genre)
+    }
+
+    override fun onCastClick(castId: Int) {
+        _navigateToPersonDetails.postEvent(castId)
     }
 }
