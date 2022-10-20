@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.util
 
 interface AuthUtils {
-    fun validateUsername(username: String?): String?
-    fun validatePassword(password: String?): String?
+    fun validateUsername(username: String?): InputValidationResult
+    fun validatePassword(password: String?): InputValidationResult
 }

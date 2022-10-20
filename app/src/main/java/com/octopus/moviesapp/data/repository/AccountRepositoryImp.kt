@@ -21,15 +21,15 @@ class AccountRepositoryImp @Inject constructor(
         return dataStorePref.readString(Constants.SESSION_ID_KEY)
     }
     override suspend fun login(
-        userName: String,
+        username: String,
         password: String,
     ): Flow<UiState<Boolean>> {
         return flow {
             emit(UiState.Loading)
             try {
                 val token = getRequestToken().toString()
-                val body = mapOf<String, Any>(
-                    "username" to userName,
+                val body = mapOf(
+                    "username" to username,
                     "password" to password,
                     "request_token" to token,
                 ).toMap()
