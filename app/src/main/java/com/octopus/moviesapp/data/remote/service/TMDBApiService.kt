@@ -102,6 +102,12 @@ interface TMDBApiService {
     ): Response<RequestTokenResponse>
 
     @FormUrlEncoded
+    @POST("authentication/session/new")
+    suspend fun createSession(
+        @Field("request_token") requestToken: String
+    ): Response<SessionResponse>
+
+    @FormUrlEncoded
     @POST("list")
     suspend fun createList(
         @Query("session_id") sessionId: String,
