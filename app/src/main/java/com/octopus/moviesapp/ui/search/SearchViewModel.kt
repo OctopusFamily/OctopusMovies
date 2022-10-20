@@ -22,16 +22,13 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery = MutableLiveData<String>()
 
-    private val _searchResult = MutableLiveData<UiState<List<SearchResult>?>?>(UiState.Loading)
-    val searchResult: LiveData<UiState<List<SearchResult>?>?> = _searchResult
+    private val _searchResult = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
+    val searchResult: LiveData<UiState<List<SearchResult>>> = _searchResult
 
     private val _filteredSearchResults = MutableLiveData<List<SearchResult>>(emptyList())
     val filteredSearchResults: LiveData<List<SearchResult>> = _filteredSearchResults
 
-    private val _searchType = MutableLiveData(SearchType.MOVIE.pathName)
-    val searchType: LiveData<String> = _searchType
-
-    private val searchResultItems = MutableLiveData<List<SearchResult>?>()
+    private val searchResultItems = MutableLiveData<List<SearchResult>>()
 
     private val _navigateToDetails = MutableLiveData<Event<Int>>()
     val navigateToDetails: LiveData<Event<Int>> = _navigateToDetails
@@ -39,50 +36,22 @@ class SearchViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
+    var searchType = SearchType.MOVIE
 
     fun getSearchMultiMedia(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
             viewModelScope.launch {
-                wrapResponse {
-                    repositoryMovie.getSearchMultiMedia(searchQuery)
-                }.collectLatest { searchState ->
-
-
+                wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery) }.collectLatest { searchState ->
                     if (searchState is UiState.Success) {
-                        filterSearchResultsByType(searchState.data, _searchType.value.toString())
-                        searchResultItems.postValue(searchState.data)
+                        filterSearchResultsByType(searchState.data, searchType)
+                        searchState.data.let { searchResultItems.postValue(it) }
                     }
                     _searchResult.postValue(searchState)
-
-
                 }
             }
 
         } else _filteredSearchResults.postValue(emptyList())
-
     }
-
-    private fun filterSearchResultsByType(data: List<SearchResult>, type: String) {
-        _filteredSearchResults.postValue(data.filter { it.mediaType == type })
-    }
-
-    override fun onChipSelected(selectedItemId: Int) {
-        when (selectedItemId) {
-            0 -> _searchType.value = SearchType.MOVIE.pathName
-            1 -> _searchType.value = SearchType.TV.pathName
-            2 -> _searchType.value = SearchType.PERSON.pathName
-        }
-
-        if(searchQuery.value.isNullOrEmpty()){
-          _filteredSearchResults.postValue(emptyList())
-        }else
-        searchResultItems.value?.let {
-            filterSearchResultsByType(it, _searchType.value.toString())
-        }
-
-
-    }
-
 
     fun tryLoadDataAgain(searchQuery: String) {
         getSearchMultiMedia(searchQuery)
@@ -92,8 +61,37 @@ class SearchViewModel @Inject constructor(
         _navigateBack.postEvent(true)
     }
 
+    override fun onChipSelected(selectedItemId: Int) {
+        when (selectedItemId) {
+            0 -> searchType = SearchType.MOVIE
+            1 -> searchType = SearchType.TV
+            2 -> searchType = SearchType.PERSON
+        }
+
+        searchQuery.value?.let { query ->
+            if (query.isEmpty()) {
+                clearList()
+            } else {
+                filterCurrentList()
+            }
+        } ?: clearList()
+    }
+
+    private fun clearList() {
+        _filteredSearchResults.postValue(emptyList())
+    }
+
+    private fun filterCurrentList() {
+        searchResultItems.value?.let {
+            filterSearchResultsByType(it, searchType)
+        }
+    }
+
+    private fun filterSearchResultsByType(data: List<SearchResult>, type: SearchType) {
+        _filteredSearchResults.postValue(data.filter { it.searchType == type })
+    }
+
     override fun onItemClick(searchId: Int) {
         _navigateToDetails.postEvent(searchId)
     }
 }
-

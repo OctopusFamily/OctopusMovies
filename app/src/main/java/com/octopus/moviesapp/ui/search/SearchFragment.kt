@@ -18,41 +18,37 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_search
     override val viewModel: SearchViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
-    private  lateinit var searchAdapter :SearchAdapter
+
+    private lateinit var searchAdapter: SearchAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleEvents()
         handleObserve()
         setAdapter()
-
-
-
-
     }
+
     private fun handleObserve(){
-        viewModel.searchQuery.observe(viewLifecycleOwner){
+        viewModel.searchQuery.observe(viewLifecycleOwner) {
             viewModel.getSearchMultiMedia(it)
         }
 
         viewModel.filteredSearchResults.observe(viewLifecycleOwner) { searchResults ->
             searchAdapter.setItems(searchResults)
-
         }
     }
 
     private fun setAdapter(){
-        searchAdapter = SearchAdapter(emptyList(),viewModel)
+        searchAdapter = SearchAdapter(emptyList(), viewModel)
         binding.searchRecyclerView.adapter = searchAdapter
     }
 
     private fun handleEvents() {
-
         viewModel.navigateToDetails.observeEvent(viewLifecycleOwner) { id ->
-            when (viewModel.searchType.value) {
-                SearchType.MOVIE.pathName -> navigateToMovieDetails(id)
-                SearchType.TV.pathName -> navigateToTVShowDetails(id)
-                SearchType.PERSON.pathName -> navigateToPersonDetails(id)
+            when (viewModel.searchType) {
+                SearchType.MOVIE -> navigateToMovieDetails(id)
+                SearchType.TV -> navigateToTVShowDetails(id)
+                SearchType.PERSON -> navigateToPersonDetails(id)
             }
         }
 
@@ -64,8 +60,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun navigateToTVShowDetails(tvShowId: Int) {
         findNavController().navigate(
-            SearchFragmentDirections
-                .actionSearchFragmentToTVShowDetailsFragment(tvShowId)
+            SearchFragmentDirections.actionSearchFragmentToTVShowDetailsFragment(tvShowId)
         )
     }
 

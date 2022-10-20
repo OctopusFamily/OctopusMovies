@@ -7,7 +7,9 @@ import com.octopus.moviesapp.util.convertStringToDate
 import com.octopus.moviesapp.util.getTextOrPlaceholder
 import dagger.hilt.android.qualifiers.ApplicationContext
 import android.content.Context
+import android.provider.MediaStore.Audio.Media
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.domain.types.SearchType
 import javax.inject.Inject
 
 class SearchResultMapper @Inject constructor(
@@ -21,7 +23,7 @@ class SearchResultMapper @Inject constructor(
                 posterImageUrl = buildImageUrl(it.posterPath?:it.backdropPath ?:it.profile_path ),
                 voteAverage = it.voteAverage ?: 0f,
                 releaseDate = convertStringToDate(it.releaseDate) ,
-                mediaType = it.mediaType ?: "",
+                searchType = it.mediaType?.let { mediaType -> SearchType.fromMediaType(mediaType) } ?: SearchType.MOVIE,
                 originalLanguage = it.originalLanguage?: "",
                 overview = getTextOrPlaceholder(context,it.overview, R.string.there_is_no_overview)
             )
