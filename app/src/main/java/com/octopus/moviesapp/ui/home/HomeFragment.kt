@@ -1,11 +1,13 @@
 package com.octopus.moviesapp.ui.home
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
-import com.octopus.moviesapp.R
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentHomeBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

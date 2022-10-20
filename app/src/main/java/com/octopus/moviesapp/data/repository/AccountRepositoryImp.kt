@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.data.repository
 
 
-import com.octopus.moviesapp.data.DataClassParser
+import com.octopus.moviesapp.data.JsonParser
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
     private val dataStorePref: DataStorePref,
-    private val dataClassParser: DataClassParser,
+    private val jsonParser: JsonParser,
 ) : AccountRepository {
     override fun getSessionId(): Flow<String?> {
         return dataStorePref.readString(Constants.SESSION_ID_KEY)
@@ -39,7 +39,7 @@ class AccountRepositoryImp @Inject constructor(
                     emit(UiState.Success(true))
                 } else {
                     val errorResponse =
-                        dataClassParser.parseFromJson(validateRequestTokenWithLogin.errorBody()
+                        jsonParser.parseFromJson(validateRequestTokenWithLogin.errorBody()
                             ?.string(), ErrorResponse::class.java)
                     emit(UiState.Error(errorResponse.statusMessage.toString()))
                 }
