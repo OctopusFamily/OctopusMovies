@@ -25,6 +25,10 @@ class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSel
         handleTabLayout()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onTapSelected(GenresType.MOVIE)
+    }
 
     private fun handleEvents() {
         viewModel.genresListState.observe(viewLifecycleOwner) { state ->

@@ -5,5 +5,5 @@ import com.octopus.moviesapp.data.remote.response.dto.GenreDTO
 
 data class GenresResponse(
     @SerializedName("genres")
-    val itemsList: List<GenreDTO>
+    val items: List<GenreDTO>
 )
