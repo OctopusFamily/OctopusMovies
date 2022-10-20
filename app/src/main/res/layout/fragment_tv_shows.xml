@@ -121,7 +121,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:lottie_rawRes="@raw/no_internet" />
+                app:setLottieAnimationView="@{viewModel.tvShowsListState}" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/there_is_no_internet_connection"
+                app:setTextError="@{viewModel.tvShowsListState}"
                 android:textAlignment="center"
                 android:textColor="@color/error" />
 

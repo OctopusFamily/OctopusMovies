@@ -9,12 +9,14 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
@@ -156,6 +158,28 @@ fun setChosenTheme(radioGroup: RadioGroup, currentTheme: Theme?) {
         when (theme) {
             Theme.LIGHT -> radioGroup.check(R.id.light_theme_radio_button)
             Theme.DARK -> radioGroup.check(R.id.dark_theme_radio_button)
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:setTextError"])
+fun <T> TextView.setTextError(uiState: UiState<T>) {
+    if (uiState is UiState.Error) {
+        if (uiState.message == Constants.ERROR_INTERNET) {
+            this.text = this.context.getString(R.string.there_is_no_internet_connection)
+        } else {
+            this.text = uiState.message
+        }
+    }
+}
+
+@BindingAdapter(value = ["app:setLottieAnimationView"])
+fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
+    if (uiState is UiState.Error) {
+        if (uiState.message == Constants.ERROR_INTERNET) {
+            view.setAnimation(R.raw.no_internet)
+        }else{
+            view.setAnimation(R.raw.error)
         }
     }
 }

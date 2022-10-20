@@ -37,7 +37,7 @@ class TVShowsViewModel @Inject constructor(
             if (connectionTracker.isInternetConnectionAvailable()) {
                 loadTVShowsByCategory(category)
             } else {
-                _tvShowsListState.postValue(UiState.Error(""))
+                _tvShowsListState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
         }
     }
