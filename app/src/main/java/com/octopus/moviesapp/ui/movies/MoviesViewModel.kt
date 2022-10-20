@@ -37,7 +37,7 @@ class MoviesViewModel @Inject constructor(
             if (connectionTracker.isInternetConnectionAvailable()) {
                 loadMoviesByCategory(category)
             } else {
-                _moviesListState.postValue(UiState.Error("400"))
+                _moviesListState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
         }
     }

@@ -63,7 +63,7 @@ class MovieDetailsViewModel @Inject constructor(
             if (connectionTracker.isInternetConnectionAvailable()) {
                 getMovieDetails()
             } else {
-                _movieDetailsState.postValue(UiState.Error(""))
+                _movieDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
         }
 
