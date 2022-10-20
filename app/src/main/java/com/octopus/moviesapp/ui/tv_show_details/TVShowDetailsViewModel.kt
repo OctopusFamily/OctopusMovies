@@ -5,13 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.TVShowsRepository
-import com.octopus.moviesapp.domain.model.*
-import com.octopus.moviesapp.util.UiState
+import com.octopus.moviesapp.domain.model.Cast
+import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.domain.model.Season
+import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -21,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
     private val tvShowsRepository: TVShowsRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
@@ -55,18 +62,29 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _navigateToTVShowsGenre = MutableLiveData<Event<Genre>>()
     val navigateToTVShowsGenre: LiveData<Event<Genre>> get() = _navigateToTVShowsGenre
 
-
-
+    private val _navigateToPersonDetails = MutableLiveData<Event<Int>>()
+    val navigateToPersonDetails: LiveData<Event<Int>> get() = _navigateToPersonDetails
 
     private var tvShowID = 0
+
     fun loadTVShowDetails(tvShowId: Int) {
         tvShowID = tvShowId
+
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                getTVShowDetailsInfo(tvShowID)
+            } else {
+                _tvShowDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
+
+    }
+
+    private fun getTVShowDetailsInfo(tvShowId: Int) {
         getTVShowDetails(tvShowId)
         getTVShowCast(tvShowId)
         getTVTrailer(tvShowId)
     }
-
-
 
 
     private fun getTVTrailer(tvShowId: Int) {
@@ -129,5 +147,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     override fun onGenreClick(genre: Genre) {
         _navigateToTVShowsGenre.postEvent(genre)
+    }
+
+    override fun onCastClick(castId: Int) {
+        _navigateToPersonDetails.postEvent(castId)
     }
 }

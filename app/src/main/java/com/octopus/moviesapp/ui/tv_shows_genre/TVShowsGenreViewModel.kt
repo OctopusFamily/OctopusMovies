@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.GenresRepository
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TVShowsGenreViewModel @Inject constructor(
     private val genresRepository: GenresRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), TVShowsClicksListener {
 
 
@@ -37,8 +40,26 @@ class TVShowsGenreViewModel @Inject constructor(
     private var genreID = 0
     fun loadTVShow(genreId: Int, genreName: String) {
         genreID = genreId
-        getTVShowByGenreId(genreId)
         _genreName.postValue(genreName)
+
+        getLoadTVShow()
+
+
+    }
+
+    private fun getLoadTVShow() {
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                getTVShowByGenreId(genreID)
+            } else {
+                _tvShowGenreState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
+
+    }
+
+    fun tryLoadTVShow() {
+        getLoadTVShow()
     }
 
     private fun getTVShowByGenreId(genreId: Int) {

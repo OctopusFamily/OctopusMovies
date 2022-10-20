@@ -7,6 +7,10 @@
         <variable
             name="item"
             type="com.octopus.moviesapp.domain.model.Cast" />
+
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.nested.NestedCastListener" />
     </data>
 
     <LinearLayout
@@ -14,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space2x"
         android:orientation="vertical"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:onClick="@{()-> listener.onCastClick(item.id)}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="100dp"

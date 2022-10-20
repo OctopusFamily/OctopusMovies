@@ -55,6 +55,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val _navigateToMoviesGenre = MutableLiveData<Event<Genre>>()
     val navigateToMoviesGenre: LiveData<Event<Genre>> get() = _navigateToMoviesGenre
 
+    private val _navigateToPersonDetails = MutableLiveData<Event<Int>>()
+    val navigateToPersonDetails: LiveData<Event<Int>> get() = _navigateToPersonDetails
+
     private var movieID = 0
     fun loadMovieDetails(movieId: Int) {
         movieID = movieId
@@ -63,7 +66,7 @@ class MovieDetailsViewModel @Inject constructor(
             if (connectionTracker.isInternetConnectionAvailable()) {
                 getMovieDetails()
             } else {
-                _movieDetailsState.postValue(UiState.Error(""))
+                _movieDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
         }
 
@@ -131,5 +134,9 @@ class MovieDetailsViewModel @Inject constructor(
 
     override fun onGenreClick(genre: Genre) {
         _navigateToMoviesGenre.postEvent(genre)
+    }
+
+    override fun onCastClick(castId: Int) {
+        _navigateToPersonDetails.postEvent(castId)
     }
 }
