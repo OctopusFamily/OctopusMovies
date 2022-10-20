@@ -49,7 +49,7 @@ fun setReleaseDate(view: TextView, date: Date?) {
 @BindingAdapter(value = ["app:voteAverage"])
 fun setVoteAverage(view: TextView, rating: Float?) {
     rating?.let {
-        view.text = String.format(Locale.ENGLISH,"%.1f", it).toDouble().toString()
+        view.text = String.format("%.1f", it).toDouble().toString()
     }
 }
 
@@ -108,6 +108,16 @@ fun changePasswordIcon(imageView: ImageView, condition: Boolean) {
     } else {
         imageView.setImageResource(R.drawable.ic_eye)
     }
+}
+
+@BindingAdapter(value = ["app:showWhenLoading"])
+fun <T> showWhenLoading(view: View, state: UiState<T>?) {
+    view.isVisible = (state is UiState.Loading)
+}
+
+@BindingAdapter(value = ["app:showWhenError"])
+fun <T> showWhenError(view: View, state: UiState<T>?) {
+    view.isVisible = (state is UiState.Error)
 }
 
 @BindingAdapter(value = ["app:currentLanguage"])
