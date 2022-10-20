@@ -4,6 +4,7 @@ import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
+import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
@@ -72,6 +73,21 @@ interface TMDBApiService {
     suspend fun getTVShowsByGenresId(
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
+
+    @GET("/person/{person_id}")
+    suspend fun getPersonDetailsById(
+        @Path("person_id") personId: Int
+    ): PersonDTO
+
+    @GET("/Person/{person_id}/movie_credits")
+    suspend fun getPersonMoviesById(
+        @Path("person_id") personId: Int
+    ): CastResponse
+
+    @GET("/Person/{person_id}/tv_credits")
+    suspend fun getPersonTVShowsById(
+        @Path("person_id") personId: Int
+    ): CastResponse
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(): Response<RequestTokenResponse>
