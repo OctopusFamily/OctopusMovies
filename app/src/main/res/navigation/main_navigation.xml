@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_searchFragment_to_TVShowDetailsFragment"
             app:destination="@id/TVShowDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"

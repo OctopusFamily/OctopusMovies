@@ -77,12 +77,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun navigateToPersonDetails(personId: Int) {
-        Toast.makeText(
-            this.context,
-            "the id of the clicked person is $personId",
-            Toast.LENGTH_SHORT
-        ).show()
-        //TODO : not yet implement
+        findNavController().navigate(
+            SearchFragmentDirections
+                .actionSearchFragmentToPersonDetailsFragment(personId)
+        )
     }
 
 
