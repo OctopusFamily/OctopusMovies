@@ -1,60 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/cover_image_view"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.person_details.PersonDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="251dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
-        tools:src="@drawable/ic_launcher_background" />
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space8x"
-        android:layout_marginTop="@dimen/space8x"
-        android:background="@drawable/circular_shape"
-        android:contentDescription="@string/navigate_back_icon_description"
-        android:elevation="@dimen/space2x"
-        android:padding="@dimen/space4x"
-        android:src="@drawable/ic_back_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/primary" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:showWhenStateIsSuccess="@{viewModel.personDetailsState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/name_text_view"
-        style="@style/text_style_headline_small"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space8x"
-        android:layout_marginBottom="@dimen/space8x"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/on_primary"
-        app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
-        app:layout_constraintEnd_toEndOf="@+id/cover_image_view"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Alfred Thomas" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/cover_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="251dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.personDetails.profilePath}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space8x"
+                android:layout_marginTop="@dimen/space8x"
+                android:background="@drawable/circular_shape"
+                android:contentDescription="@string/navigate_back_icon_description"
+                android:elevation="@dimen/space2x"
+                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+                android:padding="@dimen/space4x"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:id="@+id/name_text_view"
+                style="@style/text_style_headline_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space8x"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.personDetails.name}"
+                android:textColor="@color/on_primary"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
+                app:layout_constraintEnd_toEndOf="@+id/cover_image_view"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Alfred Thomas" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_actor_details_edit"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/space6x"
-        android:paddingVertical="@dimen/space4x"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cover_image_view" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_actor_details_edit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/space6x"
+                android:paddingVertical="@dimen/space4x"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cover_image_view" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showWhenStateIsLoading="@{viewModel.personDetailsState}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

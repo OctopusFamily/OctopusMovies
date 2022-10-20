@@ -69,6 +69,10 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         viewModel.navigateToTVShowsGenre.observeEvent(viewLifecycleOwner) { genre ->
             navigateToTVShowsGenreFragment(genre)
         }
+
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+            navigateToPersonDetailsFragment(castId)
+        }
     }
 
     private fun handleTVShowDetails() {
@@ -101,6 +105,13 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     }
 
     private fun navigateToTVShowsGenreFragment(genre: Genre){
-      }
+        requireView().findNavController()
+            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
+    }
+
+    private fun navigateToPersonDetailsFragment(castId: Int){
+        requireView().findNavController()
+            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(castId))
+    }
 }
 

@@ -3,10 +3,7 @@ package com.octopus.moviesapp.data.remote.service
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
-import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
-import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
 import retrofit2.Response
@@ -34,7 +31,7 @@ interface TMDBApiService {
     @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
         @Path("movieID") movieId: Int,
-    ): CastResponse
+    ): CastResponse<CastDTO>
 
     // TVShows End Points
     @GET("tv/{tv_id}")
@@ -45,7 +42,7 @@ interface TMDBApiService {
     @GET("tv/{tv_id}/credits")
     suspend fun getTVShowCastById(
         @Path("tv_id") tvShowId: Int,
-    ): CastResponse
+    ): CastResponse<CastDTO>
 
     @GET("tv/{tv_id}/videos")
     suspend fun getTVShowsTrailersById(
@@ -74,20 +71,20 @@ interface TMDBApiService {
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
 
-    @GET("/person/{person_id}")
+    @GET("person/{person_id}")
     suspend fun getPersonDetailsById(
         @Path("person_id") personId: Int
     ): PersonDTO
 
-    @GET("/Person/{person_id}/movie_credits")
+    @GET("person/{person_id}/movie_credits")
     suspend fun getPersonMoviesById(
         @Path("person_id") personId: Int
-    ): CastResponse
+    ): CastResponse<MovieDTO>
 
-    @GET("/Person/{person_id}/tv_credits")
+    @GET("person/{person_id}/tv_credits")
     suspend fun getPersonTVShowsById(
         @Path("person_id") personId: Int
-    ): CastResponse
+    ): CastResponse<TVShowDTO>
 
     @GET("authentication/token/new")
     suspend fun getRequestToken(): Response<RequestTokenResponse>
@@ -95,9 +92,13 @@ interface TMDBApiService {
     @JvmSuppressWildcards
     @FormUrlEncoded
     @POST("authentication/token/validate_with_login")
-    suspend fun validateRequestTokenWithLogin(@FieldMap body: Map<String, Any>): Response<RequestTokenResponse>
+    suspend fun validateRequestTokenWithLogin(
+        @FieldMap body: Map<String, Any>
+    ): Response<RequestTokenResponse>
 
     @FormUrlEncoded
     @POST("authentication/session/new")
-    suspend fun createSession(@Field("request_token") requestToken: String): Response<SessionResponse>
+    suspend fun createSession(
+        @Field("request_token") requestToken: String
+    ): Response<SessionResponse>
 }

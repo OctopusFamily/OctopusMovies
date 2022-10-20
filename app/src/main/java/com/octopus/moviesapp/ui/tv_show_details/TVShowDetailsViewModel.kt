@@ -62,6 +62,8 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _navigateToTVShowsGenre = MutableLiveData<Event<Genre>>()
     val navigateToTVShowsGenre: LiveData<Event<Genre>> get() = _navigateToTVShowsGenre
 
+    private val _navigateToPersonDetails = MutableLiveData<Event<Int>>()
+    val navigateToPersonDetails: LiveData<Event<Int>> get() = _navigateToPersonDetails
 
     private var tvShowID = 0
 
@@ -145,5 +147,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     override fun onGenreClick(genre: Genre) {
         _navigateToTVShowsGenre.postEvent(genre)
+    }
+
+    override fun onCastClick(castId: Int) {
+        _navigateToPersonDetails.postEvent(castId)
     }
 }

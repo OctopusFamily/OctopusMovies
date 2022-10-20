@@ -66,6 +66,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         viewModel.navigateToMoviesGenre.observeEvent(viewLifecycleOwner) { genre ->
             navigateToMoviesGenreFragment(genre)
         }
+
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+            navigateToPersonDetailsFragment(castId)
+        }
     }
 
     private fun handleMovieDetails() {
@@ -99,5 +103,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     private fun navigateToMoviesGenreFragment(genre: Genre) {
         requireView().findNavController()
             .navigate(MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(genre))
+    }
+
+    private fun navigateToPersonDetailsFragment(castId: Int){
+        requireView().findNavController()
+            .navigate(MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(castId))
     }
 }

@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_to_moviesGenreFragment"
             app:destination="@id/moviesGenreFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
@@ -62,6 +65,12 @@
         <argument
             android:name="tvShowId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_TVShowDetailsFragment_to_TVShowsGenreFragment"
+            app:destination="@id/TVShowsGenreFragment" />
+        <action
+            android:id="@+id/action_TVShowDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesGenreFragment"
@@ -118,4 +127,12 @@
             app:argType="string"
             android:defaultValue='""' />
     </dialog>
+    <fragment
+        android:id="@+id/personDetailsFragment"
+        android:name="com.octopus.moviesapp.ui.person_details.PersonDetailsFragment"
+        android:label="PersonDetailsFragment" >
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
