@@ -74,6 +74,21 @@ interface TMDBApiService {
         @Query("with_genres") genreId: Int
     ): MultiItemsResponse<TVShowDTO>
 
+    @GET("/person/{person_id}")
+    suspend fun getPersonDetailsById(
+        @Path("person_id") personId: Int
+    ): PersonDTO
+
+    @GET("/Person/{person_id}/movie_credits")
+    suspend fun getPersonMoviesById(
+        @Path("person_id") personId: Int
+    ): CastResponse
+
+    @GET("/Person/{person_id}/tv_credits")
+    suspend fun getPersonTVShowsById(
+        @Path("person_id") personId: Int
+    ): CastResponse
+
     // Search End Points
     @GET("search/multi")
     suspend fun getSearchMultiMedia(

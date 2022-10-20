@@ -29,7 +29,8 @@
             android:layout_marginTop="@dimen/space4x"
             android:paddingHorizontal="@dimen/space8x"
             android:scrollbars="none"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:clipToPadding="false">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
@@ -99,32 +100,55 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="@color/background"
             app:showWhenStateIsError="@{viewModel.moviesListState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="@dimen/space8x"
             tools:ignore="UseCompoundDrawables">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_no_mobile_internet"
+                android:layout_width="@dimen/size_lottie"
+                android:layout_height="@dimen/size_lottie"
+                android:layout_margin="@dimen/space4x"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/no_internet" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/oops"
+                android:textSize="22sp"
+                android:textAlignment="center"
+                android:textColor="@color/font_primary_color" />
 
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/failed_to_load_movies"
+                android:text="@string/there_is_no_internet_connection"
                 android:textAlignment="center"
-                android:textColor="@color/surface_variant" />
+                android:textColor="@color/error" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:textColor="@color/primary"
-                android:contentDescription="@string/try_load_movies_again"
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
                 android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"
-                android:src="@drawable/ic_refresh"
-                app:tint="@color/on_background"/>
+                android:textAllCaps="true"
+                android:text="@string/retry"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

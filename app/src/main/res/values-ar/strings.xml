@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies App</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="movies">Movies</string>
+    <string name="genres_item_image_description">Genre Item Image</string>
+    <string name="watch_list_item_image_description">Watch List Item Image</string>
+    <string name="rating_star_icon_description">Rating Star Icon</string>
+    <string name="episode_icon_description">Episode Icon</string>
+    <string name="episode_air_date_icon_description">Episode Air Date Icon</string>
+    <string name="watch_list_icon_description">Watch List Icon</string>
+    <string name="navigate_back_icon_description">Navigate Back Icon</string>
+    <string name="tv_show_release_date_icon_description">TV Show Release Date Icon</string>
+    <string name="tv_show_status_icon_description">TV Show Status Icon</string>
+    <string name="language_icon_description">Language Icon</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="play_trailer_icon_description">Play Trailer Icon</string>
+
+    <string name="string_play_trailer">Play Trailer</string>
+    <string name="string_rate">Rate</string>
+    <string name="genres">Genres</string>
+    <string name="string_tagline">Tagline</string>
+    <string name="string_overview">Overview</string>
+    <string name="string_cast">Cast</string>
+    <string name="search_movies">Search Movies</string>
+    <string name="popular">Popular</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="movie_image_description">Movie Image</string>
+    <string name="tv_show_image_description">TV Show Image</string>
+    <string name="on_the_air">On the Air</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="octopus_movies">Octopus Movies</string>
+    <string name="search_tv_shows">Search TV Shows</string>
+    <string name="failed_to_load_movies">Failed to load Movies</string>
+    <string name="try_load_movies_again">Try Load Movies Again</string>
+    <string name="try_load_tv_show_again">Try load TV Shows again</string>
+    <string name="failed_to_load_tv_shows">Failed to load TV Shows</string>
+    <string name="try_load_genres_again">Try load Genres again</string>
+    <string name="failed_to_load_genres">Failed to load Genres</string>
+    <string name="english">إنجليزي</string>
+    <string name="arabic">عربي</string>
+    <string name="light">فاتح</string>
+    <string name="dark">داكن</string>
+    <string name="try_to_load_movie_details_again">Try to load Movie Details again</string>
+    <string name="failed_to_load_movie_details">Failed to load Movie Details</string>
+    <string name="duration">%1$d Min</string>
+    <string name="season">%1$d season</string>
+    <string name="seasons">%1$d seasons</string>
+    <string name="episode">%1$d episode</string>
+    <string name="episodes">%1$d episodes</string>
+    <string name="coming_soon">Coming soon..</string>
+    <string name="read_more">…Read more</string>
+    <string name="text_holder">In Gotham City, mentally disturbed comedian Arthur Fleck is neglected and abused</string>
+    <string name="string_seasons">Seasons</string>
+    <string name="season_number">S%1$d</string>
+    <string name="no_source_available">No Source Available!</string>
+    <string name="home_screen_not_available">Home screen will be available after we finish all other screens :)</string>
+    <string name="login">Login</string>
+    <string name="skip">Skip</string>
+    <string name="register">Register</string>
+    <string name="do_not_have_an_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="toggle_password_visibility">Toggle Password Visibility</string>
+
+    <string name="username_is_empty_error">Username can\'t be empty!</string>
+    <string name="username_length_error">Username must be 3 ~ 30 characters length!</string>
+    <string name="username_is_digits_only_error">Username must contain 1 letter at least!</string>
+    <string name="username_has_whitespace_error">Username can\'t contain any whitespaces!</string>
+
+    <string name="password_is_empty_error">Password can\'t be empty!</string>
+    <string name="password_length_error">Password must be 8 ~ 16 characters length!</string>
+    <string name="password_has_whitespace_error">Password can\'t contain any whitespaces!</string>
+    <string name="password_is_digits_only_error">Password must contain 1 letter at least!</string>
+    <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
+    <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
+
+    <string name="there_is_no_overview">There\'s no overview</string>
+    <string name="there_is_no_tagline">There\'s no tagline</string>
+    <string name="about">About</string>
+    <string name="version">Version 1.0</string>
+    <string name="github">Github</string>
+
+    <string name="oops">Oops!</string>
+    <string name="there_is_no_internet_connection">There is no internet connection</string>
+    <string name="retry">Retry</string>
+
+    <string name="no_name_provided">مفيش إسم ياحج</string>
+    <string name="no_biography_provided">No Biography Provided</string>
+    <string name="no_birthday_provided">No Birthday Provided</string>
+    <string name="no_place_of_birth_provided">No Place of Birth Provided</string>
+</resources>

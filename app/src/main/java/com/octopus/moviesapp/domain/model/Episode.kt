@@ -8,5 +8,5 @@ data class Episode(
     val voteCount: Int,
     val overview: String,
     val trailerUrl: String,
-    val crew : List<Person>,
+    val crew : List<Cast>,
 )

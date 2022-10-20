@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.settings.SettingsViewModel" />
@@ -12,16 +13,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/background">
+        android:background="@color/background"
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_settings_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()->viewModel.onLanguageChoiceClick()}"
             app:cardCornerRadius="12dp"
             app:cardElevation="@dimen/space_zero">
 
@@ -33,9 +35,9 @@
                     android:id="@+id/language_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_language"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,22 +55,23 @@
 
                 <TextView
                     android:id="@+id/text_language_chosen"
+                    style="@style/text_style_body_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English"
                     android:textColor="#C2000000"
-                    style="@style/text_style_body_small"
+                    app:currentLanguage="@{viewModel.currentLanguage}"
                     app:layout_constraintStart_toStartOf="@+id/label_language"
-                    app:layout_constraintTop_toBottomOf="@+id/label_language" />
+                    app:layout_constraintTop_toBottomOf="@+id/label_language"
+                    tools:text="English" />
 
                 <TextView
                     android:id="@+id/label_language"
+                    style="@style/text_style_body_large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Language"
-                    style="@style/text_style_body_large"
                     app:layout_constraintStart_toEndOf="@+id/language_icon"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -79,9 +82,10 @@
             android:id="@+id/card_settings_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()->viewModel.onThemeChoiceClick()}"
             app:cardCornerRadius="12dp"
             app:cardElevation="@dimen/space_zero">
 
@@ -93,9 +97,9 @@
                     android:id="@+id/theme_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_theme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -113,22 +117,23 @@
 
                 <TextView
                     android:id="@+id/text_theme_chosen"
+                    style="@style/text_style_body_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="light"
                     android:textColor="#C2000000"
-                    style="@style/text_style_body_small"
+                    app:currentTheme="@{viewModel.currentLTheme}"
                     app:layout_constraintStart_toStartOf="@+id/label_theme"
-                    app:layout_constraintTop_toBottomOf="@+id/label_theme" />
+                    app:layout_constraintTop_toBottomOf="@+id/label_theme"
+                    tools:text="light" />
 
                 <TextView
                     android:id="@+id/label_theme"
+                    style="@style/text_style_body_large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Theme"
-                    style="@style/text_style_body_large"
                     app:layout_constraintStart_toEndOf="@+id/theme_icon"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -138,9 +143,9 @@
             android:id="@+id/card_settings_adult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="@dimen/space_zero">
 
@@ -152,9 +157,9 @@
                     android:id="@+id/adult_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_cut"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -164,13 +169,13 @@
                     android:id="@+id/switch_adult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:checked="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
-                    android:checked="false" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/label_adult"
@@ -189,23 +194,24 @@
             android:id="@+id/card_settings_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="@dimen/space_zero">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:onClick="@{() -> viewModel.onAboutClick()}">
 
                 <ImageView
                     android:id="@+id/about_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_about"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +223,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="About"
+                    android:text="@string/about"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/about_icon"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -225,13 +231,13 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            style="@style/text_style_label_small"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="Version 1.0"
-            style="@style/text_style_label_small"
             android:layout_gravity="center"
-            android:gravity="bottom"
             android:layout_marginBottom="@dimen/space8x"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="Version 1.0" />
     </LinearLayout>
 </layout>

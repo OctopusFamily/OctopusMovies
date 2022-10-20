@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Movies App</string>
     <string name="tv_shows">TV Shows</string>
     <string name="movies">Movies</string>
@@ -14,7 +14,9 @@
     <string name="language_icon_description">Language Icon</string>
     <string name="play_trailer">Play Trailer</string>
     <string name="play_trailer_icon_description">Play Trailer Icon</string>
-    <string name="google_api_key">AIzaSyA0uE_fQx_VmiMsREynV4D7S2Wqw8la0L0</string>
+    <string name="google_api_key">
+        <xliff:g id="api_key">AIzaSyA0uE_fQx_VmiMsREynV4D7S2Wqw8la0L0</xliff:g>
+    </string>
 
     <string name="string_play_trailer">Play Trailer</string>
     <string name="string_rate">Rate</string>
@@ -80,4 +82,19 @@
     <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
     <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
     <string name="Search">Search</string>
+
+    <string name="there_is_no_overview">There\'s no overview</string>
+    <string name="there_is_no_tagline">There\'s no tagline</string>
+    <string name="about">About</string>
+    <string name="version">Version 1.0</string>
+    <string name="github">Github</string>
+
+    <string name="oops">Oops!</string>
+    <string name="there_is_no_internet_connection">There is no internet connection</string>
+    <string name="retry">Retry</string>
+
+    <string name="no_name_provided">No name provided</string>
+    <string name="no_biography_provided">No Biography Provided</string>
+    <string name="no_birthday_provided">No Birthday Provided</string>
+    <string name="no_place_of_birth_provided">No Place of Birth Provided</string>
 </resources>
