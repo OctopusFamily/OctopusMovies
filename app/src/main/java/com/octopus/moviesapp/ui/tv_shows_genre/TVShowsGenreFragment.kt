@@ -11,7 +11,6 @@ import com.octopus.moviesapp.databinding.FragmentTvShowsGenreBinding
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
-import com.octopus.moviesapp.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
