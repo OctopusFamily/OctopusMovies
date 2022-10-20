@@ -1,11 +1,13 @@
 package com.octopus.moviesapp.ui.movies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMoviesBinding
+import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
@@ -19,6 +21,11 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleEvents()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onChipClick(MoviesCategory.POPULAR)
     }
 
 
