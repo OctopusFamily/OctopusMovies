@@ -6,7 +6,7 @@ import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.convertStringToDate
 import javax.inject.Inject
 
-class TVShowMapper @Inject constructor() : Mapper<List<TVShowDTO>, List<TVShow>> {
+class TVShowsMapper @Inject constructor() : Mapper<List<TVShowDTO>, List<TVShow>> {
     override fun map(input: List<TVShowDTO>): List<TVShow> {
         return input.map {
             TVShow(

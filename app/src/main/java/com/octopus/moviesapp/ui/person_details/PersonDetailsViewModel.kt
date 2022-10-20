@@ -56,7 +56,7 @@ class PersonDetailsViewModel @Inject constructor(
         getPersonTVShows(personID)
     }
 
-    fun tryLoadMovieDetailsAgain() {
+    fun tryLoadPersonDetailsAgain() {
         loadPersonDetails(personID)
     }
 
@@ -79,7 +79,7 @@ class PersonDetailsViewModel @Inject constructor(
     private fun getPersonMovies(personId: Int) {
         viewModelScope.launch {
             wrapResponse { personRepository.getPersonMoviesById(personId) }.collectLatest {
-                //_personMoviesState.postValue(it)
+                _personMoviesState.postValue(it)
             }
         }
     }
@@ -87,7 +87,7 @@ class PersonDetailsViewModel @Inject constructor(
     private fun getPersonTVShows(personId: Int) {
         viewModelScope.launch {
             wrapResponse { personRepository.getPersonTVShowsById(personId) }.collectLatest {
-                //_personTVShowsState.postValue(it)
+                _personTVShowsState.postValue(it)
             }
         }
     }
