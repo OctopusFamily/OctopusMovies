@@ -4,13 +4,15 @@ import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
+import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
+import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
+import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
+import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
 import retrofit2.Response
 import retrofit2.http.*
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface TMDBApiService {
 
@@ -104,6 +106,14 @@ interface TMDBApiService {
     suspend fun createSession(
         @Field("request_token") requestToken: String
     ): Response<SessionResponse>
+
+    @FormUrlEncoded
+    @POST("list")
+    suspend fun createList(
+        @Query("session_id") sessionId: String,
+        @Field("name") name: String,
+        @Field("description") description: String = ""
+    ): CreateListResponse
 
     // Search End Points
     @GET("search/multi")

@@ -35,7 +35,7 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovieCastById(movieId: Int): List<Cast> {
-        return castMapper.map(tmdbApiService.getMovieCastById(movieId).itemsList)
+        return castMapper.map(tmdbApiService.getMovieCastById(movieId).items)
     }
 
     override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
