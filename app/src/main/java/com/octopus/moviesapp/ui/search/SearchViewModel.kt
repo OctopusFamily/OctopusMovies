@@ -47,15 +47,19 @@ class SearchViewModel @Inject constructor(
                 wrapResponse {
                     repositoryMovie.getSearchMultiMedia(searchQuery)
                 }.collectLatest { searchState ->
+
+
                     if (searchState is UiState.Success) {
                         filterSearchResultsByType(searchState.data, _searchType.value.toString())
                         searchResultItems.postValue(searchState.data)
-                        _searchResult.postValue(searchState)
                     }
+                    _searchResult.postValue(searchState)
+
+
                 }
             }
 
-        }else  filterSearchResultsByType(emptyList(),_searchType.value.toString())
+        } else _filteredSearchResults.postValue(emptyList())
 
     }
 
@@ -64,16 +68,19 @@ class SearchViewModel @Inject constructor(
     }
 
     override fun onChipSelected(selectedItemId: Int) {
-        if (searchQuery.value?.isNotBlank() == true) {
-            when (selectedItemId) {
-                0 -> _searchType.value = SearchType.MOVIE.pathName
-                1 -> _searchType.value = SearchType.TV.pathName
-                2 -> _searchType.value = SearchType.PERSON.pathName
-            }
-            searchResultItems.value?.let {
-                filterSearchResultsByType(it, _searchType.value.toString())
-            }
-        } else return filterSearchResultsByType(emptyList(), _searchType.value.toString())
+        when (selectedItemId) {
+            0 -> _searchType.value = SearchType.MOVIE.pathName
+            1 -> _searchType.value = SearchType.TV.pathName
+            2 -> _searchType.value = SearchType.PERSON.pathName
+        }
+
+        if(searchQuery.value.isNullOrEmpty()){
+          _filteredSearchResults.postValue(emptyList())
+        }else
+        searchResultItems.value?.let {
+            filterSearchResultsByType(it, _searchType.value.toString())
+        }
+
 
     }
 
