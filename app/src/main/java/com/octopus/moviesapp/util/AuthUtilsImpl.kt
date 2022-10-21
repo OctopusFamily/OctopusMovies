@@ -13,16 +13,16 @@ class AuthUtilsImpl @Inject constructor(
     override fun validateUsername(username: String?): InputValidationResult {
         return when {
             username.isNullOrEmpty() -> {
-                InputValidationResult.NotValid(context.getString(R.string.username_is_empty_error))
+                InputValidationResult.InValid(context.getString(R.string.username_is_empty_error))
             }
             username.length < 3 || username.length > 30 -> {
-                InputValidationResult.NotValid(context.getString(R.string.username_length_error))
+                InputValidationResult.InValid(context.getString(R.string.username_length_error))
             }
             username.isDigitsOnly() -> {
-                InputValidationResult.NotValid(context.getString(R.string.username_is_digits_only_error))
+                InputValidationResult.InValid(context.getString(R.string.username_is_digits_only_error))
             }
             username.contains(" ") -> {
-                InputValidationResult.NotValid(context.getString(R.string.username_has_whitespace_error))
+                InputValidationResult.InValid(context.getString(R.string.username_has_whitespace_error))
             }
             else -> InputValidationResult.Valid
         }
@@ -31,19 +31,19 @@ class AuthUtilsImpl @Inject constructor(
     override fun validatePassword(password: String?): InputValidationResult {
         return when {
             password.isNullOrEmpty() -> {
-                InputValidationResult.NotValid(context.getString(R.string.password_is_empty_error))
+                InputValidationResult.InValid(context.getString(R.string.password_is_empty_error))
             }
             password.length < 8 || password.length > 16 -> {
-                InputValidationResult.NotValid(context.getString(R.string.password_length_error))
+                InputValidationResult.InValid(context.getString(R.string.password_length_error))
             }
             password.contains(" ") -> {
-                InputValidationResult.NotValid(context.getString(R.string.password_has_whitespace_error))
+                InputValidationResult.InValid(context.getString(R.string.password_has_whitespace_error))
             }
             password.isDigitsOnly() -> {
-                InputValidationResult.NotValid(context.getString(R.string.password_is_digits_only_error))
+                InputValidationResult.InValid(context.getString(R.string.password_is_digits_only_error))
             }
             password.isEnglishLettersOnly() -> {
-                InputValidationResult.NotValid(context.getString(R.string.password_is_letters_only_error))
+                InputValidationResult.InValid(context.getString(R.string.password_is_letters_only_error))
             }
             else -> InputValidationResult.Valid
         }

@@ -3,9 +3,11 @@ package com.octopus.moviesapp.ui.tv_show_details
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.RecyclerViewItemType
+import com.octopus.moviesapp.ui.base.BaseDiffUtil
 import com.octopus.moviesapp.util.RecyclerViewHolder
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.ui.nested.NestedCastListener
@@ -67,7 +69,14 @@ class TVShowDetailsAdapter(
     }
 
     fun setItems(newList: List<RecyclerViewItem>) {
+        val differCallback = BaseDiffUtil(
+            oldList = itemsList,
+            newList = newList,
+            { oldItem, newItem -> oldItem == newItem },
+            { oldItem, newItem -> oldItem == newItem },
+        )
+        val diffResult = DiffUtil.calculateDiff(differCallback)
         itemsList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }
