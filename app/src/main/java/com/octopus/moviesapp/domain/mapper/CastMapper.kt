@@ -5,7 +5,7 @@ import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 
-class CastMapper @Inject constructor() : Mapper<List<CastDTO>, List<Cast>> {
+class CastMapper @Inject constructor() : Mapper<List<CastDTO>, List<Cast>>() {
     override fun map(input: List<CastDTO>): List<Cast> {
         return input.map {
             Cast(

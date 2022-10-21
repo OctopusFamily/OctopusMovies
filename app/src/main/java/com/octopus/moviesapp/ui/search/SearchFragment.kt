@@ -1,14 +1,12 @@
 package com.octopus.moviesapp.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
-import com.octopus.moviesapp.domain.types.SearchType
+import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,10 +43,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun handleEvents() {
         viewModel.navigateToDetails.observeEvent(viewLifecycleOwner) { id ->
-            when (viewModel.searchType) {
-                SearchType.MOVIE -> navigateToMovieDetails(id)
-                SearchType.TV -> navigateToTVShowDetails(id)
-                SearchType.PERSON -> navigateToPersonDetails(id)
+            when (viewModel.mediaType) {
+                MediaType.MOVIE -> navigateToMovieDetails(id)
+                MediaType.TV -> navigateToTVShowDetails(id)
+                MediaType.PERSON -> navigateToPersonDetails(id)
             }
         }
 

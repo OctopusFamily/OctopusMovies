@@ -3,7 +3,7 @@ package com.octopus.moviesapp.ui.person_details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.PersonRepository
+import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.ConnectionTracker

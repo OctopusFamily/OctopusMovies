@@ -3,9 +3,9 @@ package com.octopus.moviesapp.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.MoviesRepository
+import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.SearchResult
-import com.octopus.moviesapp.domain.types.SearchType
+import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
@@ -36,14 +36,14 @@ class SearchViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
-    var searchType = SearchType.MOVIE
+    var mediaType = MediaType.MOVIE
 
     fun getSearchMultiMedia(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
             viewModelScope.launch {
                 wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery) }.collectLatest { searchState ->
                     if (searchState is UiState.Success) {
-                        filterSearchResultsByType(searchState.data, searchType)
+                        filterSearchResultsByType(searchState.data, mediaType)
                         searchState.data.let { searchResultItems.postValue(it) }
                     }
                     _searchResult.postValue(searchState)
@@ -63,9 +63,9 @@ class SearchViewModel @Inject constructor(
 
     override fun onChipSelected(selectedItemId: Int) {
         when (selectedItemId) {
-            0 -> searchType = SearchType.MOVIE
-            1 -> searchType = SearchType.TV
-            2 -> searchType = SearchType.PERSON
+            0 -> mediaType = MediaType.MOVIE
+            1 -> mediaType = MediaType.TV
+            2 -> mediaType = MediaType.PERSON
         }
 
         searchQuery.value?.let { query ->
@@ -83,12 +83,12 @@ class SearchViewModel @Inject constructor(
 
     private fun filterCurrentList() {
         searchResultItems.value?.let {
-            filterSearchResultsByType(it, searchType)
+            filterSearchResultsByType(it, mediaType)
         }
     }
 
-    private fun filterSearchResultsByType(data: List<SearchResult>, type: SearchType) {
-        _filteredSearchResults.postValue(data.filter { it.searchType == type })
+    private fun filterSearchResultsByType(data: List<SearchResult>, type: MediaType) {
+        _filteredSearchResults.postValue(data.filter { it.mediaType == type })
     }
 
     override fun onItemClick(searchId: Int) {
