@@ -39,7 +39,8 @@ class TVShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     }
 
     private fun navigateToTVShowDetails(tvShowId: Int) {
-        requireView().findNavController().navigate(TVShowsFragmentDirections.actionTVShowsFragmentToTVShowDetailsFragment(tvShowId))
-
+        requireView().findNavController()
+            .navigate(TVShowsFragmentDirections
+                .actionTVShowsFragmentToTVShowDetailsFragment(tvShowId))
     }
 }

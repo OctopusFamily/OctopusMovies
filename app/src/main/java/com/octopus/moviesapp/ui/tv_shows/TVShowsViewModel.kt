@@ -3,7 +3,7 @@ package com.octopus.moviesapp.ui.tv_shows
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.TVShowsRepository
+import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.ui.base.BaseViewModel
@@ -18,7 +18,8 @@ import javax.inject.Inject
 class TVShowsViewModel @Inject constructor(
     private val tvShowsRepository: TVShowsRepository,
     private val connectionTracker: ConnectionTracker,
-) : BaseViewModel(), TVShowsClicksListener {
+
+    ) : BaseViewModel(), TVShowsClicksListener {
 
     private val _tvShowsListState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val tvShowsListState: LiveData<UiState<List<TVShow>>> get() = _tvShowsListState

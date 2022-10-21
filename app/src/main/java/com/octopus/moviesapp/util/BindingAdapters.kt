@@ -11,9 +11,13 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.ChipGroup
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -183,3 +187,11 @@ fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
         }
     }
 }
+
+@BindingAdapter("app:onCheckedChanged")
+fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickListener) {
+    chipGroupView.setOnCheckedStateChangeListener { chipGroup, _ ->
+        onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
+    }
+}
+

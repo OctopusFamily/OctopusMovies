@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.lists
 
 import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService

@@ -81,8 +81,9 @@
     <string name="password_is_digits_only_error">Password must contain 1 letter at least!</string>
     <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
     <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
-    <string name="logging_in" translatable="false">Logging in...</string>
-    <string name="items" translatable="false">%1$s Items</string>
+    <string name="logging_in">Logging in…</string>
+    <string name="Search">Search</string>
+
 
     <string name="there_is_no_overview">There\'s no overview</string>
     <string name="there_is_no_tagline">There\'s no tagline</string>
@@ -98,4 +99,6 @@
     <string name="no_biography_provided">No Biography Provided</string>
     <string name="no_birthday_provided">No Birthday Provided</string>
     <string name="no_place_of_birth_provided">No Place of Birth Provided</string>
+
+    <string name="people">People</string>
 </resources>

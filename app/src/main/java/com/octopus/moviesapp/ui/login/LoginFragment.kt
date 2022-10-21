@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
@@ -34,19 +33,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
 
-        viewModel.isSkip.observeEvent(viewLifecycleOwner) {
+        viewModel.skipLoginClicked.observeEvent(viewLifecycleOwner) {
             if (it) {
                 navigateToHomeFragment()
             }
         }
 
-        viewModel.isDialogShow.observe(viewLifecycleOwner) {
+        viewModel.isDialogShown.observe(viewLifecycleOwner) {
             if (it) {
                 navigateToLoadingDialog()
             }
         }
 
-        viewModel.isResetPassword.observeEvent(viewLifecycleOwner){
+        viewModel.forgotPasswordClicked.observeEvent(viewLifecycleOwner){
             if (it){
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.TMDB_RESET_PASSWORD_URL))
                 startActivity(browserIntent)
@@ -55,7 +54,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun navigateToLoadingDialog() {
-        val username = viewModel.userName.value.toString()
+        val username = viewModel.username.value.toString()
         val password = viewModel.password.value.toString()
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToLoadingDialog(username,password))
      }

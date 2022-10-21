@@ -2,6 +2,9 @@ package com.octopus.moviesapp.util
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.core.view.children
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,3 +28,4 @@ fun getTextOrPlaceholder(context: Context, text: String?, @StringRes placeHolder
         text
     }
 }
+

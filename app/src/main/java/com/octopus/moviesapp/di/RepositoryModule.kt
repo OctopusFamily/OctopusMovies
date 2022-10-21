@@ -1,15 +1,24 @@
 package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.data.repository.*
+import com.octopus.moviesapp.data.repository.account.AccountRepository
+import com.octopus.moviesapp.data.repository.account.AccountRepositoryImp
+import com.octopus.moviesapp.data.repository.genres.GenresRepository
+import com.octopus.moviesapp.data.repository.genres.GenresRepositoryImpl
+import com.octopus.moviesapp.data.repository.home.HomeRepository
+import com.octopus.moviesapp.data.repository.home.HomeRepositoryImpl
+import com.octopus.moviesapp.data.repository.movies.MoviesRepository
+import com.octopus.moviesapp.data.repository.movies.MoviesRepositoryImpl
+import com.octopus.moviesapp.data.repository.person.PersonRepository
+import com.octopus.moviesapp.data.repository.person.PersonRepositoryImpl
+import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
+import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepositoryImpl
 import com.octopus.moviesapp.domain.mapper.*
-import com.octopus.moviesapp.util.AuthUtils
-import com.octopus.moviesapp.util.AuthUtilsImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -42,8 +51,14 @@ abstract class RepositoryModule {
     @ViewModelScoped
     @Binds
     abstract fun bindAccountRepository(
-        accountRepositoryImp: AccountRepositoryImp
+        accountRepositoryImp: AccountRepositoryImp,
     ) : AccountRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindHomeRepository(
+        homeRepositoryImpl: HomeRepositoryImpl,
+    ) : HomeRepository
 
     @ViewModelScoped
     @Binds
