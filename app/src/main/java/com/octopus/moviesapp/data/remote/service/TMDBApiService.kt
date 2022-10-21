@@ -9,6 +9,7 @@ import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
+import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
 import retrofit2.Response
@@ -114,5 +115,11 @@ interface TMDBApiService {
         @Field("name") name: String,
         @Field("description") description: String = ""
     ): CreateListResponse
+
+    @GET("account/{account_id}/lists")
+    suspend fun getCreatedLists(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: String
+    ): CastResponse<CreatedListsDto>
 
 }
