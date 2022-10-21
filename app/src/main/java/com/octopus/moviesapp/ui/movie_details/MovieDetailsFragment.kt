@@ -23,15 +23,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     override val viewModel: MovieDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
-    private val args: MovieDetailsFragmentArgs by navArgs()
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var movieDetailsAdapter: MovieDetailsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.loadMovieDetails(args.movieId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

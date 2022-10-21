@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class PersonDetailsMapper @Inject constructor(
     @ApplicationContext private val context: Context
-) : Mapper<PersonDTO, PersonDetails> {
+) : Mapper<PersonDTO, PersonDetails>() {
     override fun map(input: PersonDTO): PersonDetails {
         return PersonDetails(
             name = getTextOrPlaceholder(context, input.personName, R.string.no_name_provided),

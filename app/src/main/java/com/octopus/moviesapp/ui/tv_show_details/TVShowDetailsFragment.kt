@@ -23,15 +23,10 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override val viewModel: TVShowDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
-    private val args: TVShowDetailsFragmentArgs by navArgs()
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var tvShowDetailsAdapter: TVShowDetailsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.loadTVShowDetails(args.tvShowId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

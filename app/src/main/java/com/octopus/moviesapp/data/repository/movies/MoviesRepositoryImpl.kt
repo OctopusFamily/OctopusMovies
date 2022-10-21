@@ -1,15 +1,9 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.movies
 
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.domain.mapper.*
+import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.types.MoviesCategory
-import com.octopus.moviesapp.domain.mapper.CastMapper
-import com.octopus.moviesapp.domain.mapper.MovieDetailsMapper
-import com.octopus.moviesapp.domain.mapper.MoviesMapper
-import com.octopus.moviesapp.domain.mapper.TrailerMapper
-import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.model.Trailer
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
@@ -18,8 +12,12 @@ class MoviesRepositoryImpl @Inject constructor(
     private val movieDetailsMapper: MovieDetailsMapper,
     private val trailerMapper: TrailerMapper,
     private val castMapper: CastMapper,
+    private val searchResultMapper: SearchResultMapper,
 ) : MoviesRepository {
-    override suspend fun getMoviesByCategory(moviesCategory: MoviesCategory, page: Int): List<Movie> {
+    override suspend fun getMoviesByCategory(
+        moviesCategory: MoviesCategory,
+        page: Int
+    ): List<Movie> {
         return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
     }
 
@@ -33,5 +31,10 @@ class MoviesRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieCastById(movieId: Int): List<Cast> {
         return castMapper.map(tmdbApiService.getMovieCastById(movieId).items)
+    }
+
+    override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
+        return searchResultMapper.mapList(tmdbApiService.getSearchMultiMedia(query).items)
+
     }
 }

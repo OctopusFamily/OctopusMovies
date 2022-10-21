@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface AccountRepository {
     fun getSessionId(): Flow<String?>
     suspend fun login(
-        userName: String,
+        username: String,
         password: String,
     ): Flow<UiState<Boolean>>
 

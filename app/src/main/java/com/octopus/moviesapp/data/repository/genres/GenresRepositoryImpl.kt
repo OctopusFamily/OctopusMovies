@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.genres
 
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.types.GenresType
@@ -25,6 +25,6 @@ class GenresRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow> {
-        return tvShowsMapper.map(tmdbApiService.getTVShowsByGenresId(genreId).items)
+        return tvShowsMapper.mapList(tmdbApiService.getTVShowsByGenresId(genreId).items)
     }
 }

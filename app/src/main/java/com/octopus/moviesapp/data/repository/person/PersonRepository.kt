@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.person
 
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.PersonDetails

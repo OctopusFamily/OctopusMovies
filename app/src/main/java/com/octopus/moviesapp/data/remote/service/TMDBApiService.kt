@@ -2,7 +2,7 @@ package com.octopus.moviesapp.data.remote.service
 
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
-import com.octopus.moviesapp.data.remote.response.MultiItemsResponse
+import com.octopus.moviesapp.data.remote.response.BaseResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
@@ -26,12 +26,12 @@ interface TMDBApiService {
     suspend fun getMoviesByCategory(
         @Path("movie_category") moviesCategory: String,
         @Query("page") page: Int,
-    ): MultiItemsResponse<MovieDTO>
+    ): BaseResponse<MovieDTO>
 
     @GET("movie/{movieID}/videos")
     suspend fun getMovieTrailersById(
         @Path("movieID") movieId: Int,
-    ): MultiItemsResponse<TrailerDTO>
+    ): BaseResponse<TrailerDTO>
 
     @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
@@ -52,13 +52,13 @@ interface TMDBApiService {
     @GET("tv/{tv_id}/videos")
     suspend fun getTVShowsTrailersById(
         @Path("tv_id") tvShowId: Int,
-    ): MultiItemsResponse<TrailerDTO>
+    ): BaseResponse<TrailerDTO>
 
     @GET("tv/{tv_category}")
     suspend fun getTVShowsByCategory(
         @Path("tv_category") tvShowCategory: String,
         @Query("page") page: Int,
-    ): MultiItemsResponse<TVShowDTO>
+    ): BaseResponse<TVShowDTO>
 
     // Genres End Points
     @GET("genre/{genre_type}/list")
@@ -69,12 +69,12 @@ interface TMDBApiService {
     @GET("discover/movie")
     suspend fun getMoviesByGenresId(
         @Query("with_genres") genreId: Int
-    ): MultiItemsResponse<MovieDTO>
+    ): BaseResponse<MovieDTO>
 
     @GET("discover/tv")
     suspend fun getTVShowsByGenresId(
         @Query("with_genres") genreId: Int
-    ): MultiItemsResponse<TVShowDTO>
+    ): BaseResponse<TVShowDTO>
 
     @GET("person/{person_id}")
     suspend fun getPersonDetailsById(
@@ -114,5 +114,17 @@ interface TMDBApiService {
         @Field("name") name: String,
         @Field("description") description: String = ""
     ): CreateListResponse
+
+    // Search End Points
+    @GET("search/multi")
+    suspend fun getSearchMultiMedia(
+        @Query("query") query: String
+    ): BaseResponse<SearchDTO>
+
+    // Trending End Points
+    @GET("trending/{media_type}/day")
+    suspend fun getTrendingMedia(
+       @Path("media_type") mediaType: String,
+    ): BaseResponse<TrendingDTO>
 
 }

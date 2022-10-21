@@ -28,6 +28,7 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        setBottomNavigationVisibility()
         binding.run {
             lifecycleOwner = viewLifecycleOwner
             setVariable(BR.viewModel, this@BaseFragment.viewModel)
@@ -35,16 +36,14 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (activity is MainActivity) {
-            val mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setBottomNavigationVisibility() {
+        if (activity is MainActivity) {
+            (activity as MainActivity).setBottomNavigationVisibility(bottomNavigationViewVisibility)
+        }
     }
 }
