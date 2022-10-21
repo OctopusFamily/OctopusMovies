@@ -10,6 +10,7 @@ import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
+import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class PersonDetailsViewModel @Inject constructor(
     private val personRepository: PersonRepository,
     private val connectionTracker: ConnectionTracker,
-) : BaseViewModel(), NestedImageMovieListener {
+) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
 
     private val _personDetailsState = MutableLiveData<UiState<PersonDetails>>(UiState.Loading)
     val personDetailsState: LiveData<UiState<PersonDetails>> get() = _personDetailsState
@@ -56,6 +57,7 @@ class PersonDetailsViewModel @Inject constructor(
             if (connectionTracker.isInternetConnectionAvailable()) {
                 getPersonDetailsData()
                 getPersonMoviesData()
+                getPersonTvShowData()
             } else {
                 _personDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
@@ -85,6 +87,12 @@ class PersonDetailsViewModel @Inject constructor(
 
     }
 
+
+    fun onLoadPersonMoviesSuccess(movies: List<Movie>) {
+        _personMovies.postValue(movies)
+    }
+
+
     private fun getPersonTvShowData() {
         viewModelScope.launch {
             wrapResponse { personRepository.getPersonTVShowsById(personId) }.collectLatest {
@@ -94,9 +102,8 @@ class PersonDetailsViewModel @Inject constructor(
 
     }
 
-    fun onLoadPersonMoviesSuccess(movies: List<Movie>) {
-        Log.v("ameer", "onLoadPersonMoviesSuccess ${movies[0].posterImageUrl}")
-        _personMovies.postValue(movies)
+    fun onLoadPersonTvShowSuccess(tvShow: List<TVShow>) {
+        _personTvShow.postValue(tvShow)
     }
 
     fun tryLoadPersonDetailAgain() {
@@ -111,81 +118,10 @@ class PersonDetailsViewModel @Inject constructor(
     override fun onImageMovieClick(movieId: Int) {
 //        TODO("Not yet implemented")
     }
-//
-//    private val personRepository: PersonRepository,
-//    private val connectionTracker: ConnectionTracker,
-//) : BaseViewModel() {
-//
-//    private val _personDetailsState = MutableLiveData<UiState<PersonDetails>>(UiState.Loading)
-//    val personDetailsState: LiveData<UiState<PersonDetails>> get() = _personDetailsState
-//
-//    private val _personMoviesState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
-//    val personMoviesState: LiveData<UiState<List<Movie>>> get() = _personMoviesState
-//
-//    private val _personTVShowsState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
-//    val personTVShowsState: LiveData<UiState<List<TVShow>>> get() = _personTVShowsState
-//
-//    private val _personDetails = MutableLiveData<PersonDetails>()
-//    val personDetails: LiveData<PersonDetails> get() = _personDetails
-//
-//    private val _navigateBack = MutableLiveData<Event<Boolean>>()
-//    val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
-//
-//    private var personID = 0
-//    fun loadPersonDetails(personId: Int) {
-//        personID = personId
-//
-//        viewModelScope.launch {
-//            if (connectionTracker.isInternetConnectionAvailable()) {
-//                getPersonDetails()
-//            } else {
-//                _personDetailsState.postValue(UiState.Error(""))
-//            }
-//        }
-//
-//    }
-//
-//    private fun getPersonDetails() {
-//        getPersonDetails(personID)
-//        getPersonMovies(personID)
-//        getPersonTVShows(personID)
-//    }
-//
-//    fun tryLoadPersonDetailsAgain() {
-//        loadPersonDetails(personID)
-//    }
-//
-//    fun onLoadPersonDetailsSuccess(personDetails: PersonDetails) {
-//        _personDetails.postValue(personDetails)
-//    }
-//
-//    fun onNavigateBackClick() {
-//        _navigateBack.postEvent(true)
-//    }
-//
-//    private fun getPersonDetails(personId: Int) {
-//        viewModelScope.launch {
-//            wrapResponse { personRepository.getPersonDetailsById(personId) }.collectLatest {
-//                _personDetailsState.postValue(it)
-//            }
-//        }
-//    }
-//
-//    private fun getPersonMovies(personId: Int) {
-//        viewModelScope.launch {
-//            wrapResponse { personRepository.getPersonMoviesById(personId) }.collectLatest {
-//                _personMoviesState.postValue(it)
-//            }
-//        }
-//    }
-//
-//    private fun getPersonTVShows(personId: Int) {
-//        viewModelScope.launch {
-//            wrapResponse { personRepository.getPersonTVShowsById(personId) }.collectLatest {
-//                _personTVShowsState.postValue(it)
-//            }
-//        }
-//    }
+
+    override fun onImageTvShowClick(movieId: Int) {
+//        TODO("Not yet implemented")
+    }
 
 
 }

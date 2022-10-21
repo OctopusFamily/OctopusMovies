@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.RecyclerViewItemType
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
+import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.util.RecyclerViewHolder
 import com.octopus.moviesapp.util.RecyclerViewItem
 
 class PersonDetailsAdapter(
     private var itemsList: List<RecyclerViewItem>,
     private val nestedImageMovieListener: NestedImageMovieListener,
+    private val nestedImageTvShowListener: NestedImageTvShowListener,
 ) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
@@ -27,10 +29,18 @@ class PersonDetailsAdapter(
                     )
                 )
             }
-//            RecyclerViewItemType.CAST_VIEW_TYPE.ordinal -> {
-//                RecyclerViewHolder.CastViewHolder(DataBindingUtil.inflate(
-//                    LayoutInflater.from(parent.context), R.layout.layout_nested_cast, parent, false))
-//            }
+
+            RecyclerViewItemType.TV_SHOW_IMAGE.ordinal -> {
+                RecyclerViewHolder.TvShowImageViewHolder(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.layout_nested_image_tv_show,
+                        parent,
+                        false
+                    )
+                )
+            }
+
             else -> throw IllegalArgumentException("UNKNOWN VIEW TYPE")
         }
     }
@@ -41,10 +51,12 @@ class PersonDetailsAdapter(
                 val item = itemsList[position] as RecyclerViewItem.ImageMovieItem
                 holder.bind(item.movie, nestedImageMovieListener)
             }
-//            is RecyclerViewHolder.CastViewHolder -> {
-//                val item = itemsList[position] as RecyclerViewItem.CastItem
-//                holder.bind(item.castList, nestedCastListener)
-//            }
+
+            is RecyclerViewHolder.TvShowImageViewHolder -> {
+                val item = itemsList[position] as RecyclerViewItem.ImageTvShowItem
+                holder.bind(item.tvShows, nestedImageTvShowListener)
+            }
+
             else -> {}
         }
     }
@@ -54,7 +66,7 @@ class PersonDetailsAdapter(
     override fun getItemViewType(position: Int): Int {
         return when (itemsList[position]) {
             is RecyclerViewItem.ImageMovieItem -> RecyclerViewItemType.MOVIE_IMAGE.ordinal
-//            is RecyclerViewItem.CastItem -> RecyclerViewItemType.CAST_VIEW_TYPE.ordinal
+            is RecyclerViewItem.ImageTvShowItem -> RecyclerViewItemType.TV_SHOW_IMAGE.ordinal
             else -> -1
         }
     }

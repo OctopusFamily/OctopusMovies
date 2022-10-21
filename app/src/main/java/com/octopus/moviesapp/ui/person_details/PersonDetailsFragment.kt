@@ -30,9 +30,10 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        personDetailsAdapter = PersonDetailsAdapter(itemsList,viewModel)
+        personDetailsAdapter = PersonDetailsAdapter(itemsList, viewModel, viewModel)
         handlePersonDetails()
         handlePersonMovie()
+        handlePersonTvShow()
         handleEvents()
     }
 
@@ -40,8 +41,6 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         viewModel.personDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonDetailSuccess(uiState.data)
-//                itemsList.add(RecyclerViewItem.PersonInfoDetailsItem(uiState.data))
-//                personDetailsAdapter.setItems(itemsList)
             }
         }
     }
@@ -53,6 +52,16 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
                 itemsList.add(0, RecyclerViewItem.ImageMovieItem(uiState.data))
                 personDetailsAdapter.setItems(itemsList)
                 binding.recyclerPersonDetails.adapter = personDetailsAdapter
+            }
+        }
+    }
+
+    private fun handlePersonTvShow() {
+        viewModel.personTvShowState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState is UiState.Success) {
+                viewModel.onLoadPersonTvShowSuccess(uiState.data)
+                itemsList.add(0, RecyclerViewItem.ImageTvShowItem(uiState.data))
+                personDetailsAdapter.setItems(itemsList)
             }
         }
     }
