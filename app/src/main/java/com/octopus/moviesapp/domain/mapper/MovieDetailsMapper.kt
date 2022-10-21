@@ -14,7 +14,7 @@ import javax.inject.Inject
 class MovieDetailsMapper @Inject constructor(
     @ApplicationContext private val context: Context,
     private val genresMapper: GenresMapper,
-) : Mapper<MovieDTO, MovieDetails> {
+) : Mapper<MovieDTO, MovieDetails>() {
     override fun map(input: MovieDTO): MovieDetails {
         val genresList = input.genres ?: emptyList()
         return MovieDetails(

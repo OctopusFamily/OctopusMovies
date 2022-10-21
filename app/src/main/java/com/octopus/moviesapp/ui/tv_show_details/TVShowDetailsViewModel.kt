@@ -5,14 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.TVShowsRepository
+import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.ui.movie_details.MovieDetailsFragmentArgs
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
@@ -70,11 +69,9 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private val args = TVShowDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
-
     init {
         loadTVShowDetails(args.tvShowId)
     }
-
 
     private var tvShowID = 0
     private fun loadTVShowDetails(tvShowId: Int) {
@@ -82,7 +79,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
         viewModelScope.launch {
             if (connectionTracker.isInternetConnectionAvailable()) {
-                getTVShowDetailsInfo(tvShowID)
+                getTVShowDetailsInfo()
             } else {
                 _tvShowDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }
@@ -90,7 +87,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
     }
 
-    private fun getTVShowDetailsInfo(tvShowId: Int) {
+    private fun getTVShowDetailsInfo() {
         getTVShowDetails(args.tvShowId)
         getTVShowCast(args.tvShowId)
         getTVTrailer(args.tvShowId)

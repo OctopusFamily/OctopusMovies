@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.model
 
-import com.octopus.moviesapp.domain.types.SearchType
+import com.octopus.moviesapp.domain.types.MediaType
 import java.util.*
 
 data class SearchResult(
@@ -9,7 +9,7 @@ data class SearchResult(
     val posterImageUrl: String,
     val voteAverage: Float,
     val releaseDate: Date,
-    val searchType: SearchType,
+    val mediaType: MediaType,
     val originalLanguage: String?,
     val overview: String?,
 )

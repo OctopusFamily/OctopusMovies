@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.tv_shows
 
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.types.TVShowsCategory
@@ -29,7 +29,7 @@ class TVShowsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getTVShowsByCategory(tvShowCategory: TVShowsCategory, page: Int): List<TVShow> {
-        return tvShowsMapper.map(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
+        return tvShowsMapper.mapList(tmdbApiService.getTVShowsByCategory(tvShowCategory.pathName, page).items)
     }
 
 }

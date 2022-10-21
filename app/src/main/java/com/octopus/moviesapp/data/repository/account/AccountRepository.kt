@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow

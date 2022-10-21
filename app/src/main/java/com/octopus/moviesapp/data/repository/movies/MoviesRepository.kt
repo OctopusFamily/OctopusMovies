@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.movies
 
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.types.MoviesCategory

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.data.repository.MoviesRepository
+import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent

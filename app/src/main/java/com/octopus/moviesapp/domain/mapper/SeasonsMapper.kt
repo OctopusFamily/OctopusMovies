@@ -5,17 +5,12 @@ import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 
-class SeasonsMapper @Inject constructor() : Mapper<List<SeasonDTO>, List<Season>> {
-    override fun map(input: List<SeasonDTO>): List<Season> {
-        return if (input.isEmpty()) emptyList()
-        else {
-            input.map { seasonDTO ->
-                Season(
-                    id = seasonDTO.id ?: 0,
-                    seasonNumber = seasonDTO.seasonNumber ?: 0,
-                    imageUrl = buildImageUrl(seasonDTO.posterPath),
-                )
-            }
-        }
+class SeasonsMapper @Inject constructor() : Mapper<SeasonDTO, Season>() {
+    override fun map(input: SeasonDTO): Season {
+        return Season(
+            id = input.id ?: 0,
+            seasonNumber = input.seasonNumber ?: 0,
+            imageUrl = buildImageUrl(input.posterPath),
+        )
     }
 }

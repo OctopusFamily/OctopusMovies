@@ -10,7 +10,7 @@
             type="com.octopus.moviesapp.ui.search.SearchViewModel" />
         <variable
             name="searchType"
-            type="com.octopus.moviesapp.domain.types.SearchType" />
+            type="com.octopus.moviesapp.domain.types.MediaType" />
 
     </data>
 

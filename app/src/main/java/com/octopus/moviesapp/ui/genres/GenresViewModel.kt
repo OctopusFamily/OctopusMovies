@@ -3,7 +3,7 @@ package com.octopus.moviesapp.ui.genres
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.GenresRepository
+import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.ui.base.BaseViewModel

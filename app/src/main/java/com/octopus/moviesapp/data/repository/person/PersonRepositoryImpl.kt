@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.person
 
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
@@ -24,6 +24,6 @@ class PersonRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPersonTVShowsById(personId: Int): List<TVShow> {
-        return tvShowsMapper.map(tmdbApiService.getPersonTVShowsById(personId).items)
+        return tvShowsMapper.mapList(tmdbApiService.getPersonTVShowsById(personId).items)
     }
 }

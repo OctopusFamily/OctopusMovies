@@ -7,26 +7,23 @@ import com.octopus.moviesapp.util.convertStringToDate
 import com.octopus.moviesapp.util.getTextOrPlaceholder
 import dagger.hilt.android.qualifiers.ApplicationContext
 import android.content.Context
-import android.provider.MediaStore.Audio.Media
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.types.SearchType
+import com.octopus.moviesapp.domain.types.MediaType
 import javax.inject.Inject
 
 class SearchResultMapper @Inject constructor(
     @ApplicationContext private val context: Context,
-) : Mapper<List<SearchDTO>, List<SearchResult>> {
-    override fun map(input: List<SearchDTO>): List<SearchResult> {
-        return input.map {
-            SearchResult(
-                id = it.id ?: 0,
-                title = it.title ?:it.originalTitle?: it.name?: "",
-                posterImageUrl = buildImageUrl(it.posterPath?:it.backdropPath ?:it.profile_path ),
-                voteAverage = it.voteAverage ?: 0f,
-                releaseDate = convertStringToDate(it.releaseDate) ,
-                searchType = it.mediaType?.let { mediaType -> SearchType.fromMediaType(mediaType) } ?: SearchType.MOVIE,
-                originalLanguage = it.originalLanguage?: "",
-                overview = getTextOrPlaceholder(context,it.overview, R.string.there_is_no_overview)
-            )
-        }
+) : Mapper<SearchDTO, SearchResult>() {
+    override fun map(input: SearchDTO): SearchResult {
+        return SearchResult(
+            id = input.id ?: 0,
+            title = input.title ?: input.originalTitle?: input.name ?: "",
+            posterImageUrl = buildImageUrl(input.posterPath?: input.backdropPath ?: input.profile_path),
+            voteAverage = input.voteAverage ?: 0f,
+            releaseDate = convertStringToDate(input.releaseDate),
+            mediaType = input.mediaType?.let { mediaType -> MediaType.fromMediaName(mediaType) } ?: MediaType.MOVIE,
+            originalLanguage = input.originalLanguage?: "",
+            overview = getTextOrPlaceholder(context, input.overview, R.string.there_is_no_overview)
+        )
     }
 }
