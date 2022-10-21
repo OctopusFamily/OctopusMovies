@@ -130,7 +130,7 @@
     </fragment>
     <dialog
         android:id="@+id/loadingDialog"
-        android:name="com.octopus.moviesapp.ui.login.LoginStateDialog"
+        android:name="com.octopus.moviesapp.ui.login.LoginStateDialogFragment"
         android:label="LoadingDialog"
         tools:layout="@layout/login_state_dialog">
         <action

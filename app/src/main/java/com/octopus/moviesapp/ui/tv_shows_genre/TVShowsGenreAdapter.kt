@@ -12,4 +12,7 @@ class TVShowsGenreAdapter(
     listener: TVShowsClicksListener
 ) : BaseAdapter<TVShow>(tvShow, listener) {
     override fun layoutId(): Int = R.layout.item_tv_show
+    override fun areContentsTheSame(oldItem: TVShow, newItem: TVShow): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

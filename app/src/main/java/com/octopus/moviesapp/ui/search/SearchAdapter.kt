@@ -10,4 +10,7 @@ class SearchAdapter (
     listener: SearchClicksListener,
 ) : BaseAdapter<SearchResult>(item, listener) {
     override fun layoutId(): Int = R.layout.item_search
+    override fun areContentsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

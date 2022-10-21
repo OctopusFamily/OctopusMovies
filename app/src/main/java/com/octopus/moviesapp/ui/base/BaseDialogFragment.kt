@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModel
 import com.octopus.moviesapp.BR
 
-abstract class BaseDialog<VDB : ViewDataBinding> : DialogFragment(){
+abstract class BaseDialogFragment<VDB : ViewDataBinding> : DialogFragment(){
     abstract val layoutIdFragment: Int
     abstract val viewModel: ViewModel
 

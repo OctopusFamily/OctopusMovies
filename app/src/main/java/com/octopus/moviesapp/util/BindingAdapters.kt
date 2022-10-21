@@ -17,7 +17,7 @@ import com.octopus.moviesapp.ui.search.ChipGroupClickListener
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
-import getSelectedChipIndex
+import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

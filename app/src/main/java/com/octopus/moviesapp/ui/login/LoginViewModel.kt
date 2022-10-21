@@ -11,7 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
@@ -22,7 +21,7 @@ class LoginViewModel @Inject constructor(
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    private val args = LoginStateDialogArgs.fromSavedStateHandle(saveStateHandle)
+    private val args = LoginStateDialogFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     private val _usernameError = MutableLiveData(Constants.EMPTY_TEXT)
     val usernameError: LiveData<String> get() = _usernameError

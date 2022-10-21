@@ -9,4 +9,7 @@ class NestedGenresAdapter(
     listener: NestedGenresListener,
 ) : BaseAdapter<Genre>(itemsList, listener) {
     override fun layoutId(): Int = R.layout.item_nested_genre
+    override fun areContentsTheSame(oldItem: Genre, newItem: Genre): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

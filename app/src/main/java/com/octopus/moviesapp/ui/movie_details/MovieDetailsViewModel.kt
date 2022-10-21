@@ -62,9 +62,9 @@ class MovieDetailsViewModel @Inject constructor(
 
     private val args = MovieDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
-init {
-    loadMovieDetails(args.movieId)
-}
+    init {
+        loadMovieDetails(args.movieId)
+    }
 
     private var movieID = 0
     private fun loadMovieDetails(movieId: Int) {
