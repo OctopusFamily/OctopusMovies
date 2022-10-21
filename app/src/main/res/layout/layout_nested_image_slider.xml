@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,15 +13,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space8x"
-            android:text="Movies"/>
+            android:layout_marginVertical="@dimen/space2x"
+            style="@style/text_style_label_large"
+            tools:text="Movies"/>
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            app:iss_error_image="@drawable/ic_octopus_logo"
+            app:iss_corner_radius="12"
             app:iss_auto_cycle="true"
             app:iss_period="1000"
-            app:iss_delay="0"/>
+            app:iss_delay="0"
+            app:iss_selected_dot="@color/primary"/>
 
     </LinearLayout>
 </layout>

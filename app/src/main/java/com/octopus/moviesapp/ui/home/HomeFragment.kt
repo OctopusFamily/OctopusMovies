@@ -1,7 +1,6 @@
 package com.octopus.moviesapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
 
     private lateinit var homeAdapter: HomeAdapter
+    private val homeAdapterItems = mutableListOf<RecyclerViewItem>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,21 +32,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeLiveData() {
-        viewModel.run {
-            trendingMoviesState.observe(viewLifecycleOwner) { uiState ->
-                Log.d("MALT", "STATE FROM FRAGMENT IS: $uiState")
-                uiState.toData()?.let { trendingList ->
-                    val recyclerViewItems = listOf(
-                        RecyclerViewItem.ImageSliderItem("Movies", trendingList)
-                    )
-                    homeAdapter.setItems(recyclerViewItems)
-                }
+        observeTrendingMoviesState()
+        observeTrendingTVShowsState()
+        observeTrendingPeopleState()
+    }
+
+    private fun observeTrendingMoviesState() {
+        viewModel.trendingMoviesState.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.let { trendingList ->
+                homeAdapterItems.add(0, RecyclerViewItem.ImageSliderItem(getString(R.string.movies), trendingList))
+                homeAdapter.setItems(homeAdapterItems)
+            }
+        }
+    }
+
+    private fun observeTrendingTVShowsState() {
+        viewModel.trendingTVShowsState.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.let { trendingList ->
+                homeAdapterItems.add(RecyclerViewItem.ImageSliderItem(getString(R.string.tv_shows), trendingList))
+                homeAdapter.setItems(homeAdapterItems)
+            }
+        }
+    }
+
+    private fun observeTrendingPeopleState() {
+        viewModel.trendingPeopleState.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.let { trendingList ->
+                homeAdapterItems.add(RecyclerViewItem.ImageSliderItem(getString(R.string.people), trendingList))
+                homeAdapter.setItems(homeAdapterItems)
             }
         }
     }
 
     private fun handleEvents() {
-        viewModel.navigateSearch.observeEvent(viewLifecycleOwner) {
+        viewModel.navigateToSearch.observeEvent(viewLifecycleOwner) {
             navigateToSearch()
         }
     }

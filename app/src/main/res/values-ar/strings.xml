@@ -97,4 +97,6 @@
     <string name="no_birthday_provided">No Birthday Provided</string>
     <string name="no_place_of_birth_provided">No Place of Birth Provided</string>
     <string name="Search">بحث</string>
+
+    <string name="people">People</string>
 </resources>

@@ -2,6 +2,7 @@ package com.octopus.moviesapp.util
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
@@ -58,7 +59,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     ) : RecyclerViewHolder(binding) {
         fun bind(title: String, trendingList: List<Trending>) {
             val imagesList = trendingList.map { trending ->
-                SlideModel(imageUrl = trending.imageUrl)
+                SlideModel(imageUrl = trending.imageUrl, scaleType = ScaleTypes.FIT)
             }
             binding.run {
                 imageSlider.setImageList(imagesList)

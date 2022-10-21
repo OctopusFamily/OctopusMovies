@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,34 +20,48 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
 ): BaseViewModel(), HomeClicksListener {
 
-    init {
-        getTrending(MediaType.MOVIE)
-    }
-
-    private val _navigateSearch = MutableLiveData<Event<Boolean>>()
-    val navigateSearch: LiveData<Event<Boolean>> get() = _navigateSearch
+    private val _navigateToSearch = MutableLiveData<Event<Boolean>>()
+    val navigateToSearch: LiveData<Event<Boolean>> get() = _navigateToSearch
 
     private val _trendingMoviesState = MutableLiveData<UiState<List<Trending>>>(UiState.Loading)
     val trendingMoviesState: LiveData<UiState<List<Trending>>> get() = _trendingMoviesState
 
-    fun onClickSearch() {
-        _navigateSearch.postEvent(true)
+    private val _trendingTVShowsState = MutableLiveData<UiState<List<Trending>>>(UiState.Loading)
+    val trendingTVShowsState: LiveData<UiState<List<Trending>>> get() = _trendingTVShowsState
+
+    private val _trendingPeopleState = MutableLiveData<UiState<List<Trending>>>(UiState.Loading)
+    val trendingPeopleState: LiveData<UiState<List<Trending>>> get() = _trendingPeopleState
+
+    init {
+        getTrendingMovies()
+        getTrendingTVShows()
+        getTrendingPeople()
     }
 
-    private fun getTrending(mediaType: MediaType) {
+    fun onSearchClick() {
+        _navigateToSearch.postEvent(true)
+    }
+
+    private fun getTrendingMovies() {
         viewModelScope.launch {
-            wrapResponse { homeRepository.getTrendingMedia(mediaType) }.collectLatest { uiState ->
-                Log.d("MALT", "STATE IS: $uiState")
-                if (uiState is UiState.Loading) {
-                    Log.d("MALT", "LOADING")
-                    _trendingMoviesState.postValue(uiState)
-                } else if (uiState is UiState.Error) {
-                    Log.d("MALT", "ERROR: ${uiState.message}")
-                    _trendingMoviesState.postValue(uiState)
-                } else if (uiState is UiState.Success) {
-                    Log.d("MALT", "SUCCESS: ${uiState.data}")
-                    _trendingMoviesState.postValue(uiState)
-                }
+            wrapResponse { homeRepository.getTrendingMedia(MediaType.MOVIE) }.collectLatest { uiState ->
+                _trendingMoviesState.postValue(uiState)
+            }
+        }
+    }
+
+    private fun getTrendingTVShows() {
+        viewModelScope.launch {
+            wrapResponse { homeRepository.getTrendingMedia(MediaType.TV) }.collectLatest { uiState ->
+                _trendingTVShowsState.postValue(uiState)
+            }
+        }
+    }
+
+    private fun getTrendingPeople() {
+        viewModelScope.launch {
+            wrapResponse { homeRepository.getTrendingMedia(MediaType.PERSON) }.collectLatest { uiState ->
+                _trendingPeopleState.postValue(uiState)
             }
         }
     }
