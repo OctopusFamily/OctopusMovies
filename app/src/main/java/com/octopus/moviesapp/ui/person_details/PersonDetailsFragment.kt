@@ -40,6 +40,8 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         viewModel.personDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonDetailSuccess(uiState.data)
+//                itemsList.add(RecyclerViewItem.PersonInfoDetailsItem(uiState.data))
+//                personDetailsAdapter.setItems(itemsList)
             }
         }
     }

@@ -98,4 +98,6 @@
     <string name="no_birthday_provided">No Birthday Provided</string>
     <string name="no_place_of_birth_provided">No Place of Birth Provided</string>
     <string name="known_for">Known For</string>
+    <string name="person_info">Person Info</string>
+    <string name="biography">Biography</string>
 </resources>

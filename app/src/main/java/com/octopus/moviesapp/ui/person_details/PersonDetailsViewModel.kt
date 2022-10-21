@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.PersonRepository
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.PersonDetails
+import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
 import com.octopus.moviesapp.util.ConnectionTracker
@@ -41,6 +42,11 @@ class PersonDetailsViewModel @Inject constructor(
     val personMovies: LiveData<List<Movie>> get() = _personMovies
 
 
+    private val _personTvShowState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
+    val personTvShowState: LiveData<UiState<List<TVShow>>> get() = _personTvShowState
+    private val _personTvShow = MutableLiveData<List<TVShow>>()
+    val personTvShow: LiveData<List<TVShow>> get() = _personTvShow
+
     private var personId: Int = 0
 
     fun loadPersonDetailsData(personId: Int) {
@@ -73,8 +79,16 @@ class PersonDetailsViewModel @Inject constructor(
     private fun getPersonMoviesData() {
         viewModelScope.launch {
             wrapResponse { personRepository.getPersonMoviesById(personId) }.collectLatest {
-                Log.v("ameer", "onLoadPersonMoviesSuccess ${it}")
                 _personMoviesState.postValue(it)
+            }
+        }
+
+    }
+
+    private fun getPersonTvShowData() {
+        viewModelScope.launch {
+            wrapResponse { personRepository.getPersonTVShowsById(personId) }.collectLatest {
+                _personTvShowState.postValue(it)
             }
         }
 
