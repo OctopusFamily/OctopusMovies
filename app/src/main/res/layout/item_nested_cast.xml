@@ -11,6 +11,10 @@
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.nested.NestedCastListener" />
+
+<!--        <variable-->
+<!--            name="listener"-->
+<!--            type="com.octopus.moviesapp.ui.person_details.PersonDetailsClicksListener" />-->
     </data>
 
     <LinearLayout

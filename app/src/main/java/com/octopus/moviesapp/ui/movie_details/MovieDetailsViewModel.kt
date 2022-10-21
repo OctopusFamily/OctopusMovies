@@ -139,4 +139,8 @@ class MovieDetailsViewModel @Inject constructor(
     override fun onCastClick(castId: Int) {
         _navigateToPersonDetails.postEvent(castId)
     }
+
+//    override fun onPersonClick(PersonId: Int) {
+//        _navigateToPersonDetails.postEvent(PersonId)
+//    }
 }

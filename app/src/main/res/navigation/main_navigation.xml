@@ -130,9 +130,14 @@
     <fragment
         android:id="@+id/personDetailsFragment"
         android:name="com.octopus.moviesapp.ui.person_details.PersonDetailsFragment"
-        android:label="PersonDetailsFragment" >
+        android:label="PersonDetailsFragment"
+        tools:layout="@layout/fragment_person_details">
         <argument
             android:name="personId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_PersonDetailsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
+
 </navigation>

@@ -1,4 +1,5 @@
 package com.octopus.moviesapp.ui.person_details
 
-class PersonDetailsClicksListener {
+interface PersonDetailsClicksListener {
+   fun onPersonClick(personId: Int)
 }
