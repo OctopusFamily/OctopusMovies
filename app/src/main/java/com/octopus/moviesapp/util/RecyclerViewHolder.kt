@@ -7,10 +7,7 @@ import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
 import com.octopus.moviesapp.databinding.LayoutNestedInfoBinding
 import com.octopus.moviesapp.databinding.LayoutNestedSeasonsBinding
-import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.model.Season
-import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.ui.nested.*
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -59,10 +56,14 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class ImageSliderViewHolder(
         val binding: LayoutNestedImageSliderBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(title: String, imagesUrls: List<String>) {
-            val imagesList = imagesUrls.map { SlideModel(it) }
-            binding.imageSlider.setImageList(imagesList)
-            binding.title.text = title
+        fun bind(title: String, trendingList: List<Trending>) {
+            val imagesList = trendingList.map { trending ->
+                SlideModel(imageUrl = trending.imageUrl)
+            }
+            binding.run {
+                imageSlider.setImageList(imagesList)
+                titleTextView.text = title
+            }
         }
     }
 }

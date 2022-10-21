@@ -41,6 +41,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_zero"
             app:layout_constraintTop_toBottomOf="@id/top_app_bar"
@@ -55,8 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="@dimen/space8x"
             android:textAlignment="center"
-            style="@style/text_style_body_medium"
-            />
+            style="@style/text_style_body_medium" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
