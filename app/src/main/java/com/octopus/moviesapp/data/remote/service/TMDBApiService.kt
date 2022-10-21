@@ -11,6 +11,7 @@ import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
 import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
+import com.octopus.moviesapp.util.Constants
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -112,19 +113,19 @@ interface TMDBApiService {
     suspend fun createList(
         @Query("session_id") sessionId: String,
         @Field("name") name: String,
-        @Field("description") description: String = ""
+        @Field("description") description: String = Constants.EMPTY_TEXT
     ): CreateListResponse
 
     // Search End Points
     @GET("search/multi")
     suspend fun getSearchMultiMedia(
-        @Query("query") query: String
+        @Query("query") query: String,
     ): BaseResponse<SearchDTO>
 
     // Trending End Points
     @GET("trending/{media_type}/day")
     suspend fun getTrendingMedia(
-       @Path("media_type") mediaType: String,
+        @Path("media_type") mediaType: String,
     ): BaseResponse<TrendingDTO>
 
 }
