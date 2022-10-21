@@ -1,16 +1,19 @@
 package com.octopus.moviesapp.ui.lists
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.local.DataStorePref
-import com.octopus.moviesapp.data.repository.ListsRepository
+import com.octopus.moviesapp.data.repository.lists.ListsRepository
 import com.octopus.moviesapp.domain.model.CreatedList
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,10 +21,23 @@ import javax.inject.Inject
 class AllListsViewModel @Inject constructor(
     private val listsRepository: ListsRepository,
     private val dataStorePref: DataStorePref
-) : BaseViewModel() , CreatedListInteractionListener {
+) : BaseViewModel(), CreatedListInteractionListener {
 
-    private val _createdList = MutableLiveData<UiState<MutableList<CreatedList>?>>()
-    val createdList = _createdList
+    private val _createdList = MutableLiveData<UiState<MutableList<CreatedList>?>>(UiState.Loading)
+    val createdList: LiveData<UiState<MutableList<CreatedList>?>>
+        get() = _createdList
+
+    private val sessionId = getSessionId()
+
+    private fun getSessionId(): String {
+        var sessionId = ""
+        viewModelScope.launch {
+            dataStorePref.readString(Constants.SESSION_ID_KEY).collect {
+                sessionId = it.toString()
+            }
+        }
+        return sessionId
+    }
 
     val listName = MutableLiveData("")
 
@@ -39,17 +55,18 @@ class AllListsViewModel @Inject constructor(
         getData()
     }
 
-    fun getData() {
-        wrapResponse {
-            viewModelScope.launch {
-                dataStorePref.readString(Constants.SESSION_ID_KEY).collect {
-                    _createdList.postValue(UiState.Loading)
-                    val response = listsRepository.getAllLists(0, it.toString()).toMutableList()
-                    _createdList.postValue(UiState.Success(response))
-                }
+    private fun getData() {
+        viewModelScope.launch {
+            wrapResponse {
+                Log.d("sessionId", sessionId)
+                listsRepository.getAllLists(0, sessionId).toMutableList()
+            }.collectLatest {
+                Log.d("response :", it.toString())
+                _createdList.postValue(it)
             }
         }
     }
+
 
     override fun onListClick(item: CreatedList) {
         TODO("Not yet implemented")

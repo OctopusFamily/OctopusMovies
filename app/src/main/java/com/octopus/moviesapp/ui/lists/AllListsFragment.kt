@@ -18,14 +18,18 @@ class AllListsFragment : BaseFragment<FragmentAllListsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        createdListAdapter = CreatedListAdapter(emptyList(), viewModel)
         observeEvents()
+        setAdapter()
     }
 
     private fun observeEvents() {
-        viewModel.createdList.observe(viewLifecycleOwner){
-            if (it is UiState.Success){
-             }
+        viewModel.createdList.observe(viewLifecycleOwner){ createdListsState ->
+            createdListsState.toData()?.let { items -> createdListAdapter.setItems(items) }
         }
      }
+
+    private fun setAdapter(){
+        createdListAdapter = CreatedListAdapter(emptyList(), viewModel)
+        binding.myLists.adapter = createdListAdapter
+    }
 }

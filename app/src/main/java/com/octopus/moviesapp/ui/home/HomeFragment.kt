@@ -35,6 +35,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observeTrendingMoviesState()
         observeTrendingTVShowsState()
         observeTrendingPeopleState()
+        viewModel.isTextClicked.observeEvent(viewLifecycleOwner){
+            if (it){
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAllListsFragment())
+            }
+        }
     }
 
     private fun observeTrendingMoviesState() {

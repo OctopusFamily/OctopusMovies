@@ -32,6 +32,12 @@ class HomeViewModel @Inject constructor(
     private val _trendingPeopleState = MutableLiveData<UiState<List<Trending>>>(UiState.Loading)
     val trendingPeopleState: LiveData<UiState<List<Trending>>> get() = _trendingPeopleState
 
+    private val _isTextClicked = MutableLiveData(Event(false))
+    val isTextClicked = _isTextClicked
+
+    fun onTextClicked(){
+        _isTextClicked.postValue(Event(true))
+    }
     init {
         getTrendingMovies()
         getTrendingTVShows()

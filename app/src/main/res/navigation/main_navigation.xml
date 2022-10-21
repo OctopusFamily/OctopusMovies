@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allListsFragment"
+            app:destination="@id/allListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesFragment"
@@ -153,4 +156,8 @@
             android:name="personId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/allListsFragment"
+        android:name="com.octopus.moviesapp.ui.lists.AllListsFragment"
+        android:label="AllListsFragment" />
 </navigation>

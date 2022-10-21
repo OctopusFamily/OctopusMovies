@@ -4,7 +4,7 @@ import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.domain.model.CreatedList
 import javax.inject.Inject
 
-class CreatedListMapper  @Inject constructor() : Mapper<List<CreatedListsDto>,List<CreatedList>> {
+class CreatedListMapper  @Inject constructor() : Mapper<List<CreatedListsDto>,List<CreatedList>>() {
     override fun map(input: List<CreatedListsDto>): List<CreatedList> {
         return input.map {
             CreatedList(

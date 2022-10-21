@@ -133,6 +133,6 @@ interface TMDBApiService {
     suspend fun getCreatedLists(
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String
-    ): CastResponse<CreatedListsDto>
+    ): BaseResponse<CreatedListsDto>
 
 }

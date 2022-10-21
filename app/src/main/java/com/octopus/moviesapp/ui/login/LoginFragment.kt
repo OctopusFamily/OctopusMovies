@@ -22,7 +22,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         observeEvents()
+        observeEvents()
     }
 
     private fun observeEvents() {
@@ -57,7 +57,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val username = viewModel.username.value.toString()
         val password = viewModel.password.value.toString()
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToLoadingDialog(username,password))
-     }
+    }
 
     private fun navigateToHomeFragment() {
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
