@@ -5,8 +5,9 @@ import com.octopus.moviesapp.domain.model.Trending
 import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.buildImageUrl
+import javax.inject.Inject
 
-class TrendingMapper : Mapper<TrendingDTO, Trending>() {
+class TrendingMapper @Inject constructor() : Mapper<TrendingDTO, Trending>() {
     override fun map(input: TrendingDTO): Trending {
         return Trending(
             id = input.id ?: 0,
