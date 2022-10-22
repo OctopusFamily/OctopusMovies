@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.ui.person_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.domain.model.Movie
@@ -25,6 +25,7 @@ import javax.inject.Inject
 class PersonDetailsViewModel @Inject constructor(
     private val personRepository: PersonRepository,
     private val connectionTracker: ConnectionTracker,
+    saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
 
     private val _personDetailsState = MutableLiveData<UiState<PersonDetails>>(UiState.Loading)
@@ -36,23 +37,19 @@ class PersonDetailsViewModel @Inject constructor(
     private val _personDetails = MutableLiveData<PersonDetails>()
     val personDetails: LiveData<PersonDetails> get() = _personDetails
 
-
     private val _personMoviesState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val personMoviesState: LiveData<UiState<List<Movie>>> get() = _personMoviesState
-    private val _personMovies = MutableLiveData<List<Movie>>()
-    val personMovies: LiveData<List<Movie>> get() = _personMovies
-
 
     private val _personTvShowState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val personTvShowState: LiveData<UiState<List<TVShow>>> get() = _personTvShowState
-    private val _personTvShow = MutableLiveData<List<TVShow>>()
-    val personTvShow: LiveData<List<TVShow>> get() = _personTvShow
 
-    private var personId: Int = 0
+    private val args = PersonDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
-    fun loadPersonDetailsData(personId: Int) {
-        this.personId = personId
-        Log.v("ameer", " personId in PersonDetailsViewModel  $personId")
+    init {
+        loadPersonDetailsData()
+    }
+
+    private fun loadPersonDetailsData() {
         viewModelScope.launch {
             if (connectionTracker.isInternetConnectionAvailable()) {
                 getPersonDetailsData()
@@ -66,11 +63,10 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun getPersonDetailsData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonDetailsById(personId) }.collectLatest {
+            wrapResponse { personRepository.getPersonDetailsById(args.personId) }.collectLatest {
                 _personDetailsState.postValue(it)
             }
         }
-
     }
 
     fun onLoadPersonDetailSuccess(personDetail: PersonDetails) {
@@ -80,34 +76,22 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun getPersonMoviesData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonMoviesById(personId) }.collectLatest {
+            wrapResponse { personRepository.getPersonMoviesById(args.personId) }.collectLatest {
                 _personMoviesState.postValue(it)
             }
         }
-
     }
-
-
-    fun onLoadPersonMoviesSuccess(movies: List<Movie>) {
-        _personMovies.postValue(movies)
-    }
-
 
     private fun getPersonTvShowData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonTVShowsById(personId) }.collectLatest {
+            wrapResponse { personRepository.getPersonTVShowsById(args.personId) }.collectLatest {
                 _personTvShowState.postValue(it)
             }
         }
-
-    }
-
-    fun onLoadPersonTvShowSuccess(tvShow: List<TVShow>) {
-        _personTvShow.postValue(tvShow)
     }
 
     fun tryLoadPersonDetailAgain() {
-        loadPersonDetailsData(personId)
+        loadPersonDetailsData()
     }
 
 
@@ -116,11 +100,11 @@ class PersonDetailsViewModel @Inject constructor(
     }
 
     override fun onImageMovieClick(movieId: Int) {
-//        TODO("Not yet implemented")
+
     }
 
     override fun onImageTvShowClick(movieId: Int) {
-//        TODO("Not yet implemented")
+
     }
 
 

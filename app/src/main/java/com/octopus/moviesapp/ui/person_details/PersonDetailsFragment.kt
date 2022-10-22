@@ -19,14 +19,8 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     override val viewModel: PersonDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
-    private val args: PersonDetailsFragmentArgs by navArgs()
-
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var personDetailsAdapter: PersonDetailsAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.loadPersonDetailsData(args.personId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,9 +37,7 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonDetailSuccess(uiState.data)
                 itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(uiState.data))
-
                 personDetailsAdapter.setItems(itemsList)
-
             }
         }
     }
@@ -53,10 +45,8 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     private fun handlePersonMovie() {
         viewModel.personMoviesState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
-                viewModel.onLoadPersonMoviesSuccess(uiState.data)
                 itemsList.add(RecyclerViewItem.ImageMovieItem(uiState.data))
                 personDetailsAdapter.setItems(itemsList)
-
             }
         }
     }
@@ -64,7 +54,6 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     private fun handlePersonTvShow() {
         viewModel.personTvShowState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
-                viewModel.onLoadPersonTvShowSuccess(uiState.data)
                 itemsList.add(RecyclerViewItem.ImageTvShowItem(uiState.data))
                 personDetailsAdapter.setItems(itemsList)
             }
