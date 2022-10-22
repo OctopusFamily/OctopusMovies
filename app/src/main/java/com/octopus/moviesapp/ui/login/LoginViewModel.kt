@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val authUtils: AuthUtilsImpl,
+    private val dataStorePref: DataStorePref,
     saveStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
@@ -62,7 +64,10 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onClickSkip() {
-        _skipLoginClicked.postValue(Event(true))
+        viewModelScope.launch {
+            dataStorePref.writeString(Constants.SESSION_ID_KEY, "")
+            _skipLoginClicked.postValue(Event(true))
+        }
     }
 
     fun onClickShowPassWord() {
