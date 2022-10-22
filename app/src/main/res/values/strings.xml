@@ -114,4 +114,8 @@
     <string name="welcome_tag">Welcome @%1$s !</string>
     <string name="logout">Logout</string>
     <string name="my_lists">My Lists</string>
+    <string name="welcome">Welcome</string>
+    <string name="profile">Profile</string>
+    <string name="not_logged_in">You are not logged in, log in to show your profile!</string>
+    <string name="dashboard">Dashboard</string>
 </resources>
