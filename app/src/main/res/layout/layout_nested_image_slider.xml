@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginVertical="@dimen/space4x">
 
         <TextView
             android:id="@+id/title_text_view"
@@ -14,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginVertical="@dimen/space2x"
-            style="@style/text_style_label_large"
+            style="@style/text_style_label_medium"
             tools:text="Movies"/>
 
         <com.denzcoskun.imageslider.ImageSlider
@@ -26,7 +27,8 @@
             app:iss_auto_cycle="true"
             app:iss_period="1000"
             app:iss_delay="0"
-            app:iss_selected_dot="@color/primary"/>
+            app:iss_selected_dot="@color/primary"
+            android:paddingHorizontal="@dimen/space8x"/>
 
     </LinearLayout>
 </layout>
