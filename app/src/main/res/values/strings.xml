@@ -102,4 +102,6 @@
     <string name="known_for">Known For</string>
     <string name="person_info">Person Info</string>
     <string name="biography">Biography</string>
+
+    <string name="people">People</string>
 </resources>

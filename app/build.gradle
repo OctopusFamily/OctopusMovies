@@ -90,7 +90,7 @@ dependencies {
     // Extendable TextView
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
 
-    //Image Slider
+    // Image Slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
     testImplementation 'junit:junit:4.13.2'

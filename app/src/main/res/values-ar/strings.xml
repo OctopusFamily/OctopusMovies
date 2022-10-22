@@ -80,9 +80,7 @@
     <string name="password_is_letters_only_error">Password must contain 1 digit at least!</string>
     <string name="password_is_not_valid_error">Password must contain English letters and digits only</string>
 
-
     <string name="logging_in">Logging in…</string>
-
 
     <string name="there_is_no_overview">There\'s no overview</string>
     <string name="there_is_no_tagline">There\'s no tagline</string>
@@ -103,4 +101,5 @@
     <string name="biography">Biography</string>
     <string name="Search">بحث</string>
 
+    <string name="people">People</string>
 </resources>

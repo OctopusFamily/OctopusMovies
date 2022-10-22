@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.util
 
+import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.MovieDetails
@@ -26,8 +27,8 @@ sealed class RecyclerViewItem {
 
     data class ImageSliderItem(
         val title: String,
-        val imagesUrls: List<String>
-    ) : RecyclerViewItem()
+        val trendingList: List<Trending>
+    ): RecyclerViewItem()
 
     data class ImageMovieItem(
         val movie: List<Movie>

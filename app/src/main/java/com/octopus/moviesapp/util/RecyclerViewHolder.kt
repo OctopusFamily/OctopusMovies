@@ -2,6 +2,7 @@ package com.octopus.moviesapp.util
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageMovieBinding
@@ -25,6 +26,8 @@ import com.octopus.moviesapp.ui.nested.NestedImageTvShowAdapter
 import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsAdapter
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
+import com.octopus.moviesapp.domain.model.*
+import com.octopus.moviesapp.ui.nested.*
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
@@ -72,10 +75,14 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class ImageSliderViewHolder(
         val binding: LayoutNestedImageSliderBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(title: String, imagesUrls: List<String>) {
-            val imagesList = imagesUrls.map { SlideModel(it) }
-            binding.imageSlider.setImageList(imagesList)
-            binding.title.text = title
+        fun bind(title: String, trendingList: List<Trending>) {
+            val imagesList = trendingList.map { trending ->
+                SlideModel(imageUrl = trending.imageUrl, scaleType = ScaleTypes.FIT)
+            }
+            binding.run {
+                imageSlider.setImageList(imagesList)
+                titleTextView.text = title
+            }
         }
     }
 
@@ -99,4 +106,3 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
         }
     }
 }
-
