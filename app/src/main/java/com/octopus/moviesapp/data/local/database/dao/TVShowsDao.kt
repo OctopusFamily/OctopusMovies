@@ -5,16 +5,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.octopus.moviesapp.data.local.database.entity.MovieEntity
+import com.octopus.moviesapp.data.local.database.entity.TVShowEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MoviesDao {
+interface TVShowsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movieList: List<MovieEntity>)
+    suspend fun insertTVShows(tvShowsList: List<TVShowEntity>)
 
-    @Query("SELECT * FROM MOVIE_TABLE")
-    suspend fun getAllMovies(): List<MovieEntity>
+    @Query("SELECT * FROM TV_SHOW_TABLE")
+    suspend fun getAllTVShows(): List<TVShowEntity>
 
-    @Query("DELETE FROM MOVIE_TABLE")
-    suspend fun deleteAllMovies()
+    @Query("DELETE FROM TV_SHOW_TABLE")
+    suspend fun deleteAllTVShows()
 }

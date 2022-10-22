@@ -50,40 +50,41 @@ class HomeViewModel @Inject constructor(
     val recommendedTVShows: LiveData<UiState<List<TVShow>>> get() = _recommendedTVShows
 
     init {
-        getTrendingMovies()
-        getRecommendedMovies()
-        getTrendingTVShows()
-        getRecommendedTVShows()
-        getTrendingPeople()
+//        getTrendingMovies()
+//        getRecommendedMovies()
+//        getTrendingTVShows()
+//        getRecommendedTVShows()
+//        getTrendingPeople()
+        decideWhereToGetDataFrom()
     }
 
     fun onSearchClick() {
         _navigateToSearch.postEvent(true)
     }
-
-    private fun getTrendingMovies() {
-        viewModelScope.launch {
-            wrapResponse { homeRepository.getTrendingMedia(MediaType.MOVIE) }.collectLatest { uiState ->
-                _trendingMoviesState.postValue(uiState)
-            }
-        }
-    }
-
-    private fun getTrendingTVShows() {
-        viewModelScope.launch {
-            wrapResponse { homeRepository.getTrendingMedia(MediaType.TV) }.collectLatest { uiState ->
-                _trendingTVShowsState.postValue(uiState)
-            }
-        }
-    }
-
-    private fun getTrendingPeople() {
-        viewModelScope.launch {
-            wrapResponse { homeRepository.getTrendingMedia(MediaType.PERSON) }.collectLatest { uiState ->
-                _trendingPeopleState.postValue(uiState)
-            }
-        }
-    }
+//
+//    private fun getTrendingMovies() {
+//        viewModelScope.launch {
+//            wrapResponse { homeRepository.getTrendingMedia(MediaType.MOVIE) }.collectLatest { uiState ->
+//                _trendingMoviesState.postValue(uiState)
+//            }
+//        }
+//    }
+//
+//    private fun getTrendingTVShows() {
+//        viewModelScope.launch {
+//            wrapResponse { homeRepository.getTrendingMedia(MediaType.TV) }.collectLatest { uiState ->
+//                _trendingTVShowsState.postValue(uiState)
+//            }
+//        }
+//    }
+//
+//    private fun getTrendingPeople() {
+//        viewModelScope.launch {
+//            wrapResponse { homeRepository.getTrendingMedia(MediaType.PERSON) }.collectLatest { uiState ->
+//                _trendingPeopleState.postValue(uiState)
+//            }
+//        }
+//    }
 
     private fun getRecommendedMovies() {
         viewModelScope.launch {
@@ -108,5 +109,12 @@ class HomeViewModel @Inject constructor(
 
     override fun onTVShowClick(tvShow: TVShow) {
         Log.d("MALT", "TV SHOW CLICKED WITH ID: ${tvShow.id}")
+    }
+
+    private fun decideWhereToGetDataFrom() {
+        viewModelScope.launch {
+            val data = homeRepository.fetchTrendingMediaFromDB(MediaType.MOVIE)
+            Log.d("MALT", "DATA FROM DB IS: $data")
+        }
     }
 }

@@ -2,8 +2,10 @@ package com.octopus.moviesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.octopus.moviesapp.data.local.database.MoviesDatabase
+import com.octopus.moviesapp.data.local.database.MyDatabase
 import com.octopus.moviesapp.data.local.database.dao.MoviesDao
+import com.octopus.moviesapp.data.local.database.dao.TVShowsDao
+import com.octopus.moviesapp.data.local.database.dao.TrendingDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,17 +19,25 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideMoviesDatabase(@ApplicationContext context: Context): MoviesDatabase {
-        return Room.databaseBuilder(
-            context,
-            MoviesDatabase::class.java,
-            MoviesDatabase.DATABASE_NAME
-        ).build()
+    fun provideMoviesDatabase(@ApplicationContext context: Context): MyDatabase {
+        return Room.databaseBuilder(context, MyDatabase::class.java, MyDatabase.DATABASE_NAME).build()
     }
 
     @Singleton
     @Provides
-    fun provideMoviesDao(moviesDatabase: MoviesDatabase): MoviesDao {
-        return moviesDatabase.moviesDao()
+    fun provideMoviesDao(myDatabase: MyDatabase): MoviesDao {
+        return myDatabase.moviesDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTVShowsDao(myDatabase: MyDatabase): TVShowsDao {
+        return myDatabase.tvShowsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTrendingDao(myDatabase: MyDatabase): TrendingDao {
+        return myDatabase.trendingDao()
     }
 }

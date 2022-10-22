@@ -1,8 +1,7 @@
 package com.octopus.moviesapp
 
 import android.app.Application
-import android.util.Log
-import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Constants
 import dagger.hilt.android.HiltAndroidApp

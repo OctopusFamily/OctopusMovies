@@ -1,19 +1,20 @@
-package com.octopus.moviesapp.domain.mapper
+package com.octopus.moviesapp.domain.mapper.local
 
 import com.octopus.moviesapp.data.local.database.entity.TrendingEntity
 import com.octopus.moviesapp.data.remote.response.dto.TrendingDTO
-import com.octopus.moviesapp.domain.model.Trending
+import com.octopus.moviesapp.domain.mapper.Mapper
 import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 
-class TrendingMapper @Inject constructor() : Mapper<TrendingEntity, Trending>() {
-    override fun map(input: TrendingEntity): Trending {
-        return Trending(
-            id = input.trendingId,
-            imageUrl = input.imageUrl,
-            mediaType = input.mediaType,
+class TrendingEntityMapper @Inject constructor() : Mapper<TrendingDTO, TrendingEntity>() {
+    override fun map(input: TrendingDTO): TrendingEntity {
+        return TrendingEntity(
+            _id = 0,
+            trendingId = input.id ?: 0,
+            imageUrl = getImageUrlAccordingToMediaName(input),
+            mediaType = input.mediaName?.let { MediaType.fromMediaName(it) } ?: MediaType.MOVIE
         )
     }
 

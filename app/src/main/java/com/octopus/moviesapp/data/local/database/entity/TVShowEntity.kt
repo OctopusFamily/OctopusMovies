@@ -5,13 +5,13 @@ import androidx.room.PrimaryKey
 import com.octopus.moviesapp.util.Constants
 import java.util.*
 
-@Entity(tableName = Constants.MOVIE_TABLE)
-data class MovieEntity(
+@Entity(tableName = Constants.TV_SHOW_TABLE)
+data class TVShowEntity(
     @PrimaryKey
     val _id: Int,
-    val movieId: Int,
+    val movieID: Int,
     val title: String,
     val posterImageUrl: String,
     val voteAverage: Float,
-    val releaseDate: String,
+    val started: String,
 )
