@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.Movie" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/space6x"
+        app:cardElevation="0dp"
+        android:layout_margin="@dimen/space2x">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> listener.onMovieClick(item.id)}"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/movie_image_description"
+                tools:src="@drawable/ic_launcher_background"
+                app:imageUrl="@{item.posterImageUrl}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space2x"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:ellipsize="end"
+                android:lines="1"
+                style="@style/text_style_body_large"
+                tools:text="Memento"
+                android:text="@{item.title}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space8x"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:drawableStartCompat="@drawable/ic_date_small"
+                    android:drawablePadding="@dimen/space2x"
+                    style="@style/text_style_body_medium"
+                    tools:text="2000"
+                    app:releaseDate="@{item.releaseDate}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:paddingHorizontal="@dimen/space4x"
+                    app:drawableStartCompat="@drawable/ic_star_small"
+                    android:drawablePadding="@dimen/space2x"
+                    android:textColor="@color/surface"
+                    style="@style/text_style_body_medium"
+                    android:background="@drawable/rating_side_shape"
+                    tools:text="8.4"
+                    app:voteAverage="@{item.voteAverage}"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+
