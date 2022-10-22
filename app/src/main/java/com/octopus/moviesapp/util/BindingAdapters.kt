@@ -195,3 +195,13 @@ fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickL
     }
 }
 
+
+@BindingAdapter(value = ["app:hideIfEmpty"])
+fun <T> hideWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isNotEmpty() ?: false
+}
+
+@BindingAdapter(value = ["app:showIfEmpty"])
+fun <T> showWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isEmpty() ?: false
+}

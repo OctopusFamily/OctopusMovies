@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space8x"
-            android:layout_marginTop="@dimen/space12x"
+            android:layout_marginTop="@dimen/space8x"
             android:background="@drawable/circular_shape"
             android:contentDescription="@string/navigate_back_icon_description"
             android:onClick="@{() -> viewModel.onBackClick()}"
@@ -104,58 +104,32 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/space6x"
             android:paddingTop="@dimen/space2x"
-            app:showWhenStateIsSuccess="@{viewModel.searchResult}"
+            app:hideIfEmpty="@{viewModel.filteredSearchResults}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-            app:spanCount="1"
+            app:spanCount="2"
             tools:listitem="@layout/item_search" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_no_mobile_internet"
+            android:layout_width="@dimen/size_lottie"
+            android:layout_height="@dimen/size_lottie"
+            android:layout_margin="@dimen/space4x"
+            android:scaleType="centerCrop"
             app:showWhenStateIsLoading="@{viewModel.searchResult}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:showIfEmpty="@{viewModel.filteredSearchResults}"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:tint="@color/on_primary"
+            app:tintMode="src_over"
+            app:lottie_rawRes="@raw/search"
             app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space8x"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/search_recycler_view"
-            app:layout_constraintStart_toEndOf="@+id/search_recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsError="@{viewModel.searchResult}"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/failed_to_load_movies"
-                android:textAlignment="center"
-                android:textColor="@color/surface_variant" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/try_load_movies_again"
-                android:onClick="@{()->viewModel.tryLoadDataAgain(viewModel.searchQuery)}"
-                android:src="@drawable/ic_refresh"
-                android:textColor="@color/primary"
-                app:tint="@color/on_background" />
-        </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
