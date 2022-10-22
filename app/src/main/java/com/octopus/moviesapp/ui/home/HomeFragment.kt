@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
@@ -24,6 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initHomeAdapter()
         observeLiveData()
         handleEvents()
+        setOnBackButtonClickListener()
     }
 
     private fun initHomeAdapter() {
@@ -92,5 +94,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun navigateToSearch() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+    }
+
+    private fun setOnBackButtonClickListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            onBackPressedCallback)
     }
 }
