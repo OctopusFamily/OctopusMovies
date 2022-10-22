@@ -12,6 +12,7 @@ import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.SettingsService
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -42,6 +43,9 @@ class SettingsViewModel @Inject constructor(
     private val settingsService = SettingsService
 
     val sessionId = MyApplication.sessionId
+    val isLoggedIn = sessionId.isNotEmpty()
+
+    private val _profileState = MutableLiveData(UiState.Loading)
 
     init {
         _currentLanguage.postValue(settingsService.getCurrentLanguage())
