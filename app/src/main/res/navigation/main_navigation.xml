@@ -14,7 +14,7 @@
             app:destination="@id/searchFragment" />
         <action
             android:id="@+id/action_homeFragment_to_allListsFragment"
-            app:destination="@id/allListsFragment" />
+            app:destination="@id/myListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesFragment"
@@ -157,15 +157,11 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/allListsFragment"
-        android:name="com.octopus.moviesapp.ui.lists.AllListsFragment"
-        android:label="AllListsFragment" >
-        <action
-            android:id="@+id/action_allListsFragment_to_createListDialog"
-            app:destination="@id/createListDialog" />
+        android:id="@+id/myListsFragment"
+        android:name="com.octopus.moviesapp.ui.lists.MyListsFragment"
+        android:label="MyLists" >
+        <argument
+            android:name="sessionId"
+            app:argType="string" />
     </fragment>
-    <dialog
-        android:id="@+id/createListDialog"
-        android:name="com.octopus.moviesapp.ui.lists.CreateListDialog"
-        android:label="CreateListDialog" />
 </navigation>

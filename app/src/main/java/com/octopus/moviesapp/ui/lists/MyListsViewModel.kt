@@ -18,17 +18,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AllListsViewModel @Inject constructor(
+class MyListsViewModel @Inject constructor(
     private val listsRepository: ListsRepository,
-    private val dataStorePref: DataStorePref
-) : BaseViewModel(), CreatedListInteractionListener {
+    private val dataStorePref: DataStorePref,
+    savedStateHandle: SavedStateHandle,
+) : BaseViewModel(), MyListsClicksListener {
 
-    private val _createdList = MutableLiveData<UiState<MutableList<CreatedList>?>>(UiState.Loading)
-    val createdList: LiveData<UiState<MutableList<CreatedList>?>>
-        get() = _createdList
+    private val args = MyListsFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
-    private val sessionId = getSessionId()
-
+    private val _myListsState = MutableLiveData<UiState<MutableList<CreatedList>>>(UiState.Loading)
+    val myListsState: LiveData<UiState<MutableList<CreatedList>>> get() = _myListsState
 
     val listName = MutableLiveData("")
 
@@ -42,8 +41,7 @@ class AllListsViewModel @Inject constructor(
     val isCloseClicked = _isCloseClicked
 
     private val _item = MutableLiveData<Event<CreatedList>>()
-    val item: LiveData<Event<CreatedList>>
-        get() = _item
+    val item: LiveData<Event<CreatedList>> get() = _item
 
     private val _isEmptyList = MutableLiveData(false)
     val isEmptyList: LiveData<Boolean>
@@ -54,8 +52,15 @@ class AllListsViewModel @Inject constructor(
         getData()
     }
 
-    fun getData() {
+
+    override fun onListClick(item: CreatedList) {
+        TODO("Not yet implemented")
+    }
+
+    private fun getData() {
         viewModelScope.launch {
+            wrapResponse { listsRepository.getAllLists(0, args.sessionId).toMutableList() }.collectLatest {
+                _myListsState.postValue(it)
             wrapResponse {
                 listsRepository.getAllLists(0, sessionId).toMutableList()
             }.collectLatest {

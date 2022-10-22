@@ -106,4 +106,7 @@
     <string name="lists" translatable="false">All lists %1$s</string>
 
 
+    <string name="welcome_tag">Welcome @%1$s !</string>
+    <string name="logout">Logout</string>
+    <string name="my_lists">My Lists</string>
 </resources>

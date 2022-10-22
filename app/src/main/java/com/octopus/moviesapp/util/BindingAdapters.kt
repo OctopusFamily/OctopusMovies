@@ -194,6 +194,12 @@ fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickL
     }
 }
 
+@BindingAdapter("setWelcomeTag")
+fun setWelcomeTag(textView: TextView, username: String?) {
+    username?.let {
+        textView.text = textView.context.getString(R.string.welcome_tag, username)
+    }
+}
 @BindingAdapter("app:showWhenEmptyList")
 fun showWhenEmptyList(view: View, isEmptyList: Boolean?) {
     view.isVisible = isEmptyList != false
