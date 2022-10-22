@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.PersonRepository
+import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.TVShow

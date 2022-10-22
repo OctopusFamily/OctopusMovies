@@ -134,7 +134,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_birthday"
                 app:layout_constraintStart_toStartOf="@+id/card_birthday"
                 app:layout_constraintTop_toTopOf="@+id/card_birthday"
-                android:src="@drawable/baseline_date_range_24" />
+                android:src="@drawable/ic_date_range" />
 
             <TextView
                 android:id="@+id/birthday"
@@ -175,7 +175,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_job"
                 app:layout_constraintStart_toStartOf="@+id/card_job"
                 app:layout_constraintTop_toTopOf="@+id/card_job"
-                android:src="@drawable/baseline_work_outline_24" />
+                android:src="@drawable/ic_job" />
 
             <TextView
                 android:id="@+id/job"

@@ -9,4 +9,7 @@ class NestedImageMovieAdapter(
     listener: NestedImageMovieListener,
 ) : BaseAdapter<Movie>(movies, listener) {
     override fun layoutId(): Int = R.layout.item_image_movie
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

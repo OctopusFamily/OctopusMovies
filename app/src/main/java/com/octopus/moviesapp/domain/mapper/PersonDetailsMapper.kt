@@ -17,7 +17,7 @@ class PersonDetailsMapper @Inject constructor(
             name = getTextOrPlaceholder(context, input.personName, R.string.no_name_provided),
             profilePath = buildImageUrl(input.personImageUrl),
             biography = getTextOrPlaceholder(context, input.biography, R.string.no_biography_provided),
-            birthday =getTextOrPlaceholder(context, input.birthday, R.string.no_birthday_provided),
+            birthday = getTextOrPlaceholder(context, input.birthday, R.string.no_birthday_provided),
             knownForDepartment = getTextOrPlaceholder(context, input.career, R.string.no_birthday_provided),
             popularity = input.popularity ?: 0f,
             placeOfBirth = getTextOrPlaceholder(context, input.placeOfBirth, R.string.no_place_of_birth_provided)
