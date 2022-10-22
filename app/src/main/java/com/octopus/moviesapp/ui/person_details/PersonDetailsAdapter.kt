@@ -3,9 +3,11 @@ package com.octopus.moviesapp.ui.person_details
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.RecyclerViewItemType
+import com.octopus.moviesapp.ui.base.BaseDiffUtil
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
 import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.util.RecyclerViewHolder
@@ -19,6 +21,18 @@ class PersonDetailsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         return when (viewType) {
+
+            RecyclerViewItemType.PERSON_INFO_DETAILS.ordinal -> {
+                RecyclerViewHolder.PersonInfoDetailsViewHolder(
+                    DataBindingUtil.inflate(
+                        LayoutInflater.from(parent.context),
+                        R.layout.layout_nested_person_details_info,
+                        parent,
+                        false
+                    )
+                )
+            }
+
             RecyclerViewItemType.MOVIE_IMAGE.ordinal -> {
                 RecyclerViewHolder.MovieImageViewHolder(
                     DataBindingUtil.inflate(
@@ -47,6 +61,11 @@ class PersonDetailsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         when (holder) {
+            is RecyclerViewHolder.PersonInfoDetailsViewHolder -> {
+                val item = itemsList[position] as RecyclerViewItem.PersonInfoDetailsItem
+                holder.bind(item.personDetails)
+            }
+
             is RecyclerViewHolder.MovieImageViewHolder -> {
                 val item = itemsList[position] as RecyclerViewItem.ImageMovieItem
                 holder.bind(item.movie, nestedImageMovieListener)
@@ -65,6 +84,7 @@ class PersonDetailsAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (itemsList[position]) {
+            is RecyclerViewItem.PersonInfoDetailsItem -> RecyclerViewItemType.PERSON_INFO_DETAILS.ordinal
             is RecyclerViewItem.ImageMovieItem -> RecyclerViewItemType.MOVIE_IMAGE.ordinal
             is RecyclerViewItem.ImageTvShowItem -> RecyclerViewItemType.TV_SHOW_IMAGE.ordinal
             else -> -1
@@ -72,7 +92,14 @@ class PersonDetailsAdapter(
     }
 
     fun setItems(newList: List<RecyclerViewItem>) {
+        val differCallback = BaseDiffUtil(
+            oldList = itemsList,
+            newList = newList,
+            { oldItem, newItem -> oldItem == newItem },
+            { oldItem, newItem -> oldItem == newItem },
+        )
+        val diffResult = DiffUtil.calculateDiff(differCallback)
         itemsList = newList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }

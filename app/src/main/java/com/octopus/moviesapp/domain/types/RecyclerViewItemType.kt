@@ -6,6 +6,7 @@ enum class RecyclerViewItemType {
     TV_SHOW_INFO_VIEW_TYPE,
     SEASONS_VIEW_TYPE,
     IMAGE_SLIDER_VIEW_TYPE,
+    PERSON_INFO_DETAILS,
     MOVIE_IMAGE,
     TV_SHOW_IMAGE
 }

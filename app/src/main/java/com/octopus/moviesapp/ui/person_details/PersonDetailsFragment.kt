@@ -35,12 +35,17 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         handlePersonMovie()
         handlePersonTvShow()
         handleEvents()
+        binding.recyclerPersonDetails.adapter = personDetailsAdapter
     }
 
     private fun handlePersonDetails() {
         viewModel.personDetailsState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonDetailSuccess(uiState.data)
+                itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(uiState.data))
+
+                personDetailsAdapter.setItems(itemsList)
+
             }
         }
     }
@@ -49,9 +54,9 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         viewModel.personMoviesState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonMoviesSuccess(uiState.data)
-                itemsList.add(0, RecyclerViewItem.ImageMovieItem(uiState.data))
+                itemsList.add(RecyclerViewItem.ImageMovieItem(uiState.data))
                 personDetailsAdapter.setItems(itemsList)
-                binding.recyclerPersonDetails.adapter = personDetailsAdapter
+
             }
         }
     }
@@ -60,7 +65,7 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         viewModel.personTvShowState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
                 viewModel.onLoadPersonTvShowSuccess(uiState.data)
-                itemsList.add(0, RecyclerViewItem.ImageTvShowItem(uiState.data))
+                itemsList.add(RecyclerViewItem.ImageTvShowItem(uiState.data))
                 personDetailsAdapter.setItems(itemsList)
             }
         }

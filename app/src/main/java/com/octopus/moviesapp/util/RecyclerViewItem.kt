@@ -30,6 +30,9 @@ sealed class RecyclerViewItem {
         val trendingList: List<Trending>
     ): RecyclerViewItem()
 
+    data class PersonInfoDetailsItem(
+       val personDetails: PersonDetails
+    ) : RecyclerViewItem()
     data class ImageMovieItem(
         val movie: List<Movie>
     ) : RecyclerViewItem()

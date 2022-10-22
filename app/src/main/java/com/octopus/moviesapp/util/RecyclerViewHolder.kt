@@ -9,13 +9,16 @@ import com.octopus.moviesapp.databinding.LayoutNestedImageMovieBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageTvShowBinding
 import com.octopus.moviesapp.databinding.LayoutNestedInfoBinding
+import com.octopus.moviesapp.databinding.LayoutNestedPersonDetailsInfoBinding
 import com.octopus.moviesapp.databinding.LayoutNestedSeasonsBinding
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.MovieDetails
+import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.Trending
 import com.octopus.moviesapp.ui.nested.NestedCastAdapter
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresAdapter
@@ -26,8 +29,6 @@ import com.octopus.moviesapp.ui.nested.NestedImageTvShowAdapter
 import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsAdapter
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
-import com.octopus.moviesapp.domain.model.*
-import com.octopus.moviesapp.ui.nested.*
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
@@ -102,6 +103,20 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
         fun bind(tvShows: List<TVShow>, listener: NestedImageTvShowListener) {
             binding.run {
                 tvshowImageRecyclerView.adapter = NestedImageTvShowAdapter(tvShows, listener)
+            }
+        }
+    }
+
+    class PersonInfoDetailsViewHolder(
+        val binding: LayoutNestedPersonDetailsInfoBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(personDetails: PersonDetails) {
+            binding.run {
+                biography.text = personDetails.biography
+                birthday.text = personDetails.birthday
+                pubular.text = personDetails.popularity.toString()
+                job.text = personDetails.knownForDepartment
+                home.text = personDetails.placeOfBirth
             }
         }
     }
