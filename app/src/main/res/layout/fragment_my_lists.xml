@@ -6,12 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.octopus.moviesapp.ui.lists.AllListsViewModel" />
+            type="com.octopus.moviesapp.ui.lists.MyListsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
 
         <TextView
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
-            android:text="All Lists .   "
+            android:text="Lists Count:"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,14 +32,13 @@
             style="@style/text_style_label_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginStart="@dimen/space2x"
             android:padding="@dimen/space4x"
-            android:paddingStart="@dimen/space4x"
-            android:text="7"
+            android:paddingHorizontal="@dimen/space4x"
+            tools:text="7"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/text_title"
-            app:layout_constraintEnd_toEndOf="@id/text_title"
             app:layout_constraintStart_toEndOf="@id/text_title"
             app:layout_constraintTop_toTopOf="@id/text_title" />
 
@@ -47,25 +47,24 @@
             style="@style/text_style_label_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space4x"
             android:layout_marginEnd="@dimen/space8x"
-            android:drawableStart="@drawable/ic_create_list_"
             android:drawablePadding="@dimen/space4x"
             android:text="New list"
             android:textColor="@color/primary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/text_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_title" />
+            app:layout_constraintTop_toTopOf="@id/text_title"
+            app:drawableStartCompat="@drawable/ic_create_list_" />
 
-        <View
+        <com.google.android.material.divider.MaterialDivider
             android:id="@+id/view_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="@dimen/space4x"
+            android:layout_height="0.25dp"
+            android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
             android:layout_marginBottom="@dimen/space8x"
-            android:background="@color/on_surface_variant"
+            app:dividerColor="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_title" />
@@ -76,15 +75,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/space8x"
-            android:paddingVertical="@dimen/space4x"
+            android:paddingVertical="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:showWhenStateIsSuccess="@{viewModel.createdList}"
+            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_horizontal"
-            tools:listitem="@layout/item_all_list" />
+            tools:listitem="@layout/item_my_list" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_animation_view"
