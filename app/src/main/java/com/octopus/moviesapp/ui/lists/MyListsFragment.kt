@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.lists
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
-    override val viewModel: MyListsViewModel by viewModels()
+    override val viewModel: MyListsViewModel by activityViewModels()
     override fun getLayoutId(): Int = R.layout.fragment_my_lists
     private lateinit var myListsAdapter: MyListsAdapter
     private val args: MyListsFragmentArgs by navArgs()
