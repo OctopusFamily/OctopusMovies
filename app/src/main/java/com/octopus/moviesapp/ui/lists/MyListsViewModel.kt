@@ -1,14 +1,12 @@
 package com.octopus.moviesapp.ui.lists
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.repository.lists.ListsRepository
 import com.octopus.moviesapp.domain.model.CreatedList
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -20,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MyListsViewModel @Inject constructor(
     private val listsRepository: ListsRepository,
-    private val dataStorePref: DataStorePref,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel(), MyListsClicksListener {
 
@@ -52,36 +49,14 @@ class MyListsViewModel @Inject constructor(
         getData()
     }
 
-
-    override fun onListClick(item: CreatedList) {
-        TODO("Not yet implemented")
-    }
-
-    private fun getData() {
+    fun getData() {
         viewModelScope.launch {
-            wrapResponse { listsRepository.getAllLists(0, args.sessionId).toMutableList() }.collectLatest {
-                _myListsState.postValue(it)
             wrapResponse {
-                listsRepository.getAllLists(0, sessionId).toMutableList()
+                listsRepository.getAllLists(0, args.sessionId).toMutableList()
             }.collectLatest {
-                if (it is UiState.Success) {
-                    _createdList.postValue(it)
-                    checkIfEmptyList()
-                } else {
-                    _createdList.postValue(it)
-                }
+                _myListsState.postValue(it)
             }
         }
-    }
-
-    private fun getSessionId(): String {
-        var sessionId = ""
-        viewModelScope.launch {
-            dataStorePref.readString(Constants.SESSION_ID_KEY).collect {
-                sessionId = it.toString()
-            }
-        }
-        return sessionId
     }
 
     fun onCreateList() {
@@ -95,7 +70,7 @@ class MyListsViewModel @Inject constructor(
     fun onClickAddList() {
         viewModelScope.launch {
             wrapResponse {
-                listsRepository.createList(sessionId, listName.value.toString())
+                listsRepository.createList(args.sessionId, listName.value.toString())
             }.collectLatest {
                 if (it is UiState.Success) {
                     addList(CreatedList(it.data.listId ?: 0, 0, listName.value.toString()))
@@ -107,23 +82,23 @@ class MyListsViewModel @Inject constructor(
     }
 
     private fun addList(createdLists: CreatedList) {
-        val oldList = _createdList.value?.toData()?.toMutableList()
+        val oldList = _myListsState.value?.toData()?.toMutableList()
         oldList?.add(0, createdLists)
-        _createdList.postValue(UiState.Success(oldList))
+        _myListsState.postValue(UiState.Success(oldList!!))
     }
 
-    private fun checkIfEmptyList() {
+    fun checkIfEmptyList() {
         viewModelScope.launch {
-            createdList.value
-              if (createdList.value?.toData().isNullOrEmpty()) {
+            if (myListsState.value?.toData().isNullOrEmpty()) {
                 _isEmptyList.postValue(true)
-            } else {
+              } else {
                 _isEmptyList.postValue(false)
-            }
+              }
         }
     }
 
     override fun onListClick(item: CreatedList) {
         TODO("Not yet implemented")
     }
+
 }

@@ -5,13 +5,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.octopus.moviesapp.ui.lists.AllListsViewModel" />
+            type="com.octopus.moviesapp.ui.lists.MyListsViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_corners"
+        android:padding="@dimen/space8x"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,15 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <View
-            android:id="@+id/view_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginVertical="@dimen/space8x"
-            android:background="@color/on_surface_variant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_name" />
+
 
         <TextView
             android:id="@+id/text_done"
@@ -67,6 +60,7 @@
             android:layout_marginBottom="@dimen/space4x"
             android:gravity="right"
             android:text="Create"
+            android:paddingTop="@dimen/space12x"
             android:onClick="@{() -> viewModel.onClickAddList()}"
             android:textColor="@color/primary"
             android:textStyle="bold"

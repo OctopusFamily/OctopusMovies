@@ -163,5 +163,16 @@
         <argument
             android:name="sessionId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_myListsFragment_to_createListDialog"
+            app:destination="@id/createListDialog" />
     </fragment>
+    <dialog
+        android:id="@+id/createListDialog"
+        android:name="com.octopus.moviesapp.ui.lists.CreateListDialog"
+        android:label="CreateListDialog" >
+        <argument
+            android:name="sessionId"
+            app:argType="string" />
+    </dialog>
 </navigation>

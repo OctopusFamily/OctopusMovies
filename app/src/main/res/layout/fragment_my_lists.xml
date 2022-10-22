@@ -23,27 +23,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
-            android:text="Lists Count:"
-            android:text="@{@string/lists(String.valueOf(viewModel.createdList.toData().size()))}"
-            app:showWhenStateIsSuccess="@{viewModel.createdList}"
+            android:text="@{@string/lists(String.valueOf(viewModel.myListsState.toData().size()))}"
+            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_number_list"
-            style="@style/text_style_label_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space2x"
-            android:padding="@dimen/space4x"
-            android:paddingHorizontal="@dimen/space4x"
-            tools:text="7"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/text_title"
-            app:layout_constraintStart_toEndOf="@id/text_title"
-            app:layout_constraintTop_toTopOf="@id/text_title" />
 
         <TextView
             android:id="@+id/text_new_list"
@@ -52,15 +36,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space8x"
             android:drawablePadding="@dimen/space4x"
-            android:text="New list"
-            app:showWhenStateIsSuccess="@{viewModel.createdList}"
             android:onClick="@{() -> viewModel.onCreateList()}"
+            android:text="New list"
             android:textColor="@color/primary"
             android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_create_list_"
             app:layout_constraintBottom_toBottomOf="@id/text_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_title"
-            app:drawableStartCompat="@drawable/ic_create_list_" />
+            app:showWhenStateIsSuccess="@{viewModel.myListsState}" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/view_horizontal"
@@ -69,6 +53,7 @@
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
             android:layout_marginBottom="@dimen/space8x"
+            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
             app:dividerColor="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +125,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_internet"
-            app:showWhenStateIsError="@{viewModel.createdList}" />
+            app:showWhenStateIsError="@{viewModel.myListsState}" />
 
         <TextView
             android:id="@+id/title_lost_connection"
@@ -152,7 +137,7 @@
             app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
             app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
             app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"
-            app:showWhenStateIsError="@{viewModel.createdList}" />
+            app:showWhenStateIsError="@{viewModel.myListsState}" />
 
 
         <TextView
@@ -165,7 +150,7 @@
             app:layout_constraintEnd_toEndOf="@+id/title_lost_connection"
             app:layout_constraintStart_toStartOf="@+id/title_lost_connection"
             app:layout_constraintTop_toBottomOf="@+id/title_lost_connection"
-            app:showWhenStateIsError="@{viewModel.createdList}" />
+            app:showWhenStateIsError="@{viewModel.myListsState}" />
 
         <Button
             android:id="@+id/button_retry"
@@ -176,7 +161,7 @@
             app:layout_constraintEnd_toEndOf="@+id/description_lost_connection"
             app:layout_constraintStart_toStartOf="@+id/description_lost_connection"
             app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
-            app:showWhenStateIsError="@{viewModel.createdList}" />
+            app:showWhenStateIsError="@{viewModel.myListsState}" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/circularProgressIndicator"
@@ -188,7 +173,7 @@
             app:layout_constraintTop_toTopOf="@+id/my_view"
             app:layout_constraintEnd_toEndOf="@+id/my_view"
             app:layout_constraintStart_toStartOf="@+id/my_view"
-            app:showWhenLoading="@{viewModel.createdList}" />
+            app:showWhenLoading="@{viewModel.myListsState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

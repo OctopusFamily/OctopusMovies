@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateListDialog : BaseDialogFragment<DialogCreateListBinding>() {
-    override val viewModel: AllListsViewModel by viewModels()
+    override val viewModel: MyListsViewModel by viewModels()
     override val layoutIdFragment: Int = R.layout.dialog_create_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
