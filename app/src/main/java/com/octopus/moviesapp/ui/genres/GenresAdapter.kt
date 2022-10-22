@@ -9,4 +9,7 @@ class GenresAdapter (
     listener: GenresClicksListener,
 ) : BaseAdapter<Genre>(genres, listener) {
     override fun layoutId(): Int = R.layout.item_genre
+    override fun areContentsTheSame(oldItem: Genre, newItem: Genre): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

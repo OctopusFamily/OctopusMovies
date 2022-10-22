@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.SearchResult" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.search.SearchClicksListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:onClick="@{() -> listener.onItemClick(item.id)}"
+        app:cardCornerRadius="@dimen/space6x"
+        android:layout_margin="@dimen/space2x">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.posterImageUrl}"
+                tools:src="@drawable/ic_launcher_background"
+                android:contentDescription="@string/tv_show_image_description" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/space8x">
+
+                <TextView
+                    android:id="@+id/text_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space4x"
+                    android:ellipsize="end"
+                    android:textAlignment="textStart"
+                    android:maxLines="2"
+                    android:text="@{item.title}"
+                    style="@style/text_style_body_medium"
+                    tools:text="Family Guy" />
+                <TextView
+                    android:id="@+id/text_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space2x"
+                    android:ellipsize="end"
+                    android:textAlignment="textStart"
+                    android:maxLines="2"
+                    android:lines="2"
+                    android:text="@{item.overview}"
+                    style="@style/text_style_label_small"
+                    tools:text="Family Guy" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

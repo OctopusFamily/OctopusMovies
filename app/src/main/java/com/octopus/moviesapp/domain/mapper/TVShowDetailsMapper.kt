@@ -15,7 +15,7 @@ class TVShowDetailsMapper @Inject constructor(
     @ApplicationContext private val context: Context,
     private val genresMapper: GenresMapper,
     private val seasonsMapper: SeasonsMapper,
-) : Mapper<TVShowDTO, TVShowDetails> {
+) : Mapper<TVShowDTO, TVShowDetails>() {
     override fun map(input: TVShowDTO): TVShowDetails {
         val genresList = input.genres ?: emptyList()
         val seasonsList = input.seasons ?: emptyList()
@@ -34,7 +34,7 @@ class TVShowDetailsMapper @Inject constructor(
             overview = getTextOrPlaceholder(context, input.overview, R.string.there_is_no_overview),
             status = input.status ?: "",
             genres = genresMapper.map(Pair(genresList, GenresType.TV)),
-            seasons = seasonsMapper.map(seasonsList),
+            seasons = seasonsMapper.mapList(seasonsList),
         )
     }
 }

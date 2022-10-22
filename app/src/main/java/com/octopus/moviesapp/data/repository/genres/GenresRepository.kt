@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.genres
 
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.model.Genre

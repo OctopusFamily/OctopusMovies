@@ -3,10 +3,12 @@ package com.octopus.moviesapp.ui.genres
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.GenresRepository
+import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GenresViewModel @Inject constructor(
     private val genresRepository: GenresRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), GenresClicksListener {
 
     private val _genresListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
@@ -58,9 +61,23 @@ class GenresViewModel @Inject constructor(
 
     private fun getGenresByList(currentGenresType: GenresType) {
         viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                loadGenresByList(currentGenresType)
+            } else {
+                _genresListState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
+
+
+    }
+
+    private fun loadGenresByList(currentGenresType: GenresType) {
+        viewModelScope.launch {
             wrapResponse { genresRepository.getGenresByType(currentGenresType) }.collectLatest {
                 _genresListState.postValue(it)
             }
         }
     }
+
+
 }

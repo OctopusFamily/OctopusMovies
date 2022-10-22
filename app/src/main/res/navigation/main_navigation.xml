@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.octopus.moviesapp.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.octopus.moviesapp.ui.movies.MoviesFragment"
@@ -53,6 +58,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_to_moviesGenreFragment"
             app:destination="@id/moviesGenreFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
@@ -64,6 +72,9 @@
         <action
             android:id="@+id/action_TVShowDetailsFragment_to_TVShowsGenreFragment"
             app:destination="@id/TVShowsGenreFragment" />
+        <action
+            android:id="@+id/action_TVShowDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesGenreFragment"
@@ -89,7 +100,57 @@
             app:argType="com.octopus.moviesapp.domain.model.Genre" />
     </fragment>
     <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.octopus.moviesapp.ui.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_TVShowDetailsFragment"
+            app:destination="@id/TVShowDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/aboutFragment"
         android:name="com.octopus.moviesapp.ui.about.AboutFragment"
         android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.octopus.moviesapp.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_loadingDialog"
+            app:destination="@id/loadingDialog" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/loadingDialog"
+        android:name="com.octopus.moviesapp.ui.login.LoginStateDialogFragment"
+        android:label="LoadingDialog"
+        tools:layout="@layout/login_state_dialog">
+        <action
+            android:id="@+id/action_loadingDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue='""' />
+    </dialog>
+    <fragment
+        android:id="@+id/personDetailsFragment"
+        android:name="com.octopus.moviesapp.ui.person_details.PersonDetailsFragment"
+        android:label="PersonDetailsFragment" >
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

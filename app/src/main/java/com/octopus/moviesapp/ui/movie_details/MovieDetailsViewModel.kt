@@ -2,8 +2,9 @@ package com.octopus.moviesapp.ui.movie_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.MoviesRepository
+import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
@@ -11,6 +12,7 @@ import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -22,6 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
+    private val connectionTracker: ConnectionTracker,
+    saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
     private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
@@ -53,16 +57,37 @@ class MovieDetailsViewModel @Inject constructor(
     private val _navigateToMoviesGenre = MutableLiveData<Event<Genre>>()
     val navigateToMoviesGenre: LiveData<Event<Genre>> get() = _navigateToMoviesGenre
 
+    private val _navigateToPersonDetails = MutableLiveData<Event<Int>>()
+    val navigateToPersonDetails: LiveData<Event<Int>> get() = _navigateToPersonDetails
+
+    private val args = MovieDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
+
+    init {
+        loadMovieDetails(args.movieId)
+    }
+
     private var movieID = 0
-    fun loadMovieDetails(movieId: Int) {
+    private fun loadMovieDetails(movieId: Int) {
         movieID = movieId
-        getMovieDetails(movieId)
-        getMovieCast(movieId)
-        getMovieTrailer(movieId)
+
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                getMovieDetails()
+            } else {
+                _movieDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
+
+    }
+
+    private fun getMovieDetails() {
+        getMovieDetails(args.movieId)
+        getMovieCast(args.movieId)
+        getMovieTrailer(args.movieId)
     }
 
     fun tryLoadMovieDetailsAgain() {
-        loadMovieDetails(movieID)
+        loadMovieDetails(args.movieId)
     }
 
     fun onLoadMovieDetailsSuccess(movieDetails: MovieDetails) {
@@ -117,5 +142,9 @@ class MovieDetailsViewModel @Inject constructor(
 
     override fun onGenreClick(genre: Genre) {
         _navigateToMoviesGenre.postEvent(genre)
+    }
+
+    override fun onCastClick(castId: Int) {
+        _navigateToPersonDetails.postEvent(castId)
     }
 }

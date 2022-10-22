@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded_dialog"
+        android:paddingVertical="@dimen/space12x">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenLoading="@{viewModel.loginRequestState}" />
+
+        <TextView
+            android:id="@+id/login_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/logging_in"
+            android:textAlignment="center"
+            android:textColor="@color/on_surface"
+            app:layout_constraintEnd_toEndOf="@+id/circularProgressIndicator"
+            app:layout_constraintStart_toStartOf="@+id/circularProgressIndicator"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressIndicator"
+            app:showWhenLoading="@{viewModel.loginRequestState}" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationError"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/circularProgressIndicator"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/login_error"
+            app:showWhenError="@{viewModel.loginRequestState}" />
+
+
+
+        <TextView
+            android:id="@+id/login_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@{viewModel.passwordError}"
+            android:textColor="@color/on_surface"
+            app:layout_constraintEnd_toEndOf="@+id/lottieAnimationError"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="@+id/lottieAnimationError"
+            app:layout_constraintTop_toBottomOf="@+id/lottieAnimationError"
+            app:showWhenError="@{viewModel.loginRequestState}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

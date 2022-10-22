@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginVertical="@dimen/space4x">
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space8x"
+            android:layout_marginVertical="@dimen/space2x"
+            style="@style/text_style_label_medium"
+            tools:text="Movies"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/space6x">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/first_image_view"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/rounded_image_view"
+                tools:src="@drawable/ic_launcher_background"
+                android:layout_marginHorizontal="@dimen/space2x"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/space2x">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/second_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/rounded_image_view"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:layout_marginBottom="@dimen/space2x"/>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/third_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/rounded_image_view"
+                    tools:src="@drawable/ic_launcher_background"
+                    android:layout_marginTop="@dimen/space2x"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

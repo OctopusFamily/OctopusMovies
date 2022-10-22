@@ -9,13 +9,9 @@ import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
 import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.UiState
-import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movie_details.MovieDetailsFragmentDirections
-import com.octopus.moviesapp.ui.nested.NestedCastListener
-import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
@@ -27,23 +23,18 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override val viewModel: TVShowDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
-    private val args: TVShowDetailsFragmentArgs by navArgs()
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var tvShowDetailsAdapter: TVShowDetailsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.loadTVShowDetails(args.tvShowId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvShowDetailsAdapter = TVShowDetailsAdapter(
             itemsList,
-            viewModel as NestedGenresListener,
-            viewModel as NestedCastListener,
-            viewModel as NestedSeasonsListener,
+            viewModel,
+            viewModel,
+            viewModel,
         )
         handleTVShowDetails()
         handleTVShowCast()
@@ -68,8 +59,12 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
                 requireContext().showShortToast(getString(R.string.no_source_available))
             }
         }
-        viewModel.navigateToTVShowsGenre.observeEvent(viewLifecycleOwner){ genre ->
+        viewModel.navigateToTVShowsGenre.observeEvent(viewLifecycleOwner) { genre ->
             navigateToTVShowsGenreFragment(genre)
+        }
+
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+            navigateToPersonDetailsFragment(castId)
         }
     }
 
@@ -105,6 +100,11 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     private fun navigateToTVShowsGenreFragment(genre: Genre){
         requireView().findNavController()
             .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
+    }
+
+    private fun navigateToPersonDetailsFragment(castId: Int){
+        requireView().findNavController()
+            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(castId))
     }
 }
 

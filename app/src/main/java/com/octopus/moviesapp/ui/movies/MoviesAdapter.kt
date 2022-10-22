@@ -9,4 +9,7 @@ class MoviesAdapter(
     listener: MoviesClicksListener
 ) : BaseAdapter<Movie>(movies, listener) {
     override fun layoutId(): Int = R.layout.item_movie
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
 }

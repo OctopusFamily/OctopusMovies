@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.repository
+package com.octopus.moviesapp.data.repository.tv_shows
 
 import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.domain.model.Cast
