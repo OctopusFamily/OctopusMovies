@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.ChipGroup
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
@@ -206,3 +207,13 @@ fun showWhenEmptyList(view: View, isEmptyList: Boolean?) {
     if (view is LottieAnimationView) view.playAnimation()
 }
 
+
+@BindingAdapter(value = ["app:hideIfEmpty"])
+fun <T> hideWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isNotEmpty() ?: false
+}
+
+@BindingAdapter(value = ["app:showIfEmpty"])
+fun <T> showWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isEmpty() ?: false
+}

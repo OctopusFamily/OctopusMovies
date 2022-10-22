@@ -44,18 +44,15 @@ class SearchViewModel @Inject constructor(
                 wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery) }.collectLatest { searchState ->
                     if (searchState is UiState.Success) {
                         filterSearchResultsByType(searchState.data, mediaType)
-                        searchState.data.let { searchResultItems.postValue(it) }
+                         searchResultItems.postValue(searchState.toData())
                     }
                     _searchResult.postValue(searchState)
                 }
             }
 
-        } else _filteredSearchResults.postValue(emptyList())
+        } else clearList()
     }
-
-    fun tryLoadDataAgain(searchQuery: String) {
-        getSearchMultiMedia(searchQuery)
-    }
+    
 
     fun onBackClick() {
         _navigateBack.postEvent(true)
