@@ -5,9 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
@@ -18,7 +16,7 @@ import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
+class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_movie_details
     override val viewModel: MovieDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
