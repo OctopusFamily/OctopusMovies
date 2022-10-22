@@ -106,4 +106,12 @@
     <string name="trending_movies">Trending Movies</string>
     <string name="trending_tv_shows">Trending TV Shows</string>
     <string name="trending_people">Trending People</string>
+    <string name="items" translatable="false">%1$s Items</string>
+    <string name="description" translatable="false">There is no internet connection\nPlease check it out</string>
+    <string name="lists" translatable="false">All lists %1$s</string>
+
+
+    <string name="welcome_tag">Welcome @%1$s !</string>
+    <string name="logout">Logout</string>
+    <string name="my_lists">My Lists</string>
 </resources>

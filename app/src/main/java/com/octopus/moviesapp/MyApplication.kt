@@ -24,8 +24,11 @@ class MyApplication : Application() {
 
     private fun checkFirstTimeLaunch() {
         CoroutineScope(Dispatchers.IO).launch {
-            dataStorePreferences.readString(Constants.SESSION_ID_KEY).collect { sessionId ->
-                isFirstTimeLaunch = sessionId == null
+            dataStorePreferences.readString(Constants.SESSION_ID_KEY).collect { id ->
+                isFirstTimeLaunch = id == null
+                id?.let {
+                    sessionId = it
+                }
             }
         }
     }
@@ -43,5 +46,6 @@ class MyApplication : Application() {
     companion object {
         var isFirstTimeLaunch = false
         var chosenAppTheme: Theme? = null
+        var sessionId = Constants.EMPTY_TEXT
     }
 }

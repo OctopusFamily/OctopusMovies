@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentHomeBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
@@ -35,6 +36,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observeTrendingMoviesState()
         observeTrendingTVShowsState()
         observeTrendingPeopleState()
+        viewModel.isTextClicked.observeEvent(viewLifecycleOwner){
+            if (it){
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAllListsFragment(MyApplication.sessionId))
+            }
+        }
         observeRecommendedMoviesState()
         observeRecommendedTVShowsState()
     }

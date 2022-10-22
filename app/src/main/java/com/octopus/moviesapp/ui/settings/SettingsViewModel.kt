@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
@@ -40,6 +41,8 @@ class SettingsViewModel @Inject constructor(
 
     private val settingsService = SettingsService
 
+    val sessionId = MyApplication.sessionId
+
     init {
         _currentLanguage.postValue(settingsService.getCurrentLanguage())
         _currentTheme.postValue(settingsService.getCurrentAppTheme(context))
@@ -68,6 +71,10 @@ class SettingsViewModel @Inject constructor(
 
     fun onAboutClick() {
         _navigateToAbout.postEvent(true)
+    }
+
+    fun onLogoutClick() {
+
     }
 
 }
