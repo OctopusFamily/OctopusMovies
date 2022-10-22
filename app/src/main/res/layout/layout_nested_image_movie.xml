@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,26 +9,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space4x"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <TextView
+            style="@style/text_style_label_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/string_cast"
-            style="@style/text_style_label_large"
             android:layout_marginHorizontal="@dimen/space8x"
-            android:layout_marginBottom="@dimen/space4x" />
+            android:layout_marginBottom="@dimen/space4x"
+            android:text="@string/movies" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cast_recycler_view"
+            android:id="@+id/movie_image_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/space8x"
-            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_image_movie" />
 
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

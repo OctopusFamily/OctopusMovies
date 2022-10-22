@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.person_details.PersonDetailsViewModel" />
+
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.PersonDetails" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsSuccess="@{viewModel.personDetailsState}">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/cover_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="251dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.personDetails.profilePath}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space8x"
+                android:layout_marginTop="@dimen/space8x"
+                android:background="@drawable/circular_shape"
+                android:contentDescription="@string/navigate_back_icon_description"
+                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+                android:elevation="@dimen/space2x"
+                android:padding="@dimen/space4x"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:id="@+id/name_text_view"
+                style="@style/text_style_headline_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space8x"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/on_primary"
+                app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
+                app:layout_constraintEnd_toEndOf="@+id/cover_image_view"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@{viewModel.personDetails.name}" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_person_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/space6x"
+                android:paddingVertical="@dimen/space4x"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cover_image_view"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="-37dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_person_detail_tv_show"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/space6x"
+                android:paddingVertical="@dimen/space4x"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_person_details"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="-37dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsLoading="@{viewModel.personDetailsState}" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenStateIsError="@{viewModel.personDetailsState}"
+            tools:ignore="UseCompoundDrawables">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_no_mobile_internet"
+                android:layout_width="@dimen/size_lottie"
+                android:layout_height="@dimen/size_lottie"
+                android:layout_margin="@dimen/space4x"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:setLottieAnimationView="@{viewModel.personDetailsState}" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/oops"
+                android:textAlignment="center"
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.personDetailsState}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
+                android:onClick="@{()->viewModel.tryLoadPersonDetailAgain()}"
+                android:text="@string/retry"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
