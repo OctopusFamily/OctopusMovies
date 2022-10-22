@@ -194,3 +194,9 @@ fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickL
     }
 }
 
+@BindingAdapter("app:showWhenEmptyList")
+fun showWhenEmptyList(view: View, isEmptyList: Boolean?) {
+    view.isVisible = isEmptyList != false
+    if (view is LottieAnimationView) view.playAnimation()
+}
+

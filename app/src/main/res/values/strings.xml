@@ -102,4 +102,8 @@
 
     <string name="people">People</string>
     <string name="items" translatable="false">%1$s Items</string>
+    <string name="description" translatable="false">There is no internet connection\nPlease check it out</string>
+    <string name="lists" translatable="false">All lists %1$s</string>
+
+
 </resources>

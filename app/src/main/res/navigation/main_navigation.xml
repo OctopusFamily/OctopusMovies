@@ -159,5 +159,13 @@
     <fragment
         android:id="@+id/allListsFragment"
         android:name="com.octopus.moviesapp.ui.lists.AllListsFragment"
-        android:label="AllListsFragment" />
+        android:label="AllListsFragment" >
+        <action
+            android:id="@+id/action_allListsFragment_to_createListDialog"
+            app:destination="@id/createListDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/createListDialog"
+        android:name="com.octopus.moviesapp.ui.lists.CreateListDialog"
+        android:label="CreateListDialog" />
 </navigation>
