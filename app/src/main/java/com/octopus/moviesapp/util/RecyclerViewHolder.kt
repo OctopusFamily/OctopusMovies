@@ -1,9 +1,19 @@
 package com.octopus.moviesapp.util
 
+import android.widget.ImageView
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.octopus.moviesapp.R
+import com.octopus.moviesapp.databinding.*
+import com.octopus.moviesapp.domain.model.*
+import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
+import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
+import com.octopus.moviesapp.ui.movies.MoviesClicksListener
+import com.octopus.moviesapp.ui.nested.*
+import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageMovieBinding
 import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
@@ -118,6 +128,53 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
                 job.text = personDetails.knownForDepartment
                 home.text = personDetails.placeOfBirth
             }
+        }
+    }
+
+    class MoviesViewHolder(
+        val binding: LayoutNestedItemsBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(moviesList: List<Movie>, listener: MoviesClicksListener) {
+            binding.run {
+                titleTextView.text = this.root.context.getString(R.string.recommended_movies)
+                nestedRecyclerView.adapter = NestedMoviesAdapter(moviesList, listener)
+            }
+        }
+    }
+
+    class TVShowsViewHolder(
+        val binding: LayoutNestedItemsBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(tvShowsList: List<TVShow>, listener: TVShowsClicksListener) {
+            binding.run {
+                titleTextView.text = this.root.context.getString(R.string.recommended_tv_shows)
+                nestedRecyclerView.adapter = NestedTVShowsAdapter(tvShowsList, listener)
+            }
+        }
+    }
+
+    class TrendingPeopleViewHolder(
+        val binding: LayoutNestedImagesGridBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(trendingPeopleList: List<Trending>) {
+            binding.run {
+                titleTextView.text = this.root.context.getString(R.string.trending_people)
+                loadImage(firstImageView, trendingPeopleList[FIRST_PERSON].imageUrl)
+                loadImage(secondImageView, trendingPeopleList[SECOND_PERSON].imageUrl)
+                loadImage(thirdImageView, trendingPeopleList[THIRD_PERSON].imageUrl)
+            }
+        }
+
+        private fun loadImage(imageView: ImageView, imageUrl: String?) {
+            imageUrl?.let { url ->
+                Glide.with(imageView).load(url).placeholder(R.drawable.rotate).error(R.drawable.ic_octopus_movies_logo).into(imageView)
+            }
+        }
+
+        companion object {
+            private const val FIRST_PERSON = 0
+            private const val SECOND_PERSON = 1
+            private const val THIRD_PERSON = 2
         }
     }
 }

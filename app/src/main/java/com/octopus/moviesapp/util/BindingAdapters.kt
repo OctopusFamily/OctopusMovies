@@ -195,3 +195,25 @@ fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickL
     }
 }
 
+@BindingAdapter("setWelcomeTag")
+fun setWelcomeTag(textView: TextView, username: String?) {
+    username?.let {
+        textView.text = textView.context.getString(R.string.welcome_tag, username)
+    }
+}
+@BindingAdapter("app:showWhenEmptyList")
+fun showWhenEmptyList(view: View, isEmptyList: Boolean?) {
+    view.isVisible = isEmptyList != false
+    if (view is LottieAnimationView) view.playAnimation()
+}
+
+
+@BindingAdapter(value = ["app:hideIfEmpty"])
+fun <T> hideWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isNotEmpty() ?: false
+}
+
+@BindingAdapter(value = ["app:showIfEmpty"])
+fun <T> showWhenEmpty(view: View, items: List<T>?) {
+    view.isVisible = items?.isEmpty() ?: false
+}

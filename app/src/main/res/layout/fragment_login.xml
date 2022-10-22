@@ -38,109 +38,128 @@
                 android:layout_marginStart="16dp"/>
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_octopus_logo"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_app_bar_linear_layout" />
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space12x"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/login_button"
-            android:layout_marginBottom="@dimen/space12x">
+            tools:layout_editor_absoluteX="16dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/email_edittext"
+                    style="@style/text_style_body_large"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_marginTop="4dp"
-                    android:hint="@string/username"
-                    android:textColor="@color/on_surface_variant"
-                    android:drawableStart="@drawable/ic_person"
-                    android:drawableTint="@color/primary"
-                    android:paddingHorizontal="16dp"
-                    android:drawablePadding="16dp"
                     android:autofillHints=""
-                    android:text="@={viewModel.username}"
+                    android:background="@drawable/filled_light_rounded_shape"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="16dp"
+                    android:drawableTint="@color/primary"
+                    android:hint="@string/username"
                     android:inputType="textEmailAddress"
-                    style="@style/text_style_body_large"
-                    android:background="@drawable/filled_light_rounded_shape"/>
+                    android:paddingHorizontal="16dp"
+                    android:text="@={viewModel.username}"
+                    android:textColor="@color/on_surface_variant" />
+
                 <TextView
                     android:id="@+id/email_error_textview"
+                    style="@style/text_style_label_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space2x"
+                    android:ellipsize="end"
                     android:lines="1"
                     android:text="@{viewModel.usernameError}"
-                    android:ellipsize="end"
                     android:textColor="@color/error"
-                    style="@style/text_style_label_small"
-                    tools:text="Email can't be empty!"/>
+                    tools:text="Email can't be empty!" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space6x">
+                android:layout_marginTop="@dimen/space6x"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:background="@drawable/filled_light_rounded_shape"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/space8x"
-                    android:background="@drawable/filled_light_rounded_shape">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/space8x">
+
                     <EditText
                         android:id="@+id/password_edittext"
+                        style="@style/text_style_body_large"
                         android:layout_width="0dp"
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:autofillHints=""
-                        android:text="@={viewModel.password}"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="16dp"
                         android:drawableTint="@color/primary"
                         android:hint="@string/password"
-                        android:textColor="@color/on_surface_variant"
                         android:inputType="textPassword"
-                        app:showPasswordIfTrue="@{viewModel.isPasswordShown}"
+                        android:text="@={viewModel.password}"
+                        android:textColor="@color/on_surface_variant"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        style="@style/text_style_body_large"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:showPasswordIfTrue="@{viewModel.isPasswordShown}" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space8x"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="@string/toggle_password_visibility"
                         android:onClick="@{() -> viewModel.onClickShowPassWord()}"
                         app:changePasswordIcon="@{viewModel.isPasswordShown}"
-                        android:contentDescription="@string/toggle_password_visibility"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/tertiary"
                         tools:src="@drawable/ic_eye" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/password_error_textview"
+                    style="@style/text_style_label_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space2x"
+                    android:ellipsize="end"
                     android:lines="1"
                     android:text="@{viewModel.passwordError}"
-                    android:ellipsize="end"
-                    android:layout_marginTop="@dimen/space2x"
                     android:textColor="@color/error"
-                    style="@style/text_style_label_small"
-                    tools:text="First Name is empty!"/>
+                    tools:text="First Name is empty!" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_forgot_password"
+                style="@style/text_style_body_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space6x"
-                android:text="@string/forgot_password"
                 android:onClick="@{() -> viewModel.onForgotPasswordClick()}"
-                style="@style/text_style_body_medium"
-                android:textColor="@color/blue"/>
+                android:text="@string/forgot_password"
+                android:textColor="@color/blue" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton

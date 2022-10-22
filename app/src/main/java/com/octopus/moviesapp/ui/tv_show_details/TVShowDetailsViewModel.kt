@@ -55,9 +55,6 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
-    private val _saveToWatchList = MutableLiveData<Event<Int>>()
-    val saveToWatchList: LiveData<Event<Int>> get() = _saveToWatchList
-
     private val _tvShowDetails = MutableLiveData<TVShowDetails>()
     val tvShowDetails: LiveData<TVShowDetails> get() = _tvShowDetails
 
@@ -114,10 +111,6 @@ class TVShowDetailsViewModel @Inject constructor(
 
     fun onRateClick() {
         _rateTvShow.postEvent(0)
-    }
-
-    fun onSaveToWatchListClick() {
-        _saveToWatchList.postEvent(0)
     }
 
     fun onNavigateBackClick() {

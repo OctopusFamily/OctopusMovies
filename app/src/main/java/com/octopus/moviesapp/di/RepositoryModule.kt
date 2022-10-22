@@ -1,19 +1,19 @@
 package com.octopus.moviesapp.di
 
-import com.octopus.moviesapp.data.repository.*
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.data.repository.account.AccountRepositoryImp
 import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.data.repository.genres.GenresRepositoryImpl
 import com.octopus.moviesapp.data.repository.home.HomeRepository
 import com.octopus.moviesapp.data.repository.home.HomeRepositoryImpl
+import com.octopus.moviesapp.data.repository.lists.ListsRepository
+import com.octopus.moviesapp.data.repository.lists.ListsRepositoryImp
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.data.repository.movies.MoviesRepositoryImpl
 import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.data.repository.person.PersonRepositoryImpl
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepositoryImpl
-import com.octopus.moviesapp.domain.mapper.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -51,7 +51,7 @@ abstract class RepositoryModule {
     @ViewModelScoped
     @Binds
     abstract fun bindAccountRepository(
-        accountRepositoryImp: AccountRepositoryImp,
+        accountRepositoryImp: AccountRepositoryImp
     ) : AccountRepository
 
     @ViewModelScoped
@@ -59,4 +59,10 @@ abstract class RepositoryModule {
     abstract fun bindHomeRepository(
         homeRepositoryImpl: HomeRepositoryImpl,
     ) : HomeRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindListsRepository(
+        listsRepositoryImp: ListsRepositoryImp
+    ) : ListsRepository
 }

@@ -40,4 +40,16 @@ sealed class RecyclerViewItem {
     data class ImageTvShowItem(
         val tvShows: List<TVShow>
     ) : RecyclerViewItem()
+    data class MoviesItem(
+        val moviesList: List<Movie>,
+    ) : RecyclerViewItem()
+
+    data class TVShowsItem(
+        val tvShowsList: List<TVShow>,
+    ) : RecyclerViewItem()
+
+    data class TrendingPeopleItem(
+        val trendingPeopleList: List<Trending>
+    ) : RecyclerViewItem()
+
 }

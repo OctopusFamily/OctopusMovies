@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allListsFragment"
+            app:destination="@id/myListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesFragment"
@@ -157,5 +160,24 @@
             android:id="@+id/action_PersonDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/myListsFragment"
+        android:name="com.octopus.moviesapp.ui.lists.MyListsFragment"
+        android:label="MyLists" >
+        <argument
+            android:name="sessionId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_myListsFragment_to_createListDialog"
+            app:destination="@id/createListDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/createListDialog"
+        android:name="com.octopus.moviesapp.ui.lists.CreateListDialog"
+        android:label="CreateListDialog" >
+        <argument
+            android:name="sessionId"
+            app:argType="string" />
+    </dialog>
 
 </navigation>

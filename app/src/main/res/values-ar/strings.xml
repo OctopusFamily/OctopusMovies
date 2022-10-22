@@ -102,4 +102,16 @@
     <string name="Search">بحث</string>
 
     <string name="people">People</string>
+    <string name="welcome_tag">! %1$s@ مرحبًا</string>
+    <string name="logout">Logout</string>
+    <string name="my_lists">My Lists</string>
+    <string name="recommended_movies">Recommended Movies</string>
+    <string name="recommended_tv_shows">Recommended TV Shows</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_tv_shows">Trending TV Shows</string>
+    <string name="trending_people">Trending People</string>
+    <string name="profile">Profile</string>
+    <string name="not_logged_in">You are not logged in, log in to show your profile!</string>
+    <string name="welcome">Welcome</string>
+    <string name="dashboard">Dashboard</string>
 </resources>
