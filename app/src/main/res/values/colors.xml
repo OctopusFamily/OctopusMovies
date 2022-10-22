@@ -35,4 +35,5 @@
     <color name="blue">#2196F3</color>
 
     <color name="font_primary_color">#1a1c1e</color>
+    <color name="card_background">#26F83066</color>
 </resources>

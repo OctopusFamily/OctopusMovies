@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.TVShow" />
+
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.nested.NestedImageMovieListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/space2x"
+        android:onClick="@{() -> listener.onImageMovieClick(item.id)}"
+        app:cardCornerRadius="@dimen/space6x"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:contentDescription="@string/movie_image_description"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{item.posterImageUrl}"
+            tools:src="@drawable/ic_launcher_background" />
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+

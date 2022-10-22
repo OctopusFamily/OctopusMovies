@@ -6,7 +6,7 @@ data class PersonDetails(
     val name: String,
     val profilePath: String,
     val biography: String,
-    val birthday: Date,
+    val birthday: String,
     val knownForDepartment: String,
     val popularity: Float,
     val placeOfBirth: String
