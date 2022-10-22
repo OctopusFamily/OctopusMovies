@@ -1,7 +1,5 @@
 package com.octopus.moviesapp.ui.login
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -16,13 +14,12 @@ import java.util.*
 
 @AndroidEntryPoint
 class LoginStateDialogFragment : BaseDialogFragment<LoginStateDialogBinding>() {
-    override val viewModel: LoginViewModel by viewModels()
     override val layoutIdFragment: Int = R.layout.login_state_dialog
+    override val viewModel: LoginViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setWidthPercent(60)
         viewModel.login()
         observeEvents()

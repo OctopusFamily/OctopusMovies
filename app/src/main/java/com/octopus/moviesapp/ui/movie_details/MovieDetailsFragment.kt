@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.movie_details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -41,7 +42,7 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
 
     private fun handleEvents() {
         viewModel.rateMovie.observeEvent(viewLifecycleOwner) {
-            requireContext().showShortToast(getString(R.string.coming_soon))
+            findNavController().navigate(R.id.action_movieDetailsFragment_to_rateDialog)
         }
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
@@ -60,7 +61,7 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
             navigateToMoviesGenreFragment(genre)
         }
 
-        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
         }
     }
@@ -95,11 +96,19 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
 
     private fun navigateToMoviesGenreFragment(genre: Genre) {
         requireView().findNavController()
-            .navigate(MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(genre))
+            .navigate(
+                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(
+                    genre
+                )
+            )
     }
 
-    private fun navigateToPersonDetailsFragment(castId: Int){
+    private fun navigateToPersonDetailsFragment(castId: Int) {
         requireView().findNavController()
-            .navigate(MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(castId))
+            .navigate(
+                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(
+                    castId
+                )
+            )
     }
 }

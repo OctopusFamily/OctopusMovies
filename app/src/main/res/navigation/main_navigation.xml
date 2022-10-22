@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
             app:destination="@id/personDetailsFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_rateDialog"
+            app:destination="@id/rateDialog" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
@@ -175,4 +178,8 @@
             android:name="sessionId"
             app:argType="string" />
     </dialog>
+    <dialog
+        android:id="@+id/rateDialog"
+        android:name="com.octopus.moviesapp.ui.movie_details.dialogs.RateDialog"
+        android:label="RateDialog" />
 </navigation>

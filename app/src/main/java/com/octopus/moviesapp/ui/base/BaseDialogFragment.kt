@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.ui.base
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,5 +31,11 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding> : DialogFragment(){
             setVariable(BR.viewModel,viewModel)
             return root
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
     }
 }
