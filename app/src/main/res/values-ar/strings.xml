@@ -99,4 +99,9 @@
     <string name="Search">بحث</string>
 
     <string name="people">People</string>
+    <string name="recommended_movies">Recommended Movies</string>
+    <string name="recommended_tv_shows">Recommended TV Shows</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_tv_shows">Trending TV Shows</string>
+    <string name="trending_people">Trending People</string>
 </resources>
