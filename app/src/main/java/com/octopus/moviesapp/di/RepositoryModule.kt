@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.di.provide
+package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.data.repository.account.AccountRepositoryImp

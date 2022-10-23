@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class Application : Application() {
+class MyApplication : Application() {
     @Inject
     lateinit var dataStorePreferences: DataStorePref
 

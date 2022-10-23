@@ -3,9 +3,8 @@ package com.octopus.moviesapp.data.local.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.Constants.TV_SHOW_TABLE
 
-@Entity(tableName = TV_SHOW_TABLE)
+@Entity(tableName = Constants.TV_SHOW_TABLE)
 data class TVShowEntity(
     @PrimaryKey
     val id: Int,

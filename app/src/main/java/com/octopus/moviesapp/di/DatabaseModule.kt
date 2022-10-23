@@ -1,10 +1,10 @@
-package com.octopus.moviesapp.di.provide
+package com.octopus.moviesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.octopus.moviesapp.data.local.database.dao.MoviesDao
-import com.octopus.moviesapp.data.local.database.db.MoviesDatabase
-import com.octopus.moviesapp.util.Constants.DATABASE_NAME
+import com.octopus.moviesapp.data.local.database.dao.MyDao
+import com.octopus.moviesapp.data.local.database.db.MyDatabase
+import com.octopus.moviesapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,17 +18,17 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context): MoviesDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): MyDatabase {
         return Room.databaseBuilder(
-            appContext,
-            MoviesDatabase::class.java,
-            DATABASE_NAME
+            context,
+            MyDatabase::class.java,
+            Constants.DATABASE_NAME
         ).build()
     }
 
     @Singleton
     @Provides
-    fun provideMoviesDao(database: MoviesDatabase): MoviesDao {
+    fun provideMoviesDao(database: MyDatabase): MyDao {
         return database.moviesDao()
     }
 }

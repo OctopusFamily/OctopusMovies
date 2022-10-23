@@ -7,8 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.octopus.moviesapp.di.app.Application
+import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
+import com.octopus.moviesapp.data.local.database.db.MyDatabase
 import com.octopus.moviesapp.databinding.ActivityMainBinding
 import com.octopus.moviesapp.util.SettingsService
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun setStartDestination() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container_view) as NavHostFragment
         val graph = navHostFragment.navController.navInflater.inflate(R.navigation.main_navigation)
-        if (Application.isFirstTimeLaunch) {
+        if (MyApplication.isFirstTimeLaunch) {
             graph.setStartDestination(R.id.loginFragment)
         } else {
             graph.setStartDestination(R.id.homeFragment)
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        Application.chosenAppTheme?.let {
+        MyApplication.chosenAppTheme?.let {
             settingsService.updateAppTheme(it)
         }
     }

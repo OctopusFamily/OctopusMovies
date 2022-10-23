@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.di.provide
+package com.octopus.moviesapp.di
 
 import com.octopus.moviesapp.util.AuthUtils
 import com.octopus.moviesapp.util.AuthUtilsImpl
