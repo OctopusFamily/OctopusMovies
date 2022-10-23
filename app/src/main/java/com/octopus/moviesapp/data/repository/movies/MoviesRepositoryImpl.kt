@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.data.repository.movies
 
+import com.octopus.moviesapp.data.local.database.dao.MoviesDao
+import com.octopus.moviesapp.data.local.database.entity.MovieEntity
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.*
 import com.octopus.moviesapp.domain.model.*
@@ -13,6 +15,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val trailerMapper: TrailerMapper,
     private val castMapper: CastMapper,
     private val searchResultMapper: SearchResultMapper,
+    private val moviesDao: MoviesDao
 ) : MoviesRepository {
     override suspend fun getMoviesByCategory(
         moviesCategory: MoviesCategory,
@@ -36,5 +39,9 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
         return searchResultMapper.mapList(tmdbApiService.getSearchMultiMedia(query).items)
 
+    }
+
+    override suspend fun insertMovies(movieList: List<MovieEntity>) {
+        return moviesDao.insertMovies(movieList)
     }
 }

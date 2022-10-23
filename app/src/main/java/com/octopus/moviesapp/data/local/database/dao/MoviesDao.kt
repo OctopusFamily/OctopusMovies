@@ -9,7 +9,7 @@ import com.octopus.moviesapp.data.local.database.entity.TVShowEntity
 import com.octopus.moviesapp.data.local.database.entity.TrendingEntity
 
 @Dao
-interface MyDao {
+interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTrending(trendingList: List<TrendingEntity>)

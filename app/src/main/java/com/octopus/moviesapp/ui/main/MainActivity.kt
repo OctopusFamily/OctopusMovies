@@ -9,7 +9,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.data.local.database.db.MyDatabase
 import com.octopus.moviesapp.databinding.ActivityMainBinding
 import com.octopus.moviesapp.util.SettingsService
 import dagger.hilt.android.AndroidEntryPoint
