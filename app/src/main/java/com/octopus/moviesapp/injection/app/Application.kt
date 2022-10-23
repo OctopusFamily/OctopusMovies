@@ -1,7 +1,7 @@
-package com.octopus.moviesapp
+package com.octopus.moviesapp.injection.app
 
 import android.app.Application
-import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Constants
 import dagger.hilt.android.HiltAndroidApp
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MyApplication : Application() {
+class Application : Application() {
     @Inject
     lateinit var dataStorePreferences: DataStorePref
 

@@ -2,7 +2,7 @@ package com.octopus.moviesapp.data.repository.account
 
 
 import com.octopus.moviesapp.data.JsonParser
-import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.util.Constants

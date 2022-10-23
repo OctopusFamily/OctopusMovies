@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.di
+package com.octopus.moviesapp.injection.provide.utils
 
 import com.octopus.moviesapp.util.AuthUtils
 import com.octopus.moviesapp.util.AuthUtilsImpl

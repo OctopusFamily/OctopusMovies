@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.di
+package com.octopus.moviesapp.injection.provide.network
 
 import com.google.gson.Gson
 import com.octopus.moviesapp.data.remote.service.TMDBApiService

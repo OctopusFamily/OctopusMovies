@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.octopus.moviesapp.MyApplication
+import com.octopus.moviesapp.injection.app.Application
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentHomeBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
@@ -40,7 +40,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         observeTrendingPeopleState()
         viewModel.isTextClicked.observeEvent(viewLifecycleOwner){
             if (it){
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAllListsFragment(MyApplication.sessionId))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAllListsFragment(
+                    Application.sessionId))
             }
         }
         observeRecommendedMoviesState()
