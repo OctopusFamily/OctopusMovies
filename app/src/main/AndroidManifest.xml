@@ -11,7 +11,7 @@
     </queries>
 
     <application
-        android:name=".injection.app.Application"
+        android:name=".di.app.Application"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

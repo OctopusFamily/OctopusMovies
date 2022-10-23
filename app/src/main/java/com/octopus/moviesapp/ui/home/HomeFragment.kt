@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.octopus.moviesapp.injection.app.Application
+import com.octopus.moviesapp.di.app.Application
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentHomeBinding
 import com.octopus.moviesapp.ui.base.BaseFragment

@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.octopus.moviesapp.injection.app.Application
+import com.octopus.moviesapp.di.app.Application
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.ActivityMainBinding
 import com.octopus.moviesapp.util.SettingsService

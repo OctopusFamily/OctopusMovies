@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.injection.provide.database
+package com.octopus.moviesapp.di.provide
 
 import android.content.Context
 import com.octopus.moviesapp.data.local.database.db.MoviesDatabase
