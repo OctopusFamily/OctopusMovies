@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.di.provide
 
 import android.content.Context
+import com.octopus.moviesapp.data.local.database.dao.MoviesDao
 import com.octopus.moviesapp.data.local.database.db.MoviesDatabase
 import dagger.Module
 import dagger.Provides
@@ -15,10 +16,13 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) =
-        MoviesDatabase.getInstance(appContext)
+    fun provideDatabase(@ApplicationContext appContext: Context): MoviesDatabase {
+        return MoviesDatabase.getInstance(appContext)
+    }
 
     @Singleton
     @Provides
-    fun provideMoviesDao(database: MoviesDatabase) = database.moviesDao()
+    fun provideMoviesDao(database: MoviesDatabase): MoviesDao {
+        return database.moviesDao()
+    }
 }
