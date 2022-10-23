@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.di.app
+package com.octopus.moviesapp
 
 import android.app.Application
 import com.octopus.moviesapp.data.local.datastore.DataStorePref
