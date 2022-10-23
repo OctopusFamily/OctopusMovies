@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.data.repository.movies
 
+import android.util.Log
 import com.octopus.moviesapp.data.local.database.dao.MoviesDao
 import com.octopus.moviesapp.data.local.database.entity.MovieEntity
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
@@ -21,7 +22,12 @@ class MoviesRepositoryImpl @Inject constructor(
         moviesCategory: MoviesCategory,
         page: Int
     ): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+        return moviesMapper.map(
+            tmdbApiService.getMoviesByCategory(
+                moviesCategory.pathName,
+                page
+            ).items
+        )
     }
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetails {
@@ -43,5 +49,11 @@ class MoviesRepositoryImpl @Inject constructor(
 
     override suspend fun insertMovies(movieList: List<MovieEntity>) {
         return moviesDao.insertMovies(movieList)
+    }
+
+    override suspend fun getAllMovies(): List<MovieEntity> {
+        val movies = moviesDao.getAllMovies()
+        Log.d("MoviesRepositoryImpl", "getAllMovies: $movies")
+        return movies
     }
 }

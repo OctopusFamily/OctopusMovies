@@ -35,6 +35,13 @@ class MoviesViewModel @Inject constructor(
     init {
         getMoviesByCategory(currentMoviesCategory)
         insertMovies()
+        getAllMovies()
+    }
+
+    private fun getAllMovies() {
+        viewModelScope.launch {
+            moviesRepository.getAllMovies()
+        }
     }
 
     private fun insertMovies() {

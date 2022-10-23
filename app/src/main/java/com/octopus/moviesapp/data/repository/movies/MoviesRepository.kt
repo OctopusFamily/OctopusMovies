@@ -11,4 +11,5 @@ interface MoviesRepository {
     suspend fun getMovieCastById(movieId: Int): List<Cast>
     suspend fun getSearchMultiMedia(query: String): List<SearchResult>
     suspend fun insertMovies(movieList: List<MovieEntity>)
+    suspend fun getAllMovies(): List<MovieEntity>
 }
