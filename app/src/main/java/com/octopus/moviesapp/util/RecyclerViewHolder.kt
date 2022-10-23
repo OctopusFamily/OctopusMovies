@@ -72,6 +72,40 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
         }
     }
 
+    class MovieImageViewHolder(
+        val binding: LayoutNestedImageMovieBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(movies: List<Movie>, listener: NestedImageMovieListener) {
+            binding.run {
+                movieImageRecyclerView.adapter = NestedImageMovieAdapter(movies, listener)
+            }
+        }
+    }
+
+    class TvShowImageViewHolder(
+        val binding: LayoutNestedImageTvShowBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(tvShows: List<TVShow>, listener: NestedImageTvShowListener) {
+            binding.run {
+                tvshowImageRecyclerView.adapter = NestedImageTvShowAdapter(tvShows, listener)
+            }
+        }
+    }
+
+    class PersonInfoDetailsViewHolder(
+        val binding: LayoutNestedPersonDetailsInfoBinding
+    ) : RecyclerViewHolder(binding) {
+        fun bind(personDetails: PersonDetails) {
+            binding.run {
+                biography.text = personDetails.biography
+                birthday.text = personDetails.birthday
+                pubular.text = personDetails.popularity.toString()
+                job.text = personDetails.knownForDepartment
+                home.text = personDetails.placeOfBirth
+            }
+        }
+    }
+
     class MoviesViewHolder(
         val binding: LayoutNestedItemsBinding
     ) : RecyclerViewHolder(binding) {

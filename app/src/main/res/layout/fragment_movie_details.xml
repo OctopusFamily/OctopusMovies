@@ -214,69 +214,69 @@
 
 
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.movieDetailsState}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary" />
+<!--        <ProgressBar-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:showWhenStateIsLoading="@{viewModel.movieDetailsState}"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:indeterminateTint="@color/primary" />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/background"
-            app:showWhenStateIsError="@{viewModel.movieDetailsState}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseCompoundDrawables">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@color/background"-->
+<!--            app:showWhenStateIsError="@{viewModel.movieDetailsState}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="UseCompoundDrawables">-->
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_no_mobile_internet"
-                android:layout_width="@dimen/size_lottie"
-                android:layout_height="@dimen/size_lottie"
-                android:layout_margin="@dimen/space4x"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.movieDetailsState}" />
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/lottie_no_mobile_internet"-->
+<!--                android:layout_width="@dimen/size_lottie"-->
+<!--                android:layout_height="@dimen/size_lottie"-->
+<!--                android:layout_margin="@dimen/space4x"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="false"-->
+<!--                app:setLottieAnimationView="@{viewModel.movieDetailsState}" />-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/oops"
-                android:textSize="22sp"
-                android:textAlignment="center"
-                android:textColor="@color/font_primary_color" />
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:text="@string/oops"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/font_primary_color" />-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:setTextError="@{viewModel.movieDetailsState}"
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                app:setTextError="@{viewModel.movieDetailsState}"-->
 
-                android:textAlignment="center"
-                android:textColor="@color/error" />
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/error" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space8x"
-                android:onClick="@{()->viewModel.tryLoadMovieDetailsAgain()}"
-                android:textAllCaps="true"
-                android:text="@string/retry"/>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/space8x"-->
+<!--                android:onClick="@{()->viewModel.tryLoadMovieDetailsAgain()}"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:text="@string/retry"/>-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,6 +16,8 @@ import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -29,6 +31,7 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
     private val moviesRepository: MoviesRepository,
     private val tvShowsRepository: TVShowsRepository,
+    private val connectionTracker: ConnectionTracker,
 ): BaseViewModel(), HomeClicksListener, MoviesClicksListener, TVShowsClicksListener {
 
     private val _navigateToSearch = MutableLiveData<Event<Boolean>>()
@@ -49,12 +52,35 @@ class HomeViewModel @Inject constructor(
     private val _recommendedTVShows = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val recommendedTVShows: LiveData<UiState<List<TVShow>>> get() = _recommendedTVShows
 
+    private val _isTextClicked = MutableLiveData(Event(false))
+    val isTextClicked = _isTextClicked
+
+
     init {
+        loadData()
+    }
+
+     fun loadData() {
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+                getData()
+            } else {
+                _trendingMoviesState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
+
+    }
+
+    private fun getData() {
         getTrendingMovies()
         getRecommendedMovies()
         getTrendingTVShows()
         getRecommendedTVShows()
         getTrendingPeople()
+    }
+
+    fun onTextClicked(){
+        _isTextClicked.postValue(Event(true))
     }
 
     fun onSearchClick() {

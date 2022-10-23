@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
 import com.octopus.moviesapp.domain.model.Genre
@@ -46,9 +45,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         viewModel.rateTvShow.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
         }
-        viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
-            requireContext().showShortToast(getString(R.string.coming_soon))
-        }
+
         viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
