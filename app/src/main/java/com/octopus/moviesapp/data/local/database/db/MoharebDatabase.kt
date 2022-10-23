@@ -5,10 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.octopus.moviesapp.data.local.database.dao.MoviesDao
+import com.octopus.moviesapp.data.local.database.entity.MovieEntity
+import com.octopus.moviesapp.data.local.database.entity.TVShowEntity
 import com.octopus.moviesapp.data.local.database.entity.TrendingEntity
 
 @Database(
-    entities = [TrendingEntity::class], version = 1
+    entities = [
+        MovieEntity::class,
+        TrendingEntity::class,
+        TVShowEntity::class,
+    ], version = 1
 )
 abstract class MoviesDatabase : RoomDatabase() {
 
