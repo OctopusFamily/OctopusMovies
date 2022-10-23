@@ -31,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/space6x"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                android:onClick="@{() -> viewModel.onMyListsClick()}">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

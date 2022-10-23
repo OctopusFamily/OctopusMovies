@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSettingsBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
@@ -42,6 +43,11 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             navigateToAbout.observeEvent(viewLifecycleOwner) { clicked ->
                 if (clicked) {
                     navigateToAbout()
+                }
+            }
+            navigateToMyLists.observeEvent(viewLifecycleOwner){ clicked ->
+                if (clicked){
+                    navigateToMyLists()
                 }
             }
         }
@@ -86,6 +92,12 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             .findNavController()
             .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment())
 
+    }
+
+    private fun navigateToMyLists(){
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
+        )
     }
 
     private fun showThemeSelectionBottomSheet() {

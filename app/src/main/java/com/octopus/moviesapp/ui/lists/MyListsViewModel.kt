@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.lists
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -54,7 +55,7 @@ class MyListsViewModel @Inject constructor(
             wrapResponse {
                 listsRepository.getAllLists(0, args.sessionId).toMutableList()
             }.collectLatest {
-                _myListsState.postValue(it)
+                 _myListsState.postValue(it)
             }
         }
     }
@@ -98,7 +99,8 @@ class MyListsViewModel @Inject constructor(
     }
 
     override fun onListClick(item: CreatedList) {
-        TODO("Not yet implemented")
+        _item.postValue(Event(item))
+
     }
 
 }

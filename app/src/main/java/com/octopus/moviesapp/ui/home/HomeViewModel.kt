@@ -49,19 +49,12 @@ class HomeViewModel @Inject constructor(
     private val _recommendedTVShows = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val recommendedTVShows: LiveData<UiState<List<TVShow>>> get() = _recommendedTVShows
 
-    private val _isTextClicked = MutableLiveData(Event(false))
-    val isTextClicked = _isTextClicked
-
-
     init {
         getTrendingMovies()
         getRecommendedMovies()
         getTrendingTVShows()
         getRecommendedTVShows()
         getTrendingPeople()
-    }
-    fun onTextClicked(){
-        _isTextClicked.postValue(Event(true))
     }
 
     fun onSearchClick() {

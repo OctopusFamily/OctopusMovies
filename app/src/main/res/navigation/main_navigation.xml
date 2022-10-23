@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_allListsFragment"
-            app:destination="@id/myListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moviesFragment"
@@ -50,6 +47,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_myListsFragment"
+            app:destination="@id/myListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -166,6 +166,9 @@
         <action
             android:id="@+id/action_myListsFragment_to_createListDialog"
             app:destination="@id/createListDialog" />
+        <action
+            android:id="@+id/action_myListsFragment_to_listDetailsFragment"
+            app:destination="@id/listDetailsFragment" />
     </fragment>
     <dialog
         android:id="@+id/createListDialog"
@@ -175,4 +178,18 @@
             android:name="sessionId"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/listDetailsFragment"
+        android:name="com.octopus.moviesapp.ui.lists.ListDetailsFragment"
+        android:label="ListDetailsFragment" >
+        <argument
+            android:name="listId"
+            app:argType="integer" />
+        <argument
+            android:name="listName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_listDetailsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
 </navigation>

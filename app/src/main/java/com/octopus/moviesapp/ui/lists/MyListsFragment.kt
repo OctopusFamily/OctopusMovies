@@ -39,6 +39,11 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
             viewModel.checkIfEmptyList()
         }
 
+       viewModel.item.observeEvent(viewLifecycleOwner){
+           val action =
+               MyListsFragmentDirections.actionMyListsFragmentToListDetailsFragment(it.id,it.name)
+           findNavController().navigate(action)
+       }
      }
 
     private fun showCreateListDialog() {
