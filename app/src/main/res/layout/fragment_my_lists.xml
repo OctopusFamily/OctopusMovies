@@ -114,66 +114,128 @@
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieAnimationView"
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/lottieAnimationView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="64dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/my_view"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/my_view"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view_horizontal"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/no_internet"-->
+<!--            app:showWhenStateIsError="@{viewModel.myListsState}" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/title_lost_connection"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="@string/oops"-->
+<!--            android:textColor="@color/primary"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"-->
+<!--            app:showWhenStateIsError="@{viewModel.myListsState}" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/description_lost_connection"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="9dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/description"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/title_lost_connection"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/title_lost_connection"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/title_lost_connection"-->
+<!--            app:showWhenStateIsError="@{viewModel.myListsState}" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button_retry"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="@{() -> viewModel.getData()}"-->
+<!--            android:text="@string/retry"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/description_lost_connection"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/description_lost_connection"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"-->
+<!--            app:showWhenStateIsError="@{viewModel.myListsState}" />-->
+
+<!--        <com.google.android.material.progressindicator.CircularProgressIndicator-->
+<!--            android:id="@+id/circularProgressIndicator"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:indeterminate="true"-->
+<!--            app:indicatorColor="@color/primary"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/my_view"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/my_view"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/my_view"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/my_view"-->
+<!--            app:showWhenLoading="@{viewModel.myListsState}" />-->
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            app:layout_constraintEnd_toEndOf="@+id/my_view"
-            app:layout_constraintStart_toStartOf="@+id/my_view"
-            app:layout_constraintTop_toBottomOf="@+id/view_horizontal"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/no_internet"
-            app:showWhenStateIsError="@{viewModel.myListsState}" />
+            app:showWhenStateIsLoading="@{viewModel.myListsState}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/primary" />
 
-        <TextView
-            android:id="@+id/title_lost_connection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/oops"
-            android:textColor="@color/primary"
-            app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
-            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
-            app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"
-            app:showWhenStateIsError="@{viewModel.myListsState}" />
-
-
-        <TextView
-            android:id="@+id/description_lost_connection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
             android:gravity="center"
-            android:text="@string/description"
-            app:layout_constraintEnd_toEndOf="@+id/title_lost_connection"
-            app:layout_constraintStart_toStartOf="@+id/title_lost_connection"
-            app:layout_constraintTop_toBottomOf="@+id/title_lost_connection"
-            app:showWhenStateIsError="@{viewModel.myListsState}" />
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_horizontal"
+            app:showWhenStateIsError="@{viewModel.myListsState}"
+            tools:ignore="UseCompoundDrawables">
 
-        <Button
-            android:id="@+id/button_retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.getData()}"
-            android:text="@string/retry"
-            app:layout_constraintEnd_toEndOf="@+id/description_lost_connection"
-            app:layout_constraintStart_toStartOf="@+id/description_lost_connection"
-            app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
-            app:showWhenStateIsError="@{viewModel.myListsState}" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_no_mobile_internet"
+                android:layout_width="@dimen/size_lottie"
+                android:layout_height="@dimen/size_lottie"
+                android:layout_margin="@dimen/space4x"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:setLottieAnimationView="@{viewModel.myListsState}" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/circularProgressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:indicatorColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/my_view"
-            app:layout_constraintTop_toTopOf="@+id/my_view"
-            app:layout_constraintEnd_toEndOf="@+id/my_view"
-            app:layout_constraintStart_toStartOf="@+id/my_view"
-            app:showWhenLoading="@{viewModel.myListsState}" />
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/oops"
+                android:textAlignment="center"
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.myListsState}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
+                android:onClick="@{()->viewModel.getData()}"
+                android:text="@string/retry"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

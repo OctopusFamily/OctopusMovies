@@ -114,12 +114,12 @@
             tools:listitem="@layout/item_search" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_no_mobile_internet"
+            android:id="@+id/lottie_search"
             android:layout_width="@dimen/size_lottie"
             android:layout_height="@dimen/size_lottie"
             android:layout_margin="@dimen/space4x"
             android:scaleType="centerCrop"
-            app:showWhenStateIsLoading="@{viewModel.searchResult}"
+            app:showWhenStateIsLoading="@{viewModel.searchResultState}"
             app:showIfEmpty="@{viewModel.filteredSearchResults}"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
@@ -130,6 +130,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:showWhenStateIsError="@{viewModel.searchResultState}"
+            tools:ignore="UseCompoundDrawables">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_no_mobile_internet"
+                android:layout_width="@dimen/size_lottie"
+                android:layout_height="@dimen/size_lottie"
+                android:layout_margin="@dimen/space4x"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:setLottieAnimationView="@{viewModel.searchResultState}" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/oops"
+                android:textAlignment="center"
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
+
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.searchResultState}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space8x"
+                android:onClick="@{(v)->viewModel.tryLoadSearchResultAgain(viewModel.searchQuery)}"
+                android:text="@string/retry"
+                android:textAllCaps="true" />
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

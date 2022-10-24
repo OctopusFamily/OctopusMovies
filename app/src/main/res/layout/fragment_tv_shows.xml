@@ -101,13 +101,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@color/background"
-            app:showWhenStateIsError="@{viewModel.tvShowsListState}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"
+            app:showWhenStateIsError="@{viewModel.tvShowsListState}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -129,26 +129,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="@string/oops"
-                android:textSize="22sp"
                 android:textAlignment="center"
-                android:textColor="@color/font_primary_color" />
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
 
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:setTextError="@{viewModel.tvShowsListState}"
                 android:textAlignment="center"
-                android:textColor="@color/error" />
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.tvShowsListState}" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space8x"
                 android:onClick="@{()->viewModel.tryLoadTVShowsAgain()}"
-                android:textAllCaps="true"
-                android:text="@string/retry"/>
+                android:text="@string/retry"
+                android:textAllCaps="true" />
 
         </LinearLayout>
 

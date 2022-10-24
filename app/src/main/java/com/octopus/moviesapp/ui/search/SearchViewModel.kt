@@ -7,6 +7,8 @@ import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -18,12 +20,13 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val repositoryMovie: MoviesRepository,
+    private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), SearchClicksListener, ChipGroupClickListener {
 
     val searchQuery = MutableLiveData<String>()
 
-    private val _searchResult = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
-    val searchResult: LiveData<UiState<List<SearchResult>>> = _searchResult
+    private val _searchResultState = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
+    val searchResultState: LiveData<UiState<List<SearchResult>>> = _searchResultState
 
     private val _filteredSearchResults = MutableLiveData<List<SearchResult>>(emptyList())
     val filteredSearchResults: LiveData<List<SearchResult>> = _filteredSearchResults
@@ -38,6 +41,8 @@ class SearchViewModel @Inject constructor(
 
     var mediaType = MediaType.MOVIE
 
+
+
     fun getSearchMultiMedia(searchQuery: String) {
         if (searchQuery.isNotEmpty()) {
             viewModelScope.launch {
@@ -46,13 +51,12 @@ class SearchViewModel @Inject constructor(
                         filterSearchResultsByType(searchState.data, mediaType)
                          searchResultItems.postValue(searchState.toData())
                     }
-                    _searchResult.postValue(searchState)
+                    _searchResultState.postValue(searchState)
                 }
             }
 
         } else clearList()
     }
-    
 
     fun onBackClick() {
         _navigateBack.postEvent(true)
@@ -72,6 +76,20 @@ class SearchViewModel @Inject constructor(
                 filterCurrentList()
             }
         } ?: clearList()
+    }
+
+    fun tryLoadSearchResultAgain(searchQuery: String) {
+        checkInternetConnection(searchQuery)
+    }
+
+    private fun checkInternetConnection(searchQuery: String) {
+        viewModelScope.launch {
+            if (connectionTracker.isInternetConnectionAvailable()) {
+               getSearchMultiMedia(searchQuery)
+            } else {
+                _searchResultState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            }
+        }
     }
 
     private fun clearList() {
