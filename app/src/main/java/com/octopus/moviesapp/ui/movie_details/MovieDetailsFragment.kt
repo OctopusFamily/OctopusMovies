@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.rate.RatingMovieDialog
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
@@ -40,8 +41,8 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
     }
 
     private fun handleEvents() {
-        viewModel.rateMovie.observeEvent(viewLifecycleOwner) {
-            requireContext().showShortToast(getString(R.string.coming_soon))
+        viewModel.showRatingDialog.observeEvent(viewLifecycleOwner) {
+            showRatingDialog(it)
         }
         viewModel.saveToWatchList.observeEvent(viewLifecycleOwner) {
             requireContext().showShortToast(getString(R.string.coming_soon))
@@ -66,6 +67,11 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
         viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
         }
+    }
+
+    private fun showRatingDialog(movieId: Int) {
+        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToRatingMovieDialog(movieId)
+        requireView().findNavController().navigate(action)
     }
 
     private fun handleMovieDetails() {

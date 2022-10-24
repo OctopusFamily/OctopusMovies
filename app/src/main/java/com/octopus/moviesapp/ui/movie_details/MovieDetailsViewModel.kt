@@ -51,8 +51,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val _saveToWatchList = MutableLiveData<Event<Int>>()
     val saveToWatchList: LiveData<Event<Int>> get() = _saveToWatchList
 
-    private val _rateMovie = MutableLiveData<Event<Int>>()
-    val rateMovie: LiveData<Event<Int>> get() = _rateMovie
+
+    private val _showRatingDialog = MutableLiveData<Event<Int>>()
+    val showRatingDialog: LiveData<Event<Int>> get() = _showRatingDialog
 
     private val _navigateToMoviesGenre = MutableLiveData<Event<Genre>>()
     val navigateToMoviesGenre: LiveData<Event<Genre>> get() = _navigateToMoviesGenre
@@ -112,8 +113,8 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    fun onRateClick() {
-        _rateMovie.postEvent(0)
+    fun onShowRatingDialog(){
+        _showRatingDialog.postEvent(args.movieId)
     }
 
     private fun getMovieDetails(movieId: Int) {

@@ -4,6 +4,14 @@
         <item name="fontFamily">@font/poppins</item>
     </style>
 
+    <style name="text_style_headline_medium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="text_style_headline_large" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
     <style name="text_style_label_small" parent="TextAppearance.Material3.LabelSmall">
         <item name="fontFamily">@font/poppins</item>
     </style>
@@ -48,6 +56,11 @@
     <style name="ChipStyle" parent="@style/Widget.Material3.Chip.Suggestion">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="android:textColor">@color/chip_text_color</item>
+    </style>
+
+    <style name="Widget.Material3.Button.ElevatedButton.withFrame">
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 </resources>
 

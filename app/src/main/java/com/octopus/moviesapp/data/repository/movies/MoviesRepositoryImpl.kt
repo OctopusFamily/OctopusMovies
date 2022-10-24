@@ -1,9 +1,12 @@
 package com.octopus.moviesapp.data.repository.movies
 
+import com.octopus.moviesapp.data.remote.response.dto.RatingDTO
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.*
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.types.MoviesCategory
+import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
@@ -36,5 +39,13 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
         return searchResultMapper.mapList(tmdbApiService.getSearchMultiMedia(query).items)
 
+    }
+
+    override suspend fun ratingMovie(
+        movieId: Int,
+        sessionId: String,
+        ratingValue: Float,
+    ): Response<RatingDTO> {
+        return tmdbApiService.updateMovieRating(movieId, sessionId, ratingValue)
     }
 }

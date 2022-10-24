@@ -3,6 +3,7 @@ package com.octopus.moviesapp.data.remote.service
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.BaseResponse
+import com.octopus.moviesapp.data.remote.response.dto.RatingDTO
 import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
@@ -134,5 +135,13 @@ interface TMDBApiService {
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String
     ): BaseResponse<CreatedListsDto>
+
+    @FormUrlEncoded
+    @POST("movie/{movie_id}/rating")
+    suspend fun updateMovieRating(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: String,
+        @Field("value") ratingValue: Float,
+    ): Response<RatingDTO>
 
 }

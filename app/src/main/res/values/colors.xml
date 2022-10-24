@@ -36,4 +36,5 @@
 
     <color name="font_primary_color">#1a1c1e</color>
     <color name="card_background">#26F83066</color>
+    <color name="rate_bar_color">#FFE02F</color>
 </resources>

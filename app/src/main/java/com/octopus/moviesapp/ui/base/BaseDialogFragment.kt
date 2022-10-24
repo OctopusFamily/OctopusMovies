@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.ui.base
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,9 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding> : DialogFragment(){
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
             setVariable(BR.viewModel,viewModel)
+
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
             return root
         }
     }
