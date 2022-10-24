@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/octopus_movies"
-                android:onClick="@{() -> viewModel.onTextClicked()}"
                 android:textColor="@color/primary"
                 style="@style/text_style_body_large"
                 android:layout_marginEnd="@dimen/space8x"/>

@@ -72,6 +72,8 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/space6x"
                 app:cardElevation="0dp"
+                android:onClick="@{() -> viewModel.onMyListsClick()}">
+                app:cardElevation="0dp"
                 android:layout_marginVertical="@dimen/space4x">
                 <TextView
                     android:layout_width="match_parent"
