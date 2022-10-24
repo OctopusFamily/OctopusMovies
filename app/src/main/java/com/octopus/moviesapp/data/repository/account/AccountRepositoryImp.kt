@@ -5,6 +5,8 @@ import com.octopus.moviesapp.data.JsonParser
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.domain.mapper.AccountMapper
+import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +18,7 @@ class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
     private val dataStorePref: DataStorePref,
     private val jsonParser: JsonParser,
+    private val accountMapper: AccountMapper
 ) : AccountRepository {
     override fun getSessionId(): Flow<String?> {
         return dataStorePref.readString(Constants.SESSION_ID_KEY)
@@ -50,6 +53,9 @@ class AccountRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun getAccountDetails(sessionId: String): Account {
+        return accountMapper.map(service.getAccountDetails(sessionId))
+    }
 
 
     private suspend fun getRequestToken(): String? {

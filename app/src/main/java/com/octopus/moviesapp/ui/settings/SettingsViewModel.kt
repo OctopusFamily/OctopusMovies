@@ -1,14 +1,18 @@
 package com.octopus.moviesapp.ui.settings
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.repository.account.AccountRepository
+import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.SettingsService
@@ -16,14 +20,19 @@ import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     @ApplicationContext context: Context,
-    private val dataStorePreferences: DataStorePref
-    ): ViewModel() {
+    private val dataStorePreferences: DataStorePref,
+    private val accountRepository: AccountRepository
+    ): BaseViewModel() {
+
+    private val _profileDetails = MutableLiveData<UiState<Account>>(UiState.Loading)
+    val profileDetails = _profileDetails
 
     private val _languageChoiceClicked = MutableLiveData(Event(false))
     val languageChoiceClicked: LiveData<Event<Boolean>> get() = _languageChoiceClicked
@@ -48,8 +57,21 @@ class SettingsViewModel @Inject constructor(
     private val _profileState = MutableLiveData(UiState.Loading)
 
     init {
+        getProfileDetails()
         _currentLanguage.postValue(settingsService.getCurrentLanguage())
         _currentTheme.postValue(settingsService.getCurrentAppTheme(context))
+    }
+
+    private fun getProfileDetails() {
+        viewModelScope.launch {
+            wrapResponse {
+                Log.d("mysession ID",sessionId)
+                accountRepository.getAccountDetails(sessionId)
+             }.collectLatest {
+                Log.d("profile :",it.toString())
+                 _profileDetails.postValue(it)
+             }
+        }
     }
 
     fun onLanguageChoiceClick() {
