@@ -29,7 +29,6 @@ class RatingMovieDialog: BaseDialogFragment<DialogRateBinding>() {
             dismiss()
         }
         viewModel.changeRating.observeEvent(this) {
-            dismiss()
             updateMovieRating()
         }
         viewModel.rate.observe(this) {

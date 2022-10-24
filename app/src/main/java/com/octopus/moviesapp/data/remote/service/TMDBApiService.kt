@@ -142,6 +142,6 @@ interface TMDBApiService {
         @Path("movie_id") movieId: Int,
         @Query("session_id") sessionId: String,
         @Field("value") ratingValue: Float,
-    ): Response<RatingDTO>
+    ): RatingDTO
 
 }

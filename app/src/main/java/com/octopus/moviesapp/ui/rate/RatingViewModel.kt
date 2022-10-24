@@ -9,7 +9,6 @@ import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ class RatingViewModel @Inject constructor(
         _closeClicked.postEvent(true)
     }
 
-    fun onRatingChange(){
+    fun onRatingChange() {
         _changeRating.postEvent(true)
     }
 
@@ -46,23 +45,22 @@ class RatingViewModel @Inject constructor(
         this.movieId = movieId
     }
 
-    fun onRatingClick(rate: Float){
+    fun onRatingClick(rate: Float) {
         viewModelScope.launch {
-            dataStorePref.readString(Constants.SESSION_ID_KEY).collect{
-                if (it != null){
+            dataStorePref.readString(Constants.SESSION_ID_KEY).collect {
+                it?.let { sessionId ->
                     wrapResponse {
-                        movieRepository.ratingMovie(movieId, it, rate)
+                        movieRepository.ratingMovie(movieId, sessionId, rate)
                     }.collect {
-//                        if (it is UiState.Success){
-//                            Log.i("WShamardn", "rated : ${it.data.statusMessage}")
-//                        }else{
-//                            Log.i("WShamardn", "not rated : ${it.toData()?.statusCode}")
-//                        }
-                        Log.i("RATING","state is: ${it}")
-
+                        Log.i(
+                            "RATING",
+                            "collect ------ state is ${it.javaClass.simpleName} and data is ${it.toData()}"
+                        )
                     }
                 }
+
             }
         }
+
     }
 }

@@ -19,22 +19,4 @@ abstract class BaseViewModel : ViewModel() {
             }
         }
     }
-
-    protected fun <T> wrapResponse2(response: suspend () -> Response<T>): Flow<UiState<T>> {
-        return flow {
-            emit(UiState.Loading)
-            try {
-                val res = response()
-                if (res.isSuccessful){
-                    emit(UiState.Success(res.body()!!))
-                }else{
-                    emit(UiState.Error(res.message()))
-                }
-
-            } catch (e: Exception) {
-                emit(UiState.Error(e.message.toString()))
-                Log.e("WShamardn","state is: ${e.message}")
-            }
-        }
-    }
 }

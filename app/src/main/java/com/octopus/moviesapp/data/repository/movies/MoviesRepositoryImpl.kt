@@ -5,8 +5,6 @@ import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.*
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.types.MoviesCategory
-import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
@@ -21,7 +19,12 @@ class MoviesRepositoryImpl @Inject constructor(
         moviesCategory: MoviesCategory,
         page: Int
     ): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+        return moviesMapper.map(
+            tmdbApiService.getMoviesByCategory(
+                moviesCategory.pathName,
+                page
+            ).items
+        )
     }
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetails {
@@ -45,7 +48,7 @@ class MoviesRepositoryImpl @Inject constructor(
         movieId: Int,
         sessionId: String,
         ratingValue: Float,
-    ): Response<RatingDTO> {
+    ): RatingDTO {
         return tmdbApiService.updateMovieRating(movieId, sessionId, ratingValue)
     }
 }
