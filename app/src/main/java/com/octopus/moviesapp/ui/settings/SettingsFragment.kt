@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSettingsBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
@@ -43,8 +44,19 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToAbout()
                 }
             }
+            logOutClicked.observeEvent(viewLifecycleOwner){
+                if (it){
+                    navigateToLogin()
+                }
+            }
         }
     }
+
+    private fun navigateToLogin() {
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToLoginFragment()
+        )
+     }
 
     private fun showLanguageSelectionBottomSheet() {
         val currentLanguage = settingsService.getCurrentLanguage()

@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.data.repository.account
 
 
+import android.util.Log
 import com.octopus.moviesapp.data.JsonParser
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
@@ -55,6 +56,25 @@ class AccountRepositoryImp @Inject constructor(
 
     override suspend fun getAccountDetails(sessionId: String): Account {
         return accountMapper.map(service.getAccountDetails(sessionId))
+    }
+
+    override suspend fun logout(): Flow<UiState<Boolean>> {
+        return flow {
+            emit(UiState.Loading)
+            try {
+                getSessionId().collect{
+                    val logout = service.logout(it.toString())
+                    if (logout.isSuccessful){
+                        dataStorePref.writeString(Constants.SESSION_ID_KEY, "")
+                        emit(UiState.Success(true))
+                    } else {
+                        emit(UiState.Error("There is an error"))
+                    }
+                }
+            } catch (e: Exception) {
+                emit(UiState.Error(e.message.toString()))
+            }
+        }
     }
 
 

@@ -13,5 +13,8 @@ interface AccountRepository {
 
     suspend fun getAccountDetails(sessionId: String): Account
 
+    suspend fun logout(): Flow<UiState<Boolean>>
+
+
 }
 

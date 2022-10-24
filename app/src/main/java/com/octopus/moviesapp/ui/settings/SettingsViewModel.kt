@@ -29,10 +29,13 @@ class SettingsViewModel @Inject constructor(
     @ApplicationContext context: Context,
     private val dataStorePreferences: DataStorePref,
     private val accountRepository: AccountRepository
-    ): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _profileDetails = MutableLiveData<UiState<Account>>(UiState.Loading)
     val profileDetails = _profileDetails
+
+    private val _logOutClicked = MutableLiveData(Event(false))
+    val logOutClicked = _logOutClicked
 
     private val _languageChoiceClicked = MutableLiveData(Event(false))
     val languageChoiceClicked: LiveData<Event<Boolean>> get() = _languageChoiceClicked
@@ -65,12 +68,10 @@ class SettingsViewModel @Inject constructor(
     private fun getProfileDetails() {
         viewModelScope.launch {
             wrapResponse {
-                Log.d("mysession ID",sessionId)
                 accountRepository.getAccountDetails(sessionId)
-             }.collectLatest {
-                Log.d("profile :",it.toString())
-                 _profileDetails.postValue(it)
-             }
+            }.collectLatest {
+                _profileDetails.postValue(it)
+            }
         }
     }
 
@@ -91,7 +92,7 @@ class SettingsViewModel @Inject constructor(
         settingsService.updateAppTheme(newTheme)
         _currentTheme.postValue(newTheme)
         viewModelScope.launch {
-            dataStorePreferences.writeString(Constants.DARK_MODE,newTheme.name)
+            dataStorePreferences.writeString(Constants.DARK_MODE, newTheme.name)
         }
     }
 
@@ -100,7 +101,12 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun onLogoutClick() {
-
+        viewModelScope.launch {
+            accountRepository.logout().collect {
+                if (it is UiState.Success) {
+                    _logOutClicked.postEvent(true)
+                }
+            }
+        }
     }
-
 }
