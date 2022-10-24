@@ -49,6 +49,11 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToLogin()
                 }
             }
+            navigateToMyLists.observeEvent(viewLifecycleOwner){ clicked ->
+                if (clicked){
+                    navigateToMyLists()
+                }
+            }
         }
     }
 
@@ -97,6 +102,12 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             .findNavController()
             .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment())
 
+    }
+
+    private fun navigateToMyLists(){
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
+        )
     }
 
     private fun showThemeSelectionBottomSheet() {

@@ -52,6 +52,9 @@ class SettingsViewModel @Inject constructor(
     private val _navigateToAbout = MutableLiveData<Event<Boolean>>()
     val navigateToAbout: LiveData<Event<Boolean>> get() = _navigateToAbout
 
+    private val _navigateToMyLists = MutableLiveData<Event<Boolean>>()
+    val navigateToMyLists : LiveData<Event<Boolean>> get() = _navigateToMyLists
+
     private val settingsService = SettingsService
 
     val sessionId = MyApplication.sessionId
@@ -81,6 +84,10 @@ class SettingsViewModel @Inject constructor(
 
     fun onThemeChoiceClick() {
         _themeChoiceClicked.postEvent(true)
+    }
+
+    fun onMyListsClick(){
+        _navigateToMyLists.postEvent(true)
     }
 
     fun handleLanguageChange(newLanguage: Language) {

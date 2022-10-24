@@ -79,13 +79,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@color/background"
-            app:showWhenStateIsError="@{viewModel.genresListState}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genres_tab_layout"
+            app:showWhenStateIsError="@{viewModel.genresListState}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -107,26 +107,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="@string/oops"
-                android:textSize="22sp"
                 android:textAlignment="center"
-                android:textColor="@color/font_primary_color" />
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
 
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:setTextError="@{viewModel.genresListState}"
                 android:textAlignment="center"
-                android:textColor="@color/error" />
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.genresListState}" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space8x"
                 android:onClick="@{()->viewModel.tryLoadGenresAgain()}"
-                android:textAllCaps="true"
-                android:text="@string/retry"/>
+                android:text="@string/retry"
+                android:textAllCaps="true" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@
             type="com.octopus.moviesapp.ui.tv_shows_genre.TVShowsGenreViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -19,15 +19,18 @@
             android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:background="@color/surface"
             android:orientation="horizontal"
-            android:background="@color/surface">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
                 android:contentDescription="@string/navigate_back_icon_description"
+                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
                 android:padding="@dimen/space8x"
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,11 +42,11 @@
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@{viewModel.genreName}"
-                android:ellipsize="end"
                 android:layout_marginStart="@dimen/space4x"
                 android:layout_marginEnd="@dimen/space8x"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.genreName}"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,12 +58,16 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tv_show_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:showWhenStateIsSuccess="@{viewModel.tvShowGenreState}"
             android:paddingHorizontal="@dimen/space6x"
             android:paddingTop="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
+            app:showWhenStateIsSuccess="@{viewModel.tvShowGenreState}"
             tools:listitem="@layout/item_tv_show" />
 
         <ProgressBar
@@ -75,13 +82,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@color/background"
-            app:showWhenStateIsError="@{viewModel.tvShowGenreState}"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
+            app:showWhenStateIsError="@{viewModel.tvShowGenreState}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -95,7 +103,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.tvShowGenreState}"/>
+                app:setLottieAnimationView="@{viewModel.tvShowGenreState}" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -103,28 +111,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="@string/oops"
-                android:textSize="22sp"
                 android:textAlignment="center"
-                android:textColor="@color/font_primary_color" />
+                android:textColor="@color/font_primary_color"
+                android:textSize="22sp" />
 
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:setTextError="@{viewModel.tvShowGenreState}"
                 android:textAlignment="center"
-                android:textColor="@color/error" />
+                android:textColor="@color/error"
+                app:setTextError="@{viewModel.tvShowGenreState}" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space8x"
                 android:onClick="@{()->viewModel.tryLoadTVShow()}"
-                android:textAllCaps="true"
-                android:text="@string/retry"/>
+                android:text="@string/retry"
+                android:textAllCaps="true" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
