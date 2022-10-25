@@ -51,7 +51,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             }
             logOutClicked.observeEvent(viewLifecycleOwner) {
                 if (it) {
-                    navigateToHome()
+                    restartApp()
                 }
             }
             navigateToMyLists.observeEvent(viewLifecycleOwner) { clicked ->
@@ -68,10 +68,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         )
     }
 
-    private fun navigateToHome() {
-        findNavController().navigate(
-            R.id.action_settingsFragment_to_homeFragment
-        )
+    private fun restartApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
     }
 
     private fun showLanguageSelectionBottomSheet() {

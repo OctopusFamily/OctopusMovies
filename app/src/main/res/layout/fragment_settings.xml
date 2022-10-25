@@ -115,7 +115,7 @@
             android:layout_marginVertical="@dimen/space8x"
             android:gravity="center"
             android:orientation="vertical"
-            app:showIfTrue="@{viewModel.isLoggedIn}">
+            app:showIfTrue="@{!viewModel.isLoggedIn}">
 
             <TextView
                 style="@style/text_style_body_large"
