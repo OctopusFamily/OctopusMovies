@@ -15,6 +15,21 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
+            android:background="@drawable/circular_shape"
+            android:contentDescription="@string/navigate_back_icon_description"
+            android:elevation="@dimen/space2x"
+            android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+            android:padding="@dimen/space4x"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,20 +48,7 @@
                 app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
                 tools:src="@drawable/ic_launcher_background" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space8x"
-                android:layout_marginTop="@dimen/space8x"
-                android:background="@drawable/circular_shape"
-                android:contentDescription="@string/navigate_back_icon_description"
-                android:elevation="@dimen/space2x"
-                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
-                android:padding="@dimen/space4x"
-                android:src="@drawable/ic_back_arrow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/primary" />
+
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.ElevatedButton.Icon"
@@ -223,8 +225,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/more_info_linear_layout" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -288,6 +290,7 @@
                 android:text="@string/retry"/>
 
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

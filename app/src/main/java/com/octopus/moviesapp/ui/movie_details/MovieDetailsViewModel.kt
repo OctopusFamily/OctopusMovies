@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.movie_details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -81,6 +82,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun getMovieDetails() {
+        Log.d("movieId :",args.movieId.toString())
         getMovieDetails(args.movieId)
         getMovieCast(args.movieId)
         getMovieTrailer(args.movieId)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSettingsBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
@@ -12,7 +13,6 @@ import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movies.MoviesFragmentDirections
 import com.octopus.moviesapp.util.SettingsService
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,8 +44,24 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToAbout()
                 }
             }
+            logOutClicked.observeEvent(viewLifecycleOwner){
+                if (it){
+                    navigateToLogin()
+                }
+            }
+            navigateToMyLists.observeEvent(viewLifecycleOwner){ clicked ->
+                if (clicked){
+                    navigateToMyLists()
+                }
+            }
         }
     }
+
+    private fun navigateToLogin() {
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToLoginFragment()
+        )
+     }
 
     private fun showLanguageSelectionBottomSheet() {
         val currentLanguage = settingsService.getCurrentLanguage()
@@ -86,6 +102,12 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             .findNavController()
             .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment())
 
+    }
+
+    private fun navigateToMyLists(){
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
+        )
     }
 
     private fun showThemeSelectionBottomSheet() {

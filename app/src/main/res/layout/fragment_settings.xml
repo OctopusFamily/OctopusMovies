@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            app:showWhenStateIsLoading="@{viewModel.profileDetails}"
             android:indeterminateTint="@color/primary" />
 
         <LinearLayout
@@ -38,12 +39,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal"
-                 android:layout_marginBottom="@dimen/space4x">
+                android:layout_marginBottom="@dimen/space4x"
+                android:orientation="horizontal">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    app:imageUrl="@{viewModel.profileDetails.toData().avatarPath}"
                     app:shapeAppearanceOverlay="@style/circleImageView"
                     tools:src="@drawable/ic_launcher_background"/>
                 <LinearLayout
@@ -62,15 +64,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_style_body_large"
+                        android:text="@{viewModel.profileDetails.toData().username}"
                         android:layout_gravity="center_vertical"
                         tools:text="Someone"/>
                 </LinearLayout>
             </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/space6x"
+                app:cardElevation="0dp"
+                android:onClick="@{() -> viewModel.onMyListsClick()}">
                 app:cardElevation="0dp"
                 android:layout_marginVertical="@dimen/space4x">
                 <TextView
@@ -82,18 +87,19 @@
                     android:layout_marginVertical="@dimen/space8x"
                     app:drawableEndCompat="@drawable/ic_forward" />
             </androidx.cardview.widget.CardView>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/logout"
-                android:textColor="@color/on_primary"
-                android:textAllCaps="false"
-                android:onClick="@{() -> viewModel.onLogoutClick()}"
                 android:layout_marginTop="@dimen/space2x"
+                android:onClick="@{() -> viewModel.onLogoutClick()}"
+                android:text="@string/logout"
+                android:textAllCaps="false"
+                android:textColor="@color/on_primary"
                 app:backgroundTint="@color/primary"
-                style="@style/Widget.Material3.Button.TonalButton"
-                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout"/>
+                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
         </LinearLayout>
 
         <LinearLayout
@@ -112,6 +118,7 @@
                 android:textAlignment="center"
                 android:layout_marginBottom="@dimen/space2x"/>
             <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
@@ -120,8 +127,7 @@
                 android:onClick="@{() -> viewModel.onLogoutClick()}"
                 android:layout_marginTop="@dimen/space2x"
                 app:backgroundTint="@color/primary"
-                style="@style/Widget.Material3.Button.TonalButton"
-                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout"/>
+                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
         </LinearLayout>
 
         <TextView
