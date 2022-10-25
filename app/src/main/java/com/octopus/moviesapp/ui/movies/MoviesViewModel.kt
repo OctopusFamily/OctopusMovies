@@ -3,11 +3,14 @@ package com.octopus.moviesapp.ui.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.types.MoviesCategory
-import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
+import com.octopus.moviesapp.domain.model.Movie
+import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -41,7 +44,8 @@ class MoviesViewModel @Inject constructor(
             }
         }
     }
-    private fun loadMoviesByCategory(category: MoviesCategory){
+
+    private fun loadMoviesByCategory(category: MoviesCategory) {
         viewModelScope.launch {
             wrapResponse { moviesRepository.getMoviesByCategory(category, 1) }.collectLatest {
                 _moviesListState.postValue(it)
@@ -59,8 +63,6 @@ class MoviesViewModel @Inject constructor(
             currentMoviesCategory = moviesCategory
         }
     }
-
-
 
 
     fun tryLoadMoviesAgain() {
