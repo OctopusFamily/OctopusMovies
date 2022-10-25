@@ -24,6 +24,7 @@ class AccountRepositoryImp @Inject constructor(
     override fun getSessionId(): Flow<String?> {
         return dataStorePref.readString(Constants.SESSION_ID_KEY)
     }
+
     override suspend fun login(
         username: String,
         password: String,
@@ -43,8 +44,10 @@ class AccountRepositoryImp @Inject constructor(
                     emit(UiState.Success(true))
                 } else {
                     val errorResponse =
-                        jsonParser.parseFromJson(validateRequestTokenWithLogin.errorBody()
-                            ?.string(), ErrorResponse::class.java)
+                        jsonParser.parseFromJson(
+                            validateRequestTokenWithLogin.errorBody()
+                                ?.string(), ErrorResponse::class.java
+                        )
                     emit(UiState.Error(errorResponse.statusMessage.toString()))
                 }
             } catch (e: Exception) {
@@ -62,10 +65,11 @@ class AccountRepositoryImp @Inject constructor(
         return flow {
             emit(UiState.Loading)
             try {
-                getSessionId().collect{
+                getSessionId().collect {
                     val logout = service.logout(it.toString())
-                    if (logout.isSuccessful){
+                    if (logout.isSuccessful) {
                         dataStorePref.writeString(Constants.SESSION_ID_KEY, "")
+                        Log.d("logout", "MyRepo${it.toString()}")
                         emit(UiState.Success(true))
                     } else {
                         emit(UiState.Error("There is an error"))

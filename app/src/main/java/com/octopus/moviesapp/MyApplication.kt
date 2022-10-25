@@ -1,6 +1,7 @@
 package com.octopus.moviesapp
 
 import android.app.Application
+import android.util.Log
 import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Constants
@@ -24,6 +25,7 @@ class MyApplication : Application() {
     private fun checkFirstTimeLaunch() {
         CoroutineScope(Dispatchers.IO).launch {
             dataStorePreferences.readString(Constants.SESSION_ID_KEY).collect { id ->
+                Log.d("logout", "MyApplication ${id.toString()}")
                 isFirstTimeLaunch = id == null
                 id?.let {
                     sessionId = it
