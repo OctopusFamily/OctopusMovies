@@ -3,7 +3,6 @@ package com.octopus.moviesapp.ui.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.database.entity.MovieEntity
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.types.MoviesCategory
@@ -34,44 +33,6 @@ class MoviesViewModel @Inject constructor(
 
     init {
         getMoviesByCategory(currentMoviesCategory)
-        insertMovies()
-        getAllMovies()
-    }
-
-    private fun getAllMovies() {
-        viewModelScope.launch {
-            moviesRepository.getAllMovies()
-        }
-    }
-
-    private fun insertMovies() {
-        viewModelScope.launch {
-            moviesRepository.insertMovies(
-                listOf(
-                    MovieEntity(
-                        id = 1,
-                        title = "koko",
-                        posterImageUrl = "posterImageUrl",
-                        releaseDate = "releaseDate",
-                        voteAverage = 1.0f
-                    ),
-                    MovieEntity(
-                        id = 2,
-                        title = "toto",
-                        posterImageUrl = "posterImageUrl",
-                        releaseDate = "releaseDate",
-                        voteAverage = 1.0f
-                    ),
-                    MovieEntity(
-                        id = 3,
-                        title = "momo",
-                        posterImageUrl = "posterImageUrl",
-                        releaseDate = "releaseDate",
-                        voteAverage = 1.0f
-                    )
-                )
-            )
-        }
     }
 
     private fun getMoviesByCategory(category: MoviesCategory) {
