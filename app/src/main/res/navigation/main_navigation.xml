@@ -48,6 +48,9 @@
             android:id="@+id/action_settingsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
         <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
             android:id="@+id/action_settingsFragment_to_myListsFragment"
             app:destination="@id/myListsFragment" />
     </fragment>

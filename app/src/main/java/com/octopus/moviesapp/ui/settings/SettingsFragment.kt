@@ -13,7 +13,6 @@ import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movies.MoviesFragmentDirections
 import com.octopus.moviesapp.util.SettingsService
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +44,11 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToAbout()
                 }
             }
+            logOutClicked.observeEvent(viewLifecycleOwner){
+                if (it){
+                    navigateToLogin()
+                }
+            }
             navigateToMyLists.observeEvent(viewLifecycleOwner){ clicked ->
                 if (clicked){
                     navigateToMyLists()
@@ -52,6 +56,12 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             }
         }
     }
+
+    private fun navigateToLogin() {
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToLoginFragment()
+        )
+     }
 
     private fun showLanguageSelectionBottomSheet() {
         val currentLanguage = settingsService.getCurrentLanguage()

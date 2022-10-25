@@ -1,8 +1,10 @@
 package com.octopus.moviesapp.data.remote.service
 
+import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.BaseResponse
+import com.octopus.moviesapp.data.remote.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
@@ -139,4 +141,13 @@ interface TMDBApiService {
         @Path("list_id") listId: Int,
     ): ListResponseDto<ListDetailsDto>
 
+    @GET("account")
+    suspend fun getAccountDetails(
+        @Query("session_id") sessionId: String?
+    ): AccountDTO
+
+    @DELETE("authentication/session")
+    suspend fun logout(
+        @Query("session_id") sessionId: String
+    ): Response<LogoutResponse>
 }
