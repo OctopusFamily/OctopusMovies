@@ -29,11 +29,14 @@ class SettingsViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : BaseViewModel() {
 
+    private val _isLoginClicked = MutableLiveData<Event<Boolean>>()
+    val loginClicked: LiveData<Event<Boolean>> get() = _isLoginClicked
+
+    private val _isLogOutClicked = MutableLiveData<Event<Boolean>>()
+    val logOutClicked: LiveData<Event<Boolean>> get() = _isLogOutClicked
+
     private val _profileDetails = MutableLiveData<UiState<Account>>(UiState.Loading)
     val profileDetails = _profileDetails
-
-    private val _logOutClicked = MutableLiveData(Event(false))
-    val logOutClicked = _logOutClicked
 
     private val _languageChoiceClicked = MutableLiveData(Event(false))
     val languageChoiceClicked: LiveData<Event<Boolean>> get() = _languageChoiceClicked
@@ -51,7 +54,7 @@ class SettingsViewModel @Inject constructor(
     val navigateToAbout: LiveData<Event<Boolean>> get() = _navigateToAbout
 
     private val _navigateToMyLists = MutableLiveData<Event<Boolean>>()
-    val navigateToMyLists : LiveData<Event<Boolean>> get() = _navigateToMyLists
+    val navigateToMyLists: LiveData<Event<Boolean>> get() = _navigateToMyLists
 
     private val settingsService = SettingsService
 
@@ -84,7 +87,7 @@ class SettingsViewModel @Inject constructor(
         _themeChoiceClicked.postEvent(true)
     }
 
-    fun onMyListsClick(){
+    fun onMyListsClick() {
         _navigateToMyLists.postEvent(true)
     }
 
@@ -109,9 +112,13 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             accountRepository.logout().collect {
                 if (it is UiState.Success) {
-                    _logOutClicked.postEvent(true)
+                    _isLogOutClicked.postEvent(true)
                 }
             }
         }
+    }
+
+    fun onLogInClicked() {
+        _isLoginClicked.postEvent(true)
     }
 }

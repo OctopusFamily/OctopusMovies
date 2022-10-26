@@ -18,7 +18,7 @@ import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_settings
     override val viewModel: SettingsViewModel by viewModels()
     private val settingsService = SettingsService
@@ -44,13 +44,18 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToAbout()
                 }
             }
-            logOutClicked.observeEvent(viewLifecycleOwner){
-                if (it){
+            loginClicked.observeEvent(viewLifecycleOwner) {
+                if (it) {
                     navigateToLogin()
                 }
             }
-            navigateToMyLists.observeEvent(viewLifecycleOwner){ clicked ->
-                if (clicked){
+            logOutClicked.observeEvent(viewLifecycleOwner) {
+                if (it) {
+                    restartApp()
+                }
+            }
+            navigateToMyLists.observeEvent(viewLifecycleOwner) { clicked ->
+                if (clicked) {
                     navigateToMyLists()
                 }
             }
@@ -59,9 +64,15 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
 
     private fun navigateToLogin() {
         findNavController().navigate(
-            SettingsFragmentDirections.actionSettingsFragmentToLoginFragment()
+            R.id.action_settingsFragment_to_loginFragment
         )
-     }
+    }
+
+    private fun restartApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
+    }
 
     private fun showLanguageSelectionBottomSheet() {
         val currentLanguage = settingsService.getCurrentLanguage()
@@ -104,7 +115,7 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
 
     }
 
-    private fun navigateToMyLists(){
+    private fun navigateToMyLists() {
         findNavController().navigate(
             SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
         )
