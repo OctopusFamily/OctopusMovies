@@ -13,6 +13,7 @@ import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
 import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
+import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.util.Constants
 import retrofit2.Response
 import retrofit2.http.*
@@ -144,4 +145,9 @@ interface TMDBApiService {
         @Field("value") ratingValue: Float,
     ): RatingDTO
 
+    @GET("account/{account_id}/rated/movies")
+    suspend fun getRatedMovies(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: String,
+    ): BaseResponse<MovieDTO>
 }

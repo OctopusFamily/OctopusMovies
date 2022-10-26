@@ -1,9 +1,12 @@
 package com.octopus.moviesapp.ui.movie_details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.MyApplication.Companion.sessionId
+import com.octopus.moviesapp.data.local.DataStorePref
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
@@ -25,6 +28,7 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
     private val connectionTracker: ConnectionTracker,
+    private val dataStorePref: DataStorePref,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
@@ -65,6 +69,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     init {
         loadMovieDetails(args.movieId)
+        getRatedMovies()
     }
 
     private var movieID = 0
@@ -121,6 +126,18 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             wrapResponse { moviesRepository.getMovieDetailsById(movieId) }.collectLatest {
                 _movieDetailsState.postValue(it)
+            }
+        }
+    }
+
+    private fun getRatedMovies() {
+        viewModelScope.launch {
+            dataStorePref.readString(Constants.SESSION_ID_KEY).collect { sessionId ->
+                sessionId?.let {
+                    wrapResponse { moviesRepository.getRatedMovies(0, it) }.collectLatest {
+                        Log.i("getRatedList", it.toData().toString())
+                    }
+                }
             }
         }
     }

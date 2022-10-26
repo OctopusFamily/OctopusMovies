@@ -126,7 +126,7 @@
                     android:layout_marginEnd="@dimen/space4x"
                     android:drawablePadding="@dimen/space2x"
                     app:drawableStartCompat="@drawable/ic_star_small"
-                    app:voteAverage="@{viewModel.movieDetails.voteAverage}"
+                    app:voteAverage="@{viewModel.movieDetails.rating}"
                     tools:text="8.7" />
 
                 <TextView

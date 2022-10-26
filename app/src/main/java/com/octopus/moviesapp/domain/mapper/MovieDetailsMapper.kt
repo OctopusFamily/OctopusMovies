@@ -30,6 +30,7 @@ class MovieDetailsMapper @Inject constructor(
             tagline = getTextOrPlaceholder(context, input.tagline, R.string.there_is_no_tagline),
             overview = getTextOrPlaceholder(context, input.overview, R.string.there_is_no_overview),
             genres = genresMapper.map(Pair(genresList, GenresType.MOVIE)),
+            rating = input.rating ?: 0f,
         )
     }
 }

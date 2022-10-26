@@ -51,4 +51,8 @@ class MoviesRepositoryImpl @Inject constructor(
     ): RatingDTO {
         return tmdbApiService.updateMovieRating(movieId, sessionId, ratingValue)
     }
+
+    override suspend fun getRatedMovies(accountId: Int, sessionId: String): List<MovieDetails> {
+        return movieDetailsMapper.mapList(tmdbApiService.getRatedMovies(accountId, sessionId).items)
+    }
 }

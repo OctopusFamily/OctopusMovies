@@ -15,4 +15,5 @@ data class MovieDetails(
     val tagline: String,
     val overview: String,
     val genres: List<Genre>,
+    val rating: Float,
 )

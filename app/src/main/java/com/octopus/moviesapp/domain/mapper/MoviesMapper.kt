@@ -15,6 +15,7 @@ class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>>()
                 posterImageUrl = buildImageUrl(it.posterPath),
                 voteAverage = it.voteAverage ?: 0f,
                 releaseDate = convertStringToDate(it.releaseDate),
+                rating = it.rating ?: 0f,
             )
         }
     }

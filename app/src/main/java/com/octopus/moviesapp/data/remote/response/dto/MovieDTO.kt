@@ -31,4 +31,6 @@ data class MovieDTO(
     val genres: List<GenreDTO>?,
     @SerializedName("popularity")
     val popularity: Float?,
+    @SerializedName("rating")
+    val rating: Float?,
 )
