@@ -1,7 +1,5 @@
 package com.octopus.moviesapp.data.repository.account
 
-
-import android.util.Log
 import com.octopus.moviesapp.data.JsonParser
 import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
@@ -69,7 +67,6 @@ class AccountRepositoryImp @Inject constructor(
                     val logout = service.logout(it.toString())
                     if (logout.isSuccessful) {
                         dataStorePref.writeString(Constants.SESSION_ID_KEY, "")
-                        Log.d("logout", "MyRepo${it.toString()}")
                         emit(UiState.Success(true))
                     } else {
                         emit(UiState.Error("There is an error"))

@@ -95,13 +95,14 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_button"
+                android:id="@+id/logout_out"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space2x"
                 android:onClick="@{() -> viewModel.onLogoutClick()}"
                 android:text="@string/logout"
+                app:showIfTrue="@{viewModel.loggedIn}"
                 android:textAllCaps="false"
                 android:textColor="@color/on_primary"
                 app:backgroundTint="@color/primary"

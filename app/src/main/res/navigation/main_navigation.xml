@@ -167,15 +167,15 @@
         android:id="@+id/myListsFragment"
         android:name="com.octopus.moviesapp.ui.lists.MyListsFragment"
         android:label="MyLists" >
-        <argument
-            android:name="sessionId"
-            app:argType="string" />
         <action
             android:id="@+id/action_myListsFragment_to_createListDialog"
             app:destination="@id/createListDialog" />
         <action
             android:id="@+id/action_myListsFragment_to_listDetailsFragment"
             app:destination="@id/listDetailsFragment" />
+        <argument
+            android:name="sessionID"
+            app:argType="string" />
     </fragment>
     <dialog
         android:id="@+id/createListDialog"
