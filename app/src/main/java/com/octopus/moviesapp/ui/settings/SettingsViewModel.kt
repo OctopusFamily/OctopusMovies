@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.MyApplication
-import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.domain.types.Language

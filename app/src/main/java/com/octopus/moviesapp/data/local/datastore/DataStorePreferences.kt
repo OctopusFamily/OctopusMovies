@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.local
+package com.octopus.moviesapp.data.local.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

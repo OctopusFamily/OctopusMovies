@@ -16,4 +16,10 @@ object Constants {
     const val EMPTY_TEXT = ""
     const val SESSION_ID_KEY = "session_id"
     const val TMDB_RESET_PASSWORD_URL="https://www.themoviedb.org/reset-password"
+
+    const val MOVIE_TABLE = "MOVIE_TABLE"
+    const val TV_SHOW_TABLE = "TV_SHOW_TABLE"
+    const val TRENDING_TABLE = "TRENDING_TABLE"
+    const val DATABASE_NAME = "octopusMovies.db"
+
 }
