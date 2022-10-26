@@ -67,7 +67,7 @@
             android:orientation="vertical"
             android:paddingVertical="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
+            app:items="@{viewModel.myListsState.toData()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
