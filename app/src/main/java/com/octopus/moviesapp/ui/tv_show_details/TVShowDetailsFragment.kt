@@ -70,7 +70,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         lifecycleScope.launch {
             viewModel.tvShowDetailsState.collect{ uiState ->
                 if (uiState.isSuccess) {
-                   // viewModel.onLoadTVShowDetailsSuccess(uiState.)
+                    viewModel.onLoadTVShowDetailsSuccess(uiState.tvShowDetailsUiState)
                     itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.tvShowDetailsUiState))
                     itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.tvShowDetailsUiState.seasons))
                     tvShowDetailsAdapter.setItems(itemsList)

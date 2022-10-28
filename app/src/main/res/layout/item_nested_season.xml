@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Season" />
+            type="com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowSeasonUiState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

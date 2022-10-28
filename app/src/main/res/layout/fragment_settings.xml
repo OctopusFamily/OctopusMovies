@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminateTint="@color/primary"
-            app:showWhenStateIsLoading="@{viewModel.profileDetails}" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:imageUrl="@{viewModel.profileDetails.toData().avatarPath}"
+
                     app:shapeAppearanceOverlay="@style/circleImageView"
                     tools:src="@drawable/ic_launcher_background" />
 
@@ -80,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> viewModel.onMyListsClick()}"
                 app:cardCornerRadius="@dimen/space6x"
-                app:cardElevation="0dp">
                 app:cardElevation="0dp"
                 android:layout_marginVertical="@dimen/space4x">
 

@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.movie_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
@@ -14,9 +15,12 @@ import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
+class MovieDetailsFragment :
+    BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_movie_details
     override val viewModel: MovieDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
@@ -80,10 +84,12 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
     }
 
     private fun handleMovieCast() {
-        viewModel.movieCastState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-               // itemsList.add(RecyclerViewItem.CastItem(uiState.data))
-               // movieDetailsAdapter.setItems(itemsList)
+        lifecycleScope.launch {
+            viewModel.movieCastState.collect { uiState ->
+                if (uiState.isSuccess) {
+                    itemsList.add(RecyclerViewItem.CastItem(uiState.tVShowCastUiState))
+                    movieDetailsAdapter.setItems(itemsList)
+                }
             }
         }
     }

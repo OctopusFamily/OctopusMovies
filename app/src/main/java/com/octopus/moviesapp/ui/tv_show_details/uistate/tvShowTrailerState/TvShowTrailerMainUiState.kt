@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_show_details.tvShowTrailerState
+package com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowTrailerState
 
 import com.octopus.moviesapp.domain.model.TVShowDetails
 

@@ -53,6 +53,7 @@ class TVShowDetailsAdapter(
                 val item = itemsList[position] as RecyclerViewItem.SeasonItem
                 holder.bind(item.seasonsList, nestedSeasonsListener)
             }
+
             else -> {}
         }
     }

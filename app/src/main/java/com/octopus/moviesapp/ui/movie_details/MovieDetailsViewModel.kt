@@ -6,19 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
-import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
+import com.octopus.moviesapp.domain.moviedetails_usecase.GetMovieCastUseCase
+import com.octopus.moviesapp.domain.moviedetails_usecase.GetMovieDetailsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastMainUiState
+import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
+import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +33,12 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
     private val connectionTracker: ConnectionTracker,
+    private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
+//    private val getMovieTrailerUseCase: GetMovieTrailerUseCase,
+//    private val movieDetailsUiStateMapper: MovieDetailsUiStateMapper,
+    private val getMovieCastUseCase: GetMovieCastUseCase,
+    private val castUiStateMapper: CastUiStateMapper,
+
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
@@ -35,8 +48,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val _movieTrailerState = MutableLiveData<UiState<Trailer>>(UiState.Loading)
     val movieTrailerState: LiveData<UiState<Trailer>> get() = _movieTrailerState
 
-    private val _movieCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
-    val movieCastState: LiveData<UiState<List<Cast>>> get() = _movieCastState
+
+    private val _movieCastState = MutableStateFlow(CastMainUiState())
+    val movieCastState: StateFlow<CastMainUiState> get() = _movieCastState
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
     val movieDetails: LiveData<MovieDetails> get() = _movieDetails
@@ -82,7 +96,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun getMovieDetails() {
-        Log.d("movieId :",args.movieId.toString())
+        Log.d("movieId :", args.movieId.toString())
         getMovieDetails(args.movieId)
         getMovieCast(args.movieId)
         getMovieTrailer(args.movieId)
@@ -120,7 +134,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieDetailsById(movieId) }.collectLatest {
+            wrapResponse { getMovieDetailsUseCase(movieId) }.collectLatest {
                 _movieDetailsState.postValue(it)
             }
         }
@@ -136,8 +150,16 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieCast(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieCastById(movieId) }.collectLatest {
-                _movieCastState.postValue(it)
+            try {
+                val result = getMovieCastUseCase(movieId)
+                val castUiState = castUiStateMapper.map(result)
+                _movieCastState.update {
+                    it.copy(
+                        isLoading = false, isSuccess = true, tVShowCastUiState = castUiState
+                    )
+                }
+            } catch (e: Exception) {
+                _movieCastState.update { it.copy(isLoading = false, isError = true) }
             }
         }
     }
@@ -150,7 +172,4 @@ class MovieDetailsViewModel @Inject constructor(
         _navigateToPersonDetails.postEvent(castId)
     }
 
-//    override fun onPersonClick(PersonId: Int) {
-//        _navigateToPersonDetails.postEvent(PersonId)
-//    }
 }

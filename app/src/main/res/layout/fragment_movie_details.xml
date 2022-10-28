@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{viewModel.movieDetails.coverImageUrl}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
@@ -73,7 +73,7 @@
                 android:layout_marginTop="186dp"
                 android:elevation="2dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{viewModel.movieDetails.posterImageUrl}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/rounded_image_view"

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState
+package com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState
 
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.Season

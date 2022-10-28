@@ -1,11 +1,12 @@
-package com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState
+package com.octopus.moviesapp.ui.movie_details.uistate
 
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.util.buildImageUrl
+import javax.inject.Inject
 
-class TVShowDetailsUiStateMapper {
-    fun map(input: TVShowDetails): TVShowDetailsUiState {
-        return TVShowDetailsUiState(
+class MovieDetailsUiStateMapper @Inject constructor(){
+    fun map(input: TVShowDetails): MovieDetailsUiState {
+        return MovieDetailsUiState(
             id = input.id ?: 0,
             title = input.title ?: "",
             coverImageUrl = buildImageUrl(input.coverImageUrl),

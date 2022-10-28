@@ -4,9 +4,9 @@ import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.ui.tv_show_details.tvShowCastState.TVShowCastUiState
-import com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState.TVShowDetailsUiState
-import com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState.TVShowSeasonUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowSeasonUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(
@@ -14,7 +14,7 @@ sealed class RecyclerViewItem {
     ): RecyclerViewItem()
 
     data class CastItem(
-        val castList: List<TVShowCastUiState>
+        val castList: List<CastUiState>
     ): RecyclerViewItem()
 
     data class TVShowInfoItem(
