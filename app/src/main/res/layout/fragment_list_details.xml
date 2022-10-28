@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="@+id/my_view"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.isEmptyList}"
             app:lottie_rawRes="@raw/lottie_empty_list_animation" />
 
         <TextView
@@ -81,8 +81,7 @@
             android:layout_marginTop="16dp"
             android:visibility="gone"
             android:text="@string/list_details_empty"
-            android:textSize="@dimen/space12x"
-            app:showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.isEmptyList}"
             app:layout_constraintEnd_toEndOf="@+id/lottie_animation_view"
             app:layout_constraintStart_toStartOf="@+id/lottie_animation_view"
             app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view" />
@@ -93,9 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/list_details_description"
-            android:textSize="@dimen/space8x"
             android:visibility="gone"
-            app:showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.isEmptyList}"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />

@@ -4,22 +4,23 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.*
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.ui.search.ChipGroupClickListener
-import kotlinx.android.synthetic.main.fragment_search.view.*
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseAdapter
+import com.octopus.moviesapp.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
@@ -92,7 +93,7 @@ fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
     }
 }
 
-@BindingAdapter(value = ["app:showIfTrue"])
+@BindingAdapter("showIfTrue")
 fun showIfTrue(view: View, condition: Boolean) {
     view.isVisible = condition
 }
@@ -187,13 +188,6 @@ fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
     }
 }
 
-@BindingAdapter("app:onCheckedChanged")
-fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickListener) {
-    chipGroupView.setOnCheckedStateChangeListener { chipGroup, _ ->
-        onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
-    }
-}
-
 @BindingAdapter("setWelcomeTag")
 fun setWelcomeTag(textView: TextView, username: String?) {
     username?.let {
@@ -221,4 +215,17 @@ fun <T> showWhenEmpty(view: View, items: List<T>?) {
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
     view.scrollToPosition(0)
+}
+
+@BindingAdapter("setSelectedChip")
+fun setSelectedChip(chipGroup: ChipGroup, position: Int) {
+    val checkedChip = chipGroup.children.elementAt(position) as Chip
+    checkedChip.isChecked = true
+}
+
+@BindingAdapter("onCheckedChanged")
+fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickListener) {
+    chipGroupView.setOnCheckedStateChangeListener { chipGroup, _ ->
+        onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
+    }
 }
