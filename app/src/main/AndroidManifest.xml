@@ -25,9 +25,9 @@
         tools:targetApi="33">
         <activity
             android:name=".ui.trailer.TrailerActivity"
-            android:exported="true"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop" />
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|locale|layoutDirection"
+            />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">

@@ -52,8 +52,8 @@ class TrailerActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
         p2: Boolean
     ) {
         intent.extras?.let { bundle ->
-            p1?.loadVideo(bundle.getString(TRAILER_KEY), 0)
-            p1?.setFullscreen(true)
+            p1?.cueVideo(bundle.getString(TRAILER_KEY))
+            p1?.setFullscreen(false)
             p1?.play()
         }
     }

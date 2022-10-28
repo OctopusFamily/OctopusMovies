@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.domain.use_case.GetGenresByTypeUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class GenresViewModel @Inject constructor(
     private val genresRepository: GenresRepository,
     private val connectionTracker: ConnectionTracker,
+    private val getGenresByTypeUseCase: GetGenresByTypeUseCase,
 ) : BaseViewModel(), GenresClicksListener {
 
     private val _genresListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
@@ -31,6 +33,7 @@ class GenresViewModel @Inject constructor(
 
     private val _navigateToGenreTVShow = MutableLiveData<Event<Genre>>()
     val navigateToGenreTVShow: LiveData<Event<Genre>> get() = _navigateToGenreTVShow
+
 
     private var currentGenresType = GenresType.MOVIE
 
@@ -73,7 +76,7 @@ class GenresViewModel @Inject constructor(
 
     private fun loadGenresByList(currentGenresType: GenresType) {
         viewModelScope.launch {
-            wrapResponse { genresRepository.getGenresByType(currentGenresType) }.collectLatest {
+            wrapResponse { getGenresByTypeUseCase(currentGenresType) }.collectLatest {
                 _genresListState.postValue(it)
             }
         }

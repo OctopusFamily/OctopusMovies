@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
+import androidx.paging.Pager
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.types.MoviesCategory
 import com.octopus.moviesapp.domain.use_case.GetMoviesPagingSourceUseCase
