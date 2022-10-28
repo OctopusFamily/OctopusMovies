@@ -1,10 +1,8 @@
 package com.octopus.moviesapp.ui.lists
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
@@ -37,15 +35,20 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
 
         viewModel.myListsState.observe(viewLifecycleOwner) {
             if (it is UiState.Success)
-            viewModel.checkIfEmptyList()
+                viewModel.checkIfEmptyList()
         }
 
-     }
+        viewModel.item.observeEvent(viewLifecycleOwner){
+            val action =
+                MyListsFragmentDirections.actionMyListsFragmentToListDetailsFragment(it.id,it.name)
+            findNavController().navigate(action)
+        }
+    }
 
     private fun showCreateListDialog() {
         findNavController().navigate(
-            MyListsFragmentDirections.actionMyListsFragmentToCreateListDialog(args.sessionId))
-     }
+            MyListsFragmentDirections.actionMyListsFragmentToCreateListDialog(args.sessionID))
+    }
 
     private fun observeLiveData() {
         viewModel.myListsState.observe(viewLifecycleOwner) { uiState ->
@@ -56,5 +59,5 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
     private fun setAdapter() {
         myListsAdapter = MyListsAdapter(emptyList(), viewModel)
         binding.myLists.adapter = myListsAdapter
-    }
+     }
 }

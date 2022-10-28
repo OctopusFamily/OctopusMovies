@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.domain.model.ListDetails" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.lists.ListDetailsInteractionListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="@dimen/space6x"
+        android:layout_margin="@dimen/space4x"
+        android:onClick="@{() -> listener.onItemClick(item)}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.posterPath}"
+                tools:src="@drawable/ic_launcher_background"
+                android:contentDescription="@string/tv_show_image_description" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space2x"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="@dimen/space2x">
+
+                <TextView
+                    style="@style/text_style_body_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{item.title}"
+                    android:textAlignment="center"
+                    tools:text="Family Guy" />
+
+
+                <TextView
+                    style="@style/text_style_body_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="@dimen/space2x"
+                    android:padding="@dimen/space2x"
+                    android:text="@{String.valueOf(item.voteAverage)}"
+                    android:textAlignment="center"
+                    app:drawableStartCompat="@drawable/ic_star_small"
+                    tools:text="8.4" />
+
+                <TextView
+                    style="@style/text_style_body_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/space2x"
+                    android:paddingHorizontal="@dimen/space4x"
+                    android:text="@{item.releaseDate}"
+                    android:textAlignment="center"
+                    tools:text="2020" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

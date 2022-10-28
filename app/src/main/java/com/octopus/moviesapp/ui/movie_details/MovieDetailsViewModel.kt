@@ -87,6 +87,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun getMovieDetails() {
+        Log.d("movieId :",args.movieId.toString())
         getMovieDetails(args.movieId)
         getMovieCast(args.movieId)
         getMovieTrailer(args.movieId)

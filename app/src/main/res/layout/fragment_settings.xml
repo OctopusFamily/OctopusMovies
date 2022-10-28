@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.settings.SettingsViewModel" />
@@ -16,121 +17,135 @@
         android:orientation="vertical">
 
         <TextView
+            style="@style/text_style_label_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/profile"
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginVertical="@dimen/space4x"
-            style="@style/text_style_label_large" />
+            android:text="@string/profile" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/primary" />
+            android:indeterminateTint="@color/primary"
+            app:showWhenStateIsLoading="@{viewModel.profileDetails}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space8x"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/space18x">
+            android:layout_marginBottom="@dimen/space18x"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal"
-                 android:layout_marginBottom="@dimen/space4x">
+                android:layout_marginBottom="@dimen/space4x"
+                android:orientation="horizontal">
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    app:imageUrl="@{viewModel.profileDetails.toData().avatarPath}"
                     app:shapeAppearanceOverlay="@style/circleImageView"
-                    tools:src="@drawable/ic_launcher_background"/>
+                    tools:src="@drawable/ic_launcher_background" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/space4x">
+                    android:layout_marginStart="@dimen/space4x"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/welcome"
                         style="@style/text_style_headline_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        tools:text="Welcome"/>
+                        android:text="@string/welcome"
+                        tools:text="Welcome" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_style_body_large"
                         android:layout_gravity="center_vertical"
-                        tools:text="Someone"/>
+                        android:text="@{viewModel.profileDetails.toData().username}"
+                        tools:text="Someone" />
                 </LinearLayout>
             </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onMyListsClick()}"
                 app:cardCornerRadius="@dimen/space6x"
+                app:cardElevation="0dp">
                 app:cardElevation="0dp"
                 android:layout_marginVertical="@dimen/space4x">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:drawableStartCompat="@drawable/ic_lists"
-                    android:text="@string/my_lists"
                     android:layout_marginHorizontal="@dimen/space8x"
                     android:layout_marginVertical="@dimen/space8x"
-                    app:drawableEndCompat="@drawable/ic_forward" />
+                    android:text="@string/my_lists"
+                    app:drawableEndCompat="@drawable/ic_forward"
+                    app:drawableStartCompat="@drawable/ic_lists" />
             </androidx.cardview.widget.CardView>
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_button"
+                android:id="@+id/logout_out"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/logout"
-                android:textColor="@color/on_primary"
-                android:textAllCaps="false"
-                android:onClick="@{() -> viewModel.onLogoutClick()}"
                 android:layout_marginTop="@dimen/space2x"
+                android:onClick="@{() -> viewModel.onLogoutClick()}"
+                android:text="@string/logout"
+                app:showIfTrue="@{viewModel.loggedIn}"
+                android:textAllCaps="false"
+                android:textColor="@color/on_primary"
                 app:backgroundTint="@color/primary"
-                style="@style/Widget.Material3.Button.TonalButton"
-                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout"/>
+                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginVertical="@dimen/space8x"
             android:layout_marginHorizontal="@dimen/space8x"
+            android:layout_marginVertical="@dimen/space8x"
+            android:gravity="center"
+            android:orientation="vertical"
             app:showIfTrue="@{!viewModel.isLoggedIn}">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/not_logged_in"
                 style="@style/text_style_body_large"
-                android:textAlignment="center"
-                android:layout_marginBottom="@dimen/space2x"/>
-            <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textColor="@color/on_primary"
-                android:textAllCaps="false"
-                android:onClick="@{() -> viewModel.onLogoutClick()}"
-                android:layout_marginTop="@dimen/space2x"
-                app:backgroundTint="@color/primary"
+                android:layout_marginBottom="@dimen/space2x"
+                android:text="@string/not_logged_in"
+                android:textAlignment="center" />
+
+            <com.google.android.material.button.MaterialButton
                 style="@style/Widget.Material3.Button.TonalButton"
-                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space2x"
+                android:onClick="@{() -> viewModel.onLogInClicked()}"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/on_primary"
+                app:backgroundTint="@color/primary"
+                app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
         </LinearLayout>
 
         <TextView
+            style="@style/text_style_label_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings"
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginVertical="@dimen/space4x"
-            style="@style/text_style_label_large" />
+            android:text="@string/settings" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_settings_language"
@@ -254,56 +269,56 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/card_settings_adult"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="@dimen/space_zero">-->
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:id="@+id/card_settings_adult"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            app:cardCornerRadius="12dp"-->
+        <!--            app:cardElevation="@dimen/space_zero">-->
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="60dp">-->
+        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="60dp">-->
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/adult_icon"-->
-<!--                    android:layout_width="24dp"-->
-<!--                    android:layout_height="24dp"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:layout_marginBottom="16dp"-->
-<!--                    android:src="@drawable/ic_cut"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+        <!--                <ImageView-->
+        <!--                    android:id="@+id/adult_icon"-->
+        <!--                    android:layout_width="24dp"-->
+        <!--                    android:layout_height="24dp"-->
+        <!--                    android:layout_marginStart="16dp"-->
+        <!--                    android:layout_marginTop="16dp"-->
+        <!--                    android:layout_marginBottom="16dp"-->
+        <!--                    android:src="@drawable/ic_cut"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                <com.google.android.material.switchmaterial.SwitchMaterial-->
-<!--                    android:id="@+id/switch_adult"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:layout_marginBottom="16dp"-->
-<!--                    android:checked="false"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+        <!--                <com.google.android.material.switchmaterial.SwitchMaterial-->
+        <!--                    android:id="@+id/switch_adult"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginTop="16dp"-->
+        <!--                    android:layout_marginEnd="16dp"-->
+        <!--                    android:layout_marginBottom="16dp"-->
+        <!--                    android:checked="false"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/label_adult"-->
-<!--                    style="@style/text_style_body_large"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:text="Adult Content"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/adult_icon"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
+        <!--                <TextView-->
+        <!--                    android:id="@+id/label_adult"-->
+        <!--                    style="@style/text_style_body_large"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginStart="16dp"-->
+        <!--                    android:text="Adult Content"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintStart_toEndOf="@+id/adult_icon"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_settings_about"
@@ -345,14 +360,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-<!--        <TextView-->
-<!--            style="@style/text_style_label_small"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginBottom="@dimen/space8x"-->
-<!--            android:layout_weight="1"-->
-<!--            android:gravity="bottom"-->
-<!--            android:text="Version 1.0" />-->
+        <!--        <TextView-->
+        <!--            style="@style/text_style_label_small"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginBottom="@dimen/space8x"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:gravity="bottom"-->
+        <!--            android:text="Version 1.0" />-->
     </LinearLayout>
 </layout>

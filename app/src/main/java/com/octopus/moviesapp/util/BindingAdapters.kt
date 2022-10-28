@@ -8,8 +8,10 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.ChipGroup
@@ -18,6 +20,7 @@ import com.octopus.moviesapp.ui.search.ChipGroupClickListener
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.ui.base.BaseAdapter
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -217,4 +220,10 @@ fun <T> hideWhenEmpty(view: View, items: List<T>?) {
 @BindingAdapter(value = ["app:showIfEmpty"])
 fun <T> showWhenEmpty(view: View, items: List<T>?) {
     view.isVisible = items?.isEmpty() ?: false
+}
+
+@BindingAdapter(value = ["app:items"])
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+    (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
+    view.scrollToPosition(0)
 }

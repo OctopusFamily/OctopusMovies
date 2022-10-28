@@ -1,16 +1,17 @@
 package com.octopus.moviesapp.data.remote.service
 
+import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
 import com.octopus.moviesapp.data.remote.response.BaseResponse
 import com.octopus.moviesapp.data.remote.response.dto.RatingDTO
+import com.octopus.moviesapp.data.remote.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
-import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
-import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
+import com.octopus.moviesapp.data.remote.response.lists.*
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
 import com.octopus.moviesapp.domain.model.Movie
@@ -150,4 +151,18 @@ interface TMDBApiService {
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String,
     ): BaseResponse<MovieDTO>
+    @GET("list/{list_id}")
+    suspend fun getList(
+        @Path("list_id") listId: Int,
+    ): ListResponseDto<ListDetailsDto>
+
+    @GET("account")
+    suspend fun getAccountDetails(
+        @Query("session_id") sessionId: String?
+    ): AccountDTO
+
+    @DELETE("authentication/session")
+    suspend fun logout(
+        @Query("session_id") sessionId: String
+    ): Response<LogoutResponse>
 }

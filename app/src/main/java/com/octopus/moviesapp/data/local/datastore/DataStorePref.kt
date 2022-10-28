@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.local
+package com.octopus.moviesapp.data.local.datastore
 
 import kotlinx.coroutines.flow.Flow
 

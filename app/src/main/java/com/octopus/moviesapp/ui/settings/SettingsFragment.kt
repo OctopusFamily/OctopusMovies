@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSettingsBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
@@ -12,13 +13,12 @@ import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.movies.MoviesFragmentDirections
 import com.octopus.moviesapp.util.SettingsService
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_settings
     override val viewModel: SettingsViewModel by viewModels()
     private val settingsService = SettingsService
@@ -44,7 +44,34 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
                     navigateToAbout()
                 }
             }
+            loginClicked.observeEvent(viewLifecycleOwner) {
+                if (it) {
+                    navigateToLogin()
+                }
+            }
+            logOutClicked.observeEvent(viewLifecycleOwner) {
+                if (it) {
+                    restartApp()
+                }
+            }
+            navigateToMyLists.observeEvent(viewLifecycleOwner) { clicked ->
+                if (clicked) {
+                    navigateToMyLists()
+                }
+            }
         }
+    }
+
+    private fun navigateToLogin() {
+        findNavController().navigate(
+            R.id.action_settingsFragment_to_loginFragment
+        )
+    }
+
+    private fun restartApp() {
+        val intent = requireActivity().intent
+        requireActivity().finish()
+        startActivity(intent)
     }
 
     private fun showLanguageSelectionBottomSheet() {
@@ -86,6 +113,12 @@ class SettingsFragment() : BaseFragment<FragmentSettingsBinding>() {
             .findNavController()
             .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment())
 
+    }
+
+    private fun navigateToMyLists() {
+        findNavController().navigate(
+            SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
+        )
     }
 
     private fun showThemeSelectionBottomSheet() {

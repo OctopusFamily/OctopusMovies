@@ -2,8 +2,8 @@ package com.octopus.moviesapp.ui.lists
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.data.repository.lists.ListsRepository
 import com.octopus.moviesapp.domain.model.CreatedList
 import com.octopus.moviesapp.ui.base.BaseViewModel
@@ -17,11 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyListsViewModel @Inject constructor(
-    private val listsRepository: ListsRepository,
-    savedStateHandle: SavedStateHandle,
-) : BaseViewModel(), MyListsClicksListener {
+    private val listsRepository: ListsRepository
+  ) : BaseViewModel(), MyListsClicksListener {
 
-    private val args = MyListsFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
     private val _myListsState = MutableLiveData<UiState<MutableList<CreatedList>>>(UiState.Loading)
     val myListsState: LiveData<UiState<MutableList<CreatedList>>> get() = _myListsState
@@ -44,6 +42,8 @@ class MyListsViewModel @Inject constructor(
     val isEmptyList: LiveData<Boolean>
         get() = _isEmptyList
 
+    private val sessionID = MyApplication.sessionId
+
 
     init {
         getData()
@@ -52,9 +52,9 @@ class MyListsViewModel @Inject constructor(
     fun getData() {
         viewModelScope.launch {
             wrapResponse {
-                listsRepository.getAllLists(0, args.sessionId).toMutableList()
+                listsRepository.getAllLists(0,sessionID ).toMutableList()
             }.collectLatest {
-                _myListsState.postValue(it)
+                 _myListsState.postValue(it)
             }
         }
     }
@@ -70,7 +70,7 @@ class MyListsViewModel @Inject constructor(
     fun onClickAddList() {
         viewModelScope.launch {
             wrapResponse {
-                listsRepository.createList(args.sessionId, listName.value.toString())
+                listsRepository.createList(sessionID, listName.value.toString())
             }.collectLatest {
                 if (it is UiState.Success) {
                     addList(CreatedList(it.data.listId ?: 0, 0, listName.value.toString()))
@@ -98,7 +98,8 @@ class MyListsViewModel @Inject constructor(
     }
 
     override fun onListClick(item: CreatedList) {
-        TODO("Not yet implemented")
+        _item.postValue(Event(item))
+
     }
 
 }
