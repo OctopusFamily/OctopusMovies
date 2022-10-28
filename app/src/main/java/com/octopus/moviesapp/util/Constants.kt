@@ -22,4 +22,6 @@ object Constants {
     const val TRENDING_TABLE = "TRENDING_TABLE"
     const val DATABASE_NAME = "octopusMovies.db"
 
+    const val ITEMS_PER_PAGE = 20
+
 }

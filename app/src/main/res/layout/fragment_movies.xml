@@ -11,10 +11,6 @@
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
-
-        <variable
-            name="moviesCategory"
-            type="com.octopus.moviesapp.domain.types.MoviesCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,44 +29,14 @@
             android:clipToPadding="false">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/movies_chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleSelection="true"
                 app:selectionRequired="true"
+                setSelectedChip="@{viewModel.moviesMainUiState.selectedChip.first}"
+                onCheckedChanged="@{viewModel::onChipSelected}"
                 style="@style/Widget.Material3.Chip.Suggestion">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/popular"
-                    app:chipStrokeColor="@android:color/transparent"
-                    style="@style/ChipStyle"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.POPULAR)}"
-                    android:checked="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/now_playing"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.NOW_PLAYING)}"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/upcoming"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.UPCOMING)}"/>
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/ChipStyle"
-                    android:text="@string/top_rated"
-                    app:chipStrokeColor="@android:color/transparent"
-                    android:onClick="@{()->viewModel.onChipClick(moviesCategory.TOP_RATED)}"/>
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
@@ -80,7 +46,6 @@
             android:layout_height="0dp"
             android:paddingTop="@dimen/space2x"
             android:paddingHorizontal="@dimen/space6x"
-            app:showWhenStateIsSuccess="@{viewModel.moviesListState}"
             app:spanCount="2"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -88,68 +53,52 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_movie" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.moviesListState}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/primary" />
+<!--        <ProgressBar-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:indeterminateTint="@color/primary" />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/background"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"
-            app:showWhenStateIsError="@{viewModel.moviesListState}"
-            tools:ignore="UseCompoundDrawables">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"-->
+<!--            tools:ignore="UseCompoundDrawables">-->
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_no_mobile_internet"
-                android:layout_width="@dimen/size_lottie"
-                android:layout_height="@dimen/size_lottie"
-                android:layout_margin="@dimen/space4x"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.moviesListState}" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:text="@string/oops"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/font_primary_color"-->
+<!--                android:textSize="22sp"-->
+<!--                style="@style/text_style_body_large"/>-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/oops"
-                android:textAlignment="center"
-                android:textColor="@color/font_primary_color"
-                android:textSize="22sp" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/error"-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:text="@string/unknown_error"-->
+<!--                tools:text="Something went wrong!"/>-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:textColor="@color/error"
-                app:setTextError="@{viewModel.moviesListState}" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/space8x"-->
+<!--                android:onClick="@{()->viewModel.tryFetchMoviesAgain()}"-->
+<!--                android:text="@string/retry"-->
+<!--                android:textAllCaps="true" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space8x"
-                android:onClick="@{()->viewModel.tryLoadMoviesAgain()}"
-                android:text="@string/retry"
-                android:textAllCaps="true" />
-
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
