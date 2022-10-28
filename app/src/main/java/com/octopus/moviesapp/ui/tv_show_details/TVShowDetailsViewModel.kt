@@ -1,42 +1,70 @@
 package com.octopus.moviesapp.ui.tv_show_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
-import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.model.Trailer
+import com.octopus.moviesapp.domain.tvshow_details_use_case.FetchTVShowCastUseCase
+import com.octopus.moviesapp.domain.tvshow_details_use_case.FetchTVShowDetailsByIdUseCase
+import com.octopus.moviesapp.domain.tvshow_details_use_case.FetchTVShowTrailerUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
-import com.octopus.moviesapp.util.ConnectionTracker
-import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.ui.tv_show_details.tvShowCastState.TVShowCastUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.tvShowCastState.TvShowCastMainUiState
+import com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState.TVShowDetailsUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.tvShowDetailsState.TvShowDetailsMainUiState
+import com.octopus.moviesapp.ui.tv_show_details.tvShowTrailerState.TVShowTrailerUiState
+import com.octopus.moviesapp.ui.tv_show_details.tvShowTrailerState.TVShowTrailerUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.tvShowTrailerState.TvShowTrailerMainUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
+    private val fetchTVShowDetailsByIdUseCase: FetchTVShowDetailsByIdUseCase,
+    private val fetchTVShowTrailerUseCase: FetchTVShowTrailerUseCase,
+    private val fetchTVShowCastUseCase: FetchTVShowCastUseCase,
+    private val tvShowDetailsUiStateMapper: TVShowDetailsUiStateMapper,
+    private val tvShowTrailerUiStateMapper: TVShowTrailerUiStateMapper,
+    private val tvShowCastUiStateMapper: TVShowCastUiStateMapper,
     private val tvShowsRepository: TVShowsRepository,
-    private val connectionTracker: ConnectionTracker,
     saveStateHandle: SavedStateHandle,
-    ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
+) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
-    private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
-    val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
+    private val _tvShowDetailsState = MutableStateFlow(TvShowDetailsMainUiState())
+    val tvShowDetailsState: StateFlow<TvShowDetailsMainUiState> get() = _tvShowDetailsState
 
-    private val _tvTrailerState = MutableLiveData<UiState<Trailer>>(UiState.Loading)
-    val tvTrailerState: LiveData<UiState<Trailer>> get() = _tvTrailerState
+    private val _tvShowTrailerState = MutableStateFlow(TvShowTrailerMainUiState())
+    val tvShowTrailerState: StateFlow<TvShowTrailerMainUiState> get() = _tvShowTrailerState
+
+    private val _tvShowCastState = MutableStateFlow(TvShowCastMainUiState())
+    val tvShowCastState:  StateFlow<TvShowCastMainUiState> get() = _tvShowCastState
+
+
+
+//    private val _tvShowDetailsState = MutableLiveData<UiState<TVShowDetails>>(UiState.Loading)
+//    val tvShowDetailsState: LiveData<UiState<TVShowDetails>> get() = _tvShowDetailsState
+
+//    private val _tvTrailerState = MutableLiveData<UiState<Trailer>>(UiState.Loading)
+//    val tvTrailerState: LiveData<UiState<Trailer>> get() = _tvTrailerState
+
+//    private val _tvShowCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
+//    val tvShowCastState: LiveData<UiState<List<Cast>>> get() = _tvShowCastState
+
 
     private val _rateTvShow = MutableLiveData<Event<Int>>()
     val rateTvShow: LiveData<Event<Int>> get() = _rateTvShow
@@ -44,10 +72,7 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
 
-    private val _tvTrailer = MutableLiveData<Trailer>()
-
-    private val _tvShowCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
-    val tvShowCastState: LiveData<UiState<List<Cast>>> get() = _tvShowCastState
+    private val _tvTrailer = MutableLiveData<TVShowTrailerUiState>()
 
     private val _tvShowSeasonsState = MutableLiveData<UiState<List<Season>>>(UiState.Loading)
     val tvShowSeasonsState: LiveData<UiState<List<Season>>> get() = _tvShowSeasonsState
@@ -72,15 +97,6 @@ class TVShowDetailsViewModel @Inject constructor(
 
     private var tvShowID = 0
     private fun loadTVShowDetails(tvShowId: Int) {
-        tvShowID = tvShowId
-
-        viewModelScope.launch {
-            if (connectionTracker.isInternetConnectionAvailable()) {
-                getTVShowDetailsInfo()
-            } else {
-                _tvShowDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
-            }
-        }
 
     }
 
@@ -90,16 +106,57 @@ class TVShowDetailsViewModel @Inject constructor(
         getTVTrailer(args.tvShowId)
     }
 
-
+    //
+//    //use case: fetchTVShowTrailerUseCase
     private fun getTVTrailer(tvShowId: Int) {
         viewModelScope.launch {
-            wrapResponse { tvShowsRepository.getTVShowsTrailersById(tvShowId) }.collectLatest {
-                _tvTrailerState.postValue(it)
+            try {
+                val result = fetchTVShowTrailerUseCase(tvShowId)
+                val tvShowTrailerState = tvShowTrailerUiStateMapper.map(result)
+                _tvShowTrailerState.update {
+                    it.copy(isLoading = false, isSuccess = true, tvShowTrailersUiState = tvShowTrailerState
+                    )
+                }
+            } catch (e: Exception) {
+                _tvShowTrailerState.update { it.copy(isLoading = false, isError = true) }
             }
         }
     }
 
-    fun onLoadTrailerSuccess(tvTrailer: Trailer) {
+    //use case: fetchTVShowDetailsByIdUseCase
+    private fun getTVShowDetails(tvShowId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = fetchTVShowDetailsByIdUseCase(tvShowId)
+                val tvShowDetailsState = tvShowDetailsUiStateMapper.map(result)
+                _tvShowDetailsState.update {
+                    it.copy(isLoading = false, isSuccess = true, tvShowDetailsUiState = tvShowDetailsState
+                    )
+                }
+            } catch (e: Exception) {
+                _tvShowDetailsState.update { it.copy(isLoading = false, isError = true) }
+            }
+        }
+    }
+
+
+//    //use case: fetchCastByIdUseCase
+    private fun getTVShowCast(tvShowId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = fetchTVShowCastUseCase(tvShowId)
+                val tvShowCastsState = tvShowCastUiStateMapper.map(result)
+                _tvShowCastState.update {
+                    it.copy(isLoading = false, isSuccess = true, tVShowCastUiState = tvShowCastsState
+                    )
+                }
+            } catch (e: Exception) {
+                _tvShowCastState.update { it.copy(isLoading = false, isError = true) }
+            }
+        }
+    }
+
+    fun onLoadTrailerSuccess(tvTrailer: TVShowTrailerUiState) {
         _tvTrailer.postValue(tvTrailer)
     }
 
@@ -126,24 +183,6 @@ class TVShowDetailsViewModel @Inject constructor(
         loadTVShowDetails(args.tvShowId)
     }
 
-    private fun getTVShowDetails(tvID: Int) {
-        viewModelScope.launch {
-            wrapResponse { tvShowsRepository.getTVShowDetailsById(tvID) }.collectLatest {
-                _tvShowDetailsState.postValue(it)
-            }
-        }
-    }
-
-
-
-    private fun getTVShowCast(tvShowId: Int) {
-        viewModelScope.launch {
-            wrapResponse { tvShowsRepository.getTVShowCastById(tvShowId) }.collectLatest {
-                _tvShowCastState.postValue(it)
-                Log.i("wsh", "$it")
-            }
-        }
-    }
 
     override fun onGenreClick(genre: Genre) {
         _navigateToTVShowsGenre.postEvent(genre)

@@ -82,8 +82,8 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
     private fun handleMovieCast() {
         viewModel.movieCastState.observe(viewLifecycleOwner) { uiState ->
             if (uiState is UiState.Success) {
-                itemsList.add(RecyclerViewItem.CastItem(uiState.data))
-                movieDetailsAdapter.setItems(itemsList)
+               // itemsList.add(RecyclerViewItem.CastItem(uiState.data))
+               // movieDetailsAdapter.setItems(itemsList)
             }
         }
     }

@@ -33,7 +33,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:showWhenStateIsSuccess="@{viewModel.tvShowDetailsState}"
+            app:showIfTrue="@{viewModel.tvShowDetailsState.success}"
             android:background="@color/background">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.tvShowDetails.coverImageUrl}"
+                app:imageUrl="@{viewModel.tvShowDetailsState.tvShowDetailsUiState.coverImageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +72,7 @@
                 android:layout_marginTop="186dp"
                 android:elevation="8dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.tvShowDetails.posterImageUrl}"
+                app:imageUrl="@{viewModel.tvShowDetailsState.tvShowDetailsUiState.coverImageUrl}"
                 app:layout_constraintStart_toStartOf="@+id/tv_show_cover_image_view"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/rounded_image_view"
@@ -87,7 +87,7 @@
                 android:layout_marginTop="@dimen/space4x"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{viewModel.tvShowDetails.title}"
+                android:text="@{viewModel.tvShowDetailsState.tvShowDetailsUiState.title}"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_show_poster_image_view"
@@ -231,7 +231,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.tvShowDetailsState}"
+            app:showIfTrue="@{viewModel.tvShowDetailsState.loading}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -242,9 +242,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:visibility="invisible"
             android:orientation="vertical"
             android:background="@color/background"
-            app:showWhenStateIsError="@{viewModel.tvShowDetailsState}"
+            app:showIfTrue="@{viewModel.tvShowDetailsState.error}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UseCompoundDrawables">
@@ -260,7 +261,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.tvShowDetailsState}" />
+                app:showIfTrue="@{viewModel.tvShowDetailsState.error}" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -277,7 +278,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:setTextError="@{viewModel.tvShowDetailsState}"
+                app:showIfTrue="@{viewModel.tvShowDetailsState.error}"
                 android:textAlignment="center"
                 android:textColor="@color/error" />
 
