@@ -42,7 +42,6 @@ class RatingMovieDialog: BaseDialogFragment<DialogRateBinding>() {
             getRate(it)
             rate = it
         }
-
     }
 
     private fun updateMovieRating() {

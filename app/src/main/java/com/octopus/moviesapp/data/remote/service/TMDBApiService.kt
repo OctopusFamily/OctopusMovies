@@ -138,19 +138,6 @@ interface TMDBApiService {
         @Query("session_id") sessionId: String
     ): BaseResponse<CreatedListsDto>
 
-    @FormUrlEncoded
-    @POST("movie/{movie_id}/rating")
-    suspend fun updateMovieRating(
-        @Path("movie_id") movieId: Int,
-        @Query("session_id") sessionId: String,
-        @Field("value") ratingValue: Float,
-    ): RatingDTO
-
-    @GET("account/{account_id}/rated/movies")
-    suspend fun getRatedMovies(
-        @Path("account_id") accountId: Int,
-        @Query("session_id") sessionId: String,
-    ): BaseResponse<MovieDTO>
     @GET("list/{list_id}")
     suspend fun getList(
         @Path("list_id") listId: Int,
@@ -165,4 +152,19 @@ interface TMDBApiService {
     suspend fun logout(
         @Query("session_id") sessionId: String
     ): Response<LogoutResponse>
+
+// Rating End Points
+    @FormUrlEncoded
+    @POST("movie/{movie_id}/rating")
+    suspend fun updateMovieRating(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: String,
+        @Field("value") ratingValue: Float,
+    ): RatingDTO
+
+    @GET("account/{account_id}/rated/movies")
+    suspend fun getRatedMovies(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: String,
+    ): BaseResponse<MovieDTO>
 }

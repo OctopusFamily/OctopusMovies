@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.Constants
@@ -59,7 +59,7 @@ class RatingViewModel @Inject constructor(
                     }.collect {
                         Log.i(
                             "RATING",
-                            "collect ------ state is ${it.javaClass.simpleName} and data is ${it.toData()}"
+                            "collect ------ state is ${it.javaClass.simpleName} and data is ${it.toData()?.success}"
                         )
                         if (it is UiState.Success ){
                             _ratedDone.postEvent(true)
