@@ -87,7 +87,7 @@ class MovieDetailsFragment :
 
     private fun handleMovieCast() {
         lifecycleScope.launch {
-            viewModel.movieCastState.collect { uiState ->
+            viewModel.movieDetails.collect { uiState ->
                 if (uiState.isSuccess) {
                     itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
                     movieDetailsAdapter.setItems(itemsList)
