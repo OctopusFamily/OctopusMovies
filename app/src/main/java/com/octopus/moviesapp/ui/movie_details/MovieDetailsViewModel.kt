@@ -9,8 +9,9 @@ import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.GetMovieCastUseCase
-import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.GetMovieDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieCastUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieTrailerUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
@@ -33,10 +34,9 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
     private val connectionTracker: ConnectionTracker,
-    private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-//    private val getMovieTrailerUseCase: GetMovieTrailerUseCase,
-//    private val movieDetailsUiStateMapper: MovieDetailsUiStateMapper,
-    private val getMovieCastUseCase: GetMovieCastUseCase,
+    private val fetchMovieDetailsUseCase: FetchMovieDetailsUseCase,
+    private val fetchMovieTrailerUseCase: FetchMovieTrailerUseCase,
+    private val fetchMovieCastUseCase: FetchMovieCastUseCase,
     private val castUiStateMapper: CastUiStateMapper,
 
     saveStateHandle: SavedStateHandle,
@@ -134,7 +134,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { getMovieDetailsUseCase(movieId) }.collectLatest {
+            wrapResponse { fetchMovieDetailsUseCase(movieId) }.collectLatest {
                 _movieDetailsState.postValue(it)
             }
         }
@@ -142,7 +142,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun getMovieTrailer(movieId: Int) {
         viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieTrailerById(movieId) }.collectLatest {
+            wrapResponse { fetchMovieTrailerUseCase(movieId) }.collectLatest {
                 _movieTrailerState.postValue(it)
             }
         }
@@ -151,7 +151,7 @@ class MovieDetailsViewModel @Inject constructor(
     private fun getMovieCast(movieId: Int) {
         viewModelScope.launch {
             try {
-                val result = getMovieCastUseCase(movieId)
+                val result = fetchMovieCastUseCase(movieId)
                 val castUiState = castUiStateMapper.map(result)
                 _movieCastState.update {
                     it.copy(
