@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.data_source
+package com.octopus.moviesapp.data.remote.pagingsource
 
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
@@ -13,6 +13,6 @@ class MoviesPagingSource @Inject constructor(
 ) : BasePagingSource<Movie>() {
 
     override suspend fun getData(page: Int): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+        return moviesMapper.mapList(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
     }
 }

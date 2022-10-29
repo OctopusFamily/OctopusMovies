@@ -41,8 +41,8 @@
             app:destination="@id/TVShowsGenreFragment" />
     </fragment>
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.octopus.moviesapp.ui.settings.SettingsFragment"
+        android:id="@+id/dashboardFragment"
+        android:name="com.octopus.moviesapp.ui.dashboard.DashboardFragment"
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_aboutFragment"

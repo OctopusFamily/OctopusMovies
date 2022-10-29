@@ -1,12 +1,13 @@
-package com.octopus.moviesapp.ui.settings
+package com.octopus.moviesapp.ui.dashboard
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.databinding.FragmentSettingsBinding
+import com.octopus.moviesapp.databinding.FragmentDashboardBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
 import com.octopus.moviesapp.databinding.LayoutThemeSelectionBinding
 import com.octopus.moviesapp.domain.types.Language
@@ -18,9 +19,9 @@ import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
-    override fun getLayoutId(): Int = R.layout.fragment_settings
-    override val viewModel: SettingsViewModel by viewModels()
+class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
+    override fun getLayoutId(): Int = R.layout.fragment_dashboard
+    override val viewModel: DashboardViewModel by viewModels()
     private val settingsService = SettingsService
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,13 +112,13 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     private fun navigateToAbout() {
         requireView()
             .findNavController()
-            .navigate(SettingsFragmentDirections.actionSettingsFragmentToAboutFragment())
+            .navigate(DashboardFragmentDirections.actionSettingsFragmentToAboutFragment())
 
     }
 
     private fun navigateToMyLists() {
         findNavController().navigate(
-            SettingsFragmentDirections.actionSettingsFragmentToMyListsFragment(viewModel.sessionId)
+            DashboardFragmentDirections.actionSettingsFragmentToMyListsFragment(MyApplication.sessionId)
         )
     }
 

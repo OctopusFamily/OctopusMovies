@@ -21,7 +21,7 @@ class GenresRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getListOfMoviesByGenresId(genreId: Int): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByGenresId(genreId).items)
+        return moviesMapper.mapList(tmdbApiService.getMoviesByGenresId(genreId).items)
     }
 
     override suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow> {

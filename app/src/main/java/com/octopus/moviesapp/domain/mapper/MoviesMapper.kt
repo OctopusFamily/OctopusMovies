@@ -6,16 +6,14 @@ import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.convertStringToDate
 import javax.inject.Inject
 
-class MoviesMapper @Inject constructor() : Mapper<List<MovieDTO>, List<Movie>>() {
-    override fun map(input: List<MovieDTO>): List<Movie> {
-        return input.map {
-            Movie(
-                id = it.id ?: 0,
-                title = it.originalTitle ?: "",
-                posterImageUrl = buildImageUrl(it.posterPath),
-                voteAverage = it.voteAverage ?: 0f,
-                releaseDate = convertStringToDate(it.releaseDate),
-            )
-        }
+class MoviesMapper @Inject constructor() : Mapper<MovieDTO, Movie>() {
+    override fun map(input: MovieDTO): Movie {
+        return Movie(
+            id = input.id ?: 0,
+            title = input.originalTitle ?: "",
+            posterImageUrl = buildImageUrl(input.posterPath),
+            voteAverage = input.voteAverage ?: 0f,
+            releaseDate = convertStringToDate(input.releaseDate),
+        )
     }
 }
