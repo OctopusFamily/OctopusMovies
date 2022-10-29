@@ -19,7 +19,7 @@ class MoviesRepositoryImpl @Inject constructor(
         moviesCategory: MoviesCategory,
         page: Int
     ): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+        return moviesMapper.mapList(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
     }
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetails {

@@ -132,7 +132,7 @@ class HomeViewModel @Inject constructor(
         Log.d("MALT", "MOVIE CLICKED WITH ID: $movieId")
     }
 
-    override fun onTVShowClick(tvShow: TVShow) {
-        Log.d("MALT", "TV SHOW CLICKED WITH ID: ${tvShow.id}")
+    override fun onTVShowClick(tvShowId: Int) {
+        Log.d("MALT", "MOVIE CLICKED WITH ID: $tvShowId")
     }
 }

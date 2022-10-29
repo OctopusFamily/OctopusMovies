@@ -11,9 +11,6 @@
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener" />
-        <variable
-            name="tvShowCategory"
-            type="com.octopus.moviesapp.domain.types.TVShowsCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,43 +31,14 @@
             android:clipToPadding="false">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tv_shows_chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleSelection="true"
-                app:selectionRequired="true">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.onChipClick(tvShowCategory.POPULAR)}"
-                    android:text="@string/popular"
-                    app:chipStrokeColor="@android:color/transparent"
-                    style="@style/ChipStyle"
-                    android:checked="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.onChipClick(tvShowCategory.ON_THE_AIR)}"
-                    android:text="@string/on_the_air"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.onChipClick(tvShowCategory.AIRING_TODAY)}"
-                    android:text="@string/airing_today"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.onChipClick(tvShowCategory.TOP_RATED)}"
-                    android:text="@string/top_rated"
-                    style="@style/ChipStyle"
-                    app:chipStrokeColor="@android:color/transparent" />
+                app:selectionRequired="true"
+                setSelectedChip="@{viewModel.tvShowsMainUiState.selectedChip.first}"
+                onCheckedChanged="@{viewModel::onChipSelected}"
+                style="@style/Widget.Material3.Chip.Suggestion">
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -85,72 +53,71 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontal_scroll_view"
-            app:showWhenStateIsSuccess="@{viewModel.tvShowsListState}"
             tools:listitem="@layout/item_tv_show" />
 
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/primary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsLoading="@{viewModel.tvShowsListState}" />
+<!--        <ProgressBar-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:indeterminateTint="@color/primary"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:showWhenStateIsLoading="@{viewModel.tvShowsListState}" />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/background"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"
-            app:showWhenStateIsError="@{viewModel.tvShowsListState}"
-            tools:ignore="UseCompoundDrawables">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:background="@color/background"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"-->
+<!--            app:showWhenStateIsError="@{viewModel.tvShowsListState}"-->
+<!--            tools:ignore="UseCompoundDrawables">-->
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_no_mobile_internet"
-                android:layout_width="@dimen/size_lottie"
-                android:layout_height="@dimen/size_lottie"
-                android:layout_margin="@dimen/space4x"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.tvShowsListState}" />
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/lottie_no_mobile_internet"-->
+<!--                android:layout_width="@dimen/size_lottie"-->
+<!--                android:layout_height="@dimen/size_lottie"-->
+<!--                android:layout_margin="@dimen/space4x"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="false"-->
+<!--                app:setLottieAnimationView="@{viewModel.tvShowsListState}" />-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/oops"
-                android:textAlignment="center"
-                android:textColor="@color/font_primary_color"
-                android:textSize="22sp" />
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:text="@string/oops"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/font_primary_color"-->
+<!--                android:textSize="22sp" />-->
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:textColor="@color/error"
-                app:setTextError="@{viewModel.tvShowsListState}" />
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/error"-->
+<!--                app:setTextError="@{viewModel.tvShowsListState}" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space8x"
-                android:onClick="@{()->viewModel.tryLoadTVShowsAgain()}"
-                android:text="@string/retry"
-                android:textAllCaps="true" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/space8x"-->
+<!--                android:onClick="@{()->viewModel.tryLoadTVShowsAgain()}"-->
+<!--                android:text="@string/retry"-->
+<!--                android:textAllCaps="true" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
