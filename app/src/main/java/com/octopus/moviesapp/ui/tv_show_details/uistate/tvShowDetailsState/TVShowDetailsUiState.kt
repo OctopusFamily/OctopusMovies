@@ -1,7 +1,5 @@
 package com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState
 
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.Season
 import java.util.*
 
 data class TVShowDetailsUiState(
@@ -18,6 +16,6 @@ data class TVShowDetailsUiState(
     val tagline: String = "",
     val overview: String = "",
     val status: String = "",
-    val genres: List<TVShowDetailsGenresUiState> = emptyList(),
+    val genres: List<GenresUiState> = emptyList(),
     val seasons: List<TVShowSeasonUiState> = emptyList(),
 )
