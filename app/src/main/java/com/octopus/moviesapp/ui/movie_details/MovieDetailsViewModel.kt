@@ -9,12 +9,12 @@ import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.domain.moviedetails_usecase.GetMovieCastUseCase
-import com.octopus.moviesapp.domain.moviedetails_usecase.GetMovieDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.GetMovieCastUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.GetMovieDetailsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastMainUiState
 import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
@@ -49,8 +49,8 @@ class MovieDetailsViewModel @Inject constructor(
     val movieTrailerState: LiveData<UiState<Trailer>> get() = _movieTrailerState
 
 
-    private val _movieCastState = MutableStateFlow(CastMainUiState())
-    val movieCastState: StateFlow<CastMainUiState> get() = _movieCastState
+    private val _movieCastState = MutableStateFlow(MovieDetailsMainUiState())
+    val movieCastState: StateFlow<MovieDetailsMainUiState> get() = _movieCastState
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
     val movieDetails: LiveData<MovieDetails> get() = _movieDetails
@@ -155,7 +155,7 @@ class MovieDetailsViewModel @Inject constructor(
                 val castUiState = castUiStateMapper.map(result)
                 _movieCastState.update {
                     it.copy(
-                        isLoading = false, isSuccess = true, tVShowCastUiState = castUiState
+                        isLoading = false, isSuccess = true, movieCastUiState = castUiState
                     )
                 }
             } catch (e: Exception) {

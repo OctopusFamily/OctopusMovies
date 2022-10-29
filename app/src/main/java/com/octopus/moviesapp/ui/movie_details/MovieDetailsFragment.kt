@@ -87,7 +87,7 @@ class MovieDetailsFragment :
         lifecycleScope.launch {
             viewModel.movieCastState.collect { uiState ->
                 if (uiState.isSuccess) {
-                    itemsList.add(RecyclerViewItem.CastItem(uiState.tVShowCastUiState))
+                    itemsList.add(RecyclerViewItem.CastItem(uiState.movieCastUiState))
                     movieDetailsAdapter.setItems(itemsList)
                 }
             }

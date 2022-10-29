@@ -84,7 +84,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
 
     private fun observeTrailerState() {
             lifecycleScope.launch {
-            viewModel.tvShowTrailerState.collect { uiState ->
+            viewModel.tvShowDetailsState.collect { uiState ->
                 if (uiState.isSuccess) {
                     viewModel.onLoadTrailerSuccess(uiState.tvShowTrailersUiState)
                 }
@@ -94,7 +94,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
 
     private fun handleTVShowCast() {
        lifecycleScope.launch {
-           viewModel.tvShowCastState.collect{ uiState ->
+           viewModel.tvShowDetailsState.collect{ uiState ->
                if (uiState.isSuccess) {
                    itemsList.add(RecyclerViewItem.CastItem(uiState.tVShowCastUiState))
                    tvShowDetailsAdapter.setItems(itemsList)
