@@ -20,7 +20,7 @@ class PersonRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPersonMoviesById(personId: Int): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getPersonMoviesById(personId).items)
+        return moviesMapper.mapList(tmdbApiService.getPersonMoviesById(personId).items)
     }
 
     override suspend fun getPersonTVShowsById(personId: Int): List<TVShow> {

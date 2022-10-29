@@ -13,6 +13,6 @@ class MoviesPagingSource @Inject constructor(
 ) : BasePagingSource<Movie>() {
 
     override suspend fun getData(page: Int): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+        return moviesMapper.mapList(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
     }
 }
