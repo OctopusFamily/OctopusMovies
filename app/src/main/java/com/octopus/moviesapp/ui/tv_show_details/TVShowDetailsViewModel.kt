@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowCastUseCase
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowDetailsByIdUseCase
@@ -16,7 +15,7 @@ import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.ui.tv_show_details.mappers.*
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowTrailerUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TvShowDetailsMainUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -47,7 +46,7 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
 
-    private val _tvTrailer = MutableLiveData<TVShowTrailerUiState>()
+    private val _tvTrailer = MutableLiveData<TrailerUiState>()
 
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
@@ -88,7 +87,7 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     private fun onSuccess(
-        tvShowTrailerState: TVShowTrailerUiState,
+        tvShowTrailerState: TrailerUiState,
         tvShowCastsState: List<CastUiState>,
         tvShowDetailsState: TVShowDetailsUiState
 
@@ -110,7 +109,7 @@ class TVShowDetailsViewModel @Inject constructor(
 
 
 
-    fun onLoadTrailerSuccess(tvTrailer: TVShowTrailerUiState) {
+    fun onLoadTrailerSuccess(tvTrailer: TrailerUiState) {
         _tvTrailer.postValue(tvTrailer)
     }
 

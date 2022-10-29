@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.ui.tv_show_details.uistate
 
 
-data class TVShowTrailerUiState(
+data class TrailerUiState(
     val url: String = ""
 )

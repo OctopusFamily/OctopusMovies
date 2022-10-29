@@ -12,6 +12,7 @@ import com.octopus.moviesapp.databinding.*
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.nested.*
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
@@ -23,7 +24,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class MovieInfoViewHolder(
         val binding: LayoutNestedInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(movieDetails: MovieDetails, genresListener: NestedGenresListener) {
+        fun bind(movieDetails: MovieDetailsUiState, genresListener: NestedGenresListener) {
             binding.run {
                 taglineTextView.text = movieDetails.tagline
                 overviewTextView.text = movieDetails.overview

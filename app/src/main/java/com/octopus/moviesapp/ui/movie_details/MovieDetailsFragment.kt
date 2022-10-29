@@ -15,7 +15,6 @@ import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -73,12 +72,15 @@ class MovieDetailsFragment :
     }
 
     private fun handleMovieDetails() {
-        viewModel.movieDetailsState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadMovieDetailsSuccess(uiState.data)
-                itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.data))
-                movieDetailsAdapter.setItems(itemsList)
-                binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
+        lifecycleScope.launch {
+
+            viewModel.movieDetails.collect { uiState ->
+                if (uiState.isSuccess) {
+                    viewModel.onLoadMovieDetailsSuccess(uiState)
+                    itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.details))
+                    movieDetailsAdapter.setItems(itemsList)
+                    binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
+                }
             }
         }
     }
@@ -87,7 +89,7 @@ class MovieDetailsFragment :
         lifecycleScope.launch {
             viewModel.movieCastState.collect { uiState ->
                 if (uiState.isSuccess) {
-                    itemsList.add(RecyclerViewItem.CastItem(uiState.movieCastUiState))
+                    itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
                     movieDetailsAdapter.setItems(itemsList)
                 }
             }
@@ -95,9 +97,11 @@ class MovieDetailsFragment :
     }
 
     private fun observeTrailerState() {
-        viewModel.movieTrailerState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadTrailerSuccess(uiState.data)
+        lifecycleScope.launch {
+            viewModel.movieDetails.collect { uiState ->
+                if (uiState.isSuccess) {
+                    viewModel.onLoadTrailerSuccess(uiState.trailer)
+                }
             }
         }
     }
