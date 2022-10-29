@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.data.repository.movies
 
 import com.octopus.moviesapp.data.remote.pagingsource.MoviesPagingSource
+import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.*
 import com.octopus.moviesapp.domain.model.*
@@ -18,8 +19,8 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getMoviesByCategory(
         moviesCategory: MoviesCategory,
         page: Int
-    ): List<Movie> {
-        return moviesMapper.mapList(tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items)
+    ): List<MovieDTO> {
+        return tmdbApiService.getMoviesByCategory(moviesCategory.pathName, page).items
     }
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetails {

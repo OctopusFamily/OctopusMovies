@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentHomeBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.home.uistate.TrendingUiState
+import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -24,7 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initHomeAdapter()
-        observeLiveData()
+        observeMainUiState()
         handleEvents()
         setOnBackButtonClickListener()
     }
@@ -34,56 +39,50 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.homeRecyclerView.adapter = homeAdapter
     }
 
-    private fun observeLiveData() {
-        observeTrendingMoviesState()
-        observeTrendingTVShowsState()
-        observeTrendingPeopleState()
-        observeRecommendedMoviesState()
-        observeRecommendedTVShowsState()
-    }
-
-    private fun observeTrendingMoviesState() {
-        viewModel.trendingMoviesState.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { trendingList ->
-                homeAdapterItems.add(0, RecyclerViewItem.ImageSliderItem(getString(R.string.trending_movies), trendingList))
-                homeAdapter.setItems(homeAdapterItems)
+    fun observeMainUiState() {
+        lifecycleScope.launch {
+            viewModel.homeMainUiState.collectLatest {
+                setTrendingMovies(it.trendingMoviesUiState)
+                setRecommendedMoviesState(it.moviesItemUiState)
+                setTrendingTVShows(it.trendingTVShowsUiState)
+                setRecommendedTVShowsState(it.tvShowsItemUiState)
+                setTrendingPeople(it.trendingPeopleUiState)
             }
         }
     }
 
-    private fun observeTrendingTVShowsState() {
-        viewModel.trendingTVShowsState.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { trendingList ->
-                homeAdapterItems.add(RecyclerViewItem.ImageSliderItem(getString(R.string.trending_tv_shows), trendingList))
-                homeAdapter.setItems(homeAdapterItems)
-            }
+    private fun setTrendingMovies(trendingMovies: List<TrendingUiState>) {
+        if (trendingMovies.isNotEmpty()) {
+            homeAdapterItems.add(RecyclerViewItem.ImageSliderItem(getString(R.string.trending_movies), trendingMovies))
+            homeAdapter.setItems(homeAdapterItems)
         }
     }
 
-    private fun observeTrendingPeopleState() {
-        viewModel.trendingPeopleState.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { trendingList ->
-                homeAdapterItems.add(RecyclerViewItem.TrendingPeopleItem(trendingList))
-                homeAdapter.setItems(homeAdapterItems)
-            }
+    private fun setTrendingTVShows(trendingTVShows: List<TrendingUiState>) {
+        if (trendingTVShows.isNotEmpty()) {
+            homeAdapterItems.add(RecyclerViewItem.ImageSliderItem(getString(R.string.trending_tv_shows), trendingTVShows))
+            homeAdapter.setItems(homeAdapterItems)
         }
     }
 
-    private fun observeRecommendedMoviesState() {
-        viewModel.recommendedMovies.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { moviesList ->
-                homeAdapterItems.add(RecyclerViewItem.MoviesItem(moviesList))
-                homeAdapter.setItems(homeAdapterItems)
-            }
+    private fun setTrendingPeople(trendingPeople: List<TrendingUiState>) {
+        if (trendingPeople.isNotEmpty()) {
+            homeAdapterItems.add(RecyclerViewItem.TrendingPeopleItem(trendingPeople))
+            homeAdapter.setItems(homeAdapterItems)
         }
     }
 
-    private fun observeRecommendedTVShowsState() {
-        viewModel.recommendedTVShows.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { tvShowsList ->
-                homeAdapterItems.add(RecyclerViewItem.TVShowsItem(tvShowsList))
-                homeAdapter.setItems(homeAdapterItems)
-            }
+    private fun setRecommendedMoviesState(movies: List<MovieUiState>) {
+        if (movies.isNotEmpty()) {
+            homeAdapterItems.add(RecyclerViewItem.MoviesItem(movies))
+            homeAdapter.setItems(homeAdapterItems)
+        }
+    }
+
+    private fun setRecommendedTVShowsState(tvShows: List<TVShowUiState>) {
+        if (tvShows.isNotEmpty()) {
+            homeAdapterItems.add(RecyclerViewItem.TVShowsItem(tvShows))
+            homeAdapter.setItems(homeAdapterItems)
         }
     }
 

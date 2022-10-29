@@ -11,9 +11,12 @@ import com.octopus.moviesapp.databinding.*
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
+import com.octopus.moviesapp.ui.home.uistate.TrendingUiState
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
+import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
 import com.octopus.moviesapp.ui.nested.*
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
@@ -61,7 +64,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class ImageSliderViewHolder(
         val binding: LayoutNestedImageSliderBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(title: String, trendingList: List<Trending>) {
+        fun bind(title: String, trendingList: List<TrendingUiState>) {
             val imagesList = trendingList.map { trending ->
                 SlideModel(imageUrl = trending.imageUrl, scaleType = ScaleTypes.FIT)
             }
@@ -109,7 +112,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class MoviesViewHolder(
         val binding: LayoutNestedItemsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(moviesList: List<Movie>, listener: MoviesClicksListener) {
+        fun bind(moviesList: List<MovieUiState>, listener: MoviesClicksListener) {
             binding.run {
                 titleTextView.text = this.root.context.getString(R.string.recommended_movies)
                 nestedRecyclerView.adapter = NestedMoviesAdapter(moviesList, listener)
@@ -120,7 +123,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TVShowsViewHolder(
         val binding: LayoutNestedItemsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShowsList: List<TVShow>, listener: TVShowsClicksListener) {
+        fun bind(tvShowsList: List<TVShowUiState>, listener: TVShowsClicksListener) {
             binding.run {
                 titleTextView.text = this.root.context.getString(R.string.recommended_tv_shows)
                 nestedRecyclerView.adapter = NestedTVShowsAdapter(tvShowsList, listener)
@@ -131,7 +134,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TrendingPeopleViewHolder(
         val binding: LayoutNestedImagesGridBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(trendingPeopleList: List<Trending>) {
+        fun bind(trendingPeopleList: List<TrendingUiState>) {
             binding.run {
                 titleTextView.text = this.root.context.getString(R.string.trending_people)
                 loadImage(firstImageView, trendingPeopleList[FIRST_PERSON].imageUrl)
