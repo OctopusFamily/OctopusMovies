@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.data.repository.genres
 
+import com.octopus.moviesapp.data.remote.pagingsource.TVShowsGenrePagingSource
+import com.octopus.moviesapp.data.remote.pagingsource.TVShowsPagingSource
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.mapper.GenresMapper
@@ -24,7 +26,11 @@ class GenresRepositoryImpl @Inject constructor(
         return moviesMapper.mapList(tmdbApiService.getMoviesByGenresId(genreId).items)
     }
 
-    override suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow> {
-        return tvShowsMapper.mapList(tmdbApiService.getTVShowsByGenresId(genreId).items)
+    override suspend fun getListOfTVShowsByGenresId(genreId: Int, page: Int): List<TVShow> {
+        return tvShowsMapper.mapList(tmdbApiService.getTVShowsByGenresId(genreId, page).items)
+    }
+
+    override  fun getTVShowsByGenreIdPagingSource(genreId: Int): TVShowsGenrePagingSource {
+        return TVShowsGenrePagingSource(tmdbApiService, genreId, tvShowsMapper)
     }
 }
