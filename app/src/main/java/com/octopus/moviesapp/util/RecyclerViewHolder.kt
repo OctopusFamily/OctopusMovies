@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.util
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -11,19 +12,24 @@ import com.octopus.moviesapp.databinding.*
 import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.nested.*
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
         val binding: LayoutNestedInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(movieDetails: MovieDetails, genresListener: NestedGenresListener) {
+        fun bind(movieDetails: MovieDetailsUiState, genresListener: NestedGenresListener) {
             binding.run {
                 taglineTextView.text = movieDetails.tagline
                 overviewTextView.text = movieDetails.overview
                 genresRecyclerView.adapter = NestedGenresAdapter(movieDetails.genres, genresListener)
+
             }
         }
     }
@@ -31,7 +37,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class CastViewHolder(
         val binding: LayoutNestedCastBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(castList: List<Cast>, castListener: NestedCastListener) {
+        fun bind(castList: List<CastUiState>, castListener: NestedCastListener) {
             binding.castRecyclerView.adapter = NestedCastAdapter(castList, castListener)
         }
     }
@@ -39,7 +45,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TVShowInfoViewHolder(
         val binding: LayoutNestedInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShowDetails: TVShowDetails, genresListener: NestedGenresListener) {
+        fun bind(tvShowDetails: TVShowDetailsUiState, genresListener: NestedGenresListener) {
             binding.run {
                 taglineTextView.text = tvShowDetails.tagline
                 overviewTextView.text = tvShowDetails.overview
@@ -52,7 +58,8 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class SeasonsViewHolder(
         val binding: LayoutNestedSeasonsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(seasonsList: List<Season>, seasonsListener: NestedSeasonsListener) {
+        fun bind(seasonsList: List<SeasonUiState>, seasonsListener: NestedSeasonsListener) {
+            Log.i("TEST","setting adapter of season with list of $seasonsList")
             binding.seasonsRecyclerView.adapter =
                 NestedSeasonsAdapter(seasonsList, seasonsListener)
         }

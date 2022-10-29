@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.tv_show_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
@@ -10,11 +11,11 @@ import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
@@ -66,32 +67,41 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     }
 
     private fun handleTVShowDetails() {
-        viewModel.tvShowDetailsState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadTVShowDetailsSuccess(uiState.data)
-                itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.data))
-                itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.data.seasons))
-                tvShowDetailsAdapter.setItems(itemsList)
-                binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
+        lifecycleScope.launch {
+            viewModel.tvShowDetailsState.collect{ uiState ->
+                if (uiState.isSuccess) {
+                    viewModel.onLoadTVShowDetailsSuccess(uiState.Info)
+                    itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.Info))
+                    itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.Info.seasons))
+                    tvShowDetailsAdapter.setItems(itemsList)
+                    binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
+                }
             }
+
         }
+
     }
 
     private fun observeTrailerState() {
-        viewModel.tvTrailerState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadTrailerSuccess(uiState.data)
+            lifecycleScope.launch {
+            viewModel.tvShowDetailsState.collect { uiState ->
+                if (uiState.isSuccess) {
+                    viewModel.onLoadTrailerSuccess(uiState.trailer)
+                }
             }
         }
     }
 
     private fun handleTVShowCast() {
-        viewModel.tvShowCastState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                itemsList.add(RecyclerViewItem.CastItem(uiState.data))
-                tvShowDetailsAdapter.setItems(itemsList)
-            }
-        }
+       lifecycleScope.launch {
+           viewModel.tvShowDetailsState.collect{ uiState ->
+               if (uiState.isSuccess) {
+                   itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
+                   tvShowDetailsAdapter.setItems(itemsList)
+               }
+           }
+       }
+
     }
 
     private fun navigateToTVShowsGenreFragment(genre: Genre){
