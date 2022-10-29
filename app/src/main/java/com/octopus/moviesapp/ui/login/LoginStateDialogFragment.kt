@@ -3,13 +3,14 @@ package com.octopus.moviesapp.ui.login
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.LoginStateDialogBinding
 import com.octopus.moviesapp.ui.base.BaseDialogFragment
-import com.octopus.moviesapp.util.UiState
+import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.setWidthPercent
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -30,16 +31,17 @@ class LoginStateDialogFragment : BaseDialogFragment<LoginStateDialogBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (viewModel.loginRequestState.value is UiState.Success) {
+        if (viewModel.loginMainUiState.value.isSuccess) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
 
     private fun observeEvents() {
-        viewModel.loginRequestState.observe(viewLifecycleOwner) {
-            if (it is UiState.Success) {
+        viewModel.loginEvent.observeEvent(viewLifecycleOwner) {
+            if (it) {
                 dismiss()
-            } else if (it is UiState.Error) {
+            } else if (it == false) {
+                Log.d("errorDialog","true")
                 val timer = Timer()
                 timer.schedule(object : TimerTask() {
                     override fun run() {
