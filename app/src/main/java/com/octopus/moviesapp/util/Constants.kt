@@ -11,7 +11,7 @@ object Constants {
     const val TMDB_SIGNUP_URL="https://www.themoviedb.org/signup"
     const val FIRST_INDEX = 0
     const val GITHUB_URL = "https://github.com/OctopusFamily/OctopusMovies"
-    const val DARK_MODE = "dark_mode"
+    const val THEME_KEY = "app_theme"
     const val ERROR_INTERNET = "400"
     const val EMPTY_TEXT = ""
     const val SESSION_ID_KEY = "session_id"

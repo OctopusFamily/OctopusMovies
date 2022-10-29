@@ -8,11 +8,9 @@ import javax.inject.Inject
 class AccountMapper @Inject constructor() : Mapper<AccountDTO,Account>() {
     override fun map(input: AccountDTO): Account {
         return Account(
-            avatarPath = buildImageUrl(input.avatar?.avatarPath?.avatarPath),
+            avatarPath = buildImageUrl(input.avatar?.avatarPath?.path),
             name = input.name ?: "",
             username = input.username ?: ""
         )
     }
-
-
 }

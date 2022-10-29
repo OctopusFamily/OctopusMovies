@@ -1,11 +1,11 @@
 package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.data.JsonParser
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
+import com.octopus.moviesapp.data.remote.response.LogoutResponse
+import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
-import com.octopus.moviesapp.domain.mapper.AccountMapper
-import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
@@ -15,12 +15,11 @@ import javax.inject.Inject
 
 class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
-    private val dataStorePref: DataStorePref,
+    private val dataStorePreferences: DataStorePreferences,
     private val jsonParser: JsonParser,
-    private val accountMapper: AccountMapper
 ) : AccountRepository {
     override fun getSessionId(): Flow<String?> {
-        return dataStorePref.readString(Constants.SESSION_ID_KEY)
+        return dataStorePreferences.readString(Constants.SESSION_ID_KEY)
     }
 
     override suspend fun login(
@@ -55,27 +54,12 @@ class AccountRepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getAccountDetails(sessionId: String): Account {
-        return accountMapper.map(service.getAccountDetails(sessionId))
+    override suspend fun getAccountDetails(sessionId: String): AccountDTO {
+        return service.getAccountDetails(sessionId)
     }
 
-    override suspend fun logout(): Flow<UiState<Boolean>> {
-        return flow {
-            emit(UiState.Loading)
-            try {
-                getSessionId().collect {
-                    val logout = service.logout(it.toString())
-                    if (logout.isSuccessful) {
-                        dataStorePref.writeString(Constants.SESSION_ID_KEY, "")
-                        emit(UiState.Success(true))
-                    } else {
-                        emit(UiState.Error("There is an error"))
-                    }
-                }
-            } catch (e: Exception) {
-                emit(UiState.Error(e.message.toString()))
-            }
-        }
+    override suspend fun logout(sessionId: String): LogoutResponse {
+        return service.logout(sessionId)
     }
 
 
@@ -92,7 +76,7 @@ class AccountRepositoryImp @Inject constructor(
     }
 
     private suspend fun saveSessionId(sessionId: String) {
-        dataStorePref.writeString(Constants.SESSION_ID_KEY, sessionId)
+        dataStorePreferences.writeString(Constants.SESSION_ID_KEY, sessionId)
     }
 
 }

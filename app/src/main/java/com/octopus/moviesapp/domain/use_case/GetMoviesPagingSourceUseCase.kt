@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.use_case
 
-import com.octopus.moviesapp.data.data_source.MoviesPagingSource
+import com.octopus.moviesapp.data.remote.pagingsource.MoviesPagingSource
 import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.types.MoviesCategory
 import javax.inject.Inject
