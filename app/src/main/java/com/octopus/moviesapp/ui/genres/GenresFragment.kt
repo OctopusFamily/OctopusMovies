@@ -3,16 +3,17 @@ package com.octopus.moviesapp.ui.genres
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentGenresBinding
 import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.genres.uistate.GenresUiState
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSelectedListener {
@@ -31,20 +32,24 @@ class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSel
     }
 
     private fun handleEvents() {
-        viewModel.genresListState.observe(viewLifecycleOwner) { state ->
-            if (state is UiState.Success) {
-                binding.genresRecyclerView.adapter = GenresAdapter(state.data, viewModel)
+        lifecycleScope.launch {
+            viewModel.genresListState.collect { state ->
+                if (state.isSuccess) {
+                    binding.genresRecyclerView.adapter = GenresAdapter(state.genres, viewModel)
+                }
             }
         }
-        viewModel.navigateToGenreMovie.observeEvent(viewLifecycleOwner) { genre ->
-            navigateToMovieGenre(genre)
-        }
-        viewModel.navigateToGenreTVShow.observeEvent(viewLifecycleOwner) { genre ->
-            navigateToTVShowGenre(genre)
+        viewModel.apply {
+            navigateToGenreMovie.observeEvent(viewLifecycleOwner) { genre ->
+                navigateToMovieGenre(genre)
+            }
+            navigateToGenreTVShow.observeEvent(viewLifecycleOwner) { genre ->
+                navigateToTVShowGenre(genre)
+            }
         }
     }
 
-    private fun navigateToMovieGenre(genre: Genre) {
+    private fun navigateToMovieGenre(genre: GenresUiState) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections
@@ -52,7 +57,7 @@ class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSel
             )
     }
 
-    private fun navigateToTVShowGenre(genre: Genre) {
+    private fun navigateToTVShowGenre(genre: GenresUiState) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections

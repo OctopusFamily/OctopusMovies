@@ -98,6 +98,11 @@ fun showIfTrue(view: View, condition: Boolean) {
     view.isVisible = condition
 }
 
+@BindingAdapter(value = ["app:showAsUiState"])
+fun showAsUiState(view: View, condition: Boolean) {
+    view.isVisible = condition
+}
+
 @BindingAdapter(value = ["app:showPasswordIfTrue"])
 fun showPasswordIfTrue(editText: EditText, condition: Boolean) {
     if (condition) {
@@ -173,17 +178,6 @@ fun <T> TextView.setTextError(uiState: UiState<T>) {
             this.text = this.context.getString(R.string.there_is_no_internet_connection)
         } else {
             this.text = uiState.message
-        }
-    }
-}
-
-@BindingAdapter(value = ["app:setLottieAnimationView"])
-fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
-    if (uiState is UiState.Error) {
-        if (uiState.message == Constants.ERROR_INTERNET) {
-            view.setAnimation(R.raw.no_internet)
-        }else{
-            view.setAnimation(R.raw.error)
         }
     }
 }

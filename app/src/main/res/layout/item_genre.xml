@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Genre" />
+            type="com.octopus.moviesapp.ui.genres.uistate.GenresUiState" />
+
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.genres.GenresClicksListener" />
-
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="0dp"
-        android:onClick="@{()-> listener.onGenreClick(item)}"
         android:layout_margin="@dimen/space2x"
+        android:onClick="@{()-> listener.onGenreClick(item)}"
+        app:cardBackgroundColor="@color/on_primary"
         app:cardCornerRadius="@dimen/space6x"
-        app:cardBackgroundColor="@color/on_primary">
+        app:cardElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,20 +30,19 @@
 
             <TextView
                 android:id="@+id/text_genre_title"
+                style="@style/text_style_body_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:layout_marginVertical="@dimen/space12x"
                 android:ellipsize="marquee"
                 android:singleLine="true"
-                style="@style/text_style_body_large"
-                android:layout_marginVertical="@dimen/space12x"
+                android:text="@{item.name}"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Action"
-                android:text="@{item.name}"/>
-
+                tools:text="Action" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -3,43 +3,75 @@ package com.octopus.moviesapp.ui.genres
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.use_case.genres.GetGenresByTypeUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.ConnectionTracker
-import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.ui.genres.mapper.GenresUiStateMapper
+import com.octopus.moviesapp.ui.genres.uistate.GenresMainUiState
+import com.octopus.moviesapp.ui.genres.uistate.GenresUiState
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class GenresViewModel @Inject constructor(
     private val getGenresByTypeUseCase: GetGenresByTypeUseCase,
-    private val connectionTracker: ConnectionTracker,
+    private val genresUiStateMapper: GenresUiStateMapper
 ) : BaseViewModel(), GenresClicksListener {
 
-    private val _genresListState = MutableLiveData<UiState<List<Genre>>>(UiState.Loading)
-    val genresListState: LiveData<UiState<List<Genre>>> get() = _genresListState
+    private val _genresListState = MutableStateFlow(GenresMainUiState(isLoading = true))
+    val genresListState: StateFlow<GenresMainUiState> get() = _genresListState
 
-    private val _navigateToGenreMovie = MutableLiveData<Event<Genre>>()
-    val navigateToGenreMovie: LiveData<Event<Genre>> get() = _navigateToGenreMovie
+    private val _navigateToGenreMovie = MutableLiveData<Event<GenresUiState>>()
+    val navigateToGenreMovie: LiveData<Event<GenresUiState>> get() = _navigateToGenreMovie
 
-    private val _navigateToGenreTVShow = MutableLiveData<Event<Genre>>()
-    val navigateToGenreTVShow: LiveData<Event<Genre>> get() = _navigateToGenreTVShow
+    private val _navigateToGenreTVShow = MutableLiveData<Event<GenresUiState>>()
+    val navigateToGenreTVShow: LiveData<Event<GenresUiState>> get() = _navigateToGenreTVShow
 
     private var currentGenresType = GenresType.MOVIE
 
     init {
         currentGenresType
-        getGenresByList(currentGenresType)
+        getGenresByType(currentGenresType)
     }
 
-    override fun onGenreClick(genre: Genre) {
+    private fun getGenresByType(currentGenresType: GenresType) {
+        viewModelScope.launch {
+            try {
+                val genres = getGenresByTypeUseCase(currentGenresType)
+                val genresUiState = genresUiStateMapper.map(Pair(genres, currentGenresType))
+                onSuccess(genresUiState)
+            } catch (e: Exception) {
+                onError()
+            }
+        }
+    }
+
+    private fun onSuccess(genresUiState: List<GenresUiState>) {
+        _genresListState.update {
+            it.copy(
+                isLoading = false,
+                genres = genresUiState
+            )
+        }
+    }
+
+    private fun onError() {
+        _genresListState.update {
+            it.copy(
+                isLoading = false,
+                isError = true
+            )
+        }
+    }
+
+
+    override fun onGenreClick(genre: GenresUiState) {
         when (genre.type) {
             GenresType.MOVIE -> {
                 _navigateToGenreMovie.postEvent(genre)
@@ -52,28 +84,10 @@ class GenresViewModel @Inject constructor(
 
     fun onTapSelected(genresType: GenresType) {
         currentGenresType = genresType
-        getGenresByList(genresType)
+        getGenresByType(genresType)
     }
 
     fun tryLoadGenresAgain() {
-        getGenresByList(currentGenresType)
-    }
-
-    private fun getGenresByList(currentGenresType: GenresType) {
-        viewModelScope.launch {
-            if (connectionTracker.isInternetConnectionAvailable()) {
-                loadGenresByList(currentGenresType)
-            } else {
-                _genresListState.postValue(UiState.Error(Constants.ERROR_INTERNET))
-            }
-        }
-    }
-
-    private fun loadGenresByList(currentGenresType: GenresType) {
-        viewModelScope.launch {
-            wrapResponse { getGenresByTypeUseCase(currentGenresType) }.collectLatest {
-                _genresListState.postValue(it)
-            }
-        }
+        getGenresByType(currentGenresType)
     }
 }
