@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.use_case.GetPersonDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.GetPersonMoviesUseCase
+import com.octopus.moviesapp.domain.use_case.GetPersonTvShowUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
 import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
@@ -23,7 +25,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonDetailsViewModel @Inject constructor(
-    private val personRepository: PersonRepository,
+    private val getPersonDetailsUseCase: GetPersonDetailsUseCase,
+    private val getPersonMoviesUseCase: GetPersonMoviesUseCase,
+    private val getPersonTvShowUseCase: GetPersonTvShowUseCase,
+
     private val connectionTracker: ConnectionTracker,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
@@ -63,7 +68,7 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun getPersonDetailsData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonDetailsById(args.personId) }.collectLatest {
+            wrapResponse { getPersonDetailsUseCase.invoke(args.personId) }.collectLatest {
                 _personDetailsState.postValue(it)
             }
         }
@@ -76,7 +81,7 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun getPersonMoviesData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonMoviesById(args.personId) }.collectLatest {
+            wrapResponse { getPersonMoviesUseCase.invoke(args.personId) }.collectLatest {
                 _personMoviesState.postValue(it)
             }
         }
@@ -84,7 +89,7 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun getPersonTvShowData() {
         viewModelScope.launch {
-            wrapResponse { personRepository.getPersonTVShowsById(args.personId) }.collectLatest {
+            wrapResponse { getPersonTvShowUseCase.invoke(args.personId) }.collectLatest {
                 _personTvShowState.postValue(it)
             }
         }
