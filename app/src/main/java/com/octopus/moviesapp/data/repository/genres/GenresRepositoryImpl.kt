@@ -1,5 +1,7 @@
 package com.octopus.moviesapp.data.repository.genres
 
+import com.octopus.moviesapp.data.remote.response.dto.GenreDTO
+import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.mapper.GenresMapper
@@ -16,12 +18,12 @@ class GenresRepositoryImpl @Inject constructor(
     private val tvShowsMapper: TVShowsMapper,
     private val genresMapper: GenresMapper,
 ) : GenresRepository {
-    override suspend fun getGenresByType(genresType: GenresType): List<Genre> {
-        return genresMapper.map(Pair(tmdbApiService.getGenresByType(genresType.pathName).items, genresType))
+    override suspend fun getGenresByType(genresType: String): List<GenreDTO> {
+        return tmdbApiService.getGenresByType(genresType).items
     }
 
-    override suspend fun getListOfMoviesByGenresId(genreId: Int): List<Movie> {
-        return moviesMapper.map(tmdbApiService.getMoviesByGenresId(genreId).items)
+    override suspend fun getListOfMoviesByGenresId(genreId: Int): List<MovieDTO> {
+        return tmdbApiService.getMoviesByGenresId(genreId).items
     }
 
     override suspend fun getListOfTVShowsByGenresId(genreId: Int): List<TVShow> {
