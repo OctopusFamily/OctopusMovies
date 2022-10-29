@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.octopus.moviesapp.ui.settings.SettingsViewModel" />
+            type="com.octopus.moviesapp.ui.dashboard.DashboardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

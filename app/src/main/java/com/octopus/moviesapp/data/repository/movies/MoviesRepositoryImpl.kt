@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.data.repository.movies
 
-import com.octopus.moviesapp.data.data_source.MoviesPagingSource
+import com.octopus.moviesapp.data.remote.pagingsource.MoviesPagingSource
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.*
 import com.octopus.moviesapp.domain.model.*

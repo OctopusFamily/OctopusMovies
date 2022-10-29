@@ -1,42 +1,46 @@
-package com.octopus.moviesapp.ui.settings
+package com.octopus.moviesapp.ui.dashboard
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.MyApplication
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
-import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.domain.use_case.GetAccountUseCase
+import com.octopus.moviesapp.domain.use_case.LogoutUserUseCase
+import com.octopus.moviesapp.domain.use_case.UpdateThemeUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.ui.dashboard.uistate.DashboardMainUiState
+import com.octopus.moviesapp.ui.dashboard.uistate.ProfileUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.SettingsService
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
+class DashboardViewModel @Inject constructor(
     @ApplicationContext context: Context,
-    private val dataStorePreferences: DataStorePref,
-    private val accountRepository: AccountRepository
+    private val getAccountUseCase: GetAccountUseCase,
+    private val updateThemeUseCase: UpdateThemeUseCase,
+    private val logoutUserUseCase: LogoutUserUseCase,
 ) : BaseViewModel() {
+
+    private val _dashboardMainUiState = MutableStateFlow(DashboardMainUiState())
+    val dashboardMainUiState: StateFlow<DashboardMainUiState> get() = _dashboardMainUiState
 
     private val _isLoginClicked = MutableLiveData<Event<Boolean>>()
     val loginClicked: LiveData<Event<Boolean>> get() = _isLoginClicked
 
     private val _isLogOutClicked = MutableLiveData<Event<Boolean>>()
     val logOutClicked: LiveData<Event<Boolean>> get() = _isLogOutClicked
-
-    private val _profileDetails = MutableLiveData<UiState<Account>>(UiState.Loading)
-    val profileDetails = _profileDetails
 
     private val _languageChoiceClicked = MutableLiveData(Event(false))
     val languageChoiceClicked: LiveData<Event<Boolean>> get() = _languageChoiceClicked
@@ -58,25 +62,34 @@ class SettingsViewModel @Inject constructor(
 
     private val settingsService = SettingsService
 
-    val sessionId = MyApplication.sessionId
-    val isLoggedIn = sessionId.isNotEmpty()
-
-    private val _profileState = MutableLiveData(UiState.Loading)
-
     init {
-        getProfileDetails()
+        checkIfUserLoggedIn()
         _currentLanguage.postValue(settingsService.getCurrentLanguage())
         _currentTheme.postValue(settingsService.getCurrentAppTheme(context))
     }
 
-    private fun getProfileDetails() {
+    private fun checkIfUserLoggedIn() {
+        val sessionId = MyApplication.sessionId
+        if (sessionId.isNotEmpty()) {
+            _dashboardMainUiState.update { it.copy(isLoggedIn = true) }
+            getProfileDetails(sessionId)
+        }
+    }
+
+    private fun getProfileDetails(sessionId: String) {
+        _dashboardMainUiState.update { it.copy(isProfileLoading = true) }
         viewModelScope.launch {
-            wrapResponse {
-                accountRepository.getAccountDetails(sessionId)
-            }.collectLatest {
-                _profileDetails.postValue(it)
+            try {
+                val account = getAccountUseCase(sessionId)
+                _dashboardMainUiState.update { it.copy(isProfileLoading = false, profileUiState = account.asProfileUiState()) }
+            } catch (e: Exception) {
+                _dashboardMainUiState.update { it.copy(isProfileLoading = false, isProfileError = true) }
             }
         }
+    }
+
+    fun tryToGetProfileDetailsAgain() {
+        getProfileDetails(MyApplication.sessionId)
     }
 
     fun onLanguageChoiceClick() {
@@ -100,7 +113,7 @@ class SettingsViewModel @Inject constructor(
         settingsService.updateAppTheme(newTheme)
         _currentTheme.postValue(newTheme)
         viewModelScope.launch {
-            dataStorePreferences.writeString(Constants.DARK_MODE, newTheme.name)
+            updateThemeUseCase(newTheme)
         }
     }
 
@@ -110,15 +123,27 @@ class SettingsViewModel @Inject constructor(
 
     fun onLogoutClick() {
         viewModelScope.launch {
-            accountRepository.logout().collect {
-                if (it is UiState.Success) {
+            try {
+                val logOut = logoutUserUseCase(MyApplication.sessionId)
+                if (logOut.loggedOut) {
+                    logoutUserUseCase.removeUserFromDataStore()
                     _isLogOutClicked.postEvent(true)
                 }
+            } catch (e: Exception) {
+                // Implement this later!
             }
         }
     }
 
     fun onLogInClicked() {
         _isLoginClicked.postEvent(true)
+    }
+
+    private fun Account.asProfileUiState(): ProfileUiState {
+        return ProfileUiState(
+            name = name,
+            username = username,
+            profileImageUrl = avatarPath
+        )
     }
 }

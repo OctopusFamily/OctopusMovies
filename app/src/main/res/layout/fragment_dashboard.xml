@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@color/background">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_label_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginVertical="@dimen/space4x"
+                android:text="@string/profile" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/primary"
+                showIfTrue="@{viewModel.dashboardMainUiState.isProfileLoading}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginBottom="@dimen/space18x"
+                android:orientation="vertical"
+                showIfTrue="@{viewModel.dashboardMainUiState.isProfileSuccess}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space4x"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:imageUrl="@{viewModel.dashboardMainUiState.profileUiState.profileImageUrl}"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        tools:src="@drawable/ic_launcher_background" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/space4x"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_style_body_large"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@{viewModel.dashboardMainUiState.profileUiState.name}"
+                            tools:text="Someone" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:lines="1"
+                            android:ellipsize="none"
+                            android:text="@{viewModel.dashboardMainUiState.profileUiState.username}"
+                            style="@style/text_style_label_medium"
+                            tools:text="Someone" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onMyListsClick()}"
+                    app:cardCornerRadius="@dimen/space6x"
+                    app:cardElevation="0dp"
+                    android:layout_marginVertical="@dimen/space4x">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space8x"
+                        android:layout_marginVertical="@dimen/space8x"
+                        android:text="@string/my_lists"
+                        app:drawableEndCompat="@drawable/ic_forward"
+                        app:drawableStartCompat="@drawable/ic_lists" />
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/logout_out"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space2x"
+                    android:onClick="@{() -> viewModel.onLogoutClick()}"
+                    android:text="@string/logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/on_primary"
+                    app:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"
+                showIfTrue="@{viewModel.dashboardMainUiState.isProfileError}"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/oops"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_primary_color"
+                    android:textSize="22sp"
+                    style="@style/text_style_body_large"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/error"
+                    style="@style/text_style_body_large"
+                    android:text="@string/unknown_error"
+                    tools:text="Something went wrong!"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space8x"
+                    android:onClick="@{()->viewModel.tryToGetProfileDetailsAgain()}"
+                    android:text="@string/retry"
+                    android:textAllCaps="true" />
+
+                    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginVertical="@dimen/space8x"
+                android:gravity="center"
+                android:orientation="vertical"
+                showIfTrue="@{!viewModel.dashboardMainUiState.isLoggedIn}">
+
+                <TextView
+                    style="@style/text_style_body_large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space2x"
+                    android:text="@string/not_logged_in"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space2x"
+                    android:onClick="@{() -> viewModel.onLogInClicked()}"
+                    android:text="@string/login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/on_primary"
+                    app:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toTopOf="@id/register_suggestion_linearlayout" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_style_label_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space8x"
+                android:layout_marginVertical="@dimen/space4x"
+                android:text="@string/settings" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_settings_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{()->viewModel.onLanguageChoiceClick()}"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="@dimen/space_zero">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/language_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_language"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/image_select_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_forward"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_language_chosen"
+                        style="@style/text_style_body_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C2000000"
+                        app:currentLanguage="@{viewModel.currentLanguage}"
+                        app:layout_constraintStart_toStartOf="@+id/label_language"
+                        app:layout_constraintTop_toBottomOf="@+id/label_language"
+                        tools:text="English" />
+
+                    <TextView
+                        android:id="@+id/label_language"
+                        style="@style/text_style_body_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/language"
+                        app:layout_constraintStart_toEndOf="@+id/language_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_settings_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{()->viewModel.onThemeChoiceClick()}"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="@dimen/space_zero">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/theme_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_theme"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/image_select_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_forward"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_theme_chosen"
+                        style="@style/text_style_body_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C2000000"
+                        app:currentTheme="@{viewModel.currentLTheme}"
+                        app:layout_constraintStart_toStartOf="@+id/label_theme"
+                        app:layout_constraintTop_toBottomOf="@+id/label_theme"
+                        tools:text="light" />
+
+                    <TextView
+                        android:id="@+id/label_theme"
+                        style="@style/text_style_body_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Theme"
+                        app:layout_constraintStart_toEndOf="@+id/theme_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--        <androidx.cardview.widget.CardView-->
+            <!--            android:id="@+id/card_settings_adult"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginStart="16dp"-->
+            <!--            android:layout_marginTop="16dp"-->
+            <!--            android:layout_marginEnd="16dp"-->
+            <!--            app:cardCornerRadius="12dp"-->
+            <!--            app:cardElevation="@dimen/space_zero">-->
+
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="60dp">-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/adult_icon"-->
+            <!--                    android:layout_width="24dp"-->
+            <!--                    android:layout_height="24dp"-->
+            <!--                    android:layout_marginStart="16dp"-->
+            <!--                    android:layout_marginTop="16dp"-->
+            <!--                    android:layout_marginBottom="16dp"-->
+            <!--                    android:src="@drawable/ic_cut"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                <com.google.android.material.switchmaterial.SwitchMaterial-->
+            <!--                    android:id="@+id/switch_adult"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="16dp"-->
+            <!--                    android:layout_marginEnd="16dp"-->
+            <!--                    android:layout_marginBottom="16dp"-->
+            <!--                    android:checked="false"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/label_adult"-->
+            <!--                    style="@style/text_style_body_large"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginStart="16dp"-->
+            <!--                    android:text="Adult Content"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintStart_toEndOf="@+id/adult_icon"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <!--        </androidx.cardview.widget.CardView>-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_settings_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="@dimen/space_zero">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:onClick="@{() -> viewModel.onAboutClick()}">
+
+                    <ImageView
+                        android:id="@+id/about_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_about"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/label_about"
+                        style="@style/text_style_body_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/about"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/about_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--        <TextView-->
+            <!--            style="@style/text_style_label_small"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="0dp"-->
+            <!--            android:layout_gravity="center"-->
+            <!--            android:layout_marginBottom="@dimen/space8x"-->
+            <!--            android:layout_weight="1"-->
+            <!--            android:gravity="bottom"-->
+            <!--            android:text="Version 1.0" />-->
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

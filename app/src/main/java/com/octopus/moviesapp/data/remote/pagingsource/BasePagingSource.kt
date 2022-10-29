@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.data.data_source
+package com.octopus.moviesapp.data.remote.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
