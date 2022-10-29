@@ -70,9 +70,9 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
         lifecycleScope.launch {
             viewModel.tvShowDetailsState.collect{ uiState ->
                 if (uiState.isSuccess) {
-                    viewModel.onLoadTVShowDetailsSuccess(uiState.tvShowDetailsUiState)
-                    itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.tvShowDetailsUiState))
-                    itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.tvShowDetailsUiState.seasons))
+                    viewModel.onLoadTVShowDetailsSuccess(uiState.Info)
+                    itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.Info))
+                    itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.Info.seasons))
                     tvShowDetailsAdapter.setItems(itemsList)
                     binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
                 }
@@ -86,7 +86,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             lifecycleScope.launch {
             viewModel.tvShowDetailsState.collect { uiState ->
                 if (uiState.isSuccess) {
-                    viewModel.onLoadTrailerSuccess(uiState.tvShowTrailersUiState)
+                    viewModel.onLoadTrailerSuccess(uiState.trailer)
                 }
             }
         }
@@ -96,7 +96,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
        lifecycleScope.launch {
            viewModel.tvShowDetailsState.collect{ uiState ->
                if (uiState.isSuccess) {
-                   itemsList.add(RecyclerViewItem.CastItem(uiState.tVShowCastUiState))
+                   itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
                    tvShowDetailsAdapter.setItems(itemsList)
                }
            }

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState
+package com.octopus.moviesapp.ui.tv_show_details.uistate
 
 import com.octopus.moviesapp.domain.types.GenresType
 

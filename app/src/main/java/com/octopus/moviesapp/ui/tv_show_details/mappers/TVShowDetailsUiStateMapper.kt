@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.tv_show_details.mappers
 
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 

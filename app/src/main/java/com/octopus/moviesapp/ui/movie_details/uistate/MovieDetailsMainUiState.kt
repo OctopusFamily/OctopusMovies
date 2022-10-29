@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.ui.movie_details.uistate
 
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 
 data class MovieDetailsMainUiState(
     val isLoading: Boolean = true,

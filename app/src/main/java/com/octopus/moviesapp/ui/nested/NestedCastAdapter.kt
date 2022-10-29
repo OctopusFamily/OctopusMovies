@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.nested
 
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.ui.base.BaseAdapter
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 
 class NestedCastAdapter(
     itemsList: List<CastUiState>,

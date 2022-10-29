@@ -14,9 +14,9 @@ import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.nested.*
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowDetailsUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowSeasonUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -56,7 +56,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class SeasonsViewHolder(
         val binding: LayoutNestedSeasonsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(seasonsList: List<TVShowSeasonUiState>, seasonsListener: NestedSeasonsListener) {
+        fun bind(seasonsList: List<SeasonUiState>, seasonsListener: NestedSeasonsListener) {
             Log.i("TEST","setting adapter of season with list of $seasonsList")
             binding.seasonsRecyclerView.adapter =
                 NestedSeasonsAdapter(seasonsList, seasonsListener)

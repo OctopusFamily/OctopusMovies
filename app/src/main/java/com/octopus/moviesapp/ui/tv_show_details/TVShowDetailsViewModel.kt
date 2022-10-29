@@ -6,7 +6,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowCastUseCase
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowDetailsByIdUseCase
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowTrailerUseCase
@@ -14,14 +13,11 @@ import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
-import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
-import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowDetailsUiStateMapper
-import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowTrailerUiStateMapper
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TVShowDetailsUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.TvShowDetailsMainUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowTrailerState.TVShowTrailerUiState
-import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
+import com.octopus.moviesapp.ui.tv_show_details.mappers.*
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowTrailerUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TvShowDetailsMainUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +35,6 @@ class TVShowDetailsViewModel @Inject constructor(
     private val tvShowDetailsUiStateMapper: TVShowDetailsUiStateMapper,
     private val tvShowTrailerUiStateMapper: TVShowTrailerUiStateMapper,
     private val tvShowCastUiStateMapper: CastUiStateMapper,
-    private val tvShowsRepository: TVShowsRepository,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
@@ -102,9 +97,9 @@ class TVShowDetailsViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 isSuccess = true,
-                tvShowTrailersUiState = tvShowTrailerState,
-                tVShowCastUiState = tvShowCastsState,
-                tvShowDetailsUiState = tvShowDetailsState
+                trailer = tvShowTrailerState,
+                cast = tvShowCastsState,
+                Info = tvShowDetailsState
             )
         }
     }

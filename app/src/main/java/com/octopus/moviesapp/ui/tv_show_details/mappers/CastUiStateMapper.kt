@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.ui.tv_show_details.mappers
 
 import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 

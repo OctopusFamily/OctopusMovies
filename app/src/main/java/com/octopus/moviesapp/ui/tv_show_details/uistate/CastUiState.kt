@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_show_details.uistate.cast_uistate
+package com.octopus.moviesapp.ui.tv_show_details.uistate
 
 
 data class CastUiState(

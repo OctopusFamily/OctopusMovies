@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.GenresUiState" />
+            type="com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState" />
 
         <variable
             name="listener"

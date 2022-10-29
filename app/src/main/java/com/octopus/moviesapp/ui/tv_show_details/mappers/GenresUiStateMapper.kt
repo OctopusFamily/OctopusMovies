@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.tv_show_details.mappers
 
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.ui.tv_show_details.uistate.tvShowDetailsState.GenresUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
 import javax.inject.Inject
 
 class GenresUiStateMapper  @Inject constructor(){
