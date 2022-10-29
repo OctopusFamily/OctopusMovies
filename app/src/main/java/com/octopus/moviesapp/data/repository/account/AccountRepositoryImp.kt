@@ -1,11 +1,11 @@
 package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.data.JsonParser
-import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.data.remote.response.LogoutResponse
-import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.data.remote.response.login.ErrorResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.domain.mapper.AccountMapper
+import com.octopus.moviesapp.domain.model.Account
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.UiState
 import kotlinx.coroutines.flow.Flow
@@ -15,47 +15,23 @@ import javax.inject.Inject
 
 class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
-    private val dataStorePreferences: DataStorePreferences,
+    private val dataStorePref: DataStorePref,
     private val jsonParser: JsonParser,
+    private val accountMapper: AccountMapper
 ) : AccountRepository {
-    override fun getSessionId(): Flow<String?> {
-        return dataStorePreferences.readString(Constants.SESSION_ID_KEY)
+    override fun getSessionId(): String? {
+        return dataStorePref.readString(Constants.SESSION_ID_KEY).toString()
     }
 
-    override suspend fun login(
-        username: String,
-        password: String,
-    ): Flow<UiState<Boolean>> {
-        return flow {
-            emit(UiState.Loading)
-            try {
-                val token = getRequestToken().toString()
-                val body = mapOf(
-                    "username" to username,
-                    "password" to password,
-                    "request_token" to token,
-                ).toMap()
-                val validateRequestTokenWithLogin = service.validateRequestTokenWithLogin(body)
-                if (validateRequestTokenWithLogin.isSuccessful) {
-                    validateRequestTokenWithLogin.body()?.requestToken?.let { createSession(it) }
-                    emit(UiState.Success(true))
-                } else {
-                    val errorResponse =
-                        jsonParser.parseFromJson(
-                            validateRequestTokenWithLogin.errorBody()
-                                ?.string(), ErrorResponse::class.java
-                        )
-                    emit(UiState.Error(errorResponse.statusMessage.toString()))
-                }
-            } catch (e: Exception) {
-                emit(UiState.Error(e.message.toString()))
-
-            }
-        }
-    }
+    override suspend fun getRequestToken(): String? {
+        return service.getRequestToken().body()?.requestToken.toString()
+     }
 
     override suspend fun getAccountDetails(sessionId: String): AccountDTO {
         return service.getAccountDetails(sessionId)
+    }
+    override suspend fun validateRequestTokenWithLogin(body: Map<String, Any>): Response<RequestTokenResponse> {
+        return service.validateRequestTokenWithLogin(body)
     }
 
     override suspend fun logout(sessionId: String): LogoutResponse {
@@ -63,9 +39,8 @@ class AccountRepositoryImp @Inject constructor(
     }
 
 
-    private suspend fun getRequestToken(): String? {
-        val tokenResponse = service.getRequestToken()
-        return tokenResponse.body()?.requestToken
+    override suspend fun getRequestToken(): String? {
+        return service.getRequestToken().body()?.requestToken.toString()
     }
 
     private suspend fun createSession(requestToken: String) {
@@ -74,9 +49,15 @@ class AccountRepositoryImp @Inject constructor(
             saveSessionId(sessionResponse.sessionId.toString())
         }
     }
+    override suspend fun createSessionID(requestToken: String) {
+        val response = service.createSession(requestToken).body()
+        if (response?.success == true){
+            saveSessionId(response.sessionId.toString())
+        }
+     }
 
     private suspend fun saveSessionId(sessionId: String) {
-        dataStorePreferences.writeString(Constants.SESSION_ID_KEY, sessionId)
+        dataStorePref.writeString(Constants.SESSION_ID_KEY, sessionId)
     }
 
 }
