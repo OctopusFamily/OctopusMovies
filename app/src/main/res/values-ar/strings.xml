@@ -108,4 +108,5 @@
     <string name="not_logged_in">You are not logged in, log in to show your profile!</string>
     <string name="welcome">Welcome</string>
     <string name="dashboard">Dashboard</string>
+    <string name="unknown_error">Something went wrong!</string>
 </resources>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.TVShow" />
+            type="com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener" />
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:cardElevation="0dp"
-        android:onClick="@{() -> listener.onTVShowClick(item)}"
+        android:onClick="@{()->listener.onTVShowClick(item.id)}"
         app:cardCornerRadius="@dimen/space6x"
         android:layout_margin="@dimen/space2x">
 
@@ -30,7 +30,7 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.posterImageUrl}"
+                app:imageUrl="@{item.imageUrl}"
                 tools:src="@drawable/ic_launcher_background"
                 android:contentDescription="@string/tv_show_image_description" />
 
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/space2x"
                     android:numStars="5"
-                    android:rating="@{item.voteAverage}"
+                    android:rating="@{item.rating}"
                     android:stepSize="0.1"
                     android:layout_gravity="center"
                     style="@android:style/Widget.Material.RatingBar.Small"/>
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space2x"
                     android:ellipsize="end"
-                    app:releaseDate="@{item.started}"
+                    app:releaseDate="@{item.released}"
                     android:textAlignment="center"
                     android:lines="1"
                     style="@style/text_style_body_medium"

@@ -101,7 +101,7 @@
                 android:layout_marginTop="@dimen/space2x"
                 android:onClick="@{() -> viewModel.onLogoutClick()}"
                 android:text="@string/logout"
-                app:showIfTrue="@{viewModel.loggedIn}"
+                showIfTrue="@{viewModel.loggedIn}"
                 android:textAllCaps="false"
                 android:textColor="@color/on_primary"
                 app:backgroundTint="@color/primary"
@@ -115,7 +115,7 @@
             android:layout_marginVertical="@dimen/space8x"
             android:gravity="center"
             android:orientation="vertical"
-            app:showIfTrue="@{!viewModel.isLoggedIn}">
+            showIfTrue="@{!viewModel.isLoggedIn}">
 
             <TextView
                 style="@style/text_style_body_large"

@@ -62,8 +62,8 @@ class SearchViewModel @Inject constructor(
         _navigateBack.postEvent(true)
     }
 
-    override fun onChipSelected(selectedItemId: Int) {
-        when (selectedItemId) {
+    override fun onChipSelected(selectedChipPosition: Int) {
+        when (selectedChipPosition) {
             0 -> mediaType = MediaType.MOVIE
             1 -> mediaType = MediaType.TV
             2 -> mediaType = MediaType.PERSON

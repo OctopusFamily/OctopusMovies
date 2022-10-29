@@ -23,13 +23,11 @@ class TVShowsGenreViewModel @Inject constructor(
     private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), TVShowsClicksListener {
 
-
     private val _tvShowGenreState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
     val tvShowGenreState: LiveData<UiState<List<TVShow>>> get() = _tvShowGenreState
 
     private val _genreName = MutableLiveData("")
     val genreName: LiveData<String> get() = _genreName
-
 
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
     val navigateToTVShowDetails : LiveData<Event<Int>> = _navigateToTVShowDetails
@@ -41,10 +39,7 @@ class TVShowsGenreViewModel @Inject constructor(
     fun loadTVShow(genreId: Int, genreName: String) {
         genreID = genreId
         _genreName.postValue(genreName)
-
         getLoadTVShow()
-
-
     }
 
     private fun getLoadTVShow() {
@@ -70,14 +65,12 @@ class TVShowsGenreViewModel @Inject constructor(
         }
     }
 
-
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
 
-    override fun onTVShowClick(tvShow: TVShow) {
-        _navigateToTVShowDetails.postEvent(tvShow.id)
+    override fun onTVShowClick(tvShowId: Int) {
+        _navigateToTVShowDetails.postEvent(tvShowId)
     }
-
 
 }
