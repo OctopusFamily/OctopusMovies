@@ -39,10 +39,10 @@ class MovieDetailsAdapter(
                 val item = itemsList[position] as RecyclerViewItem.MovieInfoItem
                 holder.bind(item.movieDetails, nestedGenresListener)
             }
-//            is RecyclerViewHolder.CastViewHolder -> {
-//                val item = itemsList[position] as RecyclerViewItem.CastItem
-//                holder.bind(item.castList, nestedCastListener)
-//            }
+            is RecyclerViewHolder.CastViewHolder -> {
+                val item = itemsList[position] as RecyclerViewItem.CastItem
+                holder.bind(item.castList, nestedCastListener)
+            }
             else -> {}
         }
     }

@@ -28,7 +28,8 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
             binding.run {
                 taglineTextView.text = movieDetails.tagline
                 overviewTextView.text = movieDetails.overview
-//                genresRecyclerView.adapter = NestedGenresAdapter(movieDetails.genres, genresListener)
+                genresRecyclerView.adapter = NestedGenresAdapter(movieDetails.genres, genresListener)
+
             }
         }
     }
