@@ -1,7 +1,7 @@
 package com.octopus.moviesapp
 
 import android.app.Application
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.util.Constants
 import dagger.hilt.android.HiltAndroidApp
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class MyApplication : Application() {
     @Inject
-    lateinit var dataStorePreferences: DataStorePref
+    lateinit var dataStorePreferences: DataStorePreferences
 
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +34,7 @@ class MyApplication : Application() {
 
     private fun setTheme() {
         CoroutineScope(Dispatchers.Unconfined).launch {
-            dataStorePreferences.readString(Constants.DARK_MODE).collect { currentTheme ->
+            dataStorePreferences.readString(Constants.THEME_KEY).collect { currentTheme ->
                 currentTheme?.let {
                     chosenAppTheme = Theme.valueOf(it)
                 }

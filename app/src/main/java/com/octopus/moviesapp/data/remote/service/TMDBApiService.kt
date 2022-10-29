@@ -149,5 +149,5 @@ interface TMDBApiService {
     @DELETE("authentication/session")
     suspend fun logout(
         @Query("session_id") sessionId: String
-    ): Response<LogoutResponse>
+    ): LogoutResponse
 }

@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.data.repository.tv_shows
 
-import com.octopus.moviesapp.data.data_source.TVShowsPagingSource
+import com.octopus.moviesapp.data.remote.pagingsource.TVShowsPagingSource
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.domain.mapper.*
