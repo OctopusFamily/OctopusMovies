@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.domain.login.LoginResponse
 import com.octopus.moviesapp.domain.login.LoginUseCase
 import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -30,12 +28,6 @@ class LoginViewModel @Inject constructor(
     val password = MutableLiveData<String>()
 
     private val args = LoginStateDialogFragmentArgs.fromSavedStateHandle(saveStateHandle)
-
-    private val _usernameError = MutableLiveData(Constants.EMPTY_TEXT)
-    val usernameError: LiveData<String> get() = _usernameError
-
-    private val _passwordError = MutableLiveData(Constants.EMPTY_TEXT)
-    val passwordError: LiveData<String> get() = _passwordError
 
     private val _loginMainUiState = MutableStateFlow(LoginMainUiState())
     val loginMainUiState = _loginMainUiState
@@ -113,7 +105,6 @@ class LoginViewModel @Inject constructor(
 
     private fun onLoginError(message : String) {
         _loginMainUiState.update { it.copy(isError = true, error = message) }
-        _passwordError.postValue(message)
         _loginEvent.postEvent(false)
 
     }
@@ -126,16 +117,16 @@ class LoginViewModel @Inject constructor(
 
     private fun checkUsernameValidation(): Boolean {
         return authUtils.validateUsername(password.value).grabError()?.let { error ->
-            _usernameError.postValue(error)
+            _loginMainUiState.update { it.copy(userNameErrorText = error)}
             false
-        } ?: true.also { _usernameError.postValue(Constants.EMPTY_TEXT) }
+        } ?: true.also { _loginMainUiState.update {it.copy(userNameErrorText = Constants.EMPTY_TEXT)} }
     }
 
     private fun checkPasswordValidation(): Boolean {
         return authUtils.validatePassword(password.value).grabError()?.let { error ->
-            _passwordError.postValue(error)
+            _loginMainUiState.update { it.copy(passwordErrorText = error) }
             false
-        } ?: true.also { _passwordError.postValue(Constants.EMPTY_TEXT) }
+        } ?: true.also { _loginMainUiState.update { it.copy(passwordErrorText = Constants.EMPTY_TEXT) } }
     }
 
 }

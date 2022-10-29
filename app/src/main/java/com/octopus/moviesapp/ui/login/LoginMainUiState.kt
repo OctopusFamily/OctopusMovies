@@ -5,4 +5,6 @@ data class LoginMainUiState(
     val isSuccess:Boolean = false,
     val isError:Boolean = false,
     val error:String = "",
+    val userNameErrorText :String = "",
+    val passwordErrorText :String = "",
 )

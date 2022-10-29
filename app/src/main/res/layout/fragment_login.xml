@@ -86,7 +86,7 @@
                     android:layout_marginTop="@dimen/space2x"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="@{viewModel.usernameError}"
+                    android:text="@{viewModel.loginMainUiState.userNameErrorText}"
                     android:textColor="@color/error"
                     tools:text="Email can't be empty!" />
             </LinearLayout>
@@ -146,7 +146,7 @@
                     android:layout_marginTop="@dimen/space2x"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="@{viewModel.passwordError}"
+                    android:text="@{viewModel.loginMainUiState.passwordErrorText}"
                     android:textColor="@color/error"
                     tools:text="First Name is empty!" />
             </LinearLayout>
