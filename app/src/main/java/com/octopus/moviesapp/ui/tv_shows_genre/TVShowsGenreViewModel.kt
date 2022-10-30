@@ -7,27 +7,22 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.use_case.GetTVShowsByGenreIdPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
-import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowsMainUiState
 import com.octopus.moviesapp.ui.tv_shows_genre.uistate.TVShowsGenreMainUiState
-import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TVShowsGenreViewModel @Inject constructor(
-    private val getTVShowsByGenreIdPagingSourceUseCase: GetTVShowsByGenreIdPagingSourceUseCase,
+    private val getTVShowsByGenreIdPagingSourceUseCase: GetTVShowsByGenreIdPagingSourceUseCase
 ) : BaseViewModel(), TVShowsClicksListener {
 
     private val _tvShowGenreState = MutableStateFlow(TVShowsGenreMainUiState())
@@ -37,7 +32,7 @@ class TVShowsGenreViewModel @Inject constructor(
     val genreName: LiveData<String> get() = _genreName
 
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
-    val navigateToTVShowDetails : LiveData<Event<Int>> = _navigateToTVShowDetails
+    val navigateToTVShowDetails: LiveData<Event<Int>> = _navigateToTVShowDetails
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
@@ -47,18 +42,20 @@ class TVShowsGenreViewModel @Inject constructor(
         genreID = genreId
         _genreName.postValue(genreName)
         fetchTVShowByGenreId(genreID)
-
     }
-
 
     private fun fetchTVShowByGenreId(genreId: Int) {
-        val tvShowsUiStateFlow = Pager(PagingConfig(Constants.ITEMS_PER_PAGE, enablePlaceholders = true))
-        { getTVShowsByGenreIdPagingSourceUseCase(genreId) }.flow.cachedIn(viewModelScope).map { pagingData ->
-            pagingData.map { tvShow -> tvShow.asTVShowUiState() }
-        }
+        val tvShowsUiStateFlow = Pager(
+            PagingConfig(
+                Constants.ITEMS_PER_PAGE,
+                enablePlaceholders = true
+            )
+        ) { getTVShowsByGenreIdPagingSourceUseCase(genreId) }.flow.cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { tvShow -> tvShow.asTVShowUiState() }
+            }
         _tvShowGenreState.update { it.copy(tvShowsUiState = tvShowsUiStateFlow) }
     }
-
 
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
@@ -74,8 +71,7 @@ class TVShowsGenreViewModel @Inject constructor(
             title = title,
             imageUrl = posterImageUrl,
             released = started,
-            rating = voteAverage,
+            rating = voteAverage
         )
     }
-
 }
