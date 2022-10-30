@@ -42,10 +42,6 @@ class MovieDetailsViewModel @Inject constructor(
     private val _movieDetails = MutableStateFlow(MovieDetailsMainUiState())
     val movieDetails: StateFlow<MovieDetailsMainUiState> get() = _movieDetails
 
-    private val _movieCastState = MutableStateFlow(MovieDetailsMainUiState())
-
-    val movieCastState: StateFlow<MovieDetailsMainUiState> get() = _movieCastState
-
     private val _movieTrailer = MutableLiveData<TrailerUiState>()
 
     private val _playTrailer = MutableLiveData<Event<String>>()

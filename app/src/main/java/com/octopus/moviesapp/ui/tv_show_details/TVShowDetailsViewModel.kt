@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.tv_show_details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -14,7 +15,7 @@ import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.ui.tv_show_details.mappers.*
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.DetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TvShowDetailsMainUiState
 import com.octopus.moviesapp.util.Event
@@ -46,14 +47,8 @@ class TVShowDetailsViewModel @Inject constructor(
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
 
-    private val _tvTrailer = MutableLiveData<TrailerUiState>()
-
-
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
-
-    private val _tvShowDetails = MutableStateFlow(TVShowDetailsUiState())
-    val tvShowDetails: StateFlow<TVShowDetailsUiState> get() = _tvShowDetails
 
     private val _navigateToTVShowsGenre = MutableLiveData<Event<Genre>>()
     val navigateToTVShowsGenre: LiveData<Event<Genre>> get() = _navigateToTVShowsGenre
@@ -89,7 +84,7 @@ class TVShowDetailsViewModel @Inject constructor(
     private fun onSuccess(
         tvShowTrailerState: TrailerUiState,
         tvShowCastsState: List<CastUiState>,
-        tvShowDetailsState: TVShowDetailsUiState
+        tvShowDetailsState: DetailsUiState
 
     ) {
         _tvShowDetailsState.update {
@@ -98,7 +93,7 @@ class TVShowDetailsViewModel @Inject constructor(
                 isSuccess = true,
                 trailer = tvShowTrailerState,
                 cast = tvShowCastsState,
-                Info = tvShowDetailsState
+                info = tvShowDetailsState
             )
         }
     }
@@ -107,35 +102,23 @@ class TVShowDetailsViewModel @Inject constructor(
         _tvShowDetailsState.update { it.copy(isLoading = false, isError = true) }
     }
 
-
-
-    fun onLoadTrailerSuccess(tvTrailer: TrailerUiState) {
-        _tvTrailer.postValue(tvTrailer)
-    }
-
-    fun onPlayTrailerClick() {
-        _tvTrailer.value?.let { trailer ->
-            _playTrailer.postEvent(trailer.url)
-        }
+    fun onPlayTrailerClick(trailer: String) {
+            _playTrailer.postEvent(trailer)
     }
 
     fun onRateClick() {
         _rateTvShow.postEvent(0)
     }
 
+
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
 
-
-    fun onLoadTVShowDetailsSuccess(tvShowDetails: TVShowDetailsUiState) {
-        viewModelScope.launch {
-            _tvShowDetails.emit(tvShowDetails)
-        }
-    }
-
     fun tryLoadTVShowDetailsAgain() {
         getTVShowData(args.tvShowId)
+        Log.i("MALT","try lod data ${getTVShowData(args.tvShowId)}")
+
     }
 
     override fun onGenreClick(genre: Genre) {

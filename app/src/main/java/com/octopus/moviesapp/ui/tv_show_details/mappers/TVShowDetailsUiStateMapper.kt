@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.tv_show_details.mappers
 
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.DetailsUiState
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject
 
@@ -10,10 +10,10 @@ class TVShowDetailsUiStateMapper @Inject constructor(
     private val seasonUiStateMapper: SeasonUiStateMapper,
     private val genresUiStateMapper: GenresUiStateMapper,
 ) {
-    fun map(input: TVShowDetails): TVShowDetailsUiState {
+    fun map(input: TVShowDetails): DetailsUiState {
         val genresList = input.genres
         val seasonsList = input.seasons
-        return TVShowDetailsUiState(
+        return DetailsUiState(
             id = input.id ?: 0,
             title = input.title ?: "",
             coverImageUrl = buildImageUrl(input.coverImageUrl),
