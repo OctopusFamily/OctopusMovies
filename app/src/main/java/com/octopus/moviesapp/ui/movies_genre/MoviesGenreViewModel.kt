@@ -31,9 +31,6 @@ class MoviesGenreViewModel @Inject constructor(
     private val _movieGenreState = MutableStateFlow(MoviesGenreMainUiState())
     val movieGenreState: StateFlow<MoviesGenreMainUiState> get() = _movieGenreState
 
-    private val _tvShowGenreState = MutableStateFlow(MoviesGenreMainUiState())
-    val tvShowGenreState: StateFlow<MoviesGenreMainUiState> get() = _tvShowGenreState
-
     private val _genreName = MutableLiveData("")
     val genreName: LiveData<String> get() = _genreName
 
