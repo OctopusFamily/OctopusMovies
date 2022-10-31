@@ -91,8 +91,8 @@
             android:id="@+id/action_moviesGenreFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
         <argument
-            android:name="genres"
-            app:argType="com.octopus.moviesapp.ui.genres.uistate.GenresUiState" />
+            android:name="genreId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/TVShowsGenreFragment"
@@ -102,8 +102,8 @@
             android:id="@+id/action_TVShowsGenreFragment_to_TVShowDetailsFragment"
             app:destination="@id/TVShowDetailsFragment" />
         <argument
-            android:name="genres"
-            app:argType="com.octopus.moviesapp.ui.genres.uistate.GenresUiState" />
+            android:name="genreId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

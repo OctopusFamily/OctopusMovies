@@ -24,14 +24,14 @@ class GenresViewModel @Inject constructor(
     private val genresUiStateMapper: GenresUiStateMapper
 ) : BaseViewModel(), GenresClicksListener {
 
-    private val _genresListState = MutableStateFlow(GenresMainUiState(isLoading = true))
+    private val _genresListState = MutableStateFlow(GenresMainUiState())
     val genresListState: StateFlow<GenresMainUiState> get() = _genresListState
 
-    private val _navigateToGenreMovie = MutableLiveData<Event<GenresUiState>>()
-    val navigateToGenreMovie: LiveData<Event<GenresUiState>> get() = _navigateToGenreMovie
+    private val _navigateToGenreMovie = MutableLiveData<Event<Int>>()
+    val navigateToGenreMovie: LiveData<Event<Int>> get() = _navigateToGenreMovie
 
-    private val _navigateToGenreTVShow = MutableLiveData<Event<GenresUiState>>()
-    val navigateToGenreTVShow: LiveData<Event<GenresUiState>> get() = _navigateToGenreTVShow
+    private val _navigateToGenreTVShow = MutableLiveData<Event<Int>>()
+    val navigateToGenreTVShow: LiveData<Event<Int>> get() = _navigateToGenreTVShow
 
     private var currentGenresType = GenresType.MOVIE
 
@@ -56,6 +56,7 @@ class GenresViewModel @Inject constructor(
         _genresListState.update {
             it.copy(
                 isLoading = false,
+                isSuccess = true,
                 genres = genresUiState
             )
         }
@@ -65,20 +66,16 @@ class GenresViewModel @Inject constructor(
         _genresListState.update {
             it.copy(
                 isLoading = false,
+                isSuccess = false,
                 isError = true
             )
         }
     }
 
-
     override fun onGenreClick(genre: GenresUiState) {
-        when (genre.type) {
-            GenresType.MOVIE -> {
-                _navigateToGenreMovie.postEvent(genre)
-            }
-            GenresType.TV -> {
-                _navigateToGenreTVShow.postEvent(genre)
-            }
+        when (genre.type.pathName) {
+            "movie" -> _navigateToGenreMovie.postEvent(genre.id)
+            "tv" -> _navigateToGenreTVShow.postEvent(genre.id)
         }
     }
 

@@ -20,13 +20,11 @@ class MoviesGenreViewModel @Inject constructor(
     private val genresRepository: GenresRepository,
 ) : BaseViewModel(), MoviesClicksListener {
 
-
     private val _movieGenreState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val movieGenreState: LiveData<UiState<List<Movie>>> get() = _movieGenreState
 
-    private val _genreName = MutableLiveData<String>("")
+    private val _genreName = MutableLiveData("")
     val genreName: LiveData<String> get() = _genreName
-
 
     private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
     val navigateToMovieDetails: LiveData<Event<Int>> = _navigateToMovieDetails
@@ -56,6 +54,4 @@ class MoviesGenreViewModel @Inject constructor(
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
-
-
 }

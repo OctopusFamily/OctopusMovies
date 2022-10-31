@@ -10,7 +10,6 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentGenresBinding
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.genres.uistate.GenresUiState
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -49,19 +48,19 @@ class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSel
         }
     }
 
-    private fun navigateToMovieGenre(genre: GenresUiState) {
+    private fun navigateToMovieGenre(genreId: Int) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections
-                    .actionGenresFragmentToMoviesGenreFragment(genre)
+                    .actionGenresFragmentToMoviesGenreFragment(genreId)
             )
     }
 
-    private fun navigateToTVShowGenre(genre: GenresUiState) {
+    private fun navigateToTVShowGenre(genreId: Int) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections
-                    .actionGenresFragmentToTVShowsGenreFragment(genre)
+                    .actionGenresFragmentToTVShowsGenreFragment(genreId)
             )
     }
 
@@ -72,7 +71,6 @@ class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSel
     override fun onTabSelected(tab: TabLayout.Tab?) {
         when (tab?.position) {
             0 -> {
-
                 viewModel.onTapSelected(GenresType.MOVIE)
             }
             1 -> {
