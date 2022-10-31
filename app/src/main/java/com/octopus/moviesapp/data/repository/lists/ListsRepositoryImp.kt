@@ -1,7 +1,9 @@
 package com.octopus.moviesapp.data.repository.lists
 
 import android.util.Log
+import com.octopus.moviesapp.data.remote.response.BaseResponse
 import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
+import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.CreatedListMapper
 import com.octopus.moviesapp.domain.mapper.ListDetailsMapper
@@ -19,8 +21,8 @@ class ListsRepositoryImp @Inject constructor(
         return tmdbApiService.createList(sessionId,name)
     }
 
-    override suspend fun getAllLists(accountId: Int, sessionId: String): List<CreatedList> {
-        return createdListMapper.map(tmdbApiService.getCreatedLists(accountId , sessionId).items)
+    override suspend fun getAllLists(accountId: Int, sessionId: String): List<CreatedListsDto> {
+        return tmdbApiService.getCreatedLists(accountId,sessionId).items
      }
 
     override suspend fun getListDetails(listId: Int): List<ListDetails> {
