@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.tv_show_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -13,7 +12,9 @@ import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
-import com.octopus.moviesapp.ui.tv_show_details.mappers.*
+import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowDetailsUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowTrailerUiStateMapper
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.DetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
@@ -110,15 +111,12 @@ class TVShowDetailsViewModel @Inject constructor(
         _rateTvShow.postEvent(0)
     }
 
-
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
 
     fun tryLoadTVShowDetailsAgain() {
         getTVShowData(args.tvShowId)
-        Log.i("MALT","try lod data ${getTVShowData(args.tvShowId)}")
-
     }
 
     override fun onGenreClick(genre: Genre) {

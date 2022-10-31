@@ -18,7 +18,6 @@ import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
 import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowTrailerUiStateMapper
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
-import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,16 +38,13 @@ class MovieDetailsViewModel @Inject constructor(
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
-    private val _movieDetails = MutableStateFlow(MovieDetailsMainUiState())
-    val movieDetails: StateFlow<MovieDetailsMainUiState> get() = _movieDetails
-
-    private val _movieTrailer = MutableLiveData<TrailerUiState>()
+    private val _movieDetailsState = MutableStateFlow(MovieDetailsMainUiState())
+    val movieDetailsState: StateFlow<MovieDetailsMainUiState> get() = _movieDetailsState
 
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
-
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
     private val _saveToWatchList = MutableLiveData<Event<Int>>()
@@ -94,30 +90,19 @@ class MovieDetailsViewModel @Inject constructor(
         detailsState: MovieDetailsUiState
 
     ) {
-        _movieDetails.update {
+        _movieDetailsState.update {
             it.copy(
                 isLoading = false,
                 isSuccess = true,
                 trailer = trailerState,
                 cast = castState,
-                details = detailsState
+                info = detailsState
             )
         }
     }
     private fun onError(){
-        _movieDetails.update { it.copy(isLoading = false, isError = true) }
+        _movieDetailsState.update { it.copy(isLoading = false, isError = true) }
     }
-
-    fun onLoadMovieDetailsSuccess(movieDetails: MovieDetailsMainUiState) {
-        viewModelScope.launch {
-            _movieDetails.emit(movieDetails)
-        }
-    }
-
-    fun onLoadTrailerSuccess(movieTrailer: TrailerUiState) {
-        _movieTrailer.postValue(movieTrailer)
-    }
-
 
     // region events
     fun onNavigateBackClick() {
@@ -128,17 +113,13 @@ class MovieDetailsViewModel @Inject constructor(
         _saveToWatchList.postEvent(0)
     }
 
-    fun onPlayTrailerClick() {
-        _movieTrailer.value?.let { trailer ->
-            _playTrailer.postEvent(trailer.url)
-        }
+    fun onPlayTrailerClick(trailer: String) {
+        _playTrailer.postEvent(trailer)
     }
 
     fun onRateClick() {
         _rateMovie.postEvent(0)
     }
-
-
 
     override fun onGenreClick(genre: Genre) {
         _navigateToMoviesGenre.postEvent(genre)

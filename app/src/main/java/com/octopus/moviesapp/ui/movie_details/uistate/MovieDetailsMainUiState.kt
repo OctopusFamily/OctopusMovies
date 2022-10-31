@@ -7,7 +7,7 @@ data class MovieDetailsMainUiState(
     val isLoading: Boolean = true,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
-    val details: MovieDetailsUiState = MovieDetailsUiState(),
+    val info: MovieDetailsUiState = MovieDetailsUiState(),
     val trailer: TrailerUiState = TrailerUiState(),
     val cast: List<CastUiState> = emptyList(),
 )

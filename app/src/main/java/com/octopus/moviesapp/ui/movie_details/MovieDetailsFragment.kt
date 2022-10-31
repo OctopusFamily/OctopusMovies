@@ -10,7 +10,6 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
@@ -39,7 +38,6 @@ class MovieDetailsFragment :
         handleMovieDetails()
         handleMovieCast()
         handleEvents()
-        observeTrailerState()
     }
 
     private fun handleEvents() {
@@ -73,11 +71,9 @@ class MovieDetailsFragment :
 
     private fun handleMovieDetails() {
         lifecycleScope.launch {
-
-            viewModel.movieDetails.collect { uiState ->
+            viewModel.movieDetailsState.collect { uiState ->
                 if (uiState.isSuccess) {
-                    viewModel.onLoadMovieDetailsSuccess(uiState)
-                    itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.details))
+                    itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.info))
                     movieDetailsAdapter.setItems(itemsList)
                     binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
                 }
@@ -87,20 +83,10 @@ class MovieDetailsFragment :
 
     private fun handleMovieCast() {
         lifecycleScope.launch {
-            viewModel.movieDetails.collect { uiState ->
+            viewModel.movieDetailsState.collect { uiState ->
                 if (uiState.isSuccess) {
                     itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
                     movieDetailsAdapter.setItems(itemsList)
-                }
-            }
-        }
-    }
-
-    private fun observeTrailerState() {
-        lifecycleScope.launch {
-            viewModel.movieDetails.collect { uiState ->
-                if (uiState.isSuccess) {
-                    viewModel.onLoadTrailerSuccess(uiState.trailer)
                 }
             }
         }
