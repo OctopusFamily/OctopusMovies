@@ -8,6 +8,7 @@ import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(
@@ -46,7 +47,7 @@ sealed class RecyclerViewItem {
     ) : RecyclerViewItem()
 
     data class TVShowsItem(
-        val tvShowsList: List<TVShow>,
+        val tvShowsList: List<TVShowUiState>,
     ) : RecyclerViewItem()
 
     data class TrendingPeopleItem(

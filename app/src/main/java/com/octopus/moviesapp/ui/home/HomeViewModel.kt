@@ -16,6 +16,7 @@ import com.octopus.moviesapp.domain.types.TVShowsCategory
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
@@ -49,8 +50,8 @@ class HomeViewModel @Inject constructor(
     private val _recommendedMovies = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
     val recommendedMovies: LiveData<UiState<List<Movie>>> get() = _recommendedMovies
 
-    private val _recommendedTVShows = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
-    val recommendedTVShows: LiveData<UiState<List<TVShow>>> get() = _recommendedTVShows
+    private val _recommendedTVShows = MutableLiveData<UiState<List<TVShowUiState>>>(UiState.Loading)
+    val recommendedTVShows: LiveData<UiState<List<TVShowUiState>>> get() = _recommendedTVShows
 
     private val _isTextClicked = MutableLiveData(Event(false))
     val isTextClicked = _isTextClicked
@@ -123,7 +124,8 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             wrapResponse {
                 tvShowsRepository.getTVShowsByCategory(TVShowsCategory.TOP_RATED, 1) }.collectLatest { uiState ->
-                _recommendedTVShows.postValue(uiState)
+           //     _recommendedTVShows.postValue(uiState)
+                //TODO: provide data using usecase
             }
         }
     }

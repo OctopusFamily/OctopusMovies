@@ -19,6 +19,7 @@ import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
@@ -127,7 +128,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TVShowsViewHolder(
         val binding: LayoutNestedItemsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShowsList: List<TVShow>, listener: TVShowsClicksListener) {
+        fun bind(tvShowsList: List<TVShowUiState>, listener: TVShowsClicksListener) {
             binding.run {
                 titleTextView.text = this.root.context.getString(R.string.recommended_tv_shows)
                 nestedRecyclerView.adapter = NestedTVShowsAdapter(tvShowsList, listener)
