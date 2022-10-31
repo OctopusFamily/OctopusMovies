@@ -93,6 +93,9 @@
         <argument
             android:name="genreId"
             app:argType="integer" />
+        <argument
+            android:name="genreName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/TVShowsGenreFragment"
@@ -104,6 +107,7 @@
         <argument
             android:name="genreId"
             app:argType="integer" />
+        <argument android:name="genreName" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

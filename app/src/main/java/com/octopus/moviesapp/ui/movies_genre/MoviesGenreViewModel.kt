@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.movies_genre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.data.repository.genres.GenresRepository
 import com.octopus.moviesapp.domain.model.Movie
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesGenreViewModel @Inject constructor(
     private val genresRepository: GenresRepository,
+    saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), MoviesClicksListener {
 
     private val _movieGenreState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)

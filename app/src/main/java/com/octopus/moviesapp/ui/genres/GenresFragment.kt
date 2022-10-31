@@ -15,71 +15,46 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSelectedListener {
+class GenresFragment : BaseFragment<FragmentGenresBinding>(){
     override fun getLayoutId(): Int = R.layout.fragment_genres
     override val viewModel: GenresViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleEvents()
-        handleTabLayout()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.onTapSelected(GenresType.MOVIE)
     }
 
     private fun handleEvents() {
         lifecycleScope.launch {
-            viewModel.genresListState.collect { state ->
+            viewModel.genresState.collect { state ->
                 if (state.isSuccess) {
                     binding.genresRecyclerView.adapter = GenresAdapter(state.genres, viewModel)
                 }
             }
         }
         viewModel.apply {
-            navigateToGenreMovie.observeEvent(viewLifecycleOwner) { genre ->
-                navigateToMovieGenre(genre)
+            navigateToGenreMovie.observeEvent(viewLifecycleOwner) {
+                navigateToMovieGenre(it.first, it.second)
             }
-            navigateToGenreTVShow.observeEvent(viewLifecycleOwner) { genre ->
-                navigateToTVShowGenre(genre)
-            }
-        }
-    }
-
-    private fun navigateToMovieGenre(genreId: Int) {
-        requireView().findNavController()
-            .navigate(
-                GenresFragmentDirections
-                    .actionGenresFragmentToMoviesGenreFragment(genreId)
-            )
-    }
-
-    private fun navigateToTVShowGenre(genreId: Int) {
-        requireView().findNavController()
-            .navigate(
-                GenresFragmentDirections
-                    .actionGenresFragmentToTVShowsGenreFragment(genreId)
-            )
-    }
-
-    private fun handleTabLayout() {
-        binding.genresTabLayout.addOnTabSelectedListener(this)
-    }
-
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        when (tab?.position) {
-            0 -> {
-                viewModel.onTapSelected(GenresType.MOVIE)
-            }
-            1 -> {
-                viewModel.onTapSelected(GenresType.TV)
+            navigateToGenreTVShow.observeEvent(viewLifecycleOwner) {
+                navigateToTVShowGenre(it.first, it.second)
             }
         }
     }
 
-    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+    private fun navigateToMovieGenre(genreId: Int, genreName: String) {
+        requireView().findNavController()
+            .navigate(
+                GenresFragmentDirections
+                    .actionGenresFragmentToMoviesGenreFragment(genreId, genreName)
+            )
+    }
 
-    override fun onTabReselected(tab: TabLayout.Tab?) {}
+    private fun navigateToTVShowGenre(genreId: Int, genreName: String) {
+        requireView().findNavController()
+            .navigate(
+                GenresFragmentDirections
+                    .actionGenresFragmentToTVShowsGenreFragment(genreId, genreName)
+            )
+    }
 }

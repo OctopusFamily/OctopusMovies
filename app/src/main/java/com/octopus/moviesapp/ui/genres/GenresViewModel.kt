@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.genres
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.use_case.genres.GetGenresByTypeUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
@@ -22,22 +23,19 @@ import javax.inject.Inject
 class GenresViewModel @Inject constructor(
     private val getGenresByTypeUseCase: GetGenresByTypeUseCase,
     private val genresUiStateMapper: GenresUiStateMapper
-) : BaseViewModel(), GenresClicksListener {
+) : BaseViewModel(), GenresClicksListener, TabLayout.OnTabSelectedListener {
 
-    private val _genresListState = MutableStateFlow(GenresMainUiState())
-    val genresListState: StateFlow<GenresMainUiState> get() = _genresListState
+    private val _genresState = MutableStateFlow(GenresMainUiState())
+    val genresState: StateFlow<GenresMainUiState> get() = _genresState
 
-    private val _navigateToGenreMovie = MutableLiveData<Event<Int>>()
-    val navigateToGenreMovie: LiveData<Event<Int>> get() = _navigateToGenreMovie
+    private val _navigateToGenreMovie = MutableLiveData<Event<Pair<Int, String>>>()
+    val navigateToGenreMovie: LiveData<Event<Pair<Int, String>>> get() = _navigateToGenreMovie
 
-    private val _navigateToGenreTVShow = MutableLiveData<Event<Int>>()
-    val navigateToGenreTVShow: LiveData<Event<Int>> get() = _navigateToGenreTVShow
-
-    private var currentGenresType = GenresType.MOVIE
+    private val _navigateToGenreTVShow = MutableLiveData<Event<Pair<Int, String>>>()
+    val navigateToGenreTVShow: LiveData<Event<Pair<Int, String>>> get() = _navigateToGenreTVShow
 
     init {
-        currentGenresType
-        getGenresByType(currentGenresType)
+        getGenresByType(genresState.value.selectedTab.second)
     }
 
     private fun getGenresByType(currentGenresType: GenresType) {
@@ -53,7 +51,7 @@ class GenresViewModel @Inject constructor(
     }
 
     private fun onSuccess(genresUiState: List<GenresUiState>) {
-        _genresListState.update {
+        _genresState.update {
             it.copy(
                 isLoading = false,
                 isSuccess = true,
@@ -63,7 +61,7 @@ class GenresViewModel @Inject constructor(
     }
 
     private fun onError() {
-        _genresListState.update {
+        _genresState.update {
             it.copy(
                 isLoading = false,
                 isSuccess = false,
@@ -72,19 +70,36 @@ class GenresViewModel @Inject constructor(
         }
     }
 
+    fun tryLoadGenresAgain() {
+        getGenresByType(genresState.value.selectedTab.second)
+    }
+
     override fun onGenreClick(genre: GenresUiState) {
         when (genre.type.pathName) {
-            "movie" -> _navigateToGenreMovie.postEvent(genre.id)
-            "tv" -> _navigateToGenreTVShow.postEvent(genre.id)
+            "movie" -> _navigateToGenreMovie.postEvent(Pair(genre.id, genre.name))
+            "tv" -> _navigateToGenreTVShow.postEvent(Pair(genre.id, genre.name))
         }
     }
 
-    fun onTapSelected(genresType: GenresType) {
-        currentGenresType = genresType
-        getGenresByType(genresType)
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        tab?.position?.let { position ->
+            when (position) {
+                0 -> _genresState.update {
+                    it.copy(
+                        selectedTab = Pair(position, GenresType.MOVIE)
+                    )
+                }
+                1 -> _genresState.update {
+                    it.copy(
+                        selectedTab = Pair(position, GenresType.TV)
+                    )
+                }
+            }
+        }
+
     }
 
-    fun tryLoadGenresAgain() {
-        getGenresByType(currentGenresType)
-    }
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 }

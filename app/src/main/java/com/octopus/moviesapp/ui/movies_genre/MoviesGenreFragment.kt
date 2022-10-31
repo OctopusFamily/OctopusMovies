@@ -23,7 +23,7 @@ class MoviesGenreFragment : BaseFragment<FragmentMoviesGenreBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadMovies(args.genre.id, args.genre.name)
+        viewModel.loadMovies(args.genreId, args.genreName)
         handleEvents()
 
     }
