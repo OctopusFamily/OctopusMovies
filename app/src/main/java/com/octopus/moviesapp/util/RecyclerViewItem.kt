@@ -1,12 +1,15 @@
 package com.octopus.moviesapp.util
 
-import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.Trending
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMoviesUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(
@@ -31,14 +34,14 @@ sealed class RecyclerViewItem {
     ): RecyclerViewItem()
 
     data class PersonInfoDetailsItem(
-       val personDetails: PersonDetails
+        val personDetails: PersonDetailsUiState
     ) : RecyclerViewItem()
     data class ImageMovieItem(
-        val movie: List<Movie>
+        val movie: List<PersonMoviesUiState>
     ) : RecyclerViewItem()
 
     data class ImageTvShowItem(
-        val tvShows: List<TVShow>
+        val tvShows: List<PersonTvShowUiState>
     ) : RecyclerViewItem()
     data class MoviesItem(
         val moviesList: List<Movie>,

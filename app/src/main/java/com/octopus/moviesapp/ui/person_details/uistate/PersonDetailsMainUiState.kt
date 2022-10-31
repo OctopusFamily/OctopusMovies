@@ -11,6 +11,8 @@ data class PersonDetailsMainUiState(
         "",
         0F,
         "",
-    )
+    ),
+    val personMoviesUiState: List<PersonMoviesUiState> = emptyList(),
+    val personTvShowUiState: List<PersonTvShowUiState> = emptyList(),
 )
 

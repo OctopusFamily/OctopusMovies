@@ -3,15 +3,16 @@ package com.octopus.moviesapp.ui.person_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentPersonDetailsBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
@@ -33,31 +34,40 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     }
 
     private fun handlePersonDetails() {
-        viewModel.personDetailsState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                viewModel.onLoadPersonDetailSuccess(uiState.data)
-                itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(uiState.data))
+        lifecycleScope.launch {
+            viewModel.personDetailsState.collectLatest {
+
+                itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(it.personDetailsUiState))
                 personDetailsAdapter.setItems(itemsList)
+
             }
         }
+
     }
 
     private fun handlePersonMovie() {
-        viewModel.personMoviesState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                itemsList.add(RecyclerViewItem.ImageMovieItem(uiState.data))
+
+        lifecycleScope.launch {
+            viewModel.personDetailsState.collectLatest {
+
+                itemsList.add(RecyclerViewItem.ImageMovieItem(it.personMoviesUiState))
                 personDetailsAdapter.setItems(itemsList)
+
             }
         }
+
     }
 
     private fun handlePersonTvShow() {
-        viewModel.personTvShowState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState is UiState.Success) {
-                itemsList.add(RecyclerViewItem.ImageTvShowItem(uiState.data))
+        lifecycleScope.launch {
+            viewModel.personDetailsState.collectLatest {
+
+                itemsList.add(RecyclerViewItem.ImageTvShowItem(it.personTvShowUiState))
                 personDetailsAdapter.setItems(itemsList)
+
             }
         }
+
     }
 
     private fun handleEvents() {
