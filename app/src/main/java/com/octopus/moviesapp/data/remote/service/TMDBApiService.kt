@@ -76,7 +76,8 @@ interface TMDBApiService {
 
     @GET("discover/tv")
     suspend fun getTVShowsByGenresId(
-        @Query("with_genres") genreId: Int
+        @Query("with_genres") genreId: Int,
+        @Query("page") page: Int
     ): BaseResponse<TVShowDTO>
 
     @GET("person/{person_id}")

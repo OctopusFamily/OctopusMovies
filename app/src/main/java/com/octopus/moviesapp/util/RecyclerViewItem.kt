@@ -1,11 +1,13 @@
 package com.octopus.moviesapp.util
 
 import com.octopus.moviesapp.domain.model.*
-import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.model.Season
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.ui.home.uistate.TrendingUiState
 import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
@@ -13,19 +15,19 @@ import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(
-        val movieDetails: MovieDetails
+        val movieDetails: MovieDetailsUiState
     ): RecyclerViewItem()
 
     data class CastItem(
-        val castList: List<Cast>
+        val castList: List<CastUiState>
     ): RecyclerViewItem()
 
     data class TVShowInfoItem(
-        val tvShowDetails: TVShowDetails
+        val tvShowDetails: TVShowDetailsUiState
     ): RecyclerViewItem()
 
     data class SeasonItem(
-        val seasonsList: List<Season>
+        val seasonsList: List<SeasonUiState>
     ) : RecyclerViewItem()
 
     data class ImageSliderItem(

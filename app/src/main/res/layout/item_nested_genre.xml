@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Genre" />
+            type="com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState" />
 
         <variable
             name="listener"
@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
-            android:onClick="@{()-> listener.onGenreClick(item)}"
             android:textColor="@color/secondary"
             app:chipStrokeColor="@android:color/transparent"
             app:chipBackgroundColor="@color/primary_container"

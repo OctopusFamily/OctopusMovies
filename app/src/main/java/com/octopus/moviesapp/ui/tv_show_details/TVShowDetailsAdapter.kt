@@ -53,6 +53,7 @@ class TVShowDetailsAdapter(
                 val item = itemsList[position] as RecyclerViewItem.SeasonItem
                 holder.bind(item.seasonsList, nestedSeasonsListener)
             }
+
             else -> {}
         }
     }
@@ -69,14 +70,15 @@ class TVShowDetailsAdapter(
     }
 
     fun setItems(newList: List<RecyclerViewItem>) {
-        val differCallback = BaseDiffUtil(
-            oldList = itemsList,
-            newList = newList,
-            { oldItem, newItem -> oldItem == newItem },
-            { oldItem, newItem -> oldItem == newItem },
-        )
-        val diffResult = DiffUtil.calculateDiff(differCallback)
+//        val differCallback = BaseDiffUtil(
+//            oldList = itemsList,
+//            newList = newList,
+//            { oldItem, newItem -> oldItem == newItem },
+//            { oldItem, newItem -> oldItem == newItem },
+//        )
+//        val diffResult = DiffUtil.calculateDiff(differCallback)
         itemsList = newList
-        diffResult.dispatchUpdatesTo(this)
+//        diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
     }
 }
