@@ -61,9 +61,9 @@ class PersonDetailsViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         isSuccess = true,
-                        personDetailsUiState = personDetails,
-                        personMoviesUiState = personMovies,
-                        personTvShowUiState = personTVShows
+                        detailsUiState = personDetails,
+                        moviesUiState = personMovies,
+                        TVShowUiState = personTVShows
                     )
                 }
             } catch (e: Exception) {

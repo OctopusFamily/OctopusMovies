@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="251dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.personDetailsState.personDetailsUiState.profilePath}"
+                app:imageUrl="@{viewModel.personDetailsState.detailsUiState.profilePath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
                 app:layout_constraintEnd_toEndOf="@+id/cover_image_view"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="@{viewModel.personDetailsState.personDetailsUiState.name}" />
+                tools:text="@{viewModel.personDetailsState.detailsUiState.name}" />
 
 
             <androidx.recyclerview.widget.RecyclerView

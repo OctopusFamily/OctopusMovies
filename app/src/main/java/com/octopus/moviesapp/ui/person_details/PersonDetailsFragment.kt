@@ -38,9 +38,9 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     private fun observePersonDetailsUiState() {
         lifecycleScope.launch {
             viewModel.personDetailsState.collectLatest {
-                setPersonDetails(it.personDetailsUiState)
-                setPersonMovies(it.personMoviesUiState)
-                setPersonTVShows(it.personTvShowUiState)
+                setPersonDetails(it.detailsUiState)
+                setPersonMovies(it.moviesUiState)
+                setPersonTVShows(it.TVShowUiState)
             }
         }
     }

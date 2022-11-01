@@ -4,8 +4,8 @@ data class PersonDetailsMainUiState(
     val isLoading: Boolean = true,
     val isError: Boolean = false,
     val isSuccess: Boolean = false,
-    val personDetailsUiState: PersonDetailsUiState = PersonDetailsUiState(),
-    val personMoviesUiState: List<PersonMovieUiState> = emptyList(),
-    val personTvShowUiState: List<PersonTvShowUiState> = emptyList(),
+    val detailsUiState: PersonDetailsUiState = PersonDetailsUiState(),
+    val moviesUiState: List<PersonMovieUiState> = emptyList(),
+    val TVShowUiState: List<PersonTvShowUiState> = emptyList(),
 )
 
