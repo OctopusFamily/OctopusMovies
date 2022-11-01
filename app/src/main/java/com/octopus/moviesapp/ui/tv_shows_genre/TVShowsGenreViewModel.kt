@@ -25,7 +25,7 @@ import javax.inject.Inject
 class TVShowsGenreViewModel @Inject constructor(
     private val getTVShowsPagingSource: GetTVShowsByGenreIdPagingSourceUseCase,
     saveStateHandle: SavedStateHandle,
-    ) : BaseViewModel(), TVShowsClicksListener {
+) : BaseViewModel(), TVShowsClicksListener {
 
     private val _tvShowGenreState = MutableStateFlow(TVShowsGenreMainUiState())
     val tvShowGenreState: StateFlow<TVShowsGenreMainUiState> get() = _tvShowGenreState
@@ -52,7 +52,12 @@ class TVShowsGenreViewModel @Inject constructor(
             .map { pagingData ->
                 pagingData.map { tvShow -> tvShow.asTVShowUiState() }
             }
-        _tvShowGenreState.update { it.copy(tvShowsUiState = tvShowsUiStateFlow , genreName = args.genre.name) }
+        _tvShowGenreState.update {
+            it.copy(
+                tvShowsUiState = tvShowsUiStateFlow,
+                genreName = args.genre.name
+            )
+        }
     }
 
     fun onNavigateBackClick() {

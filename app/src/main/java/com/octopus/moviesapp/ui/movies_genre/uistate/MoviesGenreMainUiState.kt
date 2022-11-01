@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 data class MoviesGenreMainUiState(
-    val moviesUiState: Flow<PagingData<MovieUiState>> = emptyFlow()
+    val moviesUiState: Flow<PagingData<MovieUiState>> = emptyFlow(),
+    val genreName: String = ""
 
 )

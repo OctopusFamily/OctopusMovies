@@ -29,7 +29,6 @@ class MoviesGenreFragment : BaseFragment<FragmentMoviesGenreBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadMovies(args.genre.id, args.genre.name)
         initMoviesAdapter()
         observeMainState()
         handleEvents()
@@ -41,6 +40,7 @@ class MoviesGenreFragment : BaseFragment<FragmentMoviesGenreBinding>() {
         binding.moviesRecyclerView.adapter =
             moviesAdapter.withLoadStateFooter(footer = footerStateAdapter)
     }
+
 
     private fun observeMainState() {
         lifecycleScope.launch {
@@ -60,6 +60,7 @@ class MoviesGenreFragment : BaseFragment<FragmentMoviesGenreBinding>() {
             findNavController().popBackStack()
         }
     }
+
 
     private fun navigateToMovieDetails(movieId: Int) {
         requireView().findNavController()
