@@ -46,7 +46,7 @@
                 android:layout_marginEnd="@dimen/space8x"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@{viewModel.genreName}"
+                android:text="@{viewModel.tvShowGenreState.genreName}"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

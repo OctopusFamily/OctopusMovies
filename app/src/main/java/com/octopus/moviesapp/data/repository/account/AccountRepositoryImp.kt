@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.data.JsonParser
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
+import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.data.remote.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
-    private val dataStorePref: DataStorePref,
+    private val dataStorePref: DataStorePreferences,
     private val jsonParser: JsonParser,
     private val accountMapper: AccountMapper
 ) : AccountRepository {
@@ -35,10 +35,6 @@ class AccountRepositoryImp @Inject constructor(
 
     override suspend fun logout(sessionId: String): LogoutResponse {
         return service.logout(sessionId)
-    }
-
-    override suspend fun getRequestToken(): String? {
-        return service.getRequestToken().body()?.requestToken.toString()
     }
 
     private suspend fun createSession(requestToken: String) {

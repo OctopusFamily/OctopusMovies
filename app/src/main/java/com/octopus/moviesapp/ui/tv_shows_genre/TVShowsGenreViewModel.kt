@@ -2,6 +2,7 @@ package com.octopus.moviesapp.ui.tv_shows_genre
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -22,14 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TVShowsGenreViewModel @Inject constructor(
-    private val getTVShowsByGenreIdPagingSourceUseCase: GetTVShowsByGenreIdPagingSourceUseCase
-) : BaseViewModel(), TVShowsClicksListener {
+    private val getTVShowsPagingSource: GetTVShowsByGenreIdPagingSourceUseCase,
+    saveStateHandle: SavedStateHandle,
+    ) : BaseViewModel(), TVShowsClicksListener {
 
     private val _tvShowGenreState = MutableStateFlow(TVShowsGenreMainUiState())
     val tvShowGenreState: StateFlow<TVShowsGenreMainUiState> get() = _tvShowGenreState
-
-    private val _genreName = MutableLiveData("")
-    val genreName: LiveData<String> get() = _genreName
 
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
     val navigateToTVShowDetails: LiveData<Event<Int>> = _navigateToTVShowDetails
@@ -37,24 +36,23 @@ class TVShowsGenreViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
-    private var genreID = 0
-    fun loadTVShow(genreId: Int, genreName: String) {
-        genreID = genreId
-        _genreName.postValue(genreName)
-        fetchTVShowByGenreId(genreID)
+    private val args = TVShowsGenreFragmentArgs.fromSavedStateHandle(saveStateHandle)
+
+    init {
+        fetchTVShowByGenreId()
     }
 
-    private fun fetchTVShowByGenreId(genreId: Int) {
+    private fun fetchTVShowByGenreId() {
         val tvShowsUiStateFlow = Pager(
             PagingConfig(
                 Constants.ITEMS_PER_PAGE,
                 enablePlaceholders = true
             )
-        ) { getTVShowsByGenreIdPagingSourceUseCase(genreId) }.flow.cachedIn(viewModelScope)
+        ) { getTVShowsPagingSource(args.genre.id) }.flow.cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { tvShow -> tvShow.asTVShowUiState() }
             }
-        _tvShowGenreState.update { it.copy(tvShowsUiState = tvShowsUiStateFlow) }
+        _tvShowGenreState.update { it.copy(tvShowsUiState = tvShowsUiStateFlow , genreName = args.genre.name) }
     }
 
     fun onNavigateBackClick() {

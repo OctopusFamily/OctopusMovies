@@ -67,7 +67,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
-            app:showWhenStateIsSuccess="@{viewModel.movieGenreState}"
             app:spanCount="2"
             tools:listitem="@layout/item_movie" />
 

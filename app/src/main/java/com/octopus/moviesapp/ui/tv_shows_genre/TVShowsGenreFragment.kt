@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowsGenreBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
@@ -25,11 +24,9 @@ class TVShowsGenreFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
 
     private lateinit var tvShowsAdapter: TVShowsPagingAdapter
 
-    private val args: TVShowsGenreFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadTVShow(args.genre.id, args.genre.name)
         handleEvents()
         initMoviesAdapter()
         observeMainState()
