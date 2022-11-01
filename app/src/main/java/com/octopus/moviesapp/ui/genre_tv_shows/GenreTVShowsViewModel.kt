@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_shows_genre
+package com.octopus.moviesapp.ui.genre_tv_shows
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,11 +9,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.domain.use_case.GetTVShowsByGenreIdPagingSourceUseCase
+import com.octopus.moviesapp.domain.use_case.GetGenreTVShowsPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
-import com.octopus.moviesapp.ui.tv_shows_genre.uistate.TVShowsGenreMainUiState
+import com.octopus.moviesapp.ui.genre_tv_shows.uistate.GenreTVShowsMainUiState
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -22,13 +22,13 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class TVShowsGenreViewModel @Inject constructor(
-    private val getTVShowsPagingSource: GetTVShowsByGenreIdPagingSourceUseCase,
+class GenreTVShowsViewModel @Inject constructor(
+    private val getTVShowsPagingSource: GetGenreTVShowsPagingSourceUseCase,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), TVShowsClicksListener {
 
-    private val _tvShowGenreState = MutableStateFlow(TVShowsGenreMainUiState())
-    val tvShowGenreState: StateFlow<TVShowsGenreMainUiState> get() = _tvShowGenreState
+    private val _genreTvShowState = MutableStateFlow(GenreTVShowsMainUiState())
+    val genreTvShowState: StateFlow<GenreTVShowsMainUiState> get() = _genreTvShowState
 
     private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
     val navigateToTVShowDetails: LiveData<Event<Int>> = _navigateToTVShowDetails
@@ -36,13 +36,13 @@ class TVShowsGenreViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
-    private val args = TVShowsGenreFragmentArgs.fromSavedStateHandle(saveStateHandle)
+    private val args = GenreTVShowsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     init {
-        fetchTVShowByGenreId()
+        fetchGenreTVShow()
     }
 
-    private fun fetchTVShowByGenreId() {
+    private fun fetchGenreTVShow() {
         val tvShowsUiStateFlow = Pager(
             PagingConfig(
                 Constants.ITEMS_PER_PAGE,
@@ -52,7 +52,7 @@ class TVShowsGenreViewModel @Inject constructor(
             .map { pagingData ->
                 pagingData.map { tvShow -> tvShow.asTVShowUiState() }
             }
-        _tvShowGenreState.update {
+        _genreTvShowState.update {
             it.copy(
                 tvShowsUiState = tvShowsUiStateFlow,
                 genreName = args.genre.name

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.movies_genre
+package com.octopus.moviesapp.ui.genre_movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,12 +9,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.use_case.GetMoviesByGenreIdPagingSourceUseCase
+import com.octopus.moviesapp.domain.use_case.GetGenreMoviesPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
-import com.octopus.moviesapp.ui.movies_genre.uistate.MoviesGenreMainUiState
-import com.octopus.moviesapp.ui.tv_shows_genre.TVShowsGenreFragmentArgs
+import com.octopus.moviesapp.ui.genre_movies.uistate.GenreMoviesMainUiState
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
@@ -26,14 +25,14 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesGenreViewModel @Inject constructor(
+class GenreMoviesViewModel @Inject constructor(
 
-    private val getMoviesPagingSource: GetMoviesByGenreIdPagingSourceUseCase,
+    private val getMoviesPagingSource: GetGenreMoviesPagingSourceUseCase,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), MoviesClicksListener {
 
-    private val _movieGenreState = MutableStateFlow(MoviesGenreMainUiState())
-    val movieGenreState: StateFlow<MoviesGenreMainUiState> get() = _movieGenreState
+    private val _genreMovieState = MutableStateFlow(GenreMoviesMainUiState())
+    val genreMovieState: StateFlow<GenreMoviesMainUiState> get() = _genreMovieState
 
 
     private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
@@ -43,13 +42,13 @@ class MoviesGenreViewModel @Inject constructor(
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
 
-    private val args = TVShowsGenreFragmentArgs.fromSavedStateHandle(saveStateHandle)
+    private val args = GenreMoviesFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     init {
-        fetchMoviesByGenreId()
+        fetchGenreMovies()
     }
 
-    private fun fetchMoviesByGenreId() {
+    private fun fetchGenreMovies() {
         val moviesUiStateFlow = Pager(
             PagingConfig(
                 Constants.ITEMS_PER_PAGE,
@@ -59,7 +58,7 @@ class MoviesGenreViewModel @Inject constructor(
             .map { pagingData ->
                 pagingData.map { movie -> movie.asMovieUiState() }
             }
-        _movieGenreState.update {
+        _genreMovieState.update {
             it.copy(
                 moviesUiState = moviesUiStateFlow,
                 genreName = args.genre.name

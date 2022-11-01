@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.octopus.moviesapp.ui.tv_shows_genre.TVShowsGenreViewModel" />
+            type="com.octopus.moviesapp.ui.genre_tv_shows.GenreTVShowsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="@dimen/space8x"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@{viewModel.tvShowGenreState.genreName}"
+                android:text="@{viewModel.genreTvShowState.genreName}"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
