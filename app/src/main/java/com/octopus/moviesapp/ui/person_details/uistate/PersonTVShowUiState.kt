@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.ui.person_details.uistate
 
-data class PersonTvShowUiState(
+data class PersonTVShowUiState(
     val id:Int,
     val posterImageUrl: String,
 )

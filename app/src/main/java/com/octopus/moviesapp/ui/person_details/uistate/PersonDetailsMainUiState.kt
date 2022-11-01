@@ -6,6 +6,6 @@ data class PersonDetailsMainUiState(
     val isSuccess: Boolean = false,
     val detailsUiState: PersonDetailsUiState = PersonDetailsUiState(),
     val moviesUiState: List<PersonMovieUiState> = emptyList(),
-    val TVShowUiState: List<PersonTvShowUiState> = emptyList(),
+    val TVShowUiState: List<PersonTVShowUiState> = emptyList(),
 )
 

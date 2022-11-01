@@ -38,7 +38,7 @@ import com.octopus.moviesapp.ui.nested.NestedSeasonsAdapter
 import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
-import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -111,7 +111,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TvShowImageViewHolder(
         val binding: LayoutNestedImageTvShowBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShows: List<PersonTvShowUiState>, listener: NestedImageTvShowListener) {
+        fun bind(tvShows: List<PersonTVShowUiState>, listener: NestedImageTvShowListener) {
             binding.run {
                 tvshowImageRecyclerView.adapter = NestedImageTvShowAdapter(tvShows, listener)
             }

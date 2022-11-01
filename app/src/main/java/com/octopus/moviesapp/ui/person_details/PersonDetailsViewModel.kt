@@ -16,8 +16,7 @@ import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsMainUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
-import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
-import com.octopus.moviesapp.util.ConnectionTracker
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,8 +31,6 @@ class PersonDetailsViewModel @Inject constructor(
     private val getPersonDetails: GetPersonDetailsUseCase,
     private val getPersonMovies: GetPersonMoviesUseCase,
     private val getPersonTvShow: GetPersonTvShowUseCase,
-
-    private val connectionTracker: ConnectionTracker,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
 
@@ -82,9 +79,9 @@ class PersonDetailsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getPersonTVShowsData(): List<PersonTvShowUiState> {
+    private suspend fun getPersonTVShowsData(): List<PersonTVShowUiState> {
         return getPersonTvShow(args.personId).map {
-            it.asPersonTvShowUiState()
+            it.asPersonTVShowUiState()
         }
     }
 
@@ -123,8 +120,8 @@ class PersonDetailsViewModel @Inject constructor(
         )
     }
 
-    private fun TVShow.asPersonTvShowUiState(): PersonTvShowUiState {
-        return PersonTvShowUiState(
+    private fun TVShow.asPersonTVShowUiState(): PersonTVShowUiState {
+        return PersonTVShowUiState(
             id = id, posterImageUrl = posterImageUrl
         )
     }

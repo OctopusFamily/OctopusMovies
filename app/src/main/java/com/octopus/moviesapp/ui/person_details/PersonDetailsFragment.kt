@@ -10,7 +10,7 @@ import com.octopus.moviesapp.databinding.FragmentPersonDetailsBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
-import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +60,7 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
 
     }
 
-    private fun setPersonTVShows(personTvShowUiState: List<PersonTvShowUiState>) {
+    private fun setPersonTVShows(personTvShowUiState: List<PersonTVShowUiState>) {
         if (personTvShowUiState.isNotEmpty()) {
 
             itemsList.add(RecyclerViewItem.ImageTvShowItem(personTvShowUiState))
