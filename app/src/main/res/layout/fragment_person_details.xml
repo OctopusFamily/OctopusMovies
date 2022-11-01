@@ -76,7 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/space6x"
                 android:paddingVertical="@dimen/space4x"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -122,9 +121,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:lottie_rawRes="@raw/no_internet"
-              />
-<!--            app:setLottieAnimationView="@{viewModel.personDetailsState}"-->
+                app:lottie_rawRes="@raw/no_internet" />
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
@@ -135,14 +132,14 @@
                 android:textColor="@color/font_primary_color"
                 android:textSize="22sp" />
 
-<!--            <TextView-->
-<!--                style="@style/text_style_body_large"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textColor="@color/error"-->
-<!--                app:setTextError="@{viewModel.personDetailsState.personDetailsUiState}" />-->
+            <TextView
+                style="@style/text_style_body_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/error"
+                android:text="@string/unknown_error" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"

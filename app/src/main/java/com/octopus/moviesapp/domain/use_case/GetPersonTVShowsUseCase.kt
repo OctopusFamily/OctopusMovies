@@ -5,7 +5,7 @@ import com.octopus.moviesapp.domain.mapper.TVShowsMapper
 import com.octopus.moviesapp.domain.model.TVShow
 import javax.inject.Inject
 
-class GetPersonTvShowUseCase @Inject constructor(
+class GetPersonTVShowsUseCase @Inject constructor(
     private val tvShowsMapper: TVShowsMapper,
     private val personRepository: PersonRepository
 ) {

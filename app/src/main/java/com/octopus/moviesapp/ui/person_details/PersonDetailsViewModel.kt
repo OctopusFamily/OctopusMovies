@@ -9,10 +9,10 @@ import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.use_case.GetPersonDetailsUseCase
 import com.octopus.moviesapp.domain.use_case.GetPersonMoviesUseCase
-import com.octopus.moviesapp.domain.use_case.GetPersonTvShowUseCase
+import com.octopus.moviesapp.domain.use_case.GetPersonTVShowsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
-import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
+import com.octopus.moviesapp.ui.nested.NestedImageTVShowListener
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsMainUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
@@ -30,9 +30,9 @@ import javax.inject.Inject
 class PersonDetailsViewModel @Inject constructor(
     private val getPersonDetails: GetPersonDetailsUseCase,
     private val getPersonMovies: GetPersonMoviesUseCase,
-    private val getPersonTvShow: GetPersonTvShowUseCase,
+    private val getPersonTvShow: GetPersonTVShowsUseCase,
     saveStateHandle: SavedStateHandle,
-) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
+) : BaseViewModel(), NestedImageMovieListener, NestedImageTVShowListener {
 
     private val _personDetailsState = MutableStateFlow(PersonDetailsMainUiState())
     val personDetailsState: StateFlow<PersonDetailsMainUiState> get() = _personDetailsState

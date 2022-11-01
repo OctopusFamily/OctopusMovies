@@ -1,15 +1,15 @@
 package com.octopus.moviesapp.util
 
-import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.domain.model.Trending
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
-
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(

@@ -4,9 +4,9 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.ui.base.BaseAdapter
 import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 
-class NestedImageTvShowAdapter(
+class NestedImageTVShowAdapter(
     tvShows: List<PersonTVShowUiState>,
-    listener: NestedImageTvShowListener,
+    listener: NestedImageTVShowListener,
 ) : BaseAdapter<PersonTVShowUiState>(tvShows, listener) {
     override fun layoutId(): Int = R.layout.item_image_tv_show
     override fun areContentsTheSame(
