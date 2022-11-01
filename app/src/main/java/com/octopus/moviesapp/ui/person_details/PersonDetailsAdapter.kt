@@ -9,14 +9,14 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.RecyclerViewItemType
 import com.octopus.moviesapp.ui.base.BaseDiffUtil
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
-import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
+import com.octopus.moviesapp.ui.nested.NestedImageTVShowListener
 import com.octopus.moviesapp.util.RecyclerViewHolder
 import com.octopus.moviesapp.util.RecyclerViewItem
 
 class PersonDetailsAdapter(
     private var itemsList: List<RecyclerViewItem>,
     private val nestedImageMovieListener: NestedImageMovieListener,
-    private val nestedImageTvShowListener: NestedImageTvShowListener,
+    private val nestedImageTvShowListener: NestedImageTVShowListener,
 ) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {

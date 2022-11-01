@@ -2,6 +2,6 @@ package com.octopus.moviesapp.ui.nested
 
 import com.octopus.moviesapp.ui.base.BaseInteractionListener
 
-interface NestedImageTvShowListener : BaseInteractionListener {
+interface NestedImageTVShowListener : BaseInteractionListener {
     fun onImageTvShowClick(movieId: Int)
 }
