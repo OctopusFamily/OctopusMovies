@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="viewModel"
-        type="com.octopus.moviesapp.ui.movies_genre.MoviesGenreViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.octopus.moviesapp.ui.movies_genre.MoviesGenreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +47,7 @@
                 android:layout_marginEnd="@dimen/space8x"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@{viewModel.genreName}"
+                android:text="@{viewModel.movieGenreState.genreName}"
                 android:textColor="@color/primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
