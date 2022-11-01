@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.tv_show_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -27,15 +26,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TVShowDetailsViewModel @Inject constructor(
-    private val getTVShowDetailsByIdUseCase: GetTVShowDetailsByIdUseCase,
-    private val getTVShowTrailerUseCase: GetTVShowTrailerUseCase,
-    private val getTVShowCastUseCase: GetTVShowCastUseCase,
+    private val getTVShowDetails: GetTVShowDetailsByIdUseCase,
+    private val getTVShowTrailer: GetTVShowTrailerUseCase,
+    private val getTVShowCast: GetTVShowCastUseCase,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener, NestedSeasonsListener {
 
     private val _tvShowDetailsState = MutableStateFlow(TvShowDetailsMainUiState())
     val tvShowDetailsState: StateFlow<TvShowDetailsMainUiState> get() = _tvShowDetailsState
-    
+
     private val _rateTvShow = MutableLiveData<Event<Int>>()
     val rateTvShow: LiveData<Event<Int>> get() = _rateTvShow
 
@@ -60,14 +59,14 @@ class TVShowDetailsViewModel @Inject constructor(
     private fun getTVShowData() {
         viewModelScope.launch {
             try {
-                val trailerResult = getTVShowTrailerUseCase(args.tvShowId).asTrailerUiState()
-                val detailsResult = getTVShowDetailsByIdUseCase(args.tvShowId).asDetailsUiState()
-                val castsResult = getTVShowCastUseCase(args.tvShowId).map { cast -> cast.asCastUiState() }
+                val trailerResult = getTVShowTrailer(args.tvShowId).asTrailerUiState()
+                val detailsResult = getTVShowDetails(args.tvShowId).asDetailsUiState()
+                val castsResult = getTVShowCast(args.tvShowId).map { cast -> cast.asCastUiState() }
 
-                onSuccess(trailerResult,detailsResult,castsResult)
+                onSuccess(trailerResult, detailsResult, castsResult)
 
             } catch (e: Exception) {
-               onError()
+                onError()
             }
         }
     }
@@ -82,6 +81,7 @@ class TVShowDetailsViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 isSuccess = true,
+                isError = false,
                 trailer = trailerResult,
                 cast = castsResult,
                 info = detailsResult
@@ -89,17 +89,16 @@ class TVShowDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun onError(){
-        _tvShowDetailsState.update { it.copy(isLoading = false, isError = true) }
+    private fun onError() {
+        _tvShowDetailsState.update { it.copy(isLoading = false, isError = true, isSuccess = false) }
     }
 
     fun tryLoadTVShowDetailsAgain() {
-        Log.i("MALT","click me")
         getTVShowData()
     }
 
     fun onPlayTrailerClick(trailer: String) {
-            _playTrailer.postEvent(trailer)
+        _playTrailer.postEvent(trailer)
     }
 
     fun onRateClick() {
@@ -124,32 +123,35 @@ class TVShowDetailsViewModel @Inject constructor(
             url = url
         )
     }
+
     private fun TVShowDetails.asDetailsUiState(): DetailsUiState {
         return DetailsUiState(
-            id = id ,
-            title = title ,
+            id = id,
+            title = title,
             coverImageUrl = buildImageUrl(coverImageUrl),
             posterImageUrl = buildImageUrl(posterImageUrl),
             voteCount = voteCount,
-            voteAverage = voteAverage ,
-            episodesNumber =  episodesNumber,
-            seasonsNumber = seasonsNumber ,
-            started = started ,
-            originalLanguage = originalLanguage ,
-            tagline = tagline ,
+            voteAverage = voteAverage,
+            episodesNumber = episodesNumber,
+            seasonsNumber = seasonsNumber,
+            started = started,
+            originalLanguage = originalLanguage,
+            tagline = tagline,
             overview = overview,
-            status = status ,
-            genres = genres.map {genre -> genre.asGenresUiState() },
-            seasons =seasons.map {season -> season.asSeasonUiState() }
+            status = status,
+            genres = genres.map { genre -> genre.asGenresUiState() },
+            seasons = seasons.map { season -> season.asSeasonUiState() }
         )
     }
+
     private fun Genre.asGenresUiState(): GenresUiState {
         return GenresUiState(
             id = id,
-            name = name ,
+            name = name,
             type = GenresType.TV,
         )
     }
+
     private fun Season.asSeasonUiState(): SeasonUiState {
         return SeasonUiState(
             id = id,
@@ -157,10 +159,11 @@ class TVShowDetailsViewModel @Inject constructor(
             imageUrl = buildImageUrl(imageUrl),
         )
     }
+
     private fun Cast.asCastUiState(): CastUiState {
         return CastUiState(
-            id = id ,
-            name = name ,
+            id = id,
+            name = name,
             profileImageUrl = buildImageUrl(profileImageUrl),
         )
     }

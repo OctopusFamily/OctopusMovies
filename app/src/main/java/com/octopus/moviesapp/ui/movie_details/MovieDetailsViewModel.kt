@@ -32,9 +32,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val fetchMovieDetailsUseCase: FetchMovieDetailsUseCase,
-    private val fetchMovieTrailerUseCase: FetchMovieTrailerUseCase,
-    private val fetchMovieCastUseCase: FetchMovieCastUseCase,
+    private val getMovieDetails: FetchMovieDetailsUseCase,
+    private val getMovieTrailer: FetchMovieTrailerUseCase,
+    private val getMovieCast: FetchMovieCastUseCase,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
@@ -68,11 +68,12 @@ class MovieDetailsViewModel @Inject constructor(
     private fun getMovieData() {
         viewModelScope.launch {
             try {
-                val trailerResult = fetchMovieTrailerUseCase(args.movieId).asTrailerUiState()
-                val detailsResult = fetchMovieDetailsUseCase(args.movieId).asDetailsUiState()
-                val castResult = fetchMovieCastUseCase(args.movieId).map{cast -> cast.asCastUiState() }
+                val trailerResult = getMovieTrailer(args.movieId).asTrailerUiState()
+                val detailsResult = getMovieDetails(args.movieId).asDetailsUiState()
+                val castResult = getMovieCast(args.movieId)
+                    .map { cast -> cast.asCastUiState() }
 
-                onSuccess(trailerResult,detailsResult,castResult)
+                onSuccess(trailerResult, detailsResult, castResult)
 
             } catch (e: Exception) {
                 onError()
@@ -90,17 +91,22 @@ class MovieDetailsViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 isSuccess = true,
+                isError = false,
                 trailer = trailerState,
                 cast = castState,
                 info = detailsState
             )
         }
     }
-    private fun onError(){
-        _movieDetailsState.update { it.copy(isLoading = false, isError = true) }
+
+    private fun onError() {
+        _movieDetailsState.update { it.copy(isLoading = false, isError = true, isSuccess = false) }
     }
 
-    // region events
+    fun tryLoadMovieDetailsAgain() {
+        getMovieData()
+    }
+
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
@@ -124,17 +130,17 @@ class MovieDetailsViewModel @Inject constructor(
     override fun onCastClick(castId: Int) {
         _navigateToPersonDetails.postEvent(castId)
     }
-    // endregion
 
     private fun Trailer.asTrailerUiState(): TrailerUiState {
         return TrailerUiState(
             url = url
         )
     }
+
     private fun MovieDetails.asDetailsUiState(): MovieDetailsUiState {
         return MovieDetailsUiState(
-            id = id ,
-            title = title ,
+            id = id,
+            title = title,
             coverImageUrl = buildImageUrl(coverImageUrl),
             posterImageUrl = buildImageUrl(posterImageUrl),
             voteCount = voteCount,
@@ -142,23 +148,24 @@ class MovieDetailsViewModel @Inject constructor(
             originalLanguage = originalLanguage,
             tagline = tagline,
             overview = overview,
-            genres = genres.map {genre -> genre.asGenresUiState() },
+            genres = genres.map { genre -> genre.asGenresUiState() },
             runtime = runtime,
             started = releaseDate,
         )
     }
+
     private fun Genre.asGenresUiState(): GenresUiState {
         return GenresUiState(
             id = id,
-            name = name ,
+            name = name,
             type = GenresType.TV,
         )
     }
 
     private fun Cast.asCastUiState(): CastUiState {
         return CastUiState(
-            id = id ,
-            name = name ,
+            id = id,
+            name = name,
             profileImageUrl = buildImageUrl(profileImageUrl),
         )
     }

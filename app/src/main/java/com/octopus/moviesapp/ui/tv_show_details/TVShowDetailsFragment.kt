@@ -60,14 +60,14 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             navigateToTVShowsGenreFragment(genre)
         }
 
-        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
         }
     }
 
     private fun handleTVShowDetails() {
         lifecycleScope.launch {
-            viewModel.tvShowDetailsState.collect{ uiState ->
+            viewModel.tvShowDetailsState.collect { uiState ->
                 if (uiState.isSuccess) {
                     itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.info))
                     itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.info.seasons))
@@ -81,25 +81,33 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     }
 
     private fun handleTVShowCast() {
-       lifecycleScope.launch {
-           viewModel.tvShowDetailsState.collect{ uiState ->
-               if (uiState.isSuccess) {
-                   itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
-                   tvShowDetailsAdapter.setItems(itemsList)
-               }
-           }
-       }
+        lifecycleScope.launch {
+            viewModel.tvShowDetailsState.collect { uiState ->
+                if (uiState.isSuccess) {
+                    itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
+                    tvShowDetailsAdapter.setItems(itemsList)
+                }
+            }
+        }
 
     }
 
-    private fun navigateToTVShowsGenreFragment(genre: Genre){
+    private fun navigateToTVShowsGenreFragment(genre: Genre) {
         requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
+            .navigate(
+                TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(
+                    genre
+                )
+            )
     }
 
-    private fun navigateToPersonDetailsFragment(castId: Int){
+    private fun navigateToPersonDetailsFragment(castId: Int) {
         requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(castId))
+            .navigate(
+                TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(
+                    castId
+                )
+            )
     }
 }
 
