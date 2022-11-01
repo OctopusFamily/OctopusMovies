@@ -15,7 +15,7 @@ import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
 import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsMainUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
-import com.octopus.moviesapp.ui.person_details.uistate.PersonMoviesUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Event
@@ -52,73 +52,39 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun loadPersonDetailsData() {
         viewModelScope.launch {
-            if (connectionTracker.isInternetConnectionAvailable()) {
-                getPersonDetailsData()
-                getPersonMoviesData()
-                getPersonTvShowData()
-            } else {
+            try {
+                val personDetails = getPersonDetailsData()
+                val personMovies = getPersonMoviesData()
+                val personTVShows = getPersonTVShowsData()
+
+                _personDetailsState.update {
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = true,
+                        personDetailsUiState = personDetails,
+                        personMoviesUiState = personMovies,
+                        personTvShowUiState = personTVShows
+                    )
+                }
+            } catch (e: Exception) {
                 _personDetailsState.update { it.copy(isError = true) }
             }
         }
     }
 
-    private fun getPersonDetailsData() {
-        viewModelScope.launch {
+    private suspend fun getPersonDetailsData(): PersonDetailsUiState {
+        return getPersonDetails(args.personId).asPersonDetailsUiState()
+    }
 
-            try {
-                val personDetails = getPersonDetails.invoke(args.personId).toUiState()
-                _personDetailsState.update {
-                    it.copy(
-                        isLoading = false,
-                        isSuccess = true,
-                        personDetailsUiState = personDetails
-                    )
-                }
-            } catch (error: Throwable) {
-                _personDetailsState.update { it.copy(isError = true) }
-            }
-
+    private suspend fun getPersonMoviesData(): List<PersonMovieUiState> {
+        return getPersonMovies(args.personId).map {
+            it.asPersonMovieUiState()
         }
     }
 
-
-    private fun getPersonMoviesData() {
-
-        viewModelScope.launch {
-
-            try {
-                val personTvShow = getPersonTvShow.invoke(args.personId).toUiState()
-                _personDetailsState.update {
-                    it.copy(
-                        isLoading = false,
-                        isSuccess = true,
-                        personTvShowUiState = personTvShow
-                    )
-                }
-            } catch (error: Throwable) {
-                _personDetailsState.update { it.copy(isError = true) }
-            }
-
-        }
-
-    }
-
-    private fun getPersonTvShowData() {
-        viewModelScope.launch {
-
-            try {
-                val personMovies = getPersonMovies.invoke(args.personId).toUiState()
-                _personDetailsState.update {
-                    it.copy(
-                        isLoading = false,
-                        isSuccess = true,
-                        personMoviesUiState = personMovies
-                    )
-                }
-            } catch (error: Throwable) {
-                _personDetailsState.update { it.copy(isError = true) }
-            }
-
+    private suspend fun getPersonTVShowsData(): List<PersonTvShowUiState> {
+        return getPersonTvShow(args.personId).map {
+            it.asPersonTvShowUiState()
         }
     }
 
@@ -139,34 +105,29 @@ class PersonDetailsViewModel @Inject constructor(
 
     }
 
-    private fun PersonDetails.toUiState(): PersonDetailsUiState {
+    private fun PersonDetails.asPersonDetailsUiState(): PersonDetailsUiState {
         return PersonDetailsUiState(
-            name = this.name,
-            profilePath = this.profilePath,
-            biography = this.biography,
-            birthday = this.birthday,
-            knownForDepartment = this.knownForDepartment,
-            popularity = this.popularity,
-            placeOfBirth = this.placeOfBirth,
+            name = name,
+            profilePath = profilePath,
+            biography = biography,
+            birthday = birthday,
+            knownForDepartment = knownForDepartment,
+            popularity = popularity,
+            placeOfBirth = placeOfBirth,
         )
     }
 
-    private fun List<Movie>.toUiState(): List<PersonMoviesUiState> {
-        return this.map {
-            PersonMoviesUiState(
-                id = it.id,
-                posterImageUrl = it.posterImageUrl
-            )
-        }
+    private fun Movie.asPersonMovieUiState(): PersonMovieUiState {
+        return PersonMovieUiState(
+            id = id, posterImageUrl = posterImageUrl
+        )
     }
 
-    @JvmName("toUiStateTVShow")
-    private fun List<TVShow>.toUiState(): List<PersonTvShowUiState> {
-        return this.map {
-            PersonTvShowUiState(
-                id = it.id,
-                posterImageUrl = it.posterImageUrl
-            )
-        }
+    private fun TVShow.asPersonTvShowUiState(): PersonTvShowUiState {
+        return PersonTvShowUiState(
+            id = id, posterImageUrl = posterImageUrl
+        )
     }
+
+
 }

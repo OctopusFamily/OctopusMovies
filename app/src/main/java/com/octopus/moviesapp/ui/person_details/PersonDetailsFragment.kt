@@ -8,6 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentPersonDetailsBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,46 +29,42 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         personDetailsAdapter = PersonDetailsAdapter(itemsList, viewModel, viewModel)
-        handlePersonDetails()
-        handlePersonMovie()
-        handlePersonTvShow()
+        observePersonDetailsUiState()
         handleEvents()
         binding.recyclerPersonDetails.adapter = personDetailsAdapter
     }
 
-    private fun handlePersonDetails() {
+
+    private fun observePersonDetailsUiState() {
         lifecycleScope.launch {
             viewModel.personDetailsState.collectLatest {
-
-                itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(it.personDetailsUiState))
-                personDetailsAdapter.setItems(itemsList)
-
+                setPersonDetails(it.personDetailsUiState)
+                setPersonMovies(it.personMoviesUiState)
+                setPersonTVShows(it.personTvShowUiState)
             }
+        }
+    }
+
+    private fun setPersonDetails(personDetailsUiState: PersonDetailsUiState) {
+        if (personDetailsUiState.biography.isNotEmpty()) {
+            itemsList.add(0, RecyclerViewItem.PersonInfoDetailsItem(personDetailsUiState))
+            personDetailsAdapter.setItems(itemsList)
+        }
+    }
+
+    private fun setPersonMovies(personMoviesUiState: List<PersonMovieUiState>) {
+        if (personMoviesUiState.isNotEmpty()) {
+            itemsList.add(RecyclerViewItem.ImageMovieItem(personMoviesUiState))
+            personDetailsAdapter.setItems(itemsList)
         }
 
     }
 
-    private fun handlePersonMovie() {
+    private fun setPersonTVShows(personTvShowUiState: List<PersonTvShowUiState>) {
+        if (personTvShowUiState.isNotEmpty()) {
 
-        lifecycleScope.launch {
-            viewModel.personDetailsState.collectLatest {
-
-                itemsList.add(RecyclerViewItem.ImageMovieItem(it.personMoviesUiState))
-                personDetailsAdapter.setItems(itemsList)
-
-            }
-        }
-
-    }
-
-    private fun handlePersonTvShow() {
-        lifecycleScope.launch {
-            viewModel.personDetailsState.collectLatest {
-
-                itemsList.add(RecyclerViewItem.ImageTvShowItem(it.personTvShowUiState))
-                personDetailsAdapter.setItems(itemsList)
-
-            }
+            itemsList.add(RecyclerViewItem.ImageTvShowItem(personTvShowUiState))
+            personDetailsAdapter.setItems(itemsList)
         }
 
     }

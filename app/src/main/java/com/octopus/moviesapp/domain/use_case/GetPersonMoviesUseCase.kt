@@ -10,7 +10,7 @@ class GetPersonMoviesUseCase @Inject constructor(
     private val personRepository: PersonRepository
 ) {
 
-    suspend fun invoke(personId: Int): List<Movie> {
+    suspend operator fun invoke(personId: Int): List<Movie> {
         return moviesMapper.mapList(personRepository.getPersonMoviesById(personId))
     }
 }

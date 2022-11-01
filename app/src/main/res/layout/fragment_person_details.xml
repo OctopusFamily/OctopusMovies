@@ -26,14 +26,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsSuccess="@{viewModel.personDetailsState}">
+            app:showIfTrue="@{viewModel.personDetailsState.success}">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/cover_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="251dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.personDetails.profilePath}"
+                app:imageUrl="@{viewModel.personDetailsState.personDetailsUiState.profilePath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cover_image_view"
                 app:layout_constraintEnd_toEndOf="@+id/cover_image_view"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="@{viewModel.personDetails.name}" />
+                tools:text="@{viewModel.personDetailsState.personDetailsUiState.name}" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -96,7 +96,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsLoading="@{viewModel.personDetailsState}" />
+            app:showIfTrue="@{viewModel.personDetailsState.loading}" />
 
 
         <LinearLayout
@@ -108,7 +108,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsError="@{viewModel.personDetailsState}"
+            app:showIfTrue="@{viewModel.personDetailsState.error}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -122,8 +122,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.personDetailsState}" />
-
+                app:lottie_rawRes="@raw/no_internet"
+              />
+<!--            app:setLottieAnimationView="@{viewModel.personDetailsState}"-->
             <TextView
                 style="@style/text_style_body_large"
                 android:layout_width="match_parent"
@@ -134,14 +135,14 @@
                 android:textColor="@color/font_primary_color"
                 android:textSize="22sp" />
 
-            <TextView
-                style="@style/text_style_body_large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:textColor="@color/error"
-                app:setTextError="@{viewModel.personDetailsState}" />
+<!--            <TextView-->
+<!--                style="@style/text_style_body_large"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/error"-->
+<!--                app:setTextError="@{viewModel.personDetailsState.personDetailsUiState}" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"

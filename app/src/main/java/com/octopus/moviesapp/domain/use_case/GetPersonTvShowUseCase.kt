@@ -10,7 +10,7 @@ class GetPersonTvShowUseCase @Inject constructor(
     private val personRepository: PersonRepository
 ) {
 
-    suspend fun invoke(personId: Int): List<TVShow> {
+    suspend operator fun invoke(personId: Int): List<TVShow> {
         return tvShowsMapper.mapList(personRepository.getPersonTVShowsById(personId))
     }
 }

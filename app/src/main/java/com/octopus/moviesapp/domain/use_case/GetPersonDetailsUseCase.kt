@@ -9,7 +9,7 @@ class GetPersonDetailsUseCase @Inject constructor(
     private val personDetailsMapper: PersonDetailsMapper,
     private val personRepository: PersonRepository
 ) {
-    suspend fun invoke(personId: Int): PersonDetails {
+    suspend operator fun invoke(personId: Int): PersonDetails {
         return personDetailsMapper.map(personRepository.getPersonDetailsById(personId))
     }
 }

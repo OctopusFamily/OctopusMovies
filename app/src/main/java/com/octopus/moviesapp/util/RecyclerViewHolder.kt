@@ -7,12 +7,38 @@ import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.databinding.*
-import com.octopus.moviesapp.domain.model.*
+import com.octopus.moviesapp.databinding.LayoutNestedCastBinding
+import com.octopus.moviesapp.databinding.LayoutNestedImageMovieBinding
+import com.octopus.moviesapp.databinding.LayoutNestedImageSliderBinding
+import com.octopus.moviesapp.databinding.LayoutNestedImageTvShowBinding
+import com.octopus.moviesapp.databinding.LayoutNestedImagesGridBinding
+import com.octopus.moviesapp.databinding.LayoutNestedInfoBinding
+import com.octopus.moviesapp.databinding.LayoutNestedItemsBinding
+import com.octopus.moviesapp.databinding.LayoutNestedPersonDetailsInfoBinding
+import com.octopus.moviesapp.databinding.LayoutNestedSeasonsBinding
+import com.octopus.moviesapp.domain.model.Cast
+import com.octopus.moviesapp.domain.model.Movie
+import com.octopus.moviesapp.domain.model.MovieDetails
+import com.octopus.moviesapp.domain.model.Season
+import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.model.TVShowDetails
+import com.octopus.moviesapp.domain.model.Trending
 import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
-import com.octopus.moviesapp.ui.nested.*
+import com.octopus.moviesapp.ui.nested.NestedCastAdapter
+import com.octopus.moviesapp.ui.nested.NestedCastListener
+import com.octopus.moviesapp.ui.nested.NestedGenresAdapter
+import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.ui.nested.NestedImageMovieAdapter
+import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
+import com.octopus.moviesapp.ui.nested.NestedImageTvShowAdapter
+import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
+import com.octopus.moviesapp.ui.nested.NestedSeasonsAdapter
+import com.octopus.moviesapp.ui.nested.NestedSeasonsListener
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTvShowUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -75,7 +101,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class MovieImageViewHolder(
         val binding: LayoutNestedImageMovieBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(movies: List<Movie>, listener: NestedImageMovieListener) {
+        fun bind(movies: List<PersonMovieUiState>, listener: NestedImageMovieListener) {
             binding.run {
                 movieImageRecyclerView.adapter = NestedImageMovieAdapter(movies, listener)
             }
@@ -85,7 +111,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TvShowImageViewHolder(
         val binding: LayoutNestedImageTvShowBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShows: List<TVShow>, listener: NestedImageTvShowListener) {
+        fun bind(tvShows: List<PersonTvShowUiState>, listener: NestedImageTvShowListener) {
             binding.run {
                 tvshowImageRecyclerView.adapter = NestedImageTvShowAdapter(tvShows, listener)
             }
@@ -95,7 +121,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class PersonInfoDetailsViewHolder(
         val binding: LayoutNestedPersonDetailsInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(personDetails: PersonDetails) {
+        fun bind(personDetails: PersonDetailsUiState) {
             binding.run {
                 biography.text = personDetails.biography
                 birthday.text = personDetails.birthday
