@@ -6,6 +6,7 @@ import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.util.Constants
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class AccountRepositoryImp @Inject constructor(
     private val dataStorePreferences: DataStorePreferences,
 ) : AccountRepository {
     override fun getSessionId(): String? {
-        return dataStorePreferences.readString(Constants.SESSION_ID_KEY).toString()
+        return dataStorePreferences.readString(Constants.SESSION_ID_KEY)
     }
 
     override suspend fun getAccountDetails(sessionId: String): AccountDTO {

@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
-            android:text="@{@string/lists(String.valueOf(viewModel.myListsState.toData().size()))}"
-            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
+            android:text="@{@string/lists(String.valueOf(viewModel.createdListsUIState.createdLists.size()))}"
+            showIfTrue="@{viewModel.createdListsUIState.isSuccess}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="@id/text_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_title"
-            app:showWhenStateIsSuccess="@{viewModel.myListsState}" />
+            showIfTrue="@{viewModel.createdListsUIState.isSuccess}"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/view_horizontal"
@@ -53,7 +53,7 @@
             android:layout_marginHorizontal="@dimen/space8x"
             android:layout_marginTop="@dimen/space8x"
             android:layout_marginBottom="@dimen/space8x"
-            app:showWhenStateIsSuccess="@{viewModel.myListsState}"
+            showIfTrue="@{viewModel.createdListsUIState.isSuccess}"
             app:dividerColor="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
             android:orientation="vertical"
             android:paddingVertical="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{viewModel.myListsState.toData()}"
+            app:items="@{viewModel.createdListsUIState.createdLists}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
             app:layout_constraintStart_toStartOf="@+id/my_view"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:showWhenEmptyList="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.createdListsUIState.isEmpty}"
             app:lottie_rawRes="@raw/lottie_empty_list_animation" />
 
         <TextView
@@ -96,7 +96,7 @@
             android:visibility="gone"
             android:text="@string/my_lists_empty"
             android:textSize="@dimen/space12x"
-            app:showWhenEmptyList="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.createdListsUIState.isEmpty}"
             app:layout_constraintEnd_toEndOf="@+id/lottie_animation_view"
             app:layout_constraintStart_toStartOf="@+id/lottie_animation_view"
             app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view" />
@@ -109,7 +109,7 @@
             android:text="@string/my_lists_description"
             android:textSize="@dimen/space8x"
             android:visibility="gone"
-            app:showWhenEmptyList="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.createdListsUIState.isEmpty}"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -177,7 +177,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.myListsState}"
+            showIfTrue="@{viewModel.createdListsUIState.isLoading}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +192,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view_horizontal"
-            app:showWhenStateIsError="@{viewModel.myListsState}"
+            showIfTrue="@{viewModel.createdListsUIState.isFailure}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -206,7 +206,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.myListsState}" />
+                app:lottie_rawRes="@raw/no_internet"
+                showIfTrue="@{viewModel.createdListsUIState.isFailure}" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -225,7 +226,8 @@
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
                 android:textColor="@color/error"
-                app:setTextError="@{viewModel.myListsState}" />
+                android:text="@string/description"
+                showIfTrue="@{viewModel.createdListsUIState.isFailure}" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"

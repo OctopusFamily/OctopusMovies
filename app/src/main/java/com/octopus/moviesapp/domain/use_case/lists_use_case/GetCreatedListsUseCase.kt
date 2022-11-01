@@ -18,6 +18,6 @@ class GetCreatedListsUseCase @Inject constructor(
             response.let {
                 createdListMapper.map(it)
             } ?: throw Throwable("Unable to get created lists")
-         }
+        }
     }
 }

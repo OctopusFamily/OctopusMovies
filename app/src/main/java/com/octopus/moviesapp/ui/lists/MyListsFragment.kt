@@ -2,15 +2,17 @@ package com.octopus.moviesapp.ui.lists
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentMyListsBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
@@ -26,6 +28,11 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
         observeEvents()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getData()
+    }
+
     private fun observeEvents() {
         viewModel.isNewListClicked.observeEvent(viewLifecycleOwner){
             if (it){
@@ -33,15 +40,16 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
             }
         }
 
-        viewModel.myListsState.observe(viewLifecycleOwner) {
-            if (it is UiState.Success)
-                viewModel.checkIfEmptyList()
-        }
-
         viewModel.item.observeEvent(viewLifecycleOwner){
             val action =
-                MyListsFragmentDirections.actionMyListsFragmentToListDetailsFragment(it.id,it.name)
+                MyListsFragmentDirections.actionMyListsFragmentToListDetailsFragment(it.listID,it.listName)
             findNavController().navigate(action)
+        }
+
+        viewModel.toastErrorMessage.observeEvent(viewLifecycleOwner){
+            if (it){
+                Toast.makeText(requireContext(), viewModel.createdListsUIState.value.error, Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -51,8 +59,10 @@ class MyListsFragment : BaseFragment<FragmentMyListsBinding>() {
     }
 
     private fun observeLiveData() {
-        viewModel.myListsState.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.let { myLists -> myListsAdapter.setItems(myLists) }
+        lifecycleScope.launch {
+            viewModel.createdListsUIState.collect {
+                it.createdLists.let { myLists -> myListsAdapter.setItems(myLists) }
+            }
         }
     }
 
