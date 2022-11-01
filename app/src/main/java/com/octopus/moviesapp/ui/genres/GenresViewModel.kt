@@ -75,9 +75,9 @@ class GenresViewModel @Inject constructor(
     }
 
     override fun onGenreClick(genre: GenresUiState) {
-        when (genre.type.pathName) {
-            "movie" -> _navigateToGenreMovie.postEvent(Pair(genre.id, genre.name))
-            "tv" -> _navigateToGenreTVShow.postEvent(Pair(genre.id, genre.name))
+        when (genre.type) {
+            GenresType.MOVIE -> _navigateToGenreMovie.postEvent(Pair(genre.id, genre.name))
+            GenresType.TV -> _navigateToGenreTVShow.postEvent(Pair(genre.id, genre.name))
         }
     }
 

@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
@@ -98,11 +97,6 @@ fun setSeasonNumber(view: TextView, seasonNumber: Int?) {
 
 @BindingAdapter("showIfTrue")
 fun showIfTrue(view: View, condition: Boolean) {
-    view.isVisible = condition
-}
-
-@BindingAdapter(value = ["app:showAsUiState"])
-fun showAsUiState(view: View, condition: Boolean) {
     view.isVisible = condition
 }
 
@@ -235,7 +229,7 @@ fun setSelectedChip(chipGroup: ChipGroup, position: Int) {
 @BindingAdapter(value = ["app:setSelectedTab"])
 fun setSelectedTab(tabLayout: TabLayout, position: Int) {
     val tab = tabLayout.getTabAt(position)
-    tab?.select()
+    tabLayout.selectTab(tab)
 }
 
 @BindingAdapter("onCheckedChanged")
