@@ -4,21 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.domain.model.MovieDetails
+import com.octopus.moviesapp.domain.model.Trailer
+import com.octopus.moviesapp.domain.types.GenresType
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieCastUseCase
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieDetailsUseCase
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieTrailerUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.ui.movie_details.mapper.MovieDetailsUiStateMapper
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
-import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowTrailerUiStateMapper
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
 import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,9 +35,6 @@ class MovieDetailsViewModel @Inject constructor(
     private val fetchMovieDetailsUseCase: FetchMovieDetailsUseCase,
     private val fetchMovieTrailerUseCase: FetchMovieTrailerUseCase,
     private val fetchMovieCastUseCase: FetchMovieCastUseCase,
-    private val castUiStateMapper: CastUiStateMapper,
-    private val trailerMapper: TVShowTrailerUiStateMapper,
-    private val movieDetailsMapper: MovieDetailsUiStateMapper,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
@@ -62,21 +62,17 @@ class MovieDetailsViewModel @Inject constructor(
     private val args = MovieDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     init {
-        getMovieData(args.movieId)
+        getMovieData()
     }
 
-    private fun getMovieData(movieId: Int) {
+    private fun getMovieData() {
         viewModelScope.launch {
             try {
-                val trailerResult = fetchMovieTrailerUseCase(movieId)
-                val detailsResult = fetchMovieDetailsUseCase(movieId)
-                val castResult = fetchMovieCastUseCase(movieId)
+                val trailerResult = fetchMovieTrailerUseCase(args.movieId).asTrailerUiState()
+                val detailsResult = fetchMovieDetailsUseCase(args.movieId).asDetailsUiState()
+                val castResult = fetchMovieCastUseCase(args.movieId).map{cast -> cast.asCastUiState() }
 
-                val movieTrailerState = trailerMapper.map(trailerResult)
-                val movieDetailsState = movieDetailsMapper.map(detailsResult)
-                val movieCastState = castUiStateMapper.map(castResult)
-
-                onSuccess(movieTrailerState,movieCastState,movieDetailsState)
+                onSuccess(trailerResult,detailsResult,castResult)
 
             } catch (e: Exception) {
                 onError()
@@ -86,8 +82,8 @@ class MovieDetailsViewModel @Inject constructor(
 
     private fun onSuccess(
         trailerState: TrailerUiState,
-        castState: List<CastUiState>,
-        detailsState: MovieDetailsUiState
+        detailsState: MovieDetailsUiState,
+        castState: List<CastUiState>
 
     ) {
         _movieDetailsState.update {
@@ -129,5 +125,43 @@ class MovieDetailsViewModel @Inject constructor(
         _navigateToPersonDetails.postEvent(castId)
     }
     // endregion
+
+    private fun Trailer.asTrailerUiState(): TrailerUiState {
+        return TrailerUiState(
+            url = url
+        )
+    }
+    private fun MovieDetails.asDetailsUiState(): MovieDetailsUiState {
+        return MovieDetailsUiState(
+            id = id ,
+            title = title ,
+            coverImageUrl = buildImageUrl(coverImageUrl),
+            posterImageUrl = buildImageUrl(posterImageUrl),
+            voteCount = voteCount,
+            voteAverage = voteAverage,
+            originalLanguage = originalLanguage,
+            tagline = tagline,
+            overview = overview,
+            genres = genres.map {genre -> genre.asGenresUiState() },
+            runtime = runtime,
+            started = releaseDate,
+        )
+    }
+    private fun Genre.asGenresUiState(): GenresUiState {
+        return GenresUiState(
+            id = id,
+            name = name ,
+            type = GenresType.TV,
+        )
+    }
+
+    private fun Cast.asCastUiState(): CastUiState {
+        return CastUiState(
+            id = id ,
+            name = name ,
+            profileImageUrl = buildImageUrl(profileImageUrl),
+        )
+    }
+
 
 }
