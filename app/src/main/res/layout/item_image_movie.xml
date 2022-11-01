@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Movie" />
+            type="com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState" />
 
         <variable
             name="listener"

@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.datastore.DataStorePref
 import com.octopus.moviesapp.domain.login.LoginResponse
 import com.octopus.moviesapp.domain.login.LoginUseCase
 import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent

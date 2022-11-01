@@ -26,8 +26,7 @@ import java.util.*
 @BindingAdapter(value = ["app:imageUrl"])
 fun loadImage(imageView: ImageView, imageUrl: String?) {
     imageUrl?.let { url ->
-        Glide.with(imageView).load(url).placeholder(R.drawable.rotate)
-            .error(R.drawable.ic_octopus_movies_logo).into(imageView)
+        Glide.with(imageView).load(url).placeholder(R.drawable.rotate).error(R.drawable.ic_octopus_movies_logo).into(imageView)
     }
 }
 
@@ -184,7 +183,7 @@ fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
     if (uiState is UiState.Error) {
         if (uiState.message == Constants.ERROR_INTERNET) {
             view.setAnimation(R.raw.no_internet)
-        } else {
+        }else{
             view.setAnimation(R.raw.error)
         }
     }

@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.util
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -9,15 +8,20 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.*
-import com.octopus.moviesapp.domain.model.*
+import com.octopus.moviesapp.domain.model.Movie
+import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.model.Trending
 import com.octopus.moviesapp.ui.home.nested.NestedMoviesAdapter
 import com.octopus.moviesapp.ui.home.nested.NestedTVShowsAdapter
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.nested.*
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -59,7 +63,6 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
         val binding: LayoutNestedSeasonsBinding
     ) : RecyclerViewHolder(binding) {
         fun bind(seasonsList: List<SeasonUiState>, seasonsListener: NestedSeasonsListener) {
-            Log.i("TEST","setting adapter of season with list of $seasonsList")
             binding.seasonsRecyclerView.adapter =
                 NestedSeasonsAdapter(seasonsList, seasonsListener)
         }
@@ -82,7 +85,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class MovieImageViewHolder(
         val binding: LayoutNestedImageMovieBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(movies: List<Movie>, listener: NestedImageMovieListener) {
+        fun bind(movies: List<PersonMovieUiState>, listener: NestedImageMovieListener) {
             binding.run {
                 movieImageRecyclerView.adapter = NestedImageMovieAdapter(movies, listener)
             }
@@ -92,9 +95,9 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TvShowImageViewHolder(
         val binding: LayoutNestedImageTvShowBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShows: List<TVShow>, listener: NestedImageTvShowListener) {
+        fun bind(tvShows: List<PersonTVShowUiState>, listener: NestedImageTVShowListener) {
             binding.run {
-                tvshowImageRecyclerView.adapter = NestedImageTvShowAdapter(tvShows, listener)
+                tvshowImageRecyclerView.adapter = NestedImageTVShowAdapter(tvShows, listener)
             }
         }
     }
@@ -102,7 +105,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class PersonInfoDetailsViewHolder(
         val binding: LayoutNestedPersonDetailsInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(personDetails: PersonDetails) {
+        fun bind(personDetails: PersonDetailsUiState) {
             binding.run {
                 biography.text = personDetails.biography
                 birthday.text = personDetails.birthday

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -27,7 +27,6 @@
             android:id="@+id/genres_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/on_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,13 +37,14 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/primary"
             app:tabTextAppearance="@style/text_style_body_medium"
-            app:tabTextColor="@color/on_surface_variant">
+            app:tabTextColor="@color/on_surface_variant"
+            android:background="@color/on_primary">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/movies_tab_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/movies" />
+                android:text="@string/movies"/>
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tv_shows_tab_item"
@@ -57,9 +57,9 @@
             android:id="@+id/genres_recycler_View"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp"
             android:paddingTop="4dp"
+            android:paddingHorizontal="12dp"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/genres_tab_layout"
             app:showIfTrue="@{viewModel.genresState.success}"
             app:spanCount="2"
-            tools:listitem="@layout/item_genre" />
+            tools:listitem="@layout/item_genre"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
