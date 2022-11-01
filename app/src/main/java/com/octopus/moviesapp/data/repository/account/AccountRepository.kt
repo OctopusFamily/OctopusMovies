@@ -2,14 +2,20 @@ package com.octopus.moviesapp.data.repository.account
 
 import com.octopus.moviesapp.data.remote.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
-import com.octopus.moviesapp.domain.model.Account
-import com.octopus.moviesapp.util.UiState
-import kotlinx.coroutines.flow.Flow
+import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 
 interface AccountRepository {
-    fun getSessionId(): Flow<String?>
-    suspend fun login(username: String, password: String): Flow<UiState<Boolean>>
     suspend fun getAccountDetails(sessionId: String): AccountDTO
+
     suspend fun logout(sessionId: String): LogoutResponse
+
+    fun getSessionId() : String?
+
+    suspend fun getRequestToken() : String?
+
+    suspend fun validateRequestTokenWithLogin(body : Map<String,Any>) : Response<RequestTokenResponse>
+
+    suspend fun createSessionID(requestToken: String)
+
 }
 

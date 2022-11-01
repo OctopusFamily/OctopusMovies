@@ -1,53 +1,59 @@
 package com.octopus.moviesapp.ui.movie_details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.movies.MoviesRepository
-import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.model.Trailer
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieCastUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieTrailerUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.movie_details.mapper.MovieDetailsUiStateMapper
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.ui.tv_show_details.mappers.CastUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.mappers.TVShowTrailerUiStateMapper
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
+import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val moviesRepository: MoviesRepository,
-    private val connectionTracker: ConnectionTracker,
+    private val fetchMovieDetailsUseCase: FetchMovieDetailsUseCase,
+    private val fetchMovieTrailerUseCase: FetchMovieTrailerUseCase,
+    private val fetchMovieCastUseCase: FetchMovieCastUseCase,
+    private val castUiStateMapper: CastUiStateMapper,
+    private val trailerMapper: TVShowTrailerUiStateMapper,
+    private val movieDetailsMapper: MovieDetailsUiStateMapper,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), NestedGenresListener, NestedCastListener {
 
-    private val _movieDetailsState = MutableLiveData<UiState<MovieDetails>>(UiState.Loading)
-    val movieDetailsState: LiveData<UiState<MovieDetails>> get() = _movieDetailsState
+    private val _movieDetails = MutableStateFlow(MovieDetailsMainUiState())
+    val movieDetails: StateFlow<MovieDetailsMainUiState> get() = _movieDetails
 
-    private val _movieTrailerState = MutableLiveData<UiState<Trailer>>(UiState.Loading)
-    val movieTrailerState: LiveData<UiState<Trailer>> get() = _movieTrailerState
+    private val _movieCastState = MutableStateFlow(MovieDetailsMainUiState())
 
-    private val _movieCastState = MutableLiveData<UiState<List<Cast>>>(UiState.Loading)
-    val movieCastState: LiveData<UiState<List<Cast>>> get() = _movieCastState
+    val movieCastState: StateFlow<MovieDetailsMainUiState> get() = _movieCastState
 
-    private val _movieDetails = MutableLiveData<MovieDetails>()
-    val movieDetails: LiveData<MovieDetails> get() = _movieDetails
-
-    private val _movieTrailer = MutableLiveData<Trailer>()
-
-    private val _navigateBack = MutableLiveData<Event<Boolean>>()
-    val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
+    private val _movieTrailer = MutableLiveData<TrailerUiState>()
 
     private val _playTrailer = MutableLiveData<Event<String>>()
     val playTrailer: LiveData<Event<String>> get() = _playTrailer
+
+    private val _navigateBack = MutableLiveData<Event<Boolean>>()
+
+    val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
     private val _saveToWatchList = MutableLiveData<Event<Int>>()
     val saveToWatchList: LiveData<Event<Int>> get() = _saveToWatchList
@@ -64,42 +70,60 @@ class MovieDetailsViewModel @Inject constructor(
     private val args = MovieDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     init {
-        loadMovieDetails(args.movieId)
+        getMovieData(args.movieId)
     }
 
-    private var movieID = 0
-    private fun loadMovieDetails(movieId: Int) {
-        movieID = movieId
-
+    private fun getMovieData(movieId: Int) {
         viewModelScope.launch {
-            if (connectionTracker.isInternetConnectionAvailable()) {
-                getMovieDetails()
-            } else {
-                _movieDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            try {
+                val trailerResult = fetchMovieTrailerUseCase(movieId)
+                val detailsResult = fetchMovieDetailsUseCase(movieId)
+                val castResult = fetchMovieCastUseCase(movieId)
+
+                val movieTrailerState = trailerMapper.map(trailerResult)
+                val movieDetailsState = movieDetailsMapper.map(detailsResult)
+                val movieCastState = castUiStateMapper.map(castResult)
+
+                onSuccess(movieTrailerState,movieCastState,movieDetailsState)
+
+            } catch (e: Exception) {
+                onError()
             }
         }
-
     }
 
-    private fun getMovieDetails() {
-        Log.d("movieId :",args.movieId.toString())
-        getMovieDetails(args.movieId)
-        getMovieCast(args.movieId)
-        getMovieTrailer(args.movieId)
+    private fun onSuccess(
+        trailerState: TrailerUiState,
+        castState: List<CastUiState>,
+        detailsState: MovieDetailsUiState
+
+    ) {
+        _movieDetails.update {
+            it.copy(
+                isLoading = false,
+                isSuccess = true,
+                trailer = trailerState,
+                cast = castState,
+                details = detailsState
+            )
+        }
+    }
+    private fun onError(){
+        _movieDetails.update { it.copy(isLoading = false, isError = true) }
     }
 
-    fun tryLoadMovieDetailsAgain() {
-        loadMovieDetails(args.movieId)
+    fun onLoadMovieDetailsSuccess(movieDetails: MovieDetailsMainUiState) {
+        viewModelScope.launch {
+            _movieDetails.emit(movieDetails)
+        }
     }
 
-    fun onLoadMovieDetailsSuccess(movieDetails: MovieDetails) {
-        _movieDetails.postValue(movieDetails)
-    }
-
-    fun onLoadTrailerSuccess(movieTrailer: Trailer) {
+    fun onLoadTrailerSuccess(movieTrailer: TrailerUiState) {
         _movieTrailer.postValue(movieTrailer)
     }
 
+
+    // region events
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
@@ -118,29 +142,7 @@ class MovieDetailsViewModel @Inject constructor(
         _rateMovie.postEvent(0)
     }
 
-    private fun getMovieDetails(movieId: Int) {
-        viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieDetailsById(movieId) }.collectLatest {
-                _movieDetailsState.postValue(it)
-            }
-        }
-    }
 
-    private fun getMovieTrailer(movieId: Int) {
-        viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieTrailerById(movieId) }.collectLatest {
-                _movieTrailerState.postValue(it)
-            }
-        }
-    }
-
-    private fun getMovieCast(movieId: Int) {
-        viewModelScope.launch {
-            wrapResponse { moviesRepository.getMovieCastById(movieId) }.collectLatest {
-                _movieCastState.postValue(it)
-            }
-        }
-    }
 
     override fun onGenreClick(genre: Genre) {
         _navigateToMoviesGenre.postEvent(genre)
@@ -149,8 +151,6 @@ class MovieDetailsViewModel @Inject constructor(
     override fun onCastClick(castId: Int) {
         _navigateToPersonDetails.postEvent(castId)
     }
+    // endregion
 
-//    override fun onPersonClick(PersonId: Int) {
-//        _navigateToPersonDetails.postEvent(PersonId)
-//    }
 }

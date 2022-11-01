@@ -4,17 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.octopus.moviesapp.data.local.datastore.DataStorePref
+import com.octopus.moviesapp.domain.login.LoginResponse
+import com.octopus.moviesapp.domain.login.LoginUseCase
 import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
+import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val accountRepository: AccountRepository,
+    private val loginUseCase: LoginUseCase,
     private val authUtils: AuthUtilsImpl,
     private val dataStorePreferences: DataStorePreferences,
     saveStateHandle: SavedStateHandle
@@ -31,8 +37,8 @@ class LoginViewModel @Inject constructor(
     private val _passwordError = MutableLiveData(Constants.EMPTY_TEXT)
     val passwordError: LiveData<String> get() = _passwordError
 
-    private val _loginRequestState = MutableLiveData<UiState<Boolean>>()
-    val loginRequestState = _loginRequestState
+    private val _loginMainUiState = MutableStateFlow(LoginMainUiState())
+    val loginMainUiState = _loginMainUiState
 
     private val _signUpEvent = MutableLiveData(Event(false))
     val signUpEvent: LiveData<Event<Boolean>> get() = _signUpEvent
@@ -48,6 +54,9 @@ class LoginViewModel @Inject constructor(
 
     private val _isDialogShown = MutableLiveData(false)
     val isDialogShown: LiveData<Boolean> get() = _isDialogShown
+
+    private val _loginEvent = MutableLiveData<Event<Boolean>>()
+    val loginEvent  = _loginEvent
 
 
     fun onSignUpClick() {
@@ -79,24 +88,34 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login() {
-         viewModelScope.launch {
-            accountRepository.login(username = args.username, password = args.password).collect {
-                when (it) {
-                    is UiState.Error -> onLoginError(it.message)
-                    is UiState.Success -> onLoginSuccessfully()
-                    UiState.Loading -> _loginRequestState.postValue(it)
+        viewModelScope.launch {
+            try {
+                _loginMainUiState.update{it.copy(isLoading = true)}
+                val response = loginUseCase(username = args.username, password = args.password)
+                if (response is LoginResponse.Success){
+                    onLoginSuccessfully()
                 }
+                else if (response is LoginResponse.Failure){
+                    onLoginError(response.message)
+                }
+
+            } catch (e : Throwable){
+                onLoginError(e.message.toString())
+
             }
         }
     }
 
     private fun onLoginSuccessfully() {
-        _loginRequestState.postValue(UiState.Success(true))
+        _loginMainUiState.update { it.copy(isSuccess = true) }
+        _loginEvent.postEvent(true)
     }
 
-    private fun onLoginError(message: String) {
-        _loginRequestState.postValue(UiState.Error(message))
+    private fun onLoginError(message : String) {
+        _loginMainUiState.update { it.copy(isError = true, error = message) }
         _passwordError.postValue(message)
+        _loginEvent.postEvent(false)
+
     }
 
     private fun checkUserInputs(): Boolean {
