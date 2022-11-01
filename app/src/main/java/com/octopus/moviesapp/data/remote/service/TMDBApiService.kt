@@ -97,7 +97,7 @@ interface TMDBApiService {
     ): CastResponse<TVShowDTO>
 
     @GET("authentication/token/new")
-    suspend fun getRequestToken(): Response<RequestTokenResponse>
+    suspend fun getRequestToken(): RequestTokenResponse
 
     @JvmSuppressWildcards
     @FormUrlEncoded
