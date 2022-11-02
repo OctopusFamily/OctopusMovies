@@ -46,15 +46,17 @@ class MyListsViewModel @Inject constructor(
     private val _item = MutableLiveData<Event<CreatedListsUIState>>()
     val item: LiveData<Event<CreatedListsUIState>> get() = _item
 
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
+
     init {
-        _createdListsUIState.update { it.copy(isLoading = true) }
         getData()
     }
 
     fun getData() {
         viewModelScope.launch {
             try {
-                 val lists = getCreatedListsUseCase().map {
+                val lists = getCreatedListsUseCase().map {
                     createdListsUIMapper.map(it)
                 }
                 _createdListsUIState.update {
@@ -68,13 +70,18 @@ class MyListsViewModel @Inject constructor(
                 }
             } catch (e: Throwable) {
                 _createdListsUIState.update {
-                    it.copy(isLoading = false, isSuccess = false,isFailure = true, error = e.message.toString())
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = false,
+                        isFailure = true,
+                        error = e.message.toString()
+                    )
                 }
-             }
-         }
+            }
+        }
     }
 
-    fun getListName(listName : CharSequence) {
+    fun getListName(listName: CharSequence) {
         _listName.update { it.copy(listName = listName.toString()) }
     }
 
@@ -89,17 +96,17 @@ class MyListsViewModel @Inject constructor(
     fun onClickAddList() {
         viewModelScope.launch {
             try {
-               _createdListsUIState.update {
-                   it.copy(
-                       isLoading = false,
-                       createdLists = createListUseCase(listName = _listName.value.listName).map {
-                           createdListsUIMapper.map(it)
-                       },
-                       isFailure = false,
-                       isEmpty = false,
-                       error = ""
-                   )
-               }
+                _createdListsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        createdLists = createListUseCase(listName = _listName.value.listName).map {
+                            createdListsUIMapper.map(it)
+                        },
+                        isFailure = false,
+                        isEmpty = false,
+                        error = ""
+                    )
+                }
             } catch (e: Throwable) {
                 _toastErrorMessage.postEvent(true)
                 _createdListsUIState.update { it.copy(error = e.message.toString()) }
@@ -107,6 +114,22 @@ class MyListsViewModel @Inject constructor(
             _listName.update { it.copy(listName = "") }
             _onCLickAddEvent.postEvent(true)
         }
+    }
+
+    fun retry() {
+        _createdListsUIState.update {
+            it.copy(
+                isLoading = true,
+                isFailure = false,
+                isSuccess = false,
+                createdLists = emptyList()
+            )
+        }
+        getData()
+    }
+
+    fun onNavigateBackClick(){
+        _isArrowBackClicked.postValue(Event(true))
     }
 
     override fun onListClick(item: CreatedListsUIState) {

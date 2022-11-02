@@ -115,6 +115,7 @@
     <string name="profile">Profile</string>
     <string name="not_logged_in">You are not logged in, log in to show your profile!</string>
     <string name="dashboard">Dashboard</string>
+    <string name="new_list" translatable="false">Create</string>
     <string name="my_lists_empty" translatable="false">No lists created yet</string>
     <string name="my_lists_description" translatable="false">create your own personal movie lists.</string>
     <string name="list_details_empty" translatable="false">No movies in this list</string>

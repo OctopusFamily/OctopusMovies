@@ -229,3 +229,8 @@ fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickL
         onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
     }
 }
+
+@BindingAdapter(value = ["app:enableWhenStateIsSuccess"])
+fun enableWhenStateIsSuccess(view: View, condition: Boolean) {
+    view.isEnabled = condition
+}
