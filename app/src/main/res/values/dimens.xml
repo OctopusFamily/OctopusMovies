@@ -16,5 +16,5 @@
 
 
     <dimen name="size_lottie">200dp</dimen>
-
+    <dimen name="button_small_circle_size">50dp</dimen>
 </resources>

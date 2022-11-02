@@ -34,4 +34,12 @@
         <item name="windowSplashScreenBackground">#FFFFFF</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_octopus_movies_logo</item>
     </style>
+
+    <style name="Theme.Button.IconButton.small" parent="Widget.Material3.Button.IconButton">
+        <item name="backgroundTint">@color/background</item>
+        <item name="iconTint">@color/primary</item>
+        <item name="android:padding">@dimen/space_zero</item>
+        <item name="iconGravity">textTop</item>
+
+    </style>
 </resources>

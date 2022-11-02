@@ -14,39 +14,30 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
-        <LinearLayout
+        <TextView
             android:id="@+id/top_app_bar"
+            style="@style/text_style_body_large"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="?attr/actionBarSize"
             android:gravity="center_vertical"
-            android:paddingVertical="@dimen/space4x"
+            android:background="@color/surface"
             android:paddingHorizontal="@dimen/space8x"
-            android:background="@color/surface">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/octopus_movies"
-                android:textColor="@color/primary"
-                style="@style/text_style_body_large"
-                android:layout_marginEnd="@dimen/space8x"/>
+            android:text="@string/octopus_movies"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_search"
-                android:layout_weight="1"
-                android:paddingVertical="@dimen/space4x"
-                android:paddingHorizontal="@dimen/space8x"
-                android:text="@string/Search"
-                android:textColor="#5CC5245B"
-                android:textAlignment="textStart"
-                style="@style/text_style_label_large"
-                android:background="@drawable/search_shape"
-                android:onClick="@{()-> viewModel.onSearchClick()}"
-                app:tint="@color/secondary"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/button_search"
+            style="@style/Theme.Button.IconButton.small"
+            android:layout_width="@dimen/button_small_circle_size"
+            android:layout_height="@dimen/button_small_circle_size"
+            android:layout_marginEnd="@dimen/space8x"
+            android:onClick="@{() -> viewModel.onSearchClick()}"
+            app:icon="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/top_app_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/top_app_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_recycler_view"
