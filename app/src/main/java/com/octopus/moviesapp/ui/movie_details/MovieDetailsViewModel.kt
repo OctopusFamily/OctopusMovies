@@ -17,6 +17,7 @@ import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
@@ -26,6 +27,7 @@ import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,8 +72,7 @@ class MovieDetailsViewModel @Inject constructor(
             try {
                 val trailerResult = getMovieTrailer(args.movieId).asTrailerUiState()
                 val detailsResult = getMovieDetails(args.movieId).asDetailsUiState()
-                val castResult = getMovieCast(args.movieId)
-                    .map { cast -> cast.asCastUiState() }
+                val castResult = getMovieCast(args.movieId).map { cast -> cast.asCastUiState() }
 
                 onSuccess(trailerResult, detailsResult, castResult)
 
@@ -100,10 +101,23 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun onError() {
-        _movieDetailsState.update { it.copy(isLoading = false, isError = true, isSuccess = false) }
+        _movieDetailsState.update {
+            it.copy(
+                isLoading = false,
+                isError = true,
+                isSuccess = false
+            )
+        }
     }
 
     fun tryLoadMovieDetailsAgain() {
+        _movieDetailsState.update {
+            it.copy(
+                isLoading = true,
+                isError = false,
+                isSuccess = false
+            )
+        }
         getMovieData()
     }
 

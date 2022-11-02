@@ -90,10 +90,23 @@ class TVShowDetailsViewModel @Inject constructor(
     }
 
     private fun onError() {
-        _tvShowDetailsState.update { it.copy(isLoading = false, isError = true, isSuccess = false) }
+        _tvShowDetailsState.update {
+            it.copy(
+                isLoading = false,
+                isError = true,
+                isSuccess = false
+            )
+        }
     }
 
     fun tryLoadTVShowDetailsAgain() {
+        _tvShowDetailsState.update {
+            it.copy(
+                isLoading = true,
+                isError = false,
+                isSuccess = false,
+            )
+        }
         getTVShowData()
     }
 

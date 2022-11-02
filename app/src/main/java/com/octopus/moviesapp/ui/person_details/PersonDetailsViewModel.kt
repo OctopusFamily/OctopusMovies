@@ -64,7 +64,13 @@ class PersonDetailsViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                _personDetailsState.update { it.copy(isError = true) }
+                _personDetailsState.update {
+                    it.copy(
+                        isLoading = false,
+                        isError = true,
+                        isSuccess = false
+                    )
+                }
             }
         }
     }
@@ -86,6 +92,13 @@ class PersonDetailsViewModel @Inject constructor(
     }
 
     fun tryLoadPersonDetailAgain() {
+        _personDetailsState.update {
+            it.copy(
+                isLoading = true,
+                isError = false,
+                isSuccess = false,
+            )
+        }
         loadPersonDetailsData()
     }
 

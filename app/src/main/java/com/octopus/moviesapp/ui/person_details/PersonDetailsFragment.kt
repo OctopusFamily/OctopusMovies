@@ -34,6 +34,10 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         binding.recyclerPersonDetails.adapter = personDetailsAdapter
     }
 
+    override fun onPause() {
+        super.onPause()
+        itemsList.clear()
+    }
 
     private fun observePersonDetailsUiState() {
         lifecycleScope.launch {
