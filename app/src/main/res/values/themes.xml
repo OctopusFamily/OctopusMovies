@@ -37,7 +37,7 @@
     </style>
 
     <style name="Theme.Button.IconButton.small" parent="Widget.Material3.Button.IconButton">
-        <item name="backgroundTint">@color/background</item>
+        <item name="backgroundTint">@color/surface</item>
         <item name="iconTint">@color/primary</item>
         <item name="android:padding">@dimen/space_zero</item>
         <item name="iconGravity">textTop</item>
