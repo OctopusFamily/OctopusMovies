@@ -39,14 +39,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.homeRecyclerView.adapter = homeAdapter
     }
 
-    fun observeMainUiState() {
+    private fun observeMainUiState() {
         lifecycleScope.launch {
             viewModel.homeMainUiState.collectLatest {
                 setTrendingMovies(it.trendingMoviesUiState)
                 setRecommendedMoviesState(it.moviesItemUiState)
-                setTrendingTVShows(it.trendingTVShowsUiState)
-                setRecommendedTVShowsState(it.tvShowsItemUiState)
                 setTrendingPeople(it.trendingPeopleUiState)
+                setRecommendedTVShowsState(it.tvShowsItemUiState)
+                setTrendingTVShows(it.trendingTVShowsUiState)
             }
         }
     }
@@ -87,13 +87,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun handleEvents() {
-        viewModel.navigateToSearch.observeEvent(viewLifecycleOwner) {
-            navigateToSearch()
+        viewModel.run {
+            navigateToSearch.observeEvent(viewLifecycleOwner) {
+                navigateToSearch()
+            }
+            navigateToMovieDetails.observeEvent(viewLifecycleOwner) { movieId ->
+                navigateToMovieDetails(movieId)
+            }
+            navigateToTVShowDetails.observeEvent(viewLifecycleOwner) { tvShowId ->
+                navigateToTVShowsDetails(tvShowId)
+            }
         }
     }
 
     private fun navigateToSearch() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+    }
+
+    private fun navigateToMovieDetails(movieId: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(movieId))
+    }
+
+    private fun navigateToTVShowsDetails(tvShowId: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTVShowDetailsFragment(tvShowId))
     }
 
     private fun setOnBackButtonClickListener() {
@@ -102,7 +118,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 requireActivity().finish()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
-            onBackPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        homeAdapterItems.clear()
     }
 }
