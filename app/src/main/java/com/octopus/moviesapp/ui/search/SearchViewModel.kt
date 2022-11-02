@@ -27,8 +27,6 @@ class SearchViewModel @Inject constructor(
     private val filterSearchUseCase: FilterSearchResultsUseCase,
 ) : BaseViewModel(), SearchClicksListener, ChipGroupClickListener {
 
-    val searchQuery = MutableLiveData<String>()
-
     private val _searchResultState = MutableStateFlow(SearchMainUiState())
     val searchResultState: StateFlow<SearchMainUiState> = _searchResultState
 
@@ -89,7 +87,6 @@ class SearchViewModel @Inject constructor(
                 ))
             }
         } else {
-            Log.i("SEARCH_VIEW_MODEL", filterSearchResults(allMediaSearchResults).toString())
 
             _searchResultState.update {
                 it.copy(
@@ -107,7 +104,9 @@ class SearchViewModel @Inject constructor(
         return filterSearchUseCase(
             searchResults,
             _searchResultState.value.mediaType
-        ).asSearchResultUiState()
+        ).map { searchResult ->
+            searchResult.asSearchResultUiState()
+        }
     }
 
     override fun onItemClick(searchId: Int) {
