@@ -12,13 +12,13 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
 import com.octopus.moviesapp.ui.base.BaseAdapter
 import com.octopus.moviesapp.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
-import kotlinx.android.synthetic.main.fragment_search.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -194,6 +194,7 @@ fun setWelcomeTag(textView: TextView, username: String?) {
         textView.text = textView.context.getString(R.string.welcome_tag, username)
     }
 }
+
 @BindingAdapter("app:showWhenEmptyList")
 fun showWhenEmptyList(view: View, isEmptyList: Boolean?) {
     view.isVisible = isEmptyList != false
@@ -223,9 +224,20 @@ fun setSelectedChip(chipGroup: ChipGroup, position: Int) {
     checkedChip.isChecked = true
 }
 
+@BindingAdapter("setSelectedTab")
+fun setSelectedTab(tabLayout: TabLayout, position: Int) {
+    val tab = tabLayout.getTabAt(position)
+    tabLayout.selectTab(tab)
+}
+
 @BindingAdapter("onCheckedChanged")
 fun onCheckedChanged(chipGroupView: ChipGroup, onCheckedChanged: ChipGroupClickListener) {
     chipGroupView.setOnCheckedStateChangeListener { chipGroup, _ ->
         onCheckedChanged.onChipSelected(chipGroup.getSelectedChipIndex())
     }
+}
+
+@BindingAdapter(value = ["app:enableWhenStateIsSuccess"])
+fun enableWhenStateIsSuccess(view: View, condition: Boolean) {
+    view.isEnabled = condition
 }

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.octopus.moviesapp.ui.genres.GenresViewModel" />
@@ -29,6 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            setSelectedTab="@{viewModel.genresState.selectedTab.first}"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/primary"
             app:tabMaxWidth="0dp"
@@ -63,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genres_tab_layout"
-            app:showWhenStateIsSuccess="@{viewModel.genresListState}"
+            app:showIfTrue="@{viewModel.genresState.success}"
             app:spanCount="2"
             tools:listitem="@layout/item_genre"/>
 
@@ -75,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenStateIsLoading="@{viewModel.genresListState}" />
+            app:showIfTrue="@{viewModel.genresState.loading}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +87,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genres_tab_layout"
-            app:showWhenStateIsError="@{viewModel.genresListState}"
+            app:showIfTrue="@{viewModel.genresState.error}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -98,8 +100,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.genresListState}" />
+                app:lottie_loop="false" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -117,8 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
-                android:textColor="@color/error"
-                app:setTextError="@{viewModel.genresListState}" />
+                android:textColor="@color/error" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
@@ -127,7 +127,6 @@
                 android:onClick="@{()->viewModel.tryLoadGenresAgain()}"
                 android:text="@string/retry"
                 android:textAllCaps="true" />
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

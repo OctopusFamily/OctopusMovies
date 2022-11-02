@@ -1,9 +1,8 @@
 package com.octopus.moviesapp.ui.genres
 
-
-import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseInteractionListener
+import com.octopus.moviesapp.ui.genres.uistate.GenresUiState
 
 interface GenresClicksListener : BaseInteractionListener {
-    fun onGenreClick(genre: Genre)
+    fun onGenreClick(genre: GenresUiState)
 }

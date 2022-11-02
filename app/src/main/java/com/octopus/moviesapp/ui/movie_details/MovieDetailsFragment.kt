@@ -6,40 +6,92 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieDetailsFragment :
-    BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
+class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_movie_details
     override val viewModel: MovieDetailsViewModel by viewModels()
+    private val args : MovieDetailsFragmentArgs by navArgs()
     override var bottomNavigationViewVisibility = View.GONE
-
 
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var movieDetailsAdapter: MovieDetailsAdapter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movieDetailsAdapter = MovieDetailsAdapter(
-            itemsList,
-            viewModel,
-            viewModel
-        )
-        handleMovieDetails()
-        handleMovieCast()
+        movieDetailsAdapter = MovieDetailsAdapter(itemsList, viewModel, viewModel)
+        observeMovieDetailsUiState()
+        binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
         handleEvents()
-        observeTrailerState()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        itemsList.clear()
+    }
+
+    private fun observeMovieDetailsUiState() {
+        lifecycleScope.launch {
+            viewModel.movieDetailsState.collectLatest {
+                setMovieDetails(it.info)
+                setMovieCast(it.cast)
+            }
+        }
+    }
+
+    private fun setMovieDetails(movieDetails: MovieDetailsUiState) {
+        if (movieDetails.id != 0) {
+        itemsList.add(0, RecyclerViewItem.MovieInfoItem(movieDetails))
+        movieDetailsAdapter.setItems(itemsList)
+        }
+
+    }
+
+    private fun setMovieCast(castUiState: List<CastUiState> ) {
+        if (castUiState.isNotEmpty()) {
+            itemsList.add(RecyclerViewItem.CastItem(castUiState))
+            movieDetailsAdapter.setItems(itemsList)
+        }
+    }
+
+    private fun navigateToMoviesGenreFragment(genre: Genre) {
+        requireView().findNavController()
+            .navigate(
+                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(
+                    genre.id,
+                    genre.name,
+                )
+            )
+    }
+
+    private fun navigateToPersonDetails(personId: Int) {
+        requireView().findNavController().navigate(
+            MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(
+                personId
+            )
+        )
+    }
+
+    private fun navigateToPersonDetailsFragment(castId: Int) {
+        requireView().findNavController()
+            .navigate(
+                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(
+                    castId
+                )
+            )
     }
 
     private fun handleEvents() {
@@ -69,66 +121,13 @@ class MovieDetailsFragment :
         viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
         }
-    }
-
-    private fun handleMovieDetails() {
-        lifecycleScope.launch {
-
-            viewModel.movieDetails.collect { uiState ->
-                if (uiState.isSuccess) {
-                    viewModel.onLoadMovieDetailsSuccess(uiState)
-                    itemsList.add(0, RecyclerViewItem.MovieInfoItem(uiState.details))
-                    movieDetailsAdapter.setItems(itemsList)
-                    binding.movieDetailsRecyclerView.adapter = movieDetailsAdapter
-                }
-            }
-        }
-    }
-
-    private fun handleMovieCast() {
-        lifecycleScope.launch {
-            viewModel.movieDetails.collect { uiState ->
-                if (uiState.isSuccess) {
-                    itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
-                    movieDetailsAdapter.setItems(itemsList)
-                }
-            }
-        }
-    }
-
-    private fun observeTrailerState() {
-        lifecycleScope.launch {
-            viewModel.movieDetails.collect { uiState ->
-                if (uiState.isSuccess) {
-                    viewModel.onLoadTrailerSuccess(uiState.trailer)
-                }
-            }
-        }
-    }
-
-    private fun navigateToMoviesGenreFragment(genre: Genre) {
-        requireView().findNavController()
-            .navigate(
-                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(
-                    genre
+        viewModel.isSaveIconClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(
+                    MovieDetailsFragmentDirections.actionMovieDetailsFragmentToBottomSheetSaveTo(args.movieId)
                 )
-            )
+            }
+        }
     }
 
-    private fun navigateToPersonDetails(personId: Int) {
-        requireView().findNavController().navigate(
-            MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(
-                personId
-            )
-        )
-    }
-
-    private fun navigateToPersonDetailsFragment(castId: Int) {
-        requireView().findNavController()
-            .navigate(
-                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(
-                    castId
-                )
-            )
-    }
 }

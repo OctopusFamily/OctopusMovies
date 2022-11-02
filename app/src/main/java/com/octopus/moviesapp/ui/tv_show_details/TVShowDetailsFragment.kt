@@ -10,11 +10,14 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowDetailsBinding
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.DetailsUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -23,10 +26,8 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
     override val viewModel: TVShowDetailsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
-
     private val itemsList = mutableListOf<RecyclerViewItem>()
     private lateinit var tvShowDetailsAdapter: TVShowDetailsAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,10 +37,14 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             viewModel,
             viewModel,
         )
-        handleTVShowDetails()
-        handleTVShowCast()
+        observeTVShowDetailsUiState()
         handleEvents()
-        observeTrailerState()
+        binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
+    }
+
+    override fun onPause() {
+        super.onPause()
+        itemsList.clear()
     }
 
     private fun handleEvents() {
@@ -61,57 +66,54 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
             navigateToTVShowsGenreFragment(genre)
         }
 
-        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner){ castId ->
+        viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
         }
     }
 
-    private fun handleTVShowDetails() {
+    private fun observeTVShowDetailsUiState() {
         lifecycleScope.launch {
-            viewModel.tvShowDetailsState.collect{ uiState ->
-                if (uiState.isSuccess) {
-                    viewModel.onLoadTVShowDetailsSuccess(uiState.Info)
-                    itemsList.add(0, RecyclerViewItem.TVShowInfoItem(uiState.Info))
-                    itemsList.add(1, RecyclerViewItem.SeasonItem(uiState.Info.seasons))
-                    tvShowDetailsAdapter.setItems(itemsList)
-                    binding.tvShowDetailsRecyclerView.adapter = tvShowDetailsAdapter
-                }
-            }
-
-        }
-
-    }
-
-    private fun observeTrailerState() {
-            lifecycleScope.launch {
-            viewModel.tvShowDetailsState.collect { uiState ->
-                if (uiState.isSuccess) {
-                    viewModel.onLoadTrailerSuccess(uiState.trailer)
-                }
+            viewModel.tvShowDetailsState.collectLatest {
+                setTVShowDetails(it.info)
+                setTVShowCast(it.cast)
             }
         }
     }
 
-    private fun handleTVShowCast() {
-       lifecycleScope.launch {
-           viewModel.tvShowDetailsState.collect{ uiState ->
-               if (uiState.isSuccess) {
-                   itemsList.add(RecyclerViewItem.CastItem(uiState.cast))
-                   tvShowDetailsAdapter.setItems(itemsList)
-               }
-           }
-       }
+    private fun setTVShowDetails(tvShowDetails: DetailsUiState) {
+        if (tvShowDetails.id != 0) {
+            itemsList.add(0, RecyclerViewItem.TVShowInfoItem(tvShowDetails))
+            itemsList.add(1, RecyclerViewItem.SeasonItem(tvShowDetails.seasons))
+            tvShowDetailsAdapter.setItems(itemsList)
+
+        }
+    }
+
+    private fun setTVShowCast(castUiState: List<CastUiState> ) {
+        if (castUiState.isNotEmpty()) {
+            itemsList.add(RecyclerViewItem.CastItem(castUiState))
+            tvShowDetailsAdapter.setItems(itemsList)
+        }
 
     }
 
-    private fun navigateToTVShowsGenreFragment(genre: Genre){
+    private fun navigateToTVShowsGenreFragment(genre: Genre) {
         requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
+            .navigate(
+                TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(
+                    genre.id,
+                    genre.name,
+                )
+            )
     }
 
-    private fun navigateToPersonDetailsFragment(castId: Int){
+    private fun navigateToPersonDetailsFragment(castId: Int) {
         requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(castId))
+            .navigate(
+                TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToPersonDetailsFragment(
+                    castId
+                )
+            )
     }
 }
 

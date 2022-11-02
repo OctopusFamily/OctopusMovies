@@ -1,15 +1,15 @@
 package com.octopus.moviesapp.data.remote.service
 
-import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
+import com.octopus.moviesapp.data.remote.response.BaseResponse
 import com.octopus.moviesapp.data.remote.response.CastResponse
 import com.octopus.moviesapp.data.remote.response.GenresResponse
-import com.octopus.moviesapp.data.remote.response.BaseResponse
 import com.octopus.moviesapp.data.remote.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
 import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
 import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
 import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.lists.*
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.response.login.SessionResponse
@@ -22,23 +22,23 @@ interface TMDBApiService {
     // Movies End Points
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
-        @Path("movie_id") movieId: Int,
+        @Path("movie_id") movieId: Int
     ): MovieDTO
 
     @GET("movie/{movie_category}")
     suspend fun getMoviesByCategory(
         @Path("movie_category") moviesCategory: String,
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): BaseResponse<MovieDTO>
 
     @GET("movie/{movieID}/videos")
     suspend fun getMovieTrailersById(
-        @Path("movieID") movieId: Int,
+        @Path("movieID") movieId: Int
     ): BaseResponse<TrailerDTO>
 
     @GET("movie/{movieID}/credits")
     suspend fun getMovieCastById(
-        @Path("movieID") movieId: Int,
+        @Path("movieID") movieId: Int
     ): CastResponse<CastDTO>
 
     // TVShows End Points
@@ -49,29 +49,30 @@ interface TMDBApiService {
 
     @GET("tv/{tv_id}/credits")
     suspend fun getTVShowCastById(
-        @Path("tv_id") tvShowId: Int,
+        @Path("tv_id") tvShowId: Int
     ): CastResponse<CastDTO>
 
     @GET("tv/{tv_id}/videos")
     suspend fun getTVShowsTrailersById(
-        @Path("tv_id") tvShowId: Int,
+        @Path("tv_id") tvShowId: Int
     ): BaseResponse<TrailerDTO>
 
     @GET("tv/{tv_category}")
     suspend fun getTVShowsByCategory(
         @Path("tv_category") tvShowCategory: String,
-        @Query("page") page: Int,
+        @Query("page") page: Int
     ): BaseResponse<TVShowDTO>
 
     // Genres End Points
     @GET("genre/{genre_type}/list")
     suspend fun getGenresByType(
-        @Path("genre_type") genresType: String,
+        @Path("genre_type") genresType: String
     ): GenresResponse
 
     @GET("discover/movie")
     suspend fun getMoviesByGenresId(
-        @Query("with_genres") genreId: Int
+        @Query("with_genres") genreId: Int,
+        @Query("page") page: Int
     ): BaseResponse<MovieDTO>
 
     @GET("discover/tv")
@@ -122,13 +123,13 @@ interface TMDBApiService {
     // Search End Points
     @GET("search/multi")
     suspend fun getSearchMultiMedia(
-        @Query("query") query: String,
+        @Query("query") query: String
     ): BaseResponse<SearchDTO>
 
     // Trending End Points
     @GET("trending/{media_type}/day")
     suspend fun getTrendingMedia(
-        @Path("media_type") mediaType: String,
+        @Path("media_type") mediaType: String
     ): BaseResponse<TrendingDTO>
 
     @GET("account/{account_id}/lists")
@@ -139,8 +140,16 @@ interface TMDBApiService {
 
     @GET("list/{list_id}")
     suspend fun getList(
-        @Path("list_id") listId: Int,
+        @Path("list_id") listId: Int
     ): ListResponseDto<ListDetailsDto>
+
+    @FormUrlEncoded
+    @POST("list/{list_id}/add_item")
+    suspend fun addMovieToList(
+        @Path("list_id") ListId: Int,
+        @Query("session_id") sessionId: String,
+        @Field("media_id") movieId: Int
+    ): AddMovieToListResponse
 
     @GET("account")
     suspend fun getAccountDetails(

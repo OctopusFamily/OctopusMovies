@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.octopus.moviesapp.ui.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.octopus.moviesapp.ui.movies.MoviesFragment"
-        android:label="MoviesFragment" >
+        android:label="MoviesFragment">
         <action
             android:id="@+id/action_moviesFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/TVShowsFragment"
         android:name="com.octopus.moviesapp.ui.tv_shows.TVShowsFragment"
-        android:label="TVShowsFragment" >
+        android:label="TVShowsFragment">
         <action
             android:id="@+id/action_TVShowsFragment_to_TVShowDetailsFragment"
             app:destination="@id/TVShowDetailsFragment" />
@@ -32,18 +32,18 @@
     <fragment
         android:id="@+id/genresFragment"
         android:name="com.octopus.moviesapp.ui.genres.GenresFragment"
-        android:label="GenresFragment" >
+        android:label="GenresFragment">
         <action
             android:id="@+id/action_genresFragment_to_moviesGenreFragment"
-            app:destination="@id/moviesGenreFragment" />
+            app:destination="@id/genreMoviesFragment" />
         <action
             android:id="@+id/action_genresFragment_to_TVShowsGenreFragment"
-            app:destination="@id/TVShowsGenreFragment" />
+            app:destination="@id/GenreTVShowsFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.octopus.moviesapp.ui.dashboard.DashboardFragment"
-        android:label="SettingsFragment" >
+        android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
@@ -57,58 +57,65 @@
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.octopus.moviesapp.ui.movie_details.MovieDetailsFragment"
-        android:label="MovieDetailsFragment" >
+        android:label="MovieDetailsFragment">
         <argument
             android:name="movieId"
             app:argType="integer" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_moviesGenreFragment"
-            app:destination="@id/moviesGenreFragment" />
+            app:destination="@id/genreMoviesFragment" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
             app:destination="@id/personDetailsFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_bottomSheetSaveTo"
+            app:destination="@id/bottomSheetSaveTo" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
         android:name="com.octopus.moviesapp.ui.tv_show_details.TVShowDetailsFragment"
-        android:label="TVShowDetailsFragment" >
+        android:label="TVShowDetailsFragment">
         <argument
             android:name="tvShowId"
             app:argType="integer" />
         <action
             android:id="@+id/action_TVShowDetailsFragment_to_TVShowsGenreFragment"
-            app:destination="@id/TVShowsGenreFragment" />
+            app:destination="@id/GenreTVShowsFragment" />
         <action
             android:id="@+id/action_TVShowDetailsFragment_to_personDetailsFragment"
             app:destination="@id/personDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/moviesGenreFragment"
-        android:name="com.octopus.moviesapp.ui.movies_genre.MoviesGenreFragment"
-        android:label="MoviesGenreFragment" >
+        android:id="@+id/genreMoviesFragment"
+        android:name="com.octopus.moviesapp.ui.genre_movies.GenreMoviesFragment"
+        android:label="MoviesGenreFragment">
 
-        <argument
-            android:name="genre"
-            app:argType="com.octopus.moviesapp.domain.model.Genre" />
         <action
             android:id="@+id/action_moviesGenreFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="genreId"
+            app:argType="integer" />
+        <argument
+            android:name="genreName"
+            app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/TVShowsGenreFragment"
-        android:name="com.octopus.moviesapp.ui.tv_shows_genre.TVShowsGenreFragment"
-        android:label="TVShowsGenreFragment" >
+        android:id="@+id/GenreTVShowsFragment"
+        android:name="com.octopus.moviesapp.ui.genre_tv_shows.GenreTVShowsFragment"
+        android:label="TVShowsGenreFragment">
         <action
             android:id="@+id/action_TVShowsGenreFragment_to_TVShowDetailsFragment"
             app:destination="@id/TVShowDetailsFragment" />
         <argument
-            android:name="genre"
-            app:argType="com.octopus.moviesapp.domain.model.Genre" />
+            android:name="genreId"
+            app:argType="integer" />
+        <argument android:name="genreName" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.octopus.moviesapp.ui.search.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
@@ -126,7 +133,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.octopus.moviesapp.ui.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_loadingDialog"
             app:destination="@id/loadingDialog" />
@@ -144,12 +151,12 @@
             app:destination="@id/homeFragment" />
         <argument
             android:name="username"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
         <argument
             android:name="password"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
     </dialog>
     <fragment
         android:id="@+id/personDetailsFragment"
@@ -162,11 +169,16 @@
         <action
             android:id="@+id/action_PersonDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_personDetailsFragment_to_TVShowDetailsFragment"
+            app:destination="@id/TVShowDetailsFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/myListsFragment"
         android:name="com.octopus.moviesapp.ui.lists.MyListsFragment"
-        android:label="MyLists" >
+        android:label="MyLists">
         <action
             android:id="@+id/action_myListsFragment_to_createListDialog"
             app:destination="@id/createListDialog" />
@@ -180,7 +192,7 @@
     <dialog
         android:id="@+id/createListDialog"
         android:name="com.octopus.moviesapp.ui.lists.CreateListDialog"
-        android:label="CreateListDialog" >
+        android:label="CreateListDialog">
         <argument
             android:name="sessionId"
             app:argType="string" />
@@ -188,7 +200,7 @@
     <fragment
         android:id="@+id/listDetailsFragment"
         android:name="com.octopus.moviesapp.ui.lists.ListDetailsFragment"
-        android:label="ListDetailsFragment" >
+        android:label="ListDetailsFragment">
         <argument
             android:name="listId"
             app:argType="integer" />
@@ -199,4 +211,15 @@
             android:id="@+id/action_listDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetSaveTo"
+        android:name="com.octopus.moviesapp.ui.movie_details.save_movie.BottomSheetSaveTo"
+        android:label="BottomSheetSaveTo" >
+        <argument
+            android:name="movieID"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_bottomSheetSaveTo_to_myListsFragment"
+            app:destination="@id/myListsFragment" />
+    </dialog>
 </navigation>

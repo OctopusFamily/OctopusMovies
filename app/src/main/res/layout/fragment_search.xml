@@ -48,7 +48,8 @@
             android:imeOptions="actionSearch"
             android:padding="@dimen/space4x"
             android:singleLine="true"
-            android:text="@={viewModel.searchQuery}"
+            android:text="@{viewModel.searchResultState.query}"
+            android:onTextChanged="@{(v,_,__,___) -> viewModel.onTextChanged(v.toString())}"
             android:textColor="@color/primary"
             android:textColorHint="@color/out_line"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -104,7 +105,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/space6x"
             android:paddingTop="@dimen/space2x"
-            app:hideIfEmpty="@{viewModel.filteredSearchResults}"
+            app:showIfTrue="@{viewModel.searchResultState.success}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +120,8 @@
             android:layout_height="@dimen/size_lottie"
             android:layout_margin="@dimen/space4x"
             android:scaleType="centerCrop"
-            app:showWhenStateIsLoading="@{viewModel.searchResultState}"
-            app:showIfEmpty="@{viewModel.filteredSearchResults}"
+            app:showIfTrue="@{viewModel.searchResultState.loading}"
+            app:showIfEmpty="@{viewModel.searchResultState.searchResults}"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:tint="@color/on_primary"
@@ -139,7 +140,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-            app:showWhenStateIsError="@{viewModel.searchResultState}"
+            app:showIfTrue="@{viewModel.searchResultState.error}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -153,7 +154,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="false"
-                app:setLottieAnimationView="@{viewModel.searchResultState}" />
+                app:lottie_rawRes="@raw/no_internet"/>
 
             <TextView
                 style="@style/text_style_body_large"
@@ -172,13 +173,13 @@
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
                 android:textColor="@color/error"
-                app:setTextError="@{viewModel.searchResultState}" />
+                 />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space8x"
-                android:onClick="@{(v)->viewModel.tryLoadSearchResultAgain(viewModel.searchQuery)}"
+
                 android:text="@string/retry"
                 android:textAllCaps="true" />
 

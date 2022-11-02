@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.octopus.moviesapp.ui.lists.listsUIState.CreatedListsUIState" />
+        <variable
+            name="listener"
+            type="com.octopus.moviesapp.ui.lists.MyListsClicksListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/space2x"
+        app:cardCornerRadius="@dimen/space6x"
+        android:backgroundTint="@color/white_smoke"
+        app:cardElevation="0dp"
+        android:onClick="@{() -> listener.onListClick(item)}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/space4x"
+            android:paddingHorizontal="@dimen/space8x">
+            <TextView
+                android:id="@+id/label_name"
+                style="@style/text_style_body_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.listName}"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/on_surface_variant"
+                android:layout_marginBottom="@dimen/space2x"
+                app:drawableStartCompat="@drawable/ic_small_tag"
+                android:drawablePadding="@dimen/space4x"
+                app:drawableTint="@color/primary"
+                tools:text="WatchList" />
+
+            <TextView
+                android:id="@+id/label_number_item"
+                style="@style/text_style_label_large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/items(item.itemCounts)}"
+                android:textColor="@color/out_line"
+                android:ellipsize="end"
+                android:lines="1"
+                app:drawableStartCompat="@drawable/ic_small_count"
+                android:drawablePadding="@dimen/space4x"
+                app:drawableTint="@color/primary"
+                tools:text="10"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

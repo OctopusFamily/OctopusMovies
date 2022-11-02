@@ -4,44 +4,48 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.use_case.GetPersonDetailsUseCase
+import com.octopus.moviesapp.domain.use_case.GetPersonMoviesUseCase
+import com.octopus.moviesapp.domain.use_case.GetPersonTVShowsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.nested.NestedImageMovieListener
-import com.octopus.moviesapp.ui.nested.NestedImageTvShowListener
-import com.octopus.moviesapp.util.ConnectionTracker
-import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.ui.nested.NestedImageTVShowListener
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsMainUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PersonDetailsViewModel @Inject constructor(
-    private val personRepository: PersonRepository,
-    private val connectionTracker: ConnectionTracker,
+    private val getPersonDetails: GetPersonDetailsUseCase,
+    private val getPersonMovies: GetPersonMoviesUseCase,
+    private val getPersonTvShow: GetPersonTVShowsUseCase,
     saveStateHandle: SavedStateHandle,
-) : BaseViewModel(), NestedImageMovieListener, NestedImageTvShowListener {
+) : BaseViewModel(), NestedImageMovieListener, NestedImageTVShowListener {
 
-    private val _personDetailsState = MutableLiveData<UiState<PersonDetails>>(UiState.Loading)
-    val personDetailsState: LiveData<UiState<PersonDetails>> get() = _personDetailsState
+    private val _personDetailsState = MutableStateFlow(PersonDetailsMainUiState())
+    val personDetailsState: StateFlow<PersonDetailsMainUiState> get() = _personDetailsState
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
-    private val _personDetails = MutableLiveData<PersonDetails>()
-    val personDetails: LiveData<PersonDetails> get() = _personDetails
+    private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
+    val navigateToMovieDetails: LiveData<Event<Int>> get() = _navigateToMovieDetails
 
-    private val _personMoviesState = MutableLiveData<UiState<List<Movie>>>(UiState.Loading)
-    val personMoviesState: LiveData<UiState<List<Movie>>> get() = _personMoviesState
+    private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
+    val navigateToTVShowDetails: LiveData<Event<Int>> get() = _navigateToTVShowDetails
 
-    private val _personTvShowState = MutableLiveData<UiState<List<TVShow>>>(UiState.Loading)
-    val personTvShowState: LiveData<UiState<List<TVShow>>> get() = _personTvShowState
 
     private val args = PersonDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
@@ -51,46 +55,56 @@ class PersonDetailsViewModel @Inject constructor(
 
     private fun loadPersonDetailsData() {
         viewModelScope.launch {
-            if (connectionTracker.isInternetConnectionAvailable()) {
-                getPersonDetailsData()
-                getPersonMoviesData()
-                getPersonTvShowData()
-            } else {
-                _personDetailsState.postValue(UiState.Error(Constants.ERROR_INTERNET))
+            try {
+                val personDetails = getPersonDetailsData()
+                val personMovies = getPersonMoviesData()
+                val personTVShows = getPersonTVShowsData()
+
+                _personDetailsState.update {
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = true,
+                        detailsUiState = personDetails,
+                        moviesUiState = personMovies,
+                        TVShowUiState = personTVShows
+                    )
+                }
+            } catch (e: Exception) {
+                _personDetailsState.update {
+                    it.copy(
+                        isLoading = false,
+                        isError = true,
+                        isSuccess = false
+                    )
+                }
             }
         }
     }
 
-    private fun getPersonDetailsData() {
-        viewModelScope.launch {
-            wrapResponse { personRepository.getPersonDetailsById(args.personId) }.collectLatest {
-                _personDetailsState.postValue(it)
-            }
+    private suspend fun getPersonDetailsData(): PersonDetailsUiState {
+        return getPersonDetails(args.personId).asPersonDetailsUiState()
+    }
+
+    private suspend fun getPersonMoviesData(): List<PersonMovieUiState> {
+        return getPersonMovies(args.personId).map {
+            it.asPersonMovieUiState()
         }
     }
 
-    fun onLoadPersonDetailSuccess(personDetail: PersonDetails) {
-        _personDetails.postValue(personDetail)
-        _personDetailsState.postValue(UiState.Success(personDetail))
-    }
-
-    private fun getPersonMoviesData() {
-        viewModelScope.launch {
-            wrapResponse { personRepository.getPersonMoviesById(args.personId) }.collectLatest {
-                _personMoviesState.postValue(it)
-            }
-        }
-    }
-
-    private fun getPersonTvShowData() {
-        viewModelScope.launch {
-            wrapResponse { personRepository.getPersonTVShowsById(args.personId) }.collectLatest {
-                _personTvShowState.postValue(it)
-            }
+    private suspend fun getPersonTVShowsData(): List<PersonTVShowUiState> {
+        return getPersonTvShow(args.personId).map {
+            it.asPersonTVShowUiState()
         }
     }
 
     fun tryLoadPersonDetailAgain() {
+        _personDetailsState.update {
+            it.copy(
+                isLoading = true,
+                isError = false,
+                isSuccess = false,
+            )
+        }
         loadPersonDetailsData()
     }
 
@@ -100,11 +114,35 @@ class PersonDetailsViewModel @Inject constructor(
     }
 
     override fun onImageMovieClick(movieId: Int) {
-
+        _navigateToMovieDetails.postEvent(movieId)
     }
 
-    override fun onImageTvShowClick(movieId: Int) {
+    override fun onImageTvShowClick(tvShowId: Int) {
+        _navigateToTVShowDetails.postEvent(tvShowId)
+    }
 
+    private fun PersonDetails.asPersonDetailsUiState(): PersonDetailsUiState {
+        return PersonDetailsUiState(
+            name = name,
+            profilePath = profilePath,
+            biography = biography,
+            birthday = birthday,
+            knownForDepartment = knownForDepartment,
+            popularity = popularity,
+            placeOfBirth = placeOfBirth,
+        )
+    }
+
+    private fun Movie.asPersonMovieUiState(): PersonMovieUiState {
+        return PersonMovieUiState(
+            id = id, posterImageUrl = posterImageUrl
+        )
+    }
+
+    private fun TVShow.asPersonTVShowUiState(): PersonTVShowUiState {
+        return PersonTVShowUiState(
+            id = id, posterImageUrl = posterImageUrl
+        )
     }
 
 

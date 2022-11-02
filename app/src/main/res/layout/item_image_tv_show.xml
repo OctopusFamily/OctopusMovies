@@ -7,18 +7,18 @@
 
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.TVShow" />
+            type="com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState" />
 
         <variable
             name="listener"
-            type="com.octopus.moviesapp.ui.nested.NestedImageMovieListener" />
+            type="com.octopus.moviesapp.ui.nested.NestedImageTVShowListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_margin="@dimen/space2x"
-        android:onClick="@{() -> listener.onImageMovieClick(item.id)}"
+        android:onClick="@{() -> listener.onImageTvShowClick(item.id)}"
         app:cardCornerRadius="@dimen/space6x"
         app:cardElevation="0dp">
 

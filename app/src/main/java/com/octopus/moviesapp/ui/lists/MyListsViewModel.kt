@@ -3,28 +3,33 @@ package com.octopus.moviesapp.ui.lists
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.MyApplication
-import com.octopus.moviesapp.data.repository.lists.ListsRepository
-import com.octopus.moviesapp.domain.model.CreatedList
+import com.octopus.moviesapp.domain.use_case.lists_use_case.CreateListUseCase
+import com.octopus.moviesapp.domain.use_case.lists_use_case.GetCreatedListsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.lists.listsUIState.CreateListUIState
+import com.octopus.moviesapp.ui.lists.listsUIState.CreatedListsUIState
+import com.octopus.moviesapp.ui.lists.listsUIState.ListsUIState
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MyListsViewModel @Inject constructor(
-    private val listsRepository: ListsRepository
-  ) : BaseViewModel(), MyListsClicksListener {
+    private val createListUseCase: CreateListUseCase,
+    private val getCreatedListsUseCase: GetCreatedListsUseCase,
+    private val createdListsUIMapper: CreatedListsUIMapper,
+) : BaseViewModel(), MyListsClicksListener {
 
 
-    private val _myListsState = MutableLiveData<UiState<MutableList<CreatedList>>>(UiState.Loading)
-    val myListsState: LiveData<UiState<MutableList<CreatedList>>> get() = _myListsState
+    private val _createdListsUIState = MutableStateFlow(ListsUIState())
+    val createdListsUIState: StateFlow<ListsUIState> get() = _createdListsUIState
 
-    val listName = MutableLiveData("")
+    private val _listName = MutableStateFlow(CreateListUIState())
 
     private val _isNewListClicked = MutableLiveData<Event<Boolean>>()
     val isNewListClicked = _isNewListClicked
@@ -35,15 +40,14 @@ class MyListsViewModel @Inject constructor(
     private val _isCloseClicked = MutableLiveData(Event(false))
     val isCloseClicked = _isCloseClicked
 
-    private val _item = MutableLiveData<Event<CreatedList>>()
-    val item: LiveData<Event<CreatedList>> get() = _item
+    private val _toastErrorMessage = MutableLiveData<Event<Boolean>>()
+    val toastErrorMessage = _toastErrorMessage
 
-    private val _isEmptyList = MutableLiveData(false)
-    val isEmptyList: LiveData<Boolean>
-        get() = _isEmptyList
+    private val _item = MutableLiveData<Event<CreatedListsUIState>>()
+    val item: LiveData<Event<CreatedListsUIState>> get() = _item
 
-    private val sessionID = MyApplication.sessionId
-
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
 
     init {
         getData()
@@ -51,12 +55,34 @@ class MyListsViewModel @Inject constructor(
 
     fun getData() {
         viewModelScope.launch {
-            wrapResponse {
-                listsRepository.getAllLists(0,sessionID ).toMutableList()
-            }.collectLatest {
-                 _myListsState.postValue(it)
+            try {
+                val lists = getCreatedListsUseCase().map {
+                    createdListsUIMapper.map(it)
+                }
+                _createdListsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isEmpty = lists.isEmpty(),
+                        isSuccess = true,
+                        isFailure = false,
+                        createdLists = lists
+                    )
+                }
+            } catch (e: Throwable) {
+                _createdListsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = false,
+                        isFailure = true,
+                        error = e.message.toString()
+                    )
+                }
             }
         }
+    }
+
+    fun getListName(listName: CharSequence) {
+        _listName.update { it.copy(listName = listName.toString()) }
     }
 
     fun onCreateList() {
@@ -69,37 +95,45 @@ class MyListsViewModel @Inject constructor(
 
     fun onClickAddList() {
         viewModelScope.launch {
-            wrapResponse {
-                listsRepository.createList(sessionID, listName.value.toString())
-            }.collectLatest {
-                if (it is UiState.Success) {
-                    addList(CreatedList(it.data.listId ?: 0, 0, listName.value.toString()))
-                    listName.postValue(null)
+            try {
+                _createdListsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        createdLists = createListUseCase(listName = _listName.value.listName).map {
+                            createdListsUIMapper.map(it)
+                        },
+                        isFailure = false,
+                        isEmpty = false,
+                        error = ""
+                    )
                 }
+            } catch (e: Throwable) {
+                _toastErrorMessage.postEvent(true)
+                _createdListsUIState.update { it.copy(error = e.message.toString()) }
             }
+            _listName.update { it.copy(listName = "") }
             _onCLickAddEvent.postEvent(true)
         }
     }
 
-    private fun addList(createdLists: CreatedList) {
-        val oldList = _myListsState.value?.toData()?.toMutableList()
-        oldList?.add(0, createdLists)
-        _myListsState.postValue(UiState.Success(oldList!!))
-    }
-
-    fun checkIfEmptyList() {
-        viewModelScope.launch {
-            if (myListsState.value?.toData().isNullOrEmpty()) {
-                _isEmptyList.postValue(true)
-              } else {
-                _isEmptyList.postValue(false)
-              }
+    fun retry() {
+        _createdListsUIState.update {
+            it.copy(
+                isLoading = true,
+                isFailure = false,
+                isSuccess = false,
+                createdLists = emptyList()
+            )
         }
+        getData()
     }
 
-    override fun onListClick(item: CreatedList) {
-        _item.postValue(Event(item))
+    fun onNavigateBackClick(){
+        _isArrowBackClicked.postValue(Event(true))
+    }
 
+    override fun onListClick(item: CreatedListsUIState) {
+        _item.postValue(Event(item))
     }
 
 }
