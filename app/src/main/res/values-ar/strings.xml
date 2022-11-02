@@ -109,4 +109,5 @@
     <string name="welcome">Welcome</string>
     <string name="dashboard">Dashboard</string>
     <string name="unknown_error">Something went wrong!</string>
+    <string name="language">Language</string>
 </resources>

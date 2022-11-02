@@ -74,12 +74,15 @@
         <TextView
             android:id="@+id/birthday"
             style="@style/text_style_label_medium"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="@dimen/space2x"
+            android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/on_surface"
-            app:layout_constraintEnd_toEndOf="@+id/icon_birthday"
-            app:layout_constraintStart_toStartOf="@+id/icon_birthday"
+            app:layout_constraintEnd_toEndOf="@+id/card_birthday"
+            app:layout_constraintStart_toStartOf="@+id/card_birthday"
             app:layout_constraintTop_toBottomOf="@+id/icon_birthday"
             tools:text="1922-1-1" />
 

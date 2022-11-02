@@ -1,14 +1,15 @@
 package com.octopus.moviesapp.util
 
-import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.TVShow
+import com.octopus.moviesapp.domain.model.Trending
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
+import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
-import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 
 sealed class RecyclerViewItem {
     data class MovieInfoItem(
@@ -33,21 +34,21 @@ sealed class RecyclerViewItem {
     ): RecyclerViewItem()
 
     data class PersonInfoDetailsItem(
-       val personDetails: PersonDetails
+        val personDetails: PersonDetailsUiState
     ) : RecyclerViewItem()
     data class ImageMovieItem(
-        val movie: List<Movie>
+        val movie: List<PersonMovieUiState>
     ) : RecyclerViewItem()
 
     data class ImageTvShowItem(
-        val tvShows: List<TVShow>
+        val tvShows: List<PersonTVShowUiState>
     ) : RecyclerViewItem()
     data class MoviesItem(
         val moviesList: List<Movie>,
     ) : RecyclerViewItem()
 
     data class TVShowsItem(
-        val tvShowsList: List<TVShowUiState>,
+        val tvShowsList: List<TVShow>,
     ) : RecyclerViewItem()
 
     data class TrendingPeopleItem(

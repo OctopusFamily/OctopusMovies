@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.domain.login.LoginResponse
 import com.octopus.moviesapp.domain.login.LoginUseCase
+import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.util.AuthUtilsImpl
-import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.Event
+import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,7 +54,7 @@ class LoginViewModel @Inject constructor(
     val isDialogShown: LiveData<Boolean> get() = _isDialogShown
 
     private val _loginEvent = MutableLiveData<Event<Boolean>>()
-    val loginEvent = _loginEvent
+    val loginEvent  = _loginEvent
 
 
     fun onSignUpClick() {
@@ -90,15 +88,16 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             try {
-                _loginMainUiState.update { it.copy(isLoading = true) }
+                _loginMainUiState.update{it.copy(isLoading = true)}
                 val response = loginUseCase(username = args.username, password = args.password)
-                if (response is LoginResponse.Success) {
+                if (response is LoginResponse.Success){
                     onLoginSuccessfully()
-                } else if (response is LoginResponse.Failure) {
+                }
+                else if (response is LoginResponse.Failure){
                     onLoginError(response.message)
                 }
 
-            } catch (e: Throwable) {
+            } catch (e : Throwable){
                 onLoginError(e.message.toString())
 
             }
@@ -110,7 +109,7 @@ class LoginViewModel @Inject constructor(
         _loginEvent.postEvent(true)
     }
 
-    private fun onLoginError(message: String) {
+    private fun onLoginError(message : String) {
         _loginMainUiState.update { it.copy(isError = true, error = message) }
         _passwordError.postValue(message)
         _loginEvent.postEvent(false)
