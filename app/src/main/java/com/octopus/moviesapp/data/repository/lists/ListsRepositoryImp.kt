@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.data.repository.lists
 
+import com.octopus.moviesapp.data.remote.response.lists.AddMovieToListResponse
 import com.octopus.moviesapp.data.remote.response.lists.CreateListResponse
 import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.data.remote.response.lists.ListDetailsDto
@@ -20,5 +21,9 @@ class ListsRepositoryImp @Inject constructor(
 
     override suspend fun getListDetails(listId: Int): List<ListDetailsDto> {
         return tmdbApiService.getList(listId).items!!
+    }
+
+    override suspend fun addMovieToList(sessionId: String, listId: Int, movieId: Int): AddMovieToListResponse {
+        return tmdbApiService.addMovieToList(listId, sessionId, movieId)
     }
 }

@@ -142,6 +142,14 @@ interface TMDBApiService {
         @Path("list_id") listId: Int,
     ): ListResponseDto<ListDetailsDto>
 
+    @FormUrlEncoded
+    @POST("list/{list_id}/add_item")
+    suspend fun addMovieToList(
+        @Path("list_id") ListId: Int,
+        @Query("session_id") sessionId: String,
+        @Field("media_id") movieId: Int
+    ): AddMovieToListResponse
+
     @GET("account")
     suspend fun getAccountDetails(
         @Query("session_id") sessionId: String?
