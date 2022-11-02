@@ -55,6 +55,9 @@ class MovieDetailsViewModel @Inject constructor(
     private val _rateMovie = MutableLiveData<Event<Int>>()
     val rateMovie: LiveData<Event<Int>> get() = _rateMovie
 
+    private val _isSaveIconClicked = MutableLiveData(Event(false))
+    val isSaveIconClicked = _isSaveIconClicked
+
     private val _navigateToMoviesGenre = MutableLiveData<Event<Genre>>()
     val navigateToMoviesGenre: LiveData<Event<Genre>> get() = _navigateToMoviesGenre
 
@@ -121,6 +124,8 @@ class MovieDetailsViewModel @Inject constructor(
         getMovieData()
     }
 
+
+    // region events
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
@@ -135,6 +140,10 @@ class MovieDetailsViewModel @Inject constructor(
 
     fun onRateClick() {
         _rateMovie.postEvent(0)
+    }
+
+    fun onSaveClick(){
+        _isSaveIconClicked.postValue(Event(true))
     }
 
     override fun onGenreClick(genre: Genre) {

@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
             app:destination="@id/personDetailsFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_bottomSheetSaveTo"
+            app:destination="@id/bottomSheetSaveTo" />
     </fragment>
     <fragment
         android:id="@+id/TVShowDetailsFragment"
@@ -208,4 +211,15 @@
             android:id="@+id/action_listDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetSaveTo"
+        android:name="com.octopus.moviesapp.ui.movie_details.save_movie.BottomSheetSaveTo"
+        android:label="BottomSheetSaveTo" >
+        <argument
+            android:name="movieID"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_bottomSheetSaveTo_to_myListsFragment"
+            app:destination="@id/myListsFragment" />
+    </dialog>
 </navigation>

@@ -16,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/space2x"
-        android:layout_marginHorizontal="@dimen/space8x"
         app:cardCornerRadius="@dimen/space6x"
+        android:backgroundTint="@color/white_smoke"
         app:cardElevation="0dp"
         android:onClick="@{() -> listener.onListClick(item)}">
 

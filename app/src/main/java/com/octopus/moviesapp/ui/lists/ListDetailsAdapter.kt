@@ -1,15 +1,15 @@
 package com.octopus.moviesapp.ui.lists
 
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.model.ListDetails
 import com.octopus.moviesapp.ui.base.BaseAdapter
+import com.octopus.moviesapp.ui.lists.listsUIState.ListDetailsUIState
 
 class ListDetailsAdapter(
-    lists: List<ListDetails>,
+    lists: List<ListDetailsUIState>,
     listener: ListDetailsInteractionListener
-) : BaseAdapter<ListDetails>(lists,listener) {
+) : BaseAdapter<ListDetailsUIState>(lists,listener) {
     override fun layoutId(): Int = R.layout.item_list_details
-    override fun areContentsTheSame(oldItem: ListDetails, newItem: ListDetails): Boolean {
+    override fun areContentsTheSame(oldItem: ListDetailsUIState, newItem: ListDetailsUIState): Boolean {
         return oldItem.id == newItem.id
     }
 

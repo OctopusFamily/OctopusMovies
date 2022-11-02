@@ -23,7 +23,7 @@ class MyApplication : Application() {
 
     private fun checkFirstTimeLaunch() {
         CoroutineScope(Dispatchers.IO).launch {
-            dataStorePreferences.readString(Constants.SESSION_ID_KEY).collect { id ->
+            dataStorePreferences.readString(Constants.SESSION_ID_KEY).let{ id ->
                 isFirstTimeLaunch = id == null
                 id?.let {
                     sessionId = it
@@ -34,7 +34,7 @@ class MyApplication : Application() {
 
     private fun setTheme() {
         CoroutineScope(Dispatchers.Unconfined).launch {
-            dataStorePreferences.readString(Constants.THEME_KEY).collect { currentTheme ->
+            dataStorePreferences.readString(Constants.THEME_KEY).let { currentTheme ->
                 currentTheme?.let {
                     chosenAppTheme = Theme.valueOf(it)
                 }

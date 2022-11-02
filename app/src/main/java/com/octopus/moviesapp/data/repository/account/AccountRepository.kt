@@ -7,10 +7,15 @@ import retrofit2.Response
 
 interface AccountRepository {
     suspend fun getAccountDetails(sessionId: String): AccountDTO
+
     suspend fun logout(sessionId: String): LogoutResponse
-    fun getSessionId() : String
-    suspend fun getRequestToken() : String
+
+    fun getSessionId() :String?
+
+    suspend fun getRequestToken() : String?
+
     suspend fun validateRequestTokenWithLogin(body : Map<String,Any>) : Response<RequestTokenResponse>
+
     suspend fun createSessionID(requestToken: String)
 }
 

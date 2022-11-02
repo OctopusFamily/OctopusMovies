@@ -44,7 +44,7 @@
                 android:background="@drawable/circular_shape"
                 android:contentDescription="@string/watch_list_icon_description"
                 android:elevation="@dimen/space2x"
-                android:onClick="@{() -> viewModel.onSaveToWatchListClick()}"
+                android:onClick="@{() -> viewModel.onSaveClick()}"
                 android:padding="@dimen/space4x"
                 android:src="@drawable/ic_save"
                 app:layout_constraintEnd_toEndOf="parent"

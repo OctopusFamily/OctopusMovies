@@ -1,73 +1,90 @@
 package com.octopus.moviesapp.ui.lists
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.octopus.moviesapp.data.repository.lists.ListsRepository
-import com.octopus.moviesapp.domain.model.ListDetails
+import com.octopus.moviesapp.domain.use_case.lists_use_case.GetListDetailsUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.lists.listsUIState.GetListDetailsUIState
+import com.octopus.moviesapp.ui.lists.listsUIState.ListDetailsUIState
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.E
 
 
 @HiltViewModel
 class ListDetailsViewModel @Inject constructor(
-    private val listsRepository: ListsRepository,
+    private val getListDetailsUseCase: GetListDetailsUseCase,
+    private val listDetailsUIMapper: ListDetailsUIMapper,
     saveStateHandle: SavedStateHandle
 ) : BaseViewModel(), ListDetailsInteractionListener {
 
     private val args = ListDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
-   private val _listDetails = MutableLiveData<UiState<List<ListDetails>>>(UiState.Loading)
-    val listDetails : LiveData<UiState<List<ListDetails>>> get() = _listDetails
+    private val _listDetailsUIState = MutableStateFlow(GetListDetailsUIState())
+    val listDetailsUIState: StateFlow<GetListDetailsUIState> get() = _listDetailsUIState
 
-    private val _itemId = MutableLiveData<Event<Int>>()
-    val itemId: LiveData<Event<Int>>
-        get() = _itemId
+    private val _item = MutableLiveData<Event<ListDetailsUIState>>()
+    val item: LiveData<Event<ListDetailsUIState>> get() = _item
 
     private val _listName = args.listName
-    val listName: String
-        get() = _listName
-
-    private val _isEmptyList = MutableLiveData(false)
-    val isEmptyList: LiveData<Boolean>
-        get() = _isEmptyList
+    val listName: String get() = _listName
 
     private val _isArrowBackClicked = MutableLiveData(Event(false))
     val isArrowBackClicked = _isArrowBackClicked
 
     init {
-          getListDetailsById(args.listId)
+        getListDetailsById(args.listId)
     }
 
     private fun getListDetailsById(id: Int) {
         viewModelScope.launch {
-            wrapResponse {
-                 listsRepository.getListDetails(id)
-            }.collectLatest {
-                _listDetails.postValue(it)
+            try {
+                val listDetails = getListDetailsUseCase(id).map {
+                    listDetailsUIMapper.map(it)
+                }
+                _listDetailsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isEmpty = listDetails.isEmpty(),
+                        isSuccess = true,
+                        isFailure = false,
+                        listDetails = listDetails
+                    )
+                }
+            } catch (e: Throwable) {
+                _listDetailsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = false,
+                        isFailure = true,
+                        error = e.message.toString()
+                    )
+                }
             }
         }
     }
 
     fun getData() {
+        _listDetailsUIState.update {
+            it.copy(
+                isLoading = true,
+                isFailure = false,
+                isSuccess = false,
+                listDetails = emptyList()
+            )
+        }
         getListDetailsById(args.listId)
     }
 
-    fun onNavigateBackClick(){
+    fun onNavigateBackClick() {
         _isArrowBackClicked.postValue(Event(true))
     }
 
-    fun setEmptyListAnimation(isEmpty : Boolean){
-        _isEmptyList.postValue(isEmpty)
-    }
-
-    override fun onItemClick(item: ListDetails) {
-        _itemId.postValue(Event(item.id))
+    override fun onItemClick(item: ListDetailsUIState) {
+        _item.postValue(Event(item))
     }
 
 }

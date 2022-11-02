@@ -9,12 +9,13 @@ import com.octopus.moviesapp.util.Constants
 import retrofit2.Response
 import javax.inject.Inject
 
+
 class AccountRepositoryImp @Inject constructor(
     private val service: TMDBApiService,
     private val dataStorePreferences: DataStorePreferences,
 ) : AccountRepository {
-    override fun getSessionId(): String {
-        return dataStorePreferences.readString(Constants.SESSION_ID_KEY).toString()
+    override fun getSessionId(): String? {
+        return dataStorePreferences.readString(Constants.SESSION_ID_KEY)
     }
 
     override suspend fun getAccountDetails(sessionId: String): AccountDTO {
@@ -28,8 +29,9 @@ class AccountRepositoryImp @Inject constructor(
         return service.logout(sessionId)
     }
 
-    override suspend fun getRequestToken(): String {
-        return service.getRequestToken().requestToken.toString()
+
+    override suspend fun getRequestToken(): String? {
+        return service.getRequestToken().body()?.requestToken.toString()
     }
 
     override suspend fun createSessionID(requestToken: String) {

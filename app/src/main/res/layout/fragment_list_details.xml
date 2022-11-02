@@ -44,8 +44,6 @@
         </LinearLayout>
 
 
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_movies"
             android:layout_width="match_parent"
@@ -53,7 +51,7 @@
             android:orientation="vertical"
             android:paddingVertical="@dimen/space2x"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:showWhenStateIsSuccess="@{viewModel.listDetails}"
+            app:items="@{viewModel.listDetailsUIState.listDetails}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +69,7 @@
             app:layout_constraintStart_toStartOf="@+id/my_view"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.listDetailsUIState.isEmpty}"
             app:lottie_rawRes="@raw/lottie_empty_list_animation" />
 
         <TextView
@@ -81,7 +79,7 @@
             android:layout_marginTop="16dp"
             android:visibility="gone"
             android:text="@string/list_details_empty"
-            showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.listDetailsUIState.isEmpty}"
             app:layout_constraintEnd_toEndOf="@+id/lottie_animation_view"
             app:layout_constraintStart_toStartOf="@+id/lottie_animation_view"
             app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view" />
@@ -93,7 +91,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/list_details_description"
             android:visibility="gone"
-            showIfTrue="@{viewModel.isEmptyList}"
+            showIfTrue="@{viewModel.listDetailsUIState.isEmpty}"
             app:layout_constraintEnd_toEndOf="@+id/textView3"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -109,7 +107,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/no_internet"
-            app:showWhenStateIsError="@{viewModel.listDetails}" />
+            showIfTrue="@{viewModel.listDetailsUIState.failure}" />
 
         <TextView
             android:id="@+id/title_lost_connection"
@@ -121,7 +119,7 @@
             app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
             app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
             app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"
-            app:showWhenStateIsError="@{viewModel.listDetails}" />
+            showIfTrue="@{viewModel.listDetailsUIState.failure}" />
 
 
         <TextView
@@ -134,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@+id/title_lost_connection"
             app:layout_constraintStart_toStartOf="@+id/title_lost_connection"
             app:layout_constraintTop_toBottomOf="@+id/title_lost_connection"
-            app:showWhenStateIsError="@{viewModel.listDetails}" />
+            showIfTrue="@{viewModel.listDetailsUIState.failure}" />
 
         <Button
             android:id="@+id/button_retry"
@@ -145,7 +143,7 @@
             app:layout_constraintEnd_toEndOf="@+id/description_lost_connection"
             app:layout_constraintStart_toStartOf="@+id/description_lost_connection"
             app:layout_constraintTop_toBottomOf="@+id/description_lost_connection"
-            app:showWhenStateIsError="@{viewModel.listDetails}" />
+            showIfTrue="@{viewModel.listDetailsUIState.failure}" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/circularProgressIndicator"
@@ -157,7 +155,7 @@
             app:layout_constraintTop_toTopOf="@+id/my_view"
             app:layout_constraintEnd_toEndOf="@+id/my_view"
             app:layout_constraintStart_toStartOf="@+id/my_view"
-            app:showWhenLoading="@{viewModel.listDetails}" />
+            showIfTrue="@{viewModel.listDetailsUIState.loading}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
