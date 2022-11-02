@@ -6,7 +6,7 @@ import com.octopus.moviesapp.domain.types.TVShowsCategory
 import javax.inject.Inject
 
 class GetTVShowsPagingSourceUseCase @Inject constructor(
-    private val tvShowsRepository: TVShowsRepository,
+    private val tvShowsRepository: TVShowsRepository
 ) {
     operator fun invoke(tvShowsCategory: TVShowsCategory): TVShowsPagingSource {
         return tvShowsRepository.getTVShowPagingSource(tvShowsCategory)

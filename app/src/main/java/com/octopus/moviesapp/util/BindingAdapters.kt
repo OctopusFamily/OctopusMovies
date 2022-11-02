@@ -12,6 +12,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.types.Language
 import com.octopus.moviesapp.domain.types.Theme
@@ -176,6 +177,17 @@ fun <T> TextView.setTextError(uiState: UiState<T>) {
     }
 }
 
+@BindingAdapter(value = ["app:setLottieAnimationView"])
+fun <T> setLottieAnimationView(view: LottieAnimationView, uiState: UiState<T>) {
+    if (uiState is UiState.Error) {
+        if (uiState.message == Constants.ERROR_INTERNET) {
+            view.setAnimation(R.raw.no_internet)
+        }else{
+            view.setAnimation(R.raw.error)
+        }
+    }
+}
+
 @BindingAdapter("setWelcomeTag")
 fun setWelcomeTag(textView: TextView, username: String?) {
     username?.let {
@@ -210,6 +222,12 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
 fun setSelectedChip(chipGroup: ChipGroup, position: Int) {
     val checkedChip = chipGroup.children.elementAt(position) as Chip
     checkedChip.isChecked = true
+}
+
+@BindingAdapter("setSelectedTab")
+fun setSelectedTab(tabLayout: TabLayout, position: Int) {
+    val tab = tabLayout.getTabAt(position)
+    tabLayout.selectTab(tab)
 }
 
 @BindingAdapter("onCheckedChanged")

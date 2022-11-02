@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.tv_shows_genre
+package com.octopus.moviesapp.ui.genre_tv_shows
 
 import android.os.Bundle
 import android.view.View
@@ -6,10 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentTvShowsGenreBinding
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.ui.base.MyLoadStateAdapter
 import com.octopus.moviesapp.ui.tv_shows.TVShowsPagingAdapter
@@ -19,35 +17,31 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TVShowsGenreFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
+class GenreTVShowsFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_tv_shows_genre
-    override val viewModel: TVShowsGenreViewModel by viewModels()
+    override val viewModel: GenreTVShowsViewModel by viewModels()
     override var bottomNavigationViewVisibility = View.GONE
 
     private lateinit var tvShowsAdapter: TVShowsPagingAdapter
 
-    private val args: TVShowsGenreFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadTVShow(args.genre.id, args.genre.name)
         handleEvents()
         initMoviesAdapter()
         observeMainState()
-
-
-
     }
 
     private fun initMoviesAdapter() {
         tvShowsAdapter = TVShowsPagingAdapter(viewModel)
         val footerStateAdapter = MyLoadStateAdapter(tvShowsAdapter::retry)
-        binding.tvShowRecyclerView.adapter = tvShowsAdapter.withLoadStateFooter(footer = footerStateAdapter)
+        binding.tvShowRecyclerView.adapter =
+            tvShowsAdapter.withLoadStateFooter(footer = footerStateAdapter)
     }
 
     private fun observeMainState() {
         lifecycleScope.launch {
-            viewModel.tvShowGenreState.collectLatest {
+            viewModel.genreTvShowState.collectLatest {
                 it.tvShowsUiState.collectLatest { pagingData ->
                     tvShowsAdapter.submitData(pagingData)
                 }
@@ -56,21 +50,19 @@ class TVShowsGenreFragment : BaseFragment<FragmentTvShowsGenreBinding>() {
     }
 
     private fun handleEvents() {
-
         viewModel.navigateToTVShowDetails.observeEvent(viewLifecycleOwner) { tvShowbId ->
             navigateToTVShowDetails(tvShowbId)
         }
         viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
-
     }
 
     private fun navigateToTVShowDetails(tvShowId: Int) {
         requireView().findNavController()
-            .navigate(TVShowsGenreFragmentDirections
-                .actionTVShowsGenreFragmentToTVShowDetailsFragment(tvShowId)
+            .navigate(
+                GenreTVShowsFragmentDirections
+                    .actionTVShowsGenreFragmentToTVShowDetailsFragment(tvShowId)
             )
     }
-
 }

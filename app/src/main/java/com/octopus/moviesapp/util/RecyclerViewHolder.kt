@@ -20,9 +20,10 @@ import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.DetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.SeasonUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TVShowDetailsUiState
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener
+import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 
 sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
     class MovieInfoViewHolder(
@@ -49,7 +50,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TVShowInfoViewHolder(
         val binding: LayoutNestedInfoBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShowDetails: TVShowDetailsUiState, genresListener: NestedGenresListener) {
+        fun bind(tvShowDetails: DetailsUiState, genresListener: NestedGenresListener) {
             binding.run {
                 taglineTextView.text = tvShowDetails.tagline
                 overviewTextView.text = tvShowDetails.overview
@@ -130,7 +131,7 @@ sealed class RecyclerViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHol
     class TVShowsViewHolder(
         val binding: LayoutNestedItemsBinding
     ) : RecyclerViewHolder(binding) {
-        fun bind(tvShowsList: List<TVShow>, listener: TVShowsClicksListener) {
+        fun bind(tvShowsList: List<TVShowUiState>, listener: TVShowsClicksListener) {
             binding.run {
                 titleTextView.text = this.root.context.getString(R.string.recommended_tv_shows)
                 nestedRecyclerView.adapter = NestedTVShowsAdapter(tvShowsList, listener)

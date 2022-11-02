@@ -71,19 +71,41 @@ class DashboardViewModel @Inject constructor(
     private fun checkIfUserLoggedIn() {
         val sessionId = MyApplication.sessionId
         if (sessionId.isNotEmpty()) {
-            _dashboardMainUiState.update { it.copy(isLoggedIn = true) }
+            _dashboardMainUiState.update {
+                it.copy(
+                    isLoggedIn = true,
+                    isProfileSuccess = true,
+                    isProfileError = false,
+                    isProfileLoading = false
+                )
+            }
             getProfileDetails(sessionId)
         }
     }
 
     private fun getProfileDetails(sessionId: String) {
-        _dashboardMainUiState.update { it.copy(isProfileLoading = true) }
+        //  _dashboardMainUiState.update { it.copy(isProfileLoading = true) }
         viewModelScope.launch {
             try {
                 val account = getAccountUseCase(sessionId)
-                _dashboardMainUiState.update { it.copy(isProfileLoading = false, profileUiState = account.asProfileUiState()) }
+                _dashboardMainUiState.update {
+                    it.copy(
+                        isLoggedIn = true,
+                        isProfileError = false,
+                        isProfileSuccess = true,
+                        isProfileLoading = false,
+                        profileUiState = account.asProfileUiState()
+                    )
+                }
             } catch (e: Exception) {
-                _dashboardMainUiState.update { it.copy(isProfileLoading = false, isProfileError = true) }
+                _dashboardMainUiState.update {
+                    it.copy(
+                        isProfileLoading = false,
+                        isProfileError = true,
+                        isLoggedIn = false,
+                        isProfileSuccess = false,
+                    )
+                }
             }
         }
     }
@@ -128,6 +150,12 @@ class DashboardViewModel @Inject constructor(
                 if (logOut.loggedOut) {
                     logoutUserUseCase.removeUserFromDataStore()
                     _isLogOutClicked.postEvent(true)
+                    _dashboardMainUiState.update { it.copy(
+                        isLoggedIn = false,
+                        isProfileSuccess = false,
+                        isProfileError = false,
+                        isProfileLoading = false,
+                    ) }
                 }
             } catch (e: Exception) {
                 // Implement this later!

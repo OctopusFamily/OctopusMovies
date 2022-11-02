@@ -40,21 +40,6 @@
                 app:shapeAppearanceOverlay="@style/bottom_rounded_image_view"
                 tools:src="@drawable/ic_launcher_background" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space8x"
-                android:layout_marginTop="@dimen/space8x"
-                android:background="@drawable/circular_shape"
-                android:contentDescription="@string/navigate_back_icon_description"
-                android:onClick="@{() -> viewModel.onNavigateBackClick()}"
-                android:elevation="@dimen/space2x"
-                android:padding="@dimen/space4x"
-                android:src="@drawable/ic_back_arrow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/primary" />
-
             <TextView
                 android:id="@+id/name_text_view"
                 style="@style/text_style_headline_small"
@@ -85,6 +70,21 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space8x"
+            android:layout_marginTop="@dimen/space8x"
+            android:background="@drawable/circular_shape"
+            android:contentDescription="@string/navigate_back_icon_description"
+            android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+            android:elevation="@dimen/space2x"
+            android:padding="@dimen/space4x"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
 
 
         <ProgressBar

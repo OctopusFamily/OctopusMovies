@@ -12,6 +12,5 @@ interface MoviesRepository {
     suspend fun getMovieDetailsById(movieId: Int): MovieDTO
     suspend fun getMovieTrailerById(movieId: Int): List<TrailerDTO>
     suspend fun getMovieCastById(movieId: Int): List<CastDTO>
-    suspend fun getSearchMultiMedia(query: String): List<SearchResult>
     fun getMoviesPagingSource(moviesCategory: MoviesCategory): MoviesPagingSource
 }
