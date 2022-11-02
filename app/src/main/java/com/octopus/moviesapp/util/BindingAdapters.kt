@@ -225,7 +225,7 @@ fun setSelectedChip(chipGroup: ChipGroup, position: Int) {
     checkedChip.isChecked = true
 }
 
-@BindingAdapter(value = ["app:setSelectedTab"])
+@BindingAdapter("setSelectedTab")
 fun setSelectedTab(tabLayout: TabLayout, position: Int) {
     val tab = tabLayout.getTabAt(position)
     tabLayout.selectTab(tab)

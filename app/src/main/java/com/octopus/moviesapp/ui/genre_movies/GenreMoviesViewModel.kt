@@ -26,7 +26,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GenreMoviesViewModel @Inject constructor(
-
     private val getMoviesPagingSource: GetGenreMoviesPagingSourceUseCase,
     saveStateHandle: SavedStateHandle,
 ) : BaseViewModel(), MoviesClicksListener {
@@ -34,13 +33,11 @@ class GenreMoviesViewModel @Inject constructor(
     private val _genreMovieState = MutableStateFlow(GenreMoviesMainUiState())
     val genreMovieState: StateFlow<GenreMoviesMainUiState> get() = _genreMovieState
 
-
     private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
     val navigateToMovieDetails: LiveData<Event<Int>> = _navigateToMovieDetails
 
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
-
 
     private val args = GenreMoviesFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
@@ -54,14 +51,14 @@ class GenreMoviesViewModel @Inject constructor(
                 Constants.ITEMS_PER_PAGE,
                 enablePlaceholders = true
             )
-        ) { getMoviesPagingSource(args.genre.id) }.flow.cachedIn(viewModelScope)
+        ) { getMoviesPagingSource(args.genreId) }.flow.cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { movie -> movie.asMovieUiState() }
             }
         _genreMovieState.update {
             it.copy(
                 moviesUiState = moviesUiStateFlow,
-                genreName = args.genre.name
+                genreName = args.genreName
             )
         }
     }
@@ -70,11 +67,9 @@ class GenreMoviesViewModel @Inject constructor(
         _navigateToMovieDetails.postEvent(movieId)
     }
 
-
     fun onNavigateBackClick() {
         _navigateBack.postEvent(true)
     }
-
 
     private fun Movie.asMovieUiState(): MovieUiState {
         return MovieUiState(

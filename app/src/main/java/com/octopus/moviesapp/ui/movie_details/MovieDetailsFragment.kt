@@ -9,12 +9,14 @@ import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
+import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -67,7 +69,8 @@ class MovieDetailsFragment : BaseFragment<com.octopus.moviesapp.databinding.Frag
         requireView().findNavController()
             .navigate(
                 MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(
-                    genre
+                    genre.id,
+                    genre.name,
                 )
             )
     }
