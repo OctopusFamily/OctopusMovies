@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentPersonDetailsBinding
 import com.octopus.moviesapp.ui.base.BaseFragment
+import com.octopus.moviesapp.ui.movie_details.MovieDetailsFragmentDirections
 import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonMovieUiState
 import com.octopus.moviesapp.ui.person_details.uistate.PersonTVShowUiState
@@ -66,7 +68,6 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
 
     private fun setPersonTVShows(personTvShowUiState: List<PersonTVShowUiState>) {
         if (personTvShowUiState.isNotEmpty()) {
-
             itemsList.add(RecyclerViewItem.ImageTvShowItem(personTvShowUiState))
             personDetailsAdapter.setItems(itemsList)
         }
@@ -77,6 +78,29 @@ class PersonDetailsFragment : BaseFragment<FragmentPersonDetailsBinding>() {
         viewModel.navigateBack.observeEvent(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+        viewModel.navigateToMovieDetails.observeEvent(viewLifecycleOwner) { movieId ->
+            navigateToMovieDetails(movieId)
+        }
+        viewModel.navigateToTVShowDetails.observeEvent(viewLifecycleOwner) { tvShowId ->
+            navigateToTVShowDetails(tvShowId)
+        }
     }
+
+    private fun navigateToMovieDetails(movieId: Int){
+        requireView().findNavController().navigate(
+            PersonDetailsFragmentDirections.actionPersonDetailsFragmentToMovieDetailsFragment(movieId
+            )
+        )
+    }
+
+    private fun navigateToTVShowDetails(tvShowId: Int){
+        requireView().findNavController().navigate(
+            PersonDetailsFragmentDirections.actionPersonDetailsFragmentToTVShowDetailsFragment(
+                tvShowId
+            )
+        )
+    }
+
+
 
 }

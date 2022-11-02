@@ -162,6 +162,11 @@
         <action
             android:id="@+id/action_PersonDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_personDetailsFragment_to_TVShowDetailsFragment"
+            app:destination="@id/TVShowDetailsFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/myListsFragment"

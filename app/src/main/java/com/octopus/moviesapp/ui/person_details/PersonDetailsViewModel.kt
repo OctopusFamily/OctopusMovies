@@ -40,6 +40,12 @@ class PersonDetailsViewModel @Inject constructor(
     private val _navigateBack = MutableLiveData<Event<Boolean>>()
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
+    private val _navigateToMovieDetails = MutableLiveData<Event<Int>>()
+    val navigateToMovieDetails: LiveData<Event<Int>> get() = _navigateToMovieDetails
+
+    private val _navigateToTVShowDetails = MutableLiveData<Event<Int>>()
+    val navigateToTVShowDetails: LiveData<Event<Int>> get() = _navigateToTVShowDetails
+
 
     private val args = PersonDetailsFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
@@ -108,11 +114,11 @@ class PersonDetailsViewModel @Inject constructor(
     }
 
     override fun onImageMovieClick(movieId: Int) {
-
+        _navigateToMovieDetails.postEvent(movieId)
     }
 
-    override fun onImageTvShowClick(movieId: Int) {
-
+    override fun onImageTvShowClick(tvShowId: Int) {
+        _navigateToTVShowDetails.postEvent(tvShowId)
     }
 
     private fun PersonDetails.asPersonDetailsUiState(): PersonDetailsUiState {
