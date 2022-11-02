@@ -3,9 +3,9 @@ package com.octopus.moviesapp.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.domain.use_case.search.SearchMediaUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
@@ -13,13 +13,12 @@ import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val repositoryMovie: MoviesRepository,
+    private val searchMediaUseCase: SearchMediaUseCase,
     private val connectionTracker: ConnectionTracker,
 ) : BaseViewModel(), SearchClicksListener, ChipGroupClickListener {
 
@@ -42,20 +41,19 @@ class SearchViewModel @Inject constructor(
     var mediaType = MediaType.MOVIE
 
 
-
     fun getSearchMultiMedia(searchQuery: String) {
-        if (searchQuery.isNotEmpty()) {
-            viewModelScope.launch {
-                wrapResponse { repositoryMovie.getSearchMultiMedia(searchQuery) }.collectLatest { searchState ->
-                    if (searchState is UiState.Success) {
-                        filterSearchResultsByType(searchState.data, mediaType)
-                         searchResultItems.postValue(searchState.toData())
-                    }
-                    _searchResultState.postValue(searchState)
-                }
-            }
 
-        } else clearList()
+        viewModelScope.launch {
+            try {
+                val result = searchMediaUseCase(
+                    searchQuery,
+                    mediaType
+                )
+                searchResultItems.postValue(result)
+            } catch (e: Exception) {
+                clearList()
+            }
+        }
     }
 
     fun onBackClick() {
@@ -85,7 +83,7 @@ class SearchViewModel @Inject constructor(
     private fun checkInternetConnection(searchQuery: String) {
         viewModelScope.launch {
             if (connectionTracker.isInternetConnectionAvailable()) {
-               getSearchMultiMedia(searchQuery)
+                getSearchMultiMedia(searchQuery)
             } else {
                 _searchResultState.postValue(UiState.Error(Constants.ERROR_INTERNET))
             }

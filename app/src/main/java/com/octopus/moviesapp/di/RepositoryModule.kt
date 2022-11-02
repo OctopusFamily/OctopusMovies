@@ -12,6 +12,8 @@ import com.octopus.moviesapp.data.repository.movies.MoviesRepository
 import com.octopus.moviesapp.data.repository.movies.MoviesRepositoryImpl
 import com.octopus.moviesapp.data.repository.person.PersonRepository
 import com.octopus.moviesapp.data.repository.person.PersonRepositoryImpl
+import com.octopus.moviesapp.data.repository.search.SearchRepository
+import com.octopus.moviesapp.data.repository.search.SearchRepositoryImpl
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepositoryImpl
 import dagger.Binds
@@ -65,4 +67,10 @@ abstract class RepositoryModule {
     abstract fun bindListsRepository(
         listsRepositoryImp: ListsRepositoryImp
     ) : ListsRepository
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindSearchRepository(
+        searchRepositoryImpl: SearchRepositoryImpl
+    ) : SearchRepository
 }
