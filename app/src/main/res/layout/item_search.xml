@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.SearchResult" />
+            type="com.octopus.moviesapp.ui.search.uistate.SearchResultUiState" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.search.SearchClicksListener" />
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.posterImageUrl}"
+                app:imageUrl="@{item.imageUrl}"
                 tools:src="@drawable/ic_launcher_background"
                 android:contentDescription="@string/tv_show_image_description" />
 
@@ -42,7 +42,7 @@
                 android:textAlignment="center"
                 android:padding="8dp"
                 android:maxLines="2"
-                android:text="@{item.title}"
+                android:text="@{item.name}"
                 style="@style/text_style_body_medium"
                 tools:text="Family Guy" />
 
