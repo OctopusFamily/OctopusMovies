@@ -10,7 +10,6 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.RecyclerViewItem
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.navigateToTrailerActivity
 import com.octopus.moviesapp.util.extensions.observeEvent
 import com.octopus.moviesapp.util.extensions.showShortToast
@@ -107,9 +106,7 @@ class MovieDetailsFragment :
     private fun navigateToMoviesGenreFragment(genre: Genre) {
         requireView().findNavController()
             .navigate(
-                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(
-                    genre
-                )
+                MovieDetailsFragmentDirections.actionMovieDetailsFragmentToMoviesGenreFragment(genre.id, genre.name)
             )
     }
 

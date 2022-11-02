@@ -84,15 +84,13 @@ class GenresViewModel @Inject constructor(
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tab?.position?.let { position ->
             when (position) {
-                0 -> _genresState.update {
-                    it.copy(
-                        selectedTab = Pair(position, GenresType.MOVIE)
-                    )
+                0 -> {
+                    _genresState.update { it.copy(selectedTab = Pair(position, GenresType.MOVIE)) }
+                    getGenresByType(_genresState.value.selectedTab.second)
                 }
-                1 -> _genresState.update {
-                    it.copy(
-                        selectedTab = Pair(position, GenresType.TV)
-                    )
+                1 -> {
+                    _genresState.update { it.copy(selectedTab = Pair(position, GenresType.TV)) }
+                    getGenresByType(_genresState.value.selectedTab.second)
                 }
             }
         }

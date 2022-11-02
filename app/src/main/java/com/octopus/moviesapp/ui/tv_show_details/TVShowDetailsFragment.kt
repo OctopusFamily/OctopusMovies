@@ -106,7 +106,7 @@ class TVShowDetailsFragment : BaseFragment<FragmentTvShowDetailsBinding>() {
 
     private fun navigateToTVShowsGenreFragment(genre: Genre){
         requireView().findNavController()
-            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre))
+            .navigate(TVShowDetailsFragmentDirections.actionTVShowDetailsFragmentToTVShowsGenreFragment(genre.id, genre.name))
     }
 
     private fun navigateToPersonDetailsFragment(castId: Int){
