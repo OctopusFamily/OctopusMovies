@@ -6,7 +6,6 @@ import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
 import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
 import com.octopus.moviesapp.data.remote.service.TMDBApiService
 import com.octopus.moviesapp.util.Constants
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 
