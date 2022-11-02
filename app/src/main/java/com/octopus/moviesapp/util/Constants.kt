@@ -23,5 +23,5 @@ object Constants {
     const val DATABASE_NAME = "octopusMovies.db"
 
     const val ITEMS_PER_PAGE = 20
-
+    const val FIRST_PAGE = 1
 }

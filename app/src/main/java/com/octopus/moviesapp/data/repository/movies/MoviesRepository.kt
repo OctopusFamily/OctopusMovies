@@ -8,9 +8,9 @@ import com.octopus.moviesapp.domain.model.*
 import com.octopus.moviesapp.domain.types.MoviesCategory
 
 interface MoviesRepository {
-    suspend fun getMoviesByCategory(moviesCategory: MoviesCategory, page: Int): List<Movie>
     suspend fun getMovieDetailsById(movieId: Int): MovieDTO
     suspend fun getMovieTrailerById(movieId: Int): List<TrailerDTO>
     suspend fun getMovieCastById(movieId: Int): List<CastDTO>
+    suspend fun getMoviesByCategory(moviesCategory: MoviesCategory, page: Int): List<MovieDTO>
     fun getMoviesPagingSource(moviesCategory: MoviesCategory): MoviesPagingSource
 }

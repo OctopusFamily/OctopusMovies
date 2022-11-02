@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.Movie" />
+            type="com.octopus.moviesapp.ui.movies.uistate.MovieUiState" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
@@ -31,7 +31,7 @@
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/movie_image_description"
                 tools:src="@drawable/ic_launcher_background"
-                app:imageUrl="@{item.posterImageUrl}"/>
+                app:imageUrl="@{item.imageUrl}"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                     android:drawablePadding="@dimen/space2x"
                     style="@style/text_style_body_medium"
                     tools:text="2000"
-                    app:releaseDate="@{item.releaseDate}"/>
+                    app:releaseDate="@{item.released}"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     style="@style/text_style_body_medium"
                     android:background="@drawable/rating_side_shape"
                     tools:text="8.4"
-                    app:voteAverage="@{item.voteAverage}"/>
+                    app:voteAverage="@{item.rating}"/>
 
             </LinearLayout>
 

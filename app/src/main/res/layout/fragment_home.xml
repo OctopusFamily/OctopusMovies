@@ -33,9 +33,8 @@
                 android:layout_marginEnd="@dimen/space8x"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_search"
                 android:layout_weight="1"
                 android:paddingVertical="@dimen/space4x"
                 android:paddingHorizontal="@dimen/space8x"
@@ -45,7 +44,8 @@
                 style="@style/text_style_label_large"
                 android:background="@drawable/search_shape"
                 android:onClick="@{()-> viewModel.onSearchClick()}"
-                app:tint="@color/secondary"/>
+                app:tint="@color/secondary"
+                app:drawableEndCompat="@drawable/ic_search" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -55,12 +55,13 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/top_app_bar"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            showIfTrue="@{viewModel.homeMainUiState.isSuccess}"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenStateIsLoading="@{viewModel.trendingMoviesState}"
+            showIfTrue="@{viewModel.homeMainUiState.isLoading}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +76,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_app_bar"
-            app:showWhenStateIsError="@{viewModel.trendingMoviesState}"
+            showIfTrue="@{viewModel.homeMainUiState.isError}"
             tools:ignore="UseCompoundDrawables">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -108,13 +109,13 @@
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
                 android:textColor="@color/error"
-                app:setTextError="@{viewModel.trendingMoviesState}" />
+                android:text="@string/unknown_error" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space8x"
-                android:onClick="@{()->viewModel.loadData()}"
+                android:onClick="@{()->viewModel.tryToFetchDataAgain()}"
                 android:text="@string/retry"
                 android:textAllCaps="true" />
 
