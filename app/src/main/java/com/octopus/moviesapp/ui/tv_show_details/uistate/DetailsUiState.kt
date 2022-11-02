@@ -2,7 +2,7 @@ package com.octopus.moviesapp.ui.tv_show_details.uistate
 
 import java.util.*
 
-data class TVShowDetailsUiState(
+data class DetailsUiState(
     val id: Int = 0,
     val title: String = "",
     val coverImageUrl: String = "",

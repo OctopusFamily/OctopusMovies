@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:onClick="@{() -> viewModel.onPlayTrailerClick()}"
+                android:onClick="@{(v) -> viewModel.onPlayTrailerClick(viewModel.tvShowDetailsState.trailer.url)}"
                 android:text="@string/play_trailer"
                 android:textAllCaps="false"
                 android:textColor="@color/primary"
@@ -111,7 +111,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/on_surface_variant"
-                    app:setSeasons="@{viewModel.tvShowDetails.seasonsNumber}"
+                    app:setSeasons="@{viewModel.tvShowDetailsState.info.seasonsNumber}"
                     tools:text="8 Seasons" />
 
                 <TextView
@@ -122,7 +122,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:textColor="@color/on_surface_variant"
-                    app:setEpisodes="@{viewModel.tvShowDetails.episodesNumber}"
+                    app:setEpisodes="@{viewModel.tvShowDetailsState.info.episodesNumber}"
                     tools:text="63 Episode" />
             </LinearLayout>
 
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space2x"
-                    app:voteAverage="@{viewModel.tvShowDetails.voteAverage}"
+                    app:voteAverage="@{viewModel.tvShowDetailsState.info.voteAverage}"
                     app:drawableStartCompat="@drawable/ic_star"
                     tools:text="8.7" />
 
@@ -155,7 +155,7 @@
                     android:lines="1"
                     app:drawableStartCompat="@drawable/ic_people"
                     android:drawablePadding="@dimen/space2x"
-                    android:text="@{String.valueOf(viewModel.tvShowDetails.voteCount)}"
+                    android:text="@{String.valueOf(viewModel.tvShowDetailsState.info.voteCount)}"
                     tools:text="124" />
 
                 <com.google.android.material.button.MaterialButton
@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space4x"
                     app:drawableStartCompat="@drawable/ic_date"
-                    app:releaseDate="@{viewModel.tvShowDetails.started}"
+                    app:releaseDate="@{viewModel.tvShowDetailsState.info.started}"
                     tools:text="2021" />
 
                 <com.google.android.material.divider.MaterialDivider
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space4x"
                     app:drawableStartCompat="@drawable/ic_time"
-                    android:text="@{viewModel.tvShowDetails.status}"
+                    android:text="@{viewModel.tvShowDetailsState.info.status}"
                     tools:text="Ended" />
 
                 <com.google.android.material.divider.MaterialDivider
@@ -210,7 +210,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/space4x"
-                    android:text="@{viewModel.tvShowDetails.originalLanguage}"
+                    android:text="@{viewModel.tvShowDetailsState.info.originalLanguage}"
                     app:drawableStartCompat="@drawable/ic_language"
                     tools:text="English" />
             </LinearLayout>
@@ -242,7 +242,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="invisible"
             android:orientation="vertical"
             android:background="@color/background"
             app:showIfTrue="@{viewModel.tvShowDetailsState.error}"
@@ -256,12 +255,12 @@
                 android:layout_height="@dimen/size_lottie"
                 android:layout_margin="@dimen/space4x"
                 android:scaleType="centerCrop"
+                app:lottie_rawRes="@raw/no_internet"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="false"
-                app:showIfTrue="@{viewModel.tvShowDetailsState.error}" />
+                app:lottie_loop="false" />
 
             <TextView
                 style="@style/text_style_body_large"
@@ -278,7 +277,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:showIfTrue="@{viewModel.tvShowDetailsState.error}"
                 android:textAlignment="center"
                 android:textColor="@color/error" />
 
