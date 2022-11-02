@@ -48,14 +48,14 @@ class GenreTVShowsViewModel @Inject constructor(
                 Constants.ITEMS_PER_PAGE,
                 enablePlaceholders = true
             )
-        ) { getTVShowsPagingSource(args.genre.id) }.flow.cachedIn(viewModelScope)
+        ) { getTVShowsPagingSource(args.genreId) }.flow.cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { tvShow -> tvShow.asTVShowUiState() }
             }
         _genreTvShowState.update {
             it.copy(
                 tvShowsUiState = tvShowsUiStateFlow,
-                genreName = args.genre.name
+                genreName = args.genreName
             )
         }
     }

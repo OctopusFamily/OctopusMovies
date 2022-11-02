@@ -1,82 +1,74 @@
 package com.octopus.moviesapp.ui.genres
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentGenresBinding
-import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GenresFragment : BaseFragment<FragmentGenresBinding>(), TabLayout.OnTabSelectedListener {
+class GenresFragment : BaseFragment<FragmentGenresBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_genres
     override val viewModel: GenresViewModel by viewModels()
+    private lateinit var genresAdapter: GenresAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initGenresAdapter()
+        observeUiState()
         handleEvents()
-        handleTabLayout()
+        binding.genresTabLayout.addOnTabSelectedListener(viewModel)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.onTapSelected(GenresType.MOVIE)
+    private fun initGenresAdapter() {
+        Log.d("MALT", "INIT ADAPTER")
+        genresAdapter = GenresAdapter(emptyList(), viewModel)
+        binding.genresRecyclerView.adapter = genresAdapter
+    }
+
+    private fun observeUiState() {
+        Log.d("MALT", "FUN INVOKED!")
+        lifecycleScope.launch {
+            viewModel.genresState.collect { state ->
+                if (state.genres.isNotEmpty()) {
+                    Log.d("MALT", "GENRES: ${state.genres}")
+                    genresAdapter.setItems(state.genres)
+                }
+            }
+        }
     }
 
     private fun handleEvents() {
-        viewModel.genresListState.observe(viewLifecycleOwner) { state ->
-            if (state is UiState.Success) {
-                binding.genresRecyclerView.adapter = GenresAdapter(state.data, viewModel)
+        viewModel.apply {
+            navigateToGenreMovie.observeEvent(viewLifecycleOwner) {
+                navigateToMovieGenre(it.first, it.second)
             }
-        }
-        viewModel.navigateToGenreMovie.observeEvent(viewLifecycleOwner) { genre ->
-            navigateToMovieGenre(genre)
-        }
-        viewModel.navigateToGenreTVShow.observeEvent(viewLifecycleOwner) { genre ->
-            navigateToTVShowGenre(genre)
+            navigateToGenreTVShow.observeEvent(viewLifecycleOwner) {
+                navigateToTVShowGenre(it.first, it.second)
+            }
         }
     }
 
-    private fun navigateToMovieGenre(genre: Genre) {
+    private fun navigateToMovieGenre(genreId: Int, genreName: String) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections
-                    .actionGenresFragmentToMoviesGenreFragment(genre)
+                    .actionGenresFragmentToMoviesGenreFragment(genreId, genreName)
             )
     }
 
-    private fun navigateToTVShowGenre(genre: Genre) {
+    private fun navigateToTVShowGenre(genreId: Int, genreName: String) {
         requireView().findNavController()
             .navigate(
                 GenresFragmentDirections
-                    .actionGenresFragmentToTVShowsGenreFragment(genre)
+                    .actionGenresFragmentToTVShowsGenreFragment(genreId, genreName)
             )
     }
-
-    private fun handleTabLayout() {
-        binding.genresTabLayout.addOnTabSelectedListener(this)
-    }
-
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        when (tab?.position) {
-            0 -> {
-
-                viewModel.onTapSelected(GenresType.MOVIE)
-            }
-            1 -> {
-                viewModel.onTapSelected(GenresType.TV)
-            }
-        }
-    }
-
-    override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-    override fun onTabReselected(tab: TabLayout.Tab?) {}
 }
