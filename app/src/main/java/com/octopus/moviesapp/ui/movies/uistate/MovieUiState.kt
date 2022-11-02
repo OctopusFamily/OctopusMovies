@@ -7,5 +7,5 @@ data class MovieUiState(
     val title: String,
     val released: Date,
     val rating: Float,
-    val imageUrl: String,
+    val imageUrl: String
 )
