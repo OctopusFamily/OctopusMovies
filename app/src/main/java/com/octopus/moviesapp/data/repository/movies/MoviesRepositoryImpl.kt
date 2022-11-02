@@ -35,9 +35,7 @@ class MoviesRepositoryImpl @Inject constructor(
         return tmdbApiService.getMovieCastById(movieId).items
     }
 
-    override suspend fun getSearchMultiMedia(query: String): List<SearchResult> {
-        return searchResultMapper.mapList(tmdbApiService.getSearchMultiMedia(query).items)
-    }
+
 
     override fun getMoviesPagingSource(moviesCategory: MoviesCategory): MoviesPagingSource {
         return MoviesPagingSource(tmdbApiService, moviesCategory, moviesMapper)

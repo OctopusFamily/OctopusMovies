@@ -3,6 +3,7 @@ package com.octopus.moviesapp.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
@@ -10,6 +11,8 @@ import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.observeOn
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
@@ -23,30 +26,33 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         super.onViewCreated(view, savedInstanceState)
         handleEvents()
         handleObserve()
-        setAdapter()
     }
 
-    private fun handleObserve(){
-        viewModel.searchQuery.observe(viewLifecycleOwner) {
-            viewModel.getSearchMultiMedia(it)
-        }
+    private fun handleObserve() {
 
-        viewModel.filteredSearchResults.observe(viewLifecycleOwner) { searchResults ->
-            searchAdapter.setItems(searchResults)
+        lifecycleScope.launch {
+            setAdapter()
+
+            viewModel.searchResultState.collect { searchResults ->
+                searchAdapter.setItems(searchResults.searchResults)
+            }
         }
     }
 
-    private fun setAdapter(){
+    private fun setAdapter() {
         searchAdapter = SearchAdapter(emptyList(), viewModel)
         binding.searchRecyclerView.adapter = searchAdapter
     }
 
     private fun handleEvents() {
-        viewModel.navigateToDetails.observeEvent(viewLifecycleOwner) { id ->
-            when (viewModel.mediaType) {
-                MediaType.MOVIE -> navigateToMovieDetails(id)
-                MediaType.TV -> navigateToTVShowDetails(id)
-                MediaType.PERSON -> navigateToPersonDetails(id)
+        lifecycleScope.launch {
+
+            viewModel.navigateToDetails.observeEvent(viewLifecycleOwner) {
+                when (viewModel.searchResultState.value.mediaType) {
+                    MediaType.MOVIE -> navigateToMovieDetails(it)
+                    MediaType.TV -> navigateToTVShowDetails(it)
+                    MediaType.PERSON -> navigateToPersonDetails(it)
+                }
             }
         }
 
