@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.domain.model.CreatedList" />
+            type="com.octopus.moviesapp.ui.lists.listsUIState.CreatedListsUIState" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.lists.MyListsClicksListener" />
@@ -32,7 +32,7 @@
                 style="@style/text_style_body_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{item.name}"
+                android:text="@{item.listName}"
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="@color/on_surface_variant"
@@ -47,7 +47,7 @@
                 style="@style/text_style_label_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/items(item.itemCount)}"
+                android:text="@{@string/items(item.itemCounts)}"
                 android:textColor="@color/out_line"
                 android:ellipsize="end"
                 android:lines="1"

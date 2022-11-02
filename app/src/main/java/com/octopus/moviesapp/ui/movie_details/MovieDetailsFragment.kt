@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.ui.base.BaseFragment
@@ -22,6 +23,7 @@ class MovieDetailsFragment :
     BaseFragment<com.octopus.moviesapp.databinding.FragmentMovieDetailsBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_movie_details
     override val viewModel: MovieDetailsViewModel by viewModels()
+    private val args : MovieDetailsFragmentArgs by navArgs()
     override var bottomNavigationViewVisibility = View.GONE
 
 
@@ -68,6 +70,13 @@ class MovieDetailsFragment :
 
         viewModel.navigateToPersonDetails.observeEvent(viewLifecycleOwner) { castId ->
             navigateToPersonDetailsFragment(castId)
+        }
+        viewModel.isSaveIconClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(
+                    MovieDetailsFragmentDirections.actionMovieDetailsFragmentToBottomSheetSaveTo(args.movieId)
+                )
+            }
         }
     }
 

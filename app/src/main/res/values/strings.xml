@@ -121,5 +121,5 @@
     <string name="list_details_empty" translatable="false">No movies in this list</string>
     <string name="list_details_description" translatable="false">add your own personal movies to your list.</string>
     <string name="unknown_error">Something went wrong!</string>
-    <string name="language">Language</string>
+    <string name="language" translatable="false">Language</string>
 </resources>
