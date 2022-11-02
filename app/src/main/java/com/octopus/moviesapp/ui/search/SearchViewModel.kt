@@ -1,5 +1,6 @@
 package com.octopus.moviesapp.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,10 +9,15 @@ import com.octopus.moviesapp.domain.types.MediaType
 import com.octopus.moviesapp.domain.use_case.search.FilterSearchResultsUseCase
 import com.octopus.moviesapp.domain.use_case.search.SearchMediaUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.search.mapper.asSearchResultUiState
+import com.octopus.moviesapp.ui.search.uistate.SearchMainUiState
+import com.octopus.moviesapp.ui.search.uistate.SearchResultUiState
 import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.UiState
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,15 +29,12 @@ class SearchViewModel @Inject constructor(
 
     val searchQuery = MutableLiveData<String>()
 
-    private val _searchResultState = MutableLiveData<UiState<List<SearchResult>>>(UiState.Loading)
-    val searchResultState: LiveData<UiState<List<SearchResult>>> = _searchResultState
+    private val _searchResultState = MutableStateFlow(SearchMainUiState())
+    val searchResultState: StateFlow<SearchMainUiState> = _searchResultState
 
-    private val _filteredSearchResults = MutableLiveData<List<SearchResult>>(emptyList())
-    val filteredSearchResults: LiveData<List<SearchResult>> = _filteredSearchResults
+    private var allMediaSearchResults = listOf<SearchResult>()
 
-    var mediaType = MediaType.MOVIE
 
-    private val searchResultItems = MutableLiveData<List<SearchResult>>(emptyList())
     private val _navigateToDetails = MutableLiveData<Event<Int>>()
 
     val navigateToDetails: LiveData<Event<Int>> = _navigateToDetails
@@ -40,54 +43,84 @@ class SearchViewModel @Inject constructor(
     val navigateBack: LiveData<Event<Boolean>> get() = _navigateBack
 
 
-    fun getSearchMultiMedia(searchQuery: String) {
+    private fun getSearchMultiMedia(searchQuery: String) {
 
         viewModelScope.launch {
             try {
                 val searchResults = searchMediaUseCase(searchQuery)
-                searchResultItems.postValue(searchResults)
+                allMediaSearchResults = searchResults
 
-                _filteredSearchResults.postValue(
-                    searchResultItems.value?.let {
-                        filterSearchUseCase(searchResults, mediaType)
-                    }
-                )
+                _searchResultState.update {
+                    it.copy(
+                        isLoading = false,
+                        isSuccess = true,
+                        isError = false,
+                        searchResults = filterSearchResults(searchResults),
+                    )
+                }
             } catch (e: Exception) {
-                _filteredSearchResults.postValue(emptyList())
+                _searchResultState.update {
+                    it.copy(
+                        isError = true,
+                        isSuccess = false,
+                        isLoading = false,
+                        searchResults = emptyList(),
+                    )
+                }
             }
         }
     }
 
     override fun onChipSelected(selectedChipPosition: Int) {
+
         when (selectedChipPosition) {
-            0 -> mediaType = MediaType.MOVIE
-            1 -> mediaType = MediaType.TV
-            2 -> mediaType = MediaType.PERSON
+            0 -> _searchResultState.update { it.copy(mediaType = MediaType.MOVIE) }
+            1 -> _searchResultState.update { it.copy(mediaType = MediaType.TV) }
+            2 -> _searchResultState.update { it.copy(mediaType = MediaType.PERSON) }
         }
 
-        if (searchQuery.value.isNullOrEmpty()) {
-            _filteredSearchResults.postValue(emptyList())
-        } else {
-            filterSearchResults()
-        }
-
-    }
-
-    private fun filterSearchResults() {
-        _filteredSearchResults.postValue(
-            searchResultItems.value?.let { searchResults ->
-                filterSearchUseCase(searchResults, mediaType)
+        if (searchResultState.value.query.isEmpty()) {
+            _searchResultState.update {
+                (it.copy(
+                    searchResults = emptyList(),
+                    isSuccess = true,
+                    isError = false,
+                    isLoading = false
+                ))
             }
-        )
+        } else {
+            Log.i("SEARCH_VIEW_MODEL", filterSearchResults(allMediaSearchResults).toString())
+
+            _searchResultState.update {
+                it.copy(
+                    isSuccess = true,
+                    isLoading = false,
+                    isError = false,
+                    searchResults = filterSearchResults(allMediaSearchResults)
+                )
+            }
+        }
     }
 
+
+    private fun filterSearchResults(searchResults: List<SearchResult>): List<SearchResultUiState> {
+        return filterSearchUseCase(
+            searchResults,
+            _searchResultState.value.mediaType
+        ).asSearchResultUiState()
+    }
 
     override fun onItemClick(searchId: Int) {
         _navigateToDetails.postEvent(searchId)
     }
 
-
     fun onBackClick() {
         _navigateBack.postEvent(true)
     }
+
+    fun onTextChanged(text: String) {
+        _searchResultState.update { it.copy(query = text) }
+        getSearchMultiMedia(_searchResultState.value.query)
+    }
 }
+

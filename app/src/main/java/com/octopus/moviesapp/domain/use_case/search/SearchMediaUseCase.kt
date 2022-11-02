@@ -9,10 +9,12 @@ class SearchMediaUseCase @Inject constructor(
     private val searchRepository: SearchRepository,
     private val searchResultMapper: SearchResultMapper,
 ) {
-    suspend operator fun invoke(query: String): List<SearchResult>{
+    suspend operator fun invoke(query: String): List<SearchResult> {
         return if (query.isNotEmpty()) {
             searchResultMapper.mapList(searchRepository.getSearchMultiMedia(query))
-        } else { emptyList() }
+        } else {
+            emptyList()
+        }
     }
 
 }
