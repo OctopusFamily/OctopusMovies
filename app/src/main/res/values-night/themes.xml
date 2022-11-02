@@ -10,7 +10,8 @@
         <item name="colorSecondaryVariant">@color/secondary_container</item>
         <item name="colorOnSecondary">@color/on_secondary</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="Theme.MoviesApp.SplashScreen" parent="Theme.SplashScreen">
