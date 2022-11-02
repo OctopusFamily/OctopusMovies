@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.emptyFlow
 
 data class MoviesMainUiState(
     val moviesUiState: Flow<PagingData<MovieUiState>> = emptyFlow(),
-    val selectedChip: Pair<Int, MoviesCategory> = Pair(0, MoviesCategory.POPULAR),
+    val selectedChip: Pair<Int, MoviesCategory> = Pair(0, MoviesCategory.POPULAR)
 )
