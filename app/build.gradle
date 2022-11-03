@@ -47,6 +47,11 @@ android {
 
 dependencies {
 
+    implementation project(":presentation:ui")
+    implementation project(":presentation:viewmodels")
+    implementation project(":data:remote")
+    implementation project(":data:local")
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
     implementation 'com.google.android.material:material:1.7.0'
@@ -58,10 +63,10 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.3"
     kapt "androidx.room:room-compiler:2.5.0-beta01"
 
-    // Retrofit
-    def retrofit_version = '2.9.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+//    // Retrofit
+//    def retrofit_version = '2.9.0'
+//    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+//    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Navigation Component
     def nav_version = '2.5.2'
@@ -90,9 +95,9 @@ dependencies {
 
     // Image Slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
-
-    // Paging3
-    implementation 'androidx.paging:paging-runtime:3.1.1'
+//
+//    // Paging3
+//    implementation 'androidx.paging:paging-runtime:3.1.1'
 
     // expandable floating action button
     implementation 'com.github.imtuann:FloatingActionButtonExpandable:1.1.2'
