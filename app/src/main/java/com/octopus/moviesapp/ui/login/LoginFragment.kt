@@ -54,8 +54,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun navigateToLoadingDialog() {
-        val username = viewModel.username.value.toString()
-        val password = viewModel.password.value.toString()
+        val username = viewModel.loginUiState.value.userName
+        val password = viewModel.loginUiState.value.passWord
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToLoadingDialog(username,password))
     }
 

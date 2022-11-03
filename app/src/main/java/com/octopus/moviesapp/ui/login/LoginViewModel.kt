@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.login.LoginResponse
 import com.octopus.moviesapp.domain.login.LoginUseCase
 import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
 import com.octopus.moviesapp.ui.base.BaseViewModel
@@ -24,9 +23,6 @@ class LoginViewModel @Inject constructor(
     saveStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    val username = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-
     private val args = LoginStateDialogFragmentArgs.fromSavedStateHandle(saveStateHandle)
 
     private val _usernameError = MutableLiveData(Constants.EMPTY_TEXT)
@@ -35,8 +31,8 @@ class LoginViewModel @Inject constructor(
     private val _passwordError = MutableLiveData(Constants.EMPTY_TEXT)
     val passwordError: LiveData<String> get() = _passwordError
 
-    private val _loginMainUiState = MutableStateFlow(LoginMainUiState())
-    val loginMainUiState = _loginMainUiState
+    private val _loginUiState = MutableStateFlow(LoginUiState())
+    val loginUiState = _loginUiState
 
     private val _signUpEvent = MutableLiveData(Event(false))
     val signUpEvent: LiveData<Event<Boolean>> get() = _signUpEvent
@@ -54,9 +50,18 @@ class LoginViewModel @Inject constructor(
     val isDialogShown: LiveData<Boolean> get() = _isDialogShown
 
     private val _loginEvent = MutableLiveData<Event<Boolean>>()
-    val loginEvent  = _loginEvent
+    val loginEvent = _loginEvent
 
-
+    fun onSetUserName(userName : CharSequence){
+        loginUiState.update {
+            it.copy(userName = userName.toString())
+        }
+    }
+    fun onSetPassWord(passWord : CharSequence){
+        loginUiState.update {
+            it.copy(passWord = passWord.toString())
+        }
+    }
     fun onSignUpClick() {
         _signUpEvent.postValue(Event(true))
     }
@@ -88,29 +93,22 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             try {
-                _loginMainUiState.update{it.copy(isLoading = true)}
-                val response = loginUseCase(username = args.username, password = args.password)
-                if (response is LoginResponse.Success){
-                    onLoginSuccessfully()
-                }
-                else if (response is LoginResponse.Failure){
-                    onLoginError(response.message)
-                }
-
-            } catch (e : Throwable){
+                _loginUiState.update { it.copy(isLoading = true) }
+                val loginResponse = loginUseCase(username = args.username, password = args.password)
+                if (loginResponse) onLoginSuccessfully()
+            } catch (e: Throwable) {
                 onLoginError(e.message.toString())
-
             }
         }
     }
 
     private fun onLoginSuccessfully() {
-        _loginMainUiState.update { it.copy(isSuccess = true) }
+        _loginUiState.update { it.copy(isSuccess = true) }
         _loginEvent.postEvent(true)
     }
 
-    private fun onLoginError(message : String) {
-        _loginMainUiState.update { it.copy(isError = true, error = message) }
+    private fun onLoginError(message: String) {
+        _loginUiState.update { it.copy(isError = true, error = message) }
         _passwordError.postValue(message)
         _loginEvent.postEvent(false)
 
@@ -123,14 +121,14 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun checkUsernameValidation(): Boolean {
-        return authUtils.validateUsername(password.value).grabError()?.let { error ->
+        return authUtils.validateUsername(loginUiState.value.userName).grabError()?.let { error ->
             _usernameError.postValue(error)
             false
         } ?: true.also { _usernameError.postValue(Constants.EMPTY_TEXT) }
     }
 
     private fun checkPasswordValidation(): Boolean {
-        return authUtils.validatePassword(password.value).grabError()?.let { error ->
+        return authUtils.validatePassword(loginUiState.value.passWord).grabError()?.let { error ->
             _passwordError.postValue(error)
             false
         } ?: true.also { _passwordError.postValue(Constants.EMPTY_TEXT) }

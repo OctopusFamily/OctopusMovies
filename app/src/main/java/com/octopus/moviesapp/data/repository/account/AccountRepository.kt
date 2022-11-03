@@ -12,6 +12,8 @@ interface AccountRepository {
 
     fun getSessionId() :String?
 
+    suspend fun login(userName: String, password: String) : Boolean
+
     suspend fun getRequestToken() : String?
 
     suspend fun validateRequestTokenWithLogin(body : Map<String,Any>) : Response<RequestTokenResponse>

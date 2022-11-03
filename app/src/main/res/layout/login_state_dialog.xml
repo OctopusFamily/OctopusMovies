@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            showIfTrue="@{viewModel.loginMainUiState.loading}" />
+            showIfTrue="@{viewModel.loginUiState.loading}" />
 
         <TextView
             android:id="@+id/login_loading"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="@+id/circularProgressIndicator"
             app:layout_constraintStart_toStartOf="@+id/circularProgressIndicator"
             app:layout_constraintTop_toBottomOf="@+id/circularProgressIndicator"
-            showIfTrue="@{viewModel.loginMainUiState.loading}" />
+            showIfTrue="@{viewModel.loginUiState.loading}" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationError"
@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@+id/circularProgressIndicator"
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/login_error"
-            showIfTrue="@{viewModel.loginMainUiState.isError}" />
+            showIfTrue="@{viewModel.loginUiState.isError}" />
 
 
 
@@ -65,6 +65,6 @@
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="@+id/lottieAnimationError"
             app:layout_constraintTop_toBottomOf="@+id/lottieAnimationError"
-            showIfTrue="@{viewModel.loginMainUiState.isError}" />
+            showIfTrue="@{viewModel.loginUiState.isError}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

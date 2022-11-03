@@ -31,7 +31,7 @@ class LoginStateDialogFragment : BaseDialogFragment<LoginStateDialogBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (viewModel.loginMainUiState.value.isSuccess) {
+        if (viewModel.loginUiState.value.isSuccess) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
@@ -40,7 +40,7 @@ class LoginStateDialogFragment : BaseDialogFragment<LoginStateDialogBinding>() {
         viewModel.loginEvent.observeEvent(viewLifecycleOwner) {
             if (it) {
                 dismiss()
-            } else if (it == false) {
+            } else if (!it) {
                 Log.d("errorDialog","true")
                 val timer = Timer()
                 timer.schedule(object : TimerTask() {
