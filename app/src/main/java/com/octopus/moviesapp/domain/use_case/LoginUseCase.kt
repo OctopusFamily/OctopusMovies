@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.login
+package com.octopus.moviesapp.domain.use_case
 
 import com.octopus.moviesapp.data.JsonParser
 import com.octopus.moviesapp.android.remote.response.login.ErrorResponse

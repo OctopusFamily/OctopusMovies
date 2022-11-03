@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.use_case.tvshow_details_use_case
+package com.octopus.moviesapp.android.usecases.use_case.tvshow_details_use_case
 
 import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.domain.mapper.TrailerMapper

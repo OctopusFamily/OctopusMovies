@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.repositories
+package com.octopus.moviesapp.repositories
 
 import org.junit.Test
 

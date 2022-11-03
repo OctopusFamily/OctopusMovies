@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.domain.login
+package com.octopus.moviesapp.android.usecases.use_case
 
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import javax.inject.Inject
