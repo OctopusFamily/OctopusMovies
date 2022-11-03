@@ -7,11 +7,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

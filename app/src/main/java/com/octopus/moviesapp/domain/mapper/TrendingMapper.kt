@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.dto.TrendingDTO
+import com.octopus.moviesapp.android.remote.response.dto.TrendingDTO
 import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.buildImageUrl
 import javax.inject.Inject

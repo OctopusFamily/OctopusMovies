@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.types.MoviesCategory
+import com.octopus.moviesapp.android.local.types.MoviesCategory
 import com.octopus.moviesapp.domain.use_case.GetMoviesPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.uistate.MovieUiState

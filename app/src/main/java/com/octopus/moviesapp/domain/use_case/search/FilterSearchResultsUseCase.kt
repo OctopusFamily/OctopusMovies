@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.use_case.search
 
 import com.octopus.moviesapp.domain.model.SearchResult
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import javax.inject.Inject
 
 class FilterSearchResultsUseCase @Inject constructor() {

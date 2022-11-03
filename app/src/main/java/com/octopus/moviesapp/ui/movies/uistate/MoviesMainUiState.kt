@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.ui.movies.uistate
 
 import androidx.paging.PagingData
-import com.octopus.moviesapp.domain.types.MoviesCategory
+import com.octopus.moviesapp.android.local.types.MoviesCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

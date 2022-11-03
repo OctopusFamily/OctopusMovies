@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.android.local.types.Language
+import com.octopus.moviesapp.android.local.types.Theme
 import java.util.*
 
 object SettingsService {

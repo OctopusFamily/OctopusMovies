@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.MyApplication
 import com.octopus.moviesapp.domain.model.Account
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.android.local.types.Language
+import com.octopus.moviesapp.android.local.types.Theme
 import com.octopus.moviesapp.domain.use_case.GetAccountUseCase
 import com.octopus.moviesapp.domain.use_case.LogoutUserUseCase
 import com.octopus.moviesapp.domain.use_case.UpdateThemeUseCase

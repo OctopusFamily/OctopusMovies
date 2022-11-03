@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.di
 
 import com.google.gson.Gson
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.remote.service.TMDBApiService
 import android.content.Context
-import com.octopus.moviesapp.data.remote.interceptor.AuthInterceptor
+import com.octopus.moviesapp.android.remote.interceptor.AuthInterceptor
 import com.octopus.moviesapp.util.ConnectionTracker
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.ConnectionTrackerImpl

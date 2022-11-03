@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.model
 
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 
 data class Trending(
     val id: Int,

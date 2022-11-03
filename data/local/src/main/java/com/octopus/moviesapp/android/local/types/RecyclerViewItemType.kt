@@ -1,0 +1,15 @@
+package com.octopus.moviesapp.android.local.types
+
+enum class RecyclerViewItemType {
+    MOVIE_INFO_VIEW_TYPE,
+    CAST_VIEW_TYPE,
+    TV_SHOW_INFO_VIEW_TYPE,
+    SEASONS_VIEW_TYPE,
+    IMAGE_SLIDER_VIEW_TYPE,
+    PERSON_INFO_DETAILS,
+    MOVIE_IMAGE,
+    TV_SHOW_IMAGE,
+    MOVIES_ITEM_VIEW_TYPE,
+    TV_SHOWS_ITEM_VIEW_TYPE,
+    TRENDING_PEOPLE_ITEM_VIEW_HOLDER,
+}

@@ -1,14 +1,14 @@
 package com.octopus.moviesapp.data.repository.genres
 
-import com.octopus.moviesapp.data.remote.pagingsource.GenreMoviesPagingSource
+import com.octopus.moviesapp.android.remote.pagingsource.GenreMoviesPagingSource
 import com.octopus.moviesapp.data.remote.pagingsource.GenreTVShowsPagingSource
-import com.octopus.moviesapp.data.remote.response.dto.GenreDTO
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.remote.response.dto.GenreDTO
+import com.octopus.moviesapp.android.remote.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.mapper.TVShowsMapper
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.local.types.GenresType
 import javax.inject.Inject
 
 class GenresRepositoryImpl @Inject constructor(

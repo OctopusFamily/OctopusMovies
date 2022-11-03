@@ -1,6 +1,7 @@
 package com.octopus.moviesapp.data.remote.response.dto
 
 import com.google.gson.annotations.SerializedName
+import com.octopus.moviesapp.android.remote.response.dto.PersonDTO
 
 data class EpisodeDTO(
     @SerializedName("air_date")

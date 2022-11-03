@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayout
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.domain.use_case.genres.GetGenresByTypeUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.genres.mapper.GenresUiStateMapper

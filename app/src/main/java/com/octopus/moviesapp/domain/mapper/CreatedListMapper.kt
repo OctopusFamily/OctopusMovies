@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.lists.CreatedListsDto
+import com.octopus.moviesapp.android.remote.response.lists.CreatedListsDto
 import com.octopus.moviesapp.domain.model.CreatedList
 import javax.inject.Inject
 

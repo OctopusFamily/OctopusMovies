@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.data.local.datastore.DataStorePreferencesImpl
+import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
+import com.octopus.moviesapp.android.local.datastore.DataStorePreferencesImpl
 import com.octopus.moviesapp.util.Constants
 import dagger.Module
 import dagger.Provides

@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.use_case
 
-import com.octopus.moviesapp.data.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
+import com.octopus.moviesapp.android.local.types.Theme
 import com.octopus.moviesapp.util.Constants
 import javax.inject.Inject
 

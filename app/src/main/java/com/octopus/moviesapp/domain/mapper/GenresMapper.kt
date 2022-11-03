@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.dto.GenreDTO
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.remote.response.dto.GenreDTO
+import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.domain.model.Genre
 import javax.inject.Inject
 

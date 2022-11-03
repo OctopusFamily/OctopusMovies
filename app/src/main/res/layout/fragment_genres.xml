@@ -15,7 +15,7 @@
 
         <variable
             name="genresType"
-            type="com.octopus.moviesapp.domain.types.GenresType" />
+            type="com.octopus.moviesapp.android.local.types.GenresType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

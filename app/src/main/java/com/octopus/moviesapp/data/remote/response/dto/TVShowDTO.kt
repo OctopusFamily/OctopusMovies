@@ -1,7 +1,8 @@
 package com.octopus.moviesapp.data.remote.response.dto
 
 import com.google.gson.annotations.SerializedName
-import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.android.remote.response.dto.GenreDTO
+import com.octopus.moviesapp.android.remote.response.dto.SeasonDTO
 
 data class TVShowDTO(
     @SerializedName("id")

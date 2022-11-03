@@ -3,7 +3,7 @@ package com.octopus.moviesapp.domain.use_case
 import com.octopus.moviesapp.data.repository.home.HomeRepository
 import com.octopus.moviesapp.domain.mapper.TrendingMapper
 import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import javax.inject.Inject
 
 class GetTrendingMediaUseCase @Inject constructor(

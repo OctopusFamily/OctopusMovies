@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.android.remote.response.dto.TrailerDTO
 import com.octopus.moviesapp.domain.model.Trailer
 import com.octopus.moviesapp.util.Constants
 import javax.inject.Inject

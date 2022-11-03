@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.LogoutResponse
+import com.octopus.moviesapp.android.remote.response.LogoutResponse
 import com.octopus.moviesapp.domain.model.Logout
 import javax.inject.Inject
 

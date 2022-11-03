@@ -2,6 +2,7 @@ package com.octopus.moviesapp.data.remote.response.lists
 
 
 import com.google.gson.annotations.SerializedName
+import com.octopus.moviesapp.android.remote.response.lists.ListDetailsDto
 
 data class ListResponseDto<T>(
     @SerializedName("created_by")

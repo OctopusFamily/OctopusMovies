@@ -1,11 +1,10 @@
 package com.octopus.moviesapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.model.SearchResult
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import com.octopus.moviesapp.domain.use_case.search.FilterSearchResultsUseCase
 import com.octopus.moviesapp.domain.use_case.search.SearchMediaUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
