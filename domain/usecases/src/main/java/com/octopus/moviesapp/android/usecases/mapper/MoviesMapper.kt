@@ -1,9 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.convertStringToDate
+import com.octopus.moviesapp.models.model.Movie
 import javax.inject.Inject
 
 class MoviesMapper @Inject constructor() : Mapper<MovieDTO, Movie>() {

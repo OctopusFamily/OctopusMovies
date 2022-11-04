@@ -1,18 +1,11 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
-import android.content.Context
-import com.octopus.moviesapp.R
 import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.domain.model.TVShowDetails
-import com.octopus.moviesapp.android.local.types.GenresType
-import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.convertStringToDate
-import com.octopus.moviesapp.util.getTextOrPlaceholder
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.octopus.moviesapp.models.model.TVShowDetails
+import com.octopus.moviesapp.repositories.repository.type.GenresType
 import javax.inject.Inject
 
 class TVShowDetailsMapper @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val genresMapper: GenresMapper,
     private val seasonsMapper: SeasonsMapper,
 ) : Mapper<TVShowDTO, TVShowDetails>() {
@@ -30,8 +23,8 @@ class TVShowDetailsMapper @Inject constructor(
             seasonsNumber = input.seasonsNumber ?: 0,
             started = convertStringToDate(input.started),
             originalLanguage = input.originalLanguage ?: "",
-            tagline = getTextOrPlaceholder(context, input.tagline, R.string.there_is_no_tagline),
-            overview = getTextOrPlaceholder(context, input.overview, R.string.there_is_no_overview),
+            tagline = input.tagline ?:"",
+            overview =  input.overview ?: "",
             status = input.status ?: "",
             genres = genresMapper.map(Pair(genresList, GenresType.TV)),
             seasons = seasonsMapper.mapList(seasonsList),

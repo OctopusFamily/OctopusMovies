@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.lists.CreatedListsDto
-import com.octopus.moviesapp.domain.model.CreatedList
+import com.octopus.moviesapp.models.model.CreatedList
 import javax.inject.Inject
 
 class CreatedListMapper  @Inject constructor() : Mapper<List<CreatedListsDto>,List<CreatedList>>() {

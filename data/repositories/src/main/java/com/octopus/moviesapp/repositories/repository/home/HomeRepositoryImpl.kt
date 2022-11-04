@@ -9,8 +9,8 @@ import javax.inject.Inject
 class HomeRepositoryImpl @Inject constructor(
     private val tmdbApiService: TMDBApiService,
 ) : HomeRepository {
-    override suspend fun getTrendingMedia(mediaType: MediaType): List<TrendingDTO> {
-        return tmdbApiService.getTrendingMedia(mediaType.mediaName).items
+    override suspend fun getTrendingMedia(mediaName: String): List<TrendingDTO> {
+        return tmdbApiService.getTrendingMedia(mediaName).items
     }
 
 }

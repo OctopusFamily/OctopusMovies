@@ -95,9 +95,9 @@ dependencies {
 
     // Image Slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
-//
-//    // Paging3
-//    implementation 'androidx.paging:paging-runtime:3.1.1'
+
+    // Paging3
+    implementation 'androidx.paging:paging-runtime:3.1.1'
 
     // expandable floating action button
     implementation 'com.github.imtuann:FloatingActionButtonExpandable:1.1.2'

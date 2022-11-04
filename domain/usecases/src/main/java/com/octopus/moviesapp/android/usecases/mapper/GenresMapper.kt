@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.GenreDTO
-import com.octopus.moviesapp.android.local.types.GenresType
-import com.octopus.moviesapp.domain.model.Genre
+import com.octopus.moviesapp.models.model.Genre
+import com.octopus.moviesapp.repositories.repository.type.GenresType
 import javax.inject.Inject
 
 class GenresMapper @Inject constructor() : Mapper<Pair<List<GenreDTO>, GenresType>, List<Genre>>() {

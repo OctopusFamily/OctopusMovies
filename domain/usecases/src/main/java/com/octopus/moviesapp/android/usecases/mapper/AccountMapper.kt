@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
-import android.accounts.Account
 import com.octopus.moviesapp.android.remote.response.dto.account.AccountDTO
-import com.octopus.moviesapp.util.buildImageUrl
+import com.octopus.moviesapp.models.model.Account
 import javax.inject.Inject
 
 class AccountMapper @Inject constructor() : Mapper<AccountDTO, Account>() {

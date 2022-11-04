@@ -1,18 +1,11 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
-import android.content.Context
-import com.octopus.moviesapp.R
 import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.android.local.types.GenresType
-import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.convertStringToDate
-import com.octopus.moviesapp.util.getTextOrPlaceholder
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.octopus.moviesapp.models.model.MovieDetails
+import com.octopus.moviesapp.repositories.repository.type.GenresType
 import javax.inject.Inject
 
 class MovieDetailsMapper @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val genresMapper: GenresMapper,
 ) : Mapper<MovieDTO, MovieDetails>() {
     override fun map(input: MovieDTO): MovieDetails {
@@ -27,8 +20,8 @@ class MovieDetailsMapper @Inject constructor(
             releaseDate = convertStringToDate(input.releaseDate),
             runtime = input.runtime ?: 0,
             originalLanguage = input.originalLanguage ?: "",
-            tagline = getTextOrPlaceholder(context, input.tagline, R.string.there_is_no_tagline),
-            overview = getTextOrPlaceholder(context, input.overview, R.string.there_is_no_overview),
+            tagline =input.tagline ?: "",
+            overview =  input.overview ?: "",
             genres = genresMapper.map(Pair(genresList, GenresType.MOVIE)),
         )
     }

@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.android.usecases.use_case.lists_use_case
 
-import com.octopus.moviesapp.data.repository.lists.ListsRepository
-import com.octopus.moviesapp.domain.mapper.ListDetailsMapper
-import com.octopus.moviesapp.domain.model.ListDetails
+import com.octopus.moviesapp.android.usecases.mapper.ListDetailsMapper
+import com.octopus.moviesapp.models.model.ListDetails
+import com.octopus.moviesapp.repositories.repository.lists.ListsRepository
 import javax.inject.Inject
 
 class GetListDetailsUseCase @Inject constructor(

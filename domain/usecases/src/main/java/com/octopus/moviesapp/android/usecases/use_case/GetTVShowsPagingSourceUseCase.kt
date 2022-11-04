@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.data.remote.pagingsource.TVShowsPagingSource
-import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
-import com.octopus.moviesapp.android.local.types.TVShowsCategory
+import com.octopus.moviesapp.repositories.repository.tv_shows.TVShowsRepository
+import com.octopus.moviesapp.repositories.repository.type.TVShowsCategory
 import javax.inject.Inject
 
 class GetTVShowsPagingSourceUseCase @Inject constructor(

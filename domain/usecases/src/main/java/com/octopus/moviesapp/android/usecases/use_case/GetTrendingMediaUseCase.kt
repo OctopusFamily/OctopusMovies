@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.data.repository.home.HomeRepository
-import com.octopus.moviesapp.domain.mapper.TrendingMapper
-import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.android.local.types.MediaType
+import com.octopus.moviesapp.android.usecases.mapper.TrendingMapper
+import com.octopus.moviesapp.models.model.Trending
+import com.octopus.moviesapp.models.type.MediaType
+import com.octopus.moviesapp.repositories.repository.home.HomeRepository
 import javax.inject.Inject
 
 class GetTrendingMediaUseCase @Inject constructor(

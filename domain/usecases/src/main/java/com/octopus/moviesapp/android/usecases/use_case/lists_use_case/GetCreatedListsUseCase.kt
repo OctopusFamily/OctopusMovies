@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.android.usecases.use_case.lists_use_case
 
-import com.octopus.moviesapp.data.repository.account.AccountRepository
-import com.octopus.moviesapp.data.repository.lists.ListsRepository
-import com.octopus.moviesapp.domain.mapper.CreatedListMapper
-import com.octopus.moviesapp.domain.model.CreatedList
+import com.octopus.moviesapp.android.usecases.mapper.CreatedListMapper
+import com.octopus.moviesapp.models.model.CreatedList
+import com.octopus.moviesapp.repositories.repository.account.AccountRepository
+import com.octopus.moviesapp.repositories.repository.lists.ListsRepository
 import javax.inject.Inject
 
 class GetCreatedListsUseCase @Inject constructor(

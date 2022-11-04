@@ -1,7 +1,6 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.data.remote.pagingsource.GenreTVShowsPagingSource
-import com.octopus.moviesapp.data.repository.genres.GenresRepository
+import com.octopus.moviesapp.repositories.repository.genres.GenresRepository
 import javax.inject.Inject
 
 class GetGenreTVShowsPagingSourceUseCase @Inject constructor(

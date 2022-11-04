@@ -1,8 +1,9 @@
 package com.octopus.moviesapp.android.usecases.use_case.moviedetails_usecase
 
-import com.octopus.moviesapp.data.repository.movies.MoviesRepository
-import com.octopus.moviesapp.domain.mapper.CastMapper
-import com.octopus.moviesapp.domain.model.Cast
+
+import com.octopus.moviesapp.android.usecases.mapper.CastMapper
+import com.octopus.moviesapp.models.model.Cast
+import com.octopus.moviesapp.repositories.repository.movies.MoviesRepository
 import javax.inject.Inject
 
 class FetchMovieCastUseCase @Inject constructor(

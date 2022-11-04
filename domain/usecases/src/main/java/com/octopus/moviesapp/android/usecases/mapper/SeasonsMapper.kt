@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.SeasonDTO
-import com.octopus.moviesapp.domain.model.Season
-import com.octopus.moviesapp.util.buildImageUrl
+import com.octopus.moviesapp.models.model.Season
 import javax.inject.Inject
 
 class SeasonsMapper @Inject constructor() : Mapper<SeasonDTO, Season>() {

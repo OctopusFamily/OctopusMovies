@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.android.local.types.Theme
-import com.octopus.moviesapp.util.Constants
+
+import com.octopus.moviesapp.repositories.repository.Constants
 import javax.inject.Inject
 
 class UpdateThemeUseCase @Inject constructor(

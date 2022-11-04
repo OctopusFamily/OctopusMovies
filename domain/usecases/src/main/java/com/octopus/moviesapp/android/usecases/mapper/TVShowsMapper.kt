@@ -1,9 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.convertStringToDate
+import com.octopus.moviesapp.models.model.TVShow
 import javax.inject.Inject
 
 class TVShowsMapper @Inject constructor() : Mapper<TVShowDTO, TVShow>() {

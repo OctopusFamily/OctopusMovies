@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.data.repository.account.AccountRepository
+import com.octopus.moviesapp.repositories.repository.account.AccountRepository
 import javax.inject.Inject
 
 class GetRequestTokenUseCase @Inject constructor(

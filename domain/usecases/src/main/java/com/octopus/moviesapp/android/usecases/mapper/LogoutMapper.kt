@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.LogoutResponse
-import com.octopus.moviesapp.domain.model.Logout
+import com.octopus.moviesapp.models.model.Logout
 import javax.inject.Inject
 
 class LogoutMapper @Inject constructor() : Mapper<LogoutResponse, Logout>() {

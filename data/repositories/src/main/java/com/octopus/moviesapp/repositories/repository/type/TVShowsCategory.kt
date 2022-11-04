@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.local.types
+package com.octopus.moviesapp.repositories.repository.type
 
 enum class TVShowsCategory(val pathName: String) {
     POPULAR("popular"),

@@ -1,7 +1,8 @@
 package com.octopus.moviesapp.android.usecases.use_case.lists_use_case
 
-import com.octopus.moviesapp.data.repository.account.AccountRepository
-import com.octopus.moviesapp.data.repository.lists.ListsRepository
+
+import com.octopus.moviesapp.repositories.repository.account.AccountRepository
+import com.octopus.moviesapp.repositories.repository.lists.ListsRepository
 import javax.inject.Inject
 
 class AddMovieToListUseCase @Inject constructor(

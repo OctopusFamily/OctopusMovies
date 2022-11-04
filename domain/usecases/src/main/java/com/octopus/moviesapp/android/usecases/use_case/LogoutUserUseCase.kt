@@ -1,10 +1,9 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.data.repository.account.AccountRepository
-import com.octopus.moviesapp.domain.mapper.LogoutMapper
-import com.octopus.moviesapp.domain.model.Logout
-import com.octopus.moviesapp.util.Constants
+import com.octopus.moviesapp.android.usecases.mapper.LogoutMapper
+import com.octopus.moviesapp.models.model.Logout
+import com.octopus.moviesapp.repositories.repository.Constants
+import com.octopus.moviesapp.repositories.repository.account.AccountRepository
 import javax.inject.Inject
 
 class LogoutUserUseCase @Inject constructor(

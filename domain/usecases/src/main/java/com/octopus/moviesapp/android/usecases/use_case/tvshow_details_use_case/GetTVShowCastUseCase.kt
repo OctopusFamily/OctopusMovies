@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.android.usecases.use_case.tvshow_details_use_case
 
-import com.octopus.moviesapp.data.repository.tv_shows.TVShowsRepository
-import com.octopus.moviesapp.domain.mapper.CastMapper
-import com.octopus.moviesapp.domain.model.Cast
+import com.octopus.moviesapp.android.usecases.mapper.CastMapper
+import com.octopus.moviesapp.models.model.Cast
+import com.octopus.moviesapp.repositories.repository.tv_shows.TVShowsRepository
 import javax.inject.Inject
 
 class GetTVShowCastUseCase @Inject constructor(

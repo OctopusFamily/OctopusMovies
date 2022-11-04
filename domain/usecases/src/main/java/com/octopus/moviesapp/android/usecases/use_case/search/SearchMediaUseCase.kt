@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.android.usecases.use_case.search
 
-import com.octopus.moviesapp.data.repository.search.SearchRepository
-import com.octopus.moviesapp.domain.mapper.SearchResultMapper
-import com.octopus.moviesapp.domain.model.SearchResult
+import com.octopus.moviesapp.android.usecases.mapper.SearchResultMapper
+import com.octopus.moviesapp.models.model.SearchResult
+import com.octopus.moviesapp.repositories.repository.search.SearchRepository
 import javax.inject.Inject
 
 class SearchMediaUseCase @Inject constructor(

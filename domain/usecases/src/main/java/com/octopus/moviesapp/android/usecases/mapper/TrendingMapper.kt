@@ -1,10 +1,8 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.TrendingDTO
-import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.android.local.types.MediaType
-import com.octopus.moviesapp.util.Constants
-import com.octopus.moviesapp.util.buildImageUrl
+import com.octopus.moviesapp.models.model.Trending
+import com.octopus.moviesapp.repositories.repository.type.MediaType
 import javax.inject.Inject
 
 class TrendingMapper @Inject constructor() : Mapper<TrendingDTO, Trending>() {
@@ -26,6 +24,10 @@ class TrendingMapper @Inject constructor() : Mapper<TrendingDTO, Trending>() {
                     buildImageUrl(input.backDropPath)
                 }
             }
-        } ?: Constants.EMPTY_TEXT
+        } ?: EMPTY_TEXT
+    }
+
+    companion object{
+        const val EMPTY_TEXT = ""
     }
 }

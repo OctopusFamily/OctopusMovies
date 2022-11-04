@@ -1,9 +1,10 @@
 package com.octopus.moviesapp.android.usecases.use_case.genres
 
-import com.octopus.moviesapp.data.repository.genres.GenresRepository
-import com.octopus.moviesapp.domain.mapper.GenresMapper
-import com.octopus.moviesapp.domain.model.Genre
-import com.octopus.moviesapp.android.local.types.GenresType
+
+import com.octopus.moviesapp.android.usecases.mapper.GenresMapper
+import com.octopus.moviesapp.models.model.Genre
+import com.octopus.moviesapp.repositories.repository.genres.GenresRepository
+import com.octopus.moviesapp.repositories.repository.type.GenresType
 import javax.inject.Inject
 
 class GetGenresByTypeUseCase @Inject constructor(

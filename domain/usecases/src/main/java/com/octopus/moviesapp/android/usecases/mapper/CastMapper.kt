@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.CastDTO
-import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.util.buildImageUrl
+import com.octopus.moviesapp.models.model.Cast
 import javax.inject.Inject
 
 class CastMapper @Inject constructor() : Mapper<List<CastDTO>, List<Cast>>() {

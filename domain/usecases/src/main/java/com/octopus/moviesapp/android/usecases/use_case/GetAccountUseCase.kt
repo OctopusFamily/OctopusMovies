@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.android.usecases.use_case
 
-import android.accounts.Account
 import com.octopus.moviesapp.android.usecases.mapper.AccountMapper
+import com.octopus.moviesapp.models.model.Account
 import com.octopus.moviesapp.repositories.repository.account.AccountRepository
 import javax.inject.Inject
 

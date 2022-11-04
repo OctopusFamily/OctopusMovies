@@ -1,8 +1,7 @@
 package com.octopus.moviesapp.android.usecases.mapper
 
 import com.octopus.moviesapp.android.remote.response.lists.ListDetailsDto
-import com.octopus.moviesapp.domain.model.ListDetails
-import com.octopus.moviesapp.util.buildImageUrl
+import com.octopus.moviesapp.models.model.ListDetails
 import javax.inject.Inject
 
 class ListDetailsMapper @Inject constructor() : Mapper<List<ListDetailsDto>, List<ListDetails>>() {
