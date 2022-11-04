@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.moviedetails_usecase
+package com.octopus.moviesapp.android.usecases.movies
 
 
 import com.octopus.moviesapp.models.model.Cast

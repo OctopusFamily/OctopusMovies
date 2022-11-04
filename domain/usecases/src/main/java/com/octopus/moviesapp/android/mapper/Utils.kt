@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.mapper
+package com.octopus.moviesapp.android.mapper
 
 import java.text.SimpleDateFormat
 import java.util.*

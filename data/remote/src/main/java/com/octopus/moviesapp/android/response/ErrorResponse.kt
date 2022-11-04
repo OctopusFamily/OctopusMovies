@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.response.login
+package com.octopus.moviesapp.android.response
 
 
 import com.google.gson.annotations.SerializedName

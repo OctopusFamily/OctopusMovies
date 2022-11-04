@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.use_case.LoginResponse
 import com.octopus.moviesapp.domain.use_case.LoginUseCase
-import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
+import com.octopus.moviesapp.android.datastore.DataStorePreferences
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.util.*
 import com.octopus.moviesapp.util.extensions.postEvent

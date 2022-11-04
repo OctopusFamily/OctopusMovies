@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.person
 
 import com.octopus.moviesapp.android.usecases.mapper.MoviesMapper
 import com.octopus.moviesapp.models.model.Movie

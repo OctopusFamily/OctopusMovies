@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.repositories.repository.tv_shows
 
-import com.octopus.moviesapp.android.remote.response.dto.CastDTO
-import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.android.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.android.response.dto.CastDTO
+import com.octopus.moviesapp.android.response.dto.TVShowDTO
+import com.octopus.moviesapp.android.response.dto.TrailerDTO
 import com.octopus.moviesapp.repositories.repository.type.TVShowsCategory
 
 interface TVShowsRepository {

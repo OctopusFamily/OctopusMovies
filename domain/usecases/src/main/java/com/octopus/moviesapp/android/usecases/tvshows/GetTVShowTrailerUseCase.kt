@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.tvshow_details_use_case
+package com.octopus.moviesapp.android.usecases.tvshows
 
 import com.octopus.moviesapp.android.usecases.mapper.TrailerMapper
 import com.octopus.moviesapp.models.model.Trailer

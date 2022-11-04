@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.android.interceptor
 
-import com.octopus.moviesapp.android.Constants.API_KEY
-import com.octopus.moviesapp.android.Constants.API_KEY_QP
+import com.octopus.moviesapp.android.utils.Constants.API_KEY
+import com.octopus.moviesapp.android.utils.Constants.API_KEY_QP
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

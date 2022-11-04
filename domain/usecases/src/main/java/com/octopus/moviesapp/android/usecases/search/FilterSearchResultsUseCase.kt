@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.usecase.search
+package com.octopus.moviesapp.android.usecases.search
 
 import com.octopus.moviesapp.models.model.SearchResult
 import com.octopus.moviesapp.models.type.MediaType

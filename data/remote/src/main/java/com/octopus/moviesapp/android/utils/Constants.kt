@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android
+package com.octopus.moviesapp.android.utils
 
 object Constants {
     const val EMPTY_TEXT = ""

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.genres
 
 import com.octopus.moviesapp.repositories.repository.genres.GenresRepository
 import javax.inject.Inject
@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetGenreTVShowsPagingSourceUseCase @Inject constructor(
     private val genresRepository: GenresRepository
 ) {
-    operator fun invoke(genreId: Int): GenreTVShowsPagingSource {
-        return genresRepository.getGenreTVShowsPagingSource(genreId)
-    }
+//    operator fun invoke(genreId: Int): GenreTVShowsPagingSource {
+//        return genresRepository.getGenreTVShowsPagingSource(genreId)
+//    }
 }

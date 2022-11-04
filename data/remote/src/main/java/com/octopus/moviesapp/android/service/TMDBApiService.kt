@@ -1,17 +1,17 @@
 package com.octopus.moviesapp.android.service
 
-import com.octopus.moviesapp.android.Constants.EMPTY_TEXT
-import com.octopus.moviesapp.android.response.BaseResponse
-import com.octopus.moviesapp.android.response.CastResponse
-import com.octopus.moviesapp.android.response.GenresResponse
-import com.octopus.moviesapp.android.response.LogoutResponse
+import com.octopus.moviesapp.android.utils.Constants.EMPTY_TEXT
 import com.octopus.moviesapp.android.remote.response.dto.*
 import com.octopus.moviesapp.android.response.dto.account.AccountDTO
 import com.octopus.moviesapp.android.remote.response.lists.*
+import com.octopus.moviesapp.android.response.*
 import com.octopus.moviesapp.android.response.dto.*
+import com.octopus.moviesapp.android.response.dto.lists.CreatedListsDTO
+import com.octopus.moviesapp.android.response.dto.lists.ListDetailsDTO
+import com.octopus.moviesapp.android.response.dto.lists.ListResponseDTO
 import com.octopus.moviesapp.android.response.lists.*
-import com.octopus.moviesapp.android.response.login.RequestTokenResponse
-import com.octopus.moviesapp.android.response.login.SessionResponse
+import com.octopus.moviesapp.android.response.RequestTokenResponse
+import com.octopus.moviesapp.android.response.SessionResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -134,12 +134,12 @@ interface TMDBApiService {
     suspend fun getCreatedLists(
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String
-    ): BaseResponse<CreatedListsDto>
+    ): BaseResponse<CreatedListsDTO>
 
     @GET("list/{list_id}")
     suspend fun getList(
         @Path("list_id") listId: Int
-    ): ListResponseDto<ListDetailsDto>
+    ): ListResponseDTO<ListDetailsDTO>
 
     @FormUrlEncoded
     @POST("list/{list_id}/add_item")

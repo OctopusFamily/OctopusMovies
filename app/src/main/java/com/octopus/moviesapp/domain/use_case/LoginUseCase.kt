@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.domain.use_case
 
 import com.octopus.moviesapp.data.JsonParser
-import com.octopus.moviesapp.android.remote.response.login.ErrorResponse
+import com.octopus.moviesapp.android.response.ErrorResponse
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import javax.inject.Inject
 

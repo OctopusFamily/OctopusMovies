@@ -1,10 +1,10 @@
 package com.octopus.moviesapp.data.repository.lists
 
-import com.octopus.moviesapp.android.remote.response.lists.AddMovieToListResponse
-import com.octopus.moviesapp.android.remote.response.lists.CreateListResponse
-import com.octopus.moviesapp.android.remote.response.lists.CreatedListsDto
-import com.octopus.moviesapp.android.remote.response.lists.ListDetailsDto
-import com.octopus.moviesapp.android.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.response.AddMovieToListResponse
+import com.octopus.moviesapp.android.response.CreateListResponse
+import com.octopus.moviesapp.android.response.dto.lists.CreatedListsDTO
+import com.octopus.moviesapp.android.response.dto.lists.ListDetailsDTO
+import com.octopus.moviesapp.android.service.TMDBApiService
 import javax.inject.Inject
 
 class ListsRepositoryImp @Inject constructor(
@@ -15,11 +15,11 @@ class ListsRepositoryImp @Inject constructor(
         return tmdbApiService.createList(sessionId,name)
     }
 
-    override suspend fun getAllLists(accountId: Int, sessionId: String): List<CreatedListsDto> {
+    override suspend fun getAllLists(accountId: Int, sessionId: String): List<CreatedListsDTO> {
         return tmdbApiService.getCreatedLists(accountId,sessionId).items
      }
 
-    override suspend fun getListDetails(listId: Int): List<ListDetailsDto> {
+    override suspend fun getListDetails(listId: Int): List<ListDetailsDTO> {
         return tmdbApiService.getList(listId).items!!
     }
 

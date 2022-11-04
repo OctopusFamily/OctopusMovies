@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.account
 
 import com.octopus.moviesapp.models.model.Account
 import com.octopus.moviesapp.repositories.repository.account.AccountRepository

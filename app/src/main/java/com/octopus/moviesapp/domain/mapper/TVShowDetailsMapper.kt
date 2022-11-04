@@ -2,7 +2,7 @@ package com.octopus.moviesapp.domain.mapper
 
 import android.content.Context
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
+import com.octopus.moviesapp.android.response.dto.TVShowDTO
 import com.octopus.moviesapp.domain.model.TVShowDetails
 import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.util.buildImageUrl

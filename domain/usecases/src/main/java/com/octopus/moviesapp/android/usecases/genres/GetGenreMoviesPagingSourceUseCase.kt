@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.genres
 
 import com.octopus.moviesapp.repositories.repository.genres.GenresRepository
 import javax.inject.Inject

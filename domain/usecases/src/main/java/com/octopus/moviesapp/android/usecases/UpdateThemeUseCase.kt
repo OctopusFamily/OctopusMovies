@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.usecase
+package com.octopus.moviesapp.android.usecases
 
 
 import com.octopus.moviesapp.repositories.repository.Constants

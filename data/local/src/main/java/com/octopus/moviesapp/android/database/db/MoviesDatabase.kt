@@ -1,11 +1,11 @@
-package com.octopus.moviesapp.android.local.database.db
+package com.octopus.moviesapp.android.database.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.octopus.moviesapp.android.local.database.dao.MoviesDao
-import com.octopus.moviesapp.android.local.database.entity.MovieEntity
-import com.octopus.moviesapp.android.local.database.entity.TVShowEntity
-import com.octopus.moviesapp.android.local.database.entity.TrendingEntity
+import com.octopus.moviesapp.android.database.dao.MoviesDao
+import com.octopus.moviesapp.android.database.entity.MovieEntity
+import com.octopus.moviesapp.android.database.entity.TVShowEntity
+import com.octopus.moviesapp.android.database.entity.TrendingEntity
 
 @Database(
     entities = [

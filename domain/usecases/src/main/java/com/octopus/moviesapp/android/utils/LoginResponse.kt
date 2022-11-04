@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.utils
 
 sealed class LoginResponse {
     object Success : LoginResponse()

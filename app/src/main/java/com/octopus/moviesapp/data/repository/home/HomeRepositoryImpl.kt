@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.data.repository.home
 
-import com.octopus.moviesapp.android.remote.response.dto.TrendingDTO
-import com.octopus.moviesapp.android.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.response.dto.TrendingDTO
+import com.octopus.moviesapp.android.service.TMDBApiService
 import com.octopus.moviesapp.android.local.types.MediaType
 import javax.inject.Inject
 

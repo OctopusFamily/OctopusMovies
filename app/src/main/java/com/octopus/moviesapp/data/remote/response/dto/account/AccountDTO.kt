@@ -2,7 +2,7 @@ package com.octopus.moviesapp.data.remote.response.dto.account
 
 
 import com.google.gson.annotations.SerializedName
-import com.octopus.moviesapp.android.remote.response.dto.account.Avatar
+import com.octopus.moviesapp.android.response.dto.account.Avatar
 
 data class AccountDTO(
     @SerializedName("id")

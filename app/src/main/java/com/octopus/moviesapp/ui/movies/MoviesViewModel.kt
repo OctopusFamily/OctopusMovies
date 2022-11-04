@@ -3,9 +3,11 @@ package com.octopus.moviesapp.ui.movies
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import androidx.paging.map
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.android.local.types.MoviesCategory
 import com.octopus.moviesapp.domain.use_case.GetMoviesPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
@@ -15,7 +17,10 @@ import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,19 +50,19 @@ class MoviesViewModel @Inject constructor(
     }
 
     override fun onChipSelected(selectedChipPosition: Int) {
-        _moviesMainUiState.update { it.copy(selectedChip = Pair(selectedChipPosition, getSelectedMoviesCategory(selectedChipPosition))) }
-        fetchMoviesByCategory()
+//        _moviesMainUiState.update { it.copy(selectedChip = Pair(selectedChipPosition, getSelectedMoviesCategory(selectedChipPosition))) }
+//        fetchMoviesByCategory()
     }
 
-    private fun getSelectedMoviesCategory(position: Int): MoviesCategory {
-        return when(position) {
-            0 -> MoviesCategory.POPULAR
-            1 -> MoviesCategory.NOW_PLAYING
-            2 -> MoviesCategory.UPCOMING
-            3 -> MoviesCategory.TOP_RATED
-            else -> MoviesCategory.POPULAR
-        }
-    }
+//    private fun getSelectedMoviesCategory(position: Int): MoviesCategory {
+//        return when(position) {
+//            0 -> MoviesCategory.POPULAR
+//            1 -> MoviesCategory.NOW_PLAYING
+//            2 -> MoviesCategory.UPCOMING
+//            3 -> MoviesCategory.TOP_RATED
+//            else -> MoviesCategory.POPULAR
+//        }
+//    }
 
     private fun Movie.asMovieUiState(): MovieUiState {
         return MovieUiState(

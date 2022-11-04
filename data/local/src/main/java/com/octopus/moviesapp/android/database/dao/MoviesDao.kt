@@ -1,12 +1,12 @@
-package com.octopus.moviesapp.android.local.database.dao
+package com.octopus.moviesapp.android.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.octopus.moviesapp.android.local.database.entity.MovieEntity
-import com.octopus.moviesapp.android.local.database.entity.TVShowEntity
-import com.octopus.moviesapp.android.local.database.entity.TrendingEntity
+import com.octopus.moviesapp.android.database.entity.MovieEntity
+import com.octopus.moviesapp.android.database.entity.TVShowEntity
+import com.octopus.moviesapp.android.database.entity.TrendingEntity
 
 @Dao
 interface MoviesDao {

@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.data.repository.person
 
-import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.android.remote.response.dto.PersonDTO
-import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
+import com.octopus.moviesapp.android.response.dto.MovieDTO
+import com.octopus.moviesapp.android.response.dto.PersonDTO
+import com.octopus.moviesapp.android.response.dto.TVShowDTO
 
 interface PersonRepository {
     suspend fun getPersonDetailsById(personId: Int): PersonDTO

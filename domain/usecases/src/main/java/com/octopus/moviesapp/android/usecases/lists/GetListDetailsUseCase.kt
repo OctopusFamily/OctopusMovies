@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.lists_use_case
+package com.octopus.moviesapp.android.usecases.lists
 
 import com.octopus.moviesapp.android.usecases.mapper.ListDetailsMapper
 import com.octopus.moviesapp.models.model.ListDetails

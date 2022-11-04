@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.mapper
+package com.octopus.moviesapp.android.mapper
 
 abstract class Mapper<I, O> {
      abstract fun map(input: I): O

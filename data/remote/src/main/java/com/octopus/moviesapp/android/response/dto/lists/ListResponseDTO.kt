@@ -1,10 +1,9 @@
-package com.octopus.moviesapp.android.response.lists
+package com.octopus.moviesapp.android.response.dto.lists
 
 
 import com.google.gson.annotations.SerializedName
-import com.octopus.moviesapp.android.response.lists.ListDetailsDto
 
-data class ListResponseDto<T>(
+data class ListResponseDTO(
     @SerializedName("created_by")
     val createdBy: String?,
     @SerializedName("description")
@@ -18,7 +17,7 @@ data class ListResponseDto<T>(
     @SerializedName("item_count")
     val itemCount: Int?,
     @SerializedName("items")
-    val items: List<ListDetailsDto>?,
+    val items: List<ListDetailsDTO>?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("poster_path")

@@ -1,6 +1,6 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.person
 
-import com.octopus.moviesapp.android.usecases.mapper.TVShowsMapper
+import com.octopus.moviesapp.android.mapper.TVShowsMapper
 import com.octopus.moviesapp.models.model.TVShow
 import com.octopus.moviesapp.repositories.repository.person.PersonRepository
 import javax.inject.Inject

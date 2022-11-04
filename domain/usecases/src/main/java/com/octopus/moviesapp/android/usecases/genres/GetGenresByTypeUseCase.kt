@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.usecase.genres
+package com.octopus.moviesapp.android.usecases.genres
 
 
 import com.octopus.moviesapp.android.usecases.mapper.GenresMapper

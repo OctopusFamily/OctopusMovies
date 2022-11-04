@@ -1,9 +1,7 @@
-package com.octopus.moviesapp.android.local.datastore
-
-import kotlinx.coroutines.flow.Flow
+package com.octopus.moviesapp.android.datastore
 
 interface DataStorePreferences {
-    fun readBoolean(key: String): Flow<Boolean?>
+    fun readBoolean(key: String): Boolean?
     suspend fun writeBoolean(key: String, value: Boolean)
     fun readString(key: String): String?
     suspend fun writeString(key: String, value: String)

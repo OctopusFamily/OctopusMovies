@@ -1,10 +1,10 @@
 package com.octopus.moviesapp.repositories.repository.account
 
-import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
-import com.octopus.moviesapp.android.remote.response.LogoutResponse
-import com.octopus.moviesapp.android.remote.response.dto.account.AccountDTO
-import com.octopus.moviesapp.android.remote.response.login.RequestTokenResponse
-import com.octopus.moviesapp.android.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.datastore.DataStorePreferences
+import com.octopus.moviesapp.android.response.LogoutResponse
+import com.octopus.moviesapp.android.response.dto.account.AccountDTO
+import com.octopus.moviesapp.android.response.RequestTokenResponse
+import com.octopus.moviesapp.android.service.TMDBApiService
 import com.octopus.moviesapp.repositories.repository.Constants
 import retrofit2.Response
 import javax.inject.Inject

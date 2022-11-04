@@ -1,6 +1,6 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.movies
 
-import com.octopus.moviesapp.android.usecases.mapper.MoviesMapper
+import com.octopus.moviesapp.android.mapper.MoviesMapper
 import com.octopus.moviesapp.models.model.Movie
 import com.octopus.moviesapp.repositories.repository.movies.MoviesRepository
 import com.octopus.moviesapp.repositories.repository.type.MoviesCategory

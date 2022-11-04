@@ -1,9 +1,9 @@
-package com.octopus.moviesapp.android.response.lists
+package com.octopus.moviesapp.android.response.dto.lists
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ListDetailsDto(
+data class ListDetailsDTO(
     @SerializedName("adult")
     val adult: Boolean?,
     @SerializedName("backdrop_path")

@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.mapper
+package com.octopus.moviesapp.android.mapper
 
 import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
 import com.octopus.moviesapp.models.model.MovieDetails

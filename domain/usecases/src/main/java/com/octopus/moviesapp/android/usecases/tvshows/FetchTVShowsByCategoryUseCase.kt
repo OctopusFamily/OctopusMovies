@@ -1,7 +1,7 @@
-package com.octopus.moviesapp.android.usecases
+package com.octopus.moviesapp.android.usecases.tvshows
 
 
-import com.octopus.moviesapp.android.usecases.mapper.TVShowsMapper
+import com.octopus.moviesapp.android.mapper.TVShowsMapper
 import com.octopus.moviesapp.models.model.TVShow
 import com.octopus.moviesapp.repositories.repository.tv_shows.TVShowsRepository
 import com.octopus.moviesapp.repositories.repository.type.TVShowsCategory

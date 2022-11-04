@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.android.usecases.usecase
+package com.octopus.moviesapp.android.usecases
 
 import com.octopus.moviesapp.android.usecases.mapper.TrendingMapper
 import com.octopus.moviesapp.models.model.Trending

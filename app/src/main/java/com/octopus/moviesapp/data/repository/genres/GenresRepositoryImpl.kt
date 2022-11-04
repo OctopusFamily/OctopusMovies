@@ -2,8 +2,8 @@ package com.octopus.moviesapp.data.repository.genres
 
 import com.octopus.moviesapp.android.remote.pagingsource.GenreMoviesPagingSource
 import com.octopus.moviesapp.data.remote.pagingsource.GenreTVShowsPagingSource
-import com.octopus.moviesapp.android.remote.response.dto.GenreDTO
-import com.octopus.moviesapp.android.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.response.dto.GenreDTO
+import com.octopus.moviesapp.android.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.mapper.TVShowsMapper
 import com.octopus.moviesapp.domain.model.Movie

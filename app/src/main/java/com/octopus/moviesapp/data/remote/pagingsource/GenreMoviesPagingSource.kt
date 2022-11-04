@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.data.remote.pagingsource
 
-import com.octopus.moviesapp.android.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.model.Movie
 

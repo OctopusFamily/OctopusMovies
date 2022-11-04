@@ -1,7 +1,6 @@
 package com.octopus.moviesapp.android.response.dto
 
 import com.google.gson.annotations.SerializedName
-import com.octopus.moviesapp.android.response.dto.GenreDTO
 
 data class MovieDTO(
     @SerializedName("id")

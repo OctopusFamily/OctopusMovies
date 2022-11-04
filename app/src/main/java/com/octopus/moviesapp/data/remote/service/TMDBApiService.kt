@@ -1,26 +1,26 @@
 package com.octopus.moviesapp.data.remote.service
 
-import com.octopus.moviesapp.android.remote.response.dto.CastDTO
-import com.octopus.moviesapp.android.remote.response.BaseResponse
-import com.octopus.moviesapp.android.remote.response.CastResponse
-import com.octopus.moviesapp.android.remote.response.GenresResponse
-import com.octopus.moviesapp.android.remote.response.LogoutResponse
+import com.octopus.moviesapp.android.response.dto.CastDTO
+import com.octopus.moviesapp.android.response.BaseResponse
+import com.octopus.moviesapp.android.response.CastResponse
+import com.octopus.moviesapp.android.response.GenresResponse
+import com.octopus.moviesapp.android.response.LogoutResponse
 import com.octopus.moviesapp.data.remote.response.dto.*
-import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.android.remote.response.dto.PersonDTO
-import com.octopus.moviesapp.android.remote.response.dto.SearchDTO
-import com.octopus.moviesapp.android.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.android.remote.response.dto.TrailerDTO
-import com.octopus.moviesapp.android.remote.response.dto.TrendingDTO
-import com.octopus.moviesapp.android.remote.response.dto.account.AccountDTO
-import com.octopus.moviesapp.android.remote.response.lists.AddMovieToListResponse
-import com.octopus.moviesapp.android.remote.response.lists.CreateListResponse
-import com.octopus.moviesapp.android.remote.response.lists.CreatedListsDto
-import com.octopus.moviesapp.android.remote.response.lists.ListDetailsDto
-import com.octopus.moviesapp.android.remote.response.lists.ListResponseDto
+import com.octopus.moviesapp.android.response.dto.MovieDTO
+import com.octopus.moviesapp.android.response.dto.PersonDTO
+import com.octopus.moviesapp.android.response.dto.SearchDTO
+import com.octopus.moviesapp.android.response.dto.TVShowDTO
+import com.octopus.moviesapp.android.response.dto.TrailerDTO
+import com.octopus.moviesapp.android.response.dto.TrendingDTO
+import com.octopus.moviesapp.android.response.dto.account.AccountDTO
+import com.octopus.moviesapp.android.response.AddMovieToListResponse
+import com.octopus.moviesapp.android.response.CreateListResponse
+import com.octopus.moviesapp.android.response.dto.lists.CreatedListsDTO
+import com.octopus.moviesapp.android.response.dto.lists.ListDetailsDTO
+import com.octopus.moviesapp.android.response.dto.lists.ListResponseDTO
 import com.octopus.moviesapp.data.remote.response.lists.*
-import com.octopus.moviesapp.android.remote.response.login.RequestTokenResponse
-import com.octopus.moviesapp.android.remote.response.login.SessionResponse
+import com.octopus.moviesapp.android.response.RequestTokenResponse
+import com.octopus.moviesapp.android.response.SessionResponse
 import com.octopus.moviesapp.util.Constants
 import retrofit2.Response
 import retrofit2.http.*
@@ -144,12 +144,12 @@ interface TMDBApiService {
     suspend fun getCreatedLists(
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String
-    ): BaseResponse<CreatedListsDto>
+    ): BaseResponse<CreatedListsDTO>
 
     @GET("list/{list_id}")
     suspend fun getList(
         @Path("list_id") listId: Int
-    ): ListResponseDto<ListDetailsDto>
+    ): ListResponseDTO<ListDetailsDTO>
 
     @FormUrlEncoded
     @POST("list/{list_id}/add_item")

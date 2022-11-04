@@ -1,9 +1,9 @@
-package com.octopus.moviesapp.android.response.lists
+package com.octopus.moviesapp.android.response.dto.lists
 
 
 import com.google.gson.annotations.SerializedName
 
-data class CreatedListsDto(
+data class CreatedListsDTO(
     @SerializedName("description")
     val description: String? = null,
     @SerializedName("favorite_count")

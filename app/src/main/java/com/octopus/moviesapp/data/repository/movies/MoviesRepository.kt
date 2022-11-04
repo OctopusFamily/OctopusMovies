@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.data.repository.movies
 
 import com.octopus.moviesapp.data.remote.pagingsource.MoviesPagingSource
-import com.octopus.moviesapp.android.remote.response.dto.CastDTO
-import com.octopus.moviesapp.android.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.android.remote.response.dto.TrailerDTO
+import com.octopus.moviesapp.android.response.dto.CastDTO
+import com.octopus.moviesapp.android.response.dto.MovieDTO
+import com.octopus.moviesapp.android.response.dto.TrailerDTO
 import com.octopus.moviesapp.android.local.types.MoviesCategory
 
 interface MoviesRepository {

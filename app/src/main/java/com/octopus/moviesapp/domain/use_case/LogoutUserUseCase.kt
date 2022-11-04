@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.use_case
 
-import com.octopus.moviesapp.android.local.datastore.DataStorePreferences
+import com.octopus.moviesapp.android.datastore.DataStorePreferences
 import com.octopus.moviesapp.data.repository.account.AccountRepository
 import com.octopus.moviesapp.domain.mapper.LogoutMapper
 import com.octopus.moviesapp.domain.model.Logout
