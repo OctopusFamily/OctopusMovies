@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.octopus.moviesapp.ui.nested.NestedImageTVShowListener" />
+            type="com.octopus.moviesapp.android.viewmodels.nested.NestedImageTVShowListener" />
     </data>
 
     <androidx.cardview.widget.CardView
