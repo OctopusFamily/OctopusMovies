@@ -15,3 +15,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Movies App"
 include ':app'
+include ':presentation:ui'
+include ':presentation:viewmodels'
+include ':domain:usecases'
+include ':data:repositories'
