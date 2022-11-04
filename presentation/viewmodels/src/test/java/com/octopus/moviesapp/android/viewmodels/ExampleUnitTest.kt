@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.viewmodels
+package com.octopus.moviesapp.android.viewmodels
 
 import org.junit.Test
 
