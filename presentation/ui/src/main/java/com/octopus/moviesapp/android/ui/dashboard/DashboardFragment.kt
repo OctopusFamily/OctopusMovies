@@ -3,19 +3,20 @@ package com.octopus.moviesapp.android.ui.dashboard
 
 import android.os.Bundle
 import android.view.View
-import com.octopus.moviesapp.MyApplication
-import com.octopus.moviesapp.R
 import com.octopus.moviesapp.android.viewmodels.dashboard.DashboardViewModel
-import com.octopus.moviesapp.databinding.FragmentDashboardBinding
-import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
-import com.octopus.moviesapp.databinding.LayoutThemeSelectionBinding
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
-import com.octopus.moviesapp.ui.base.BaseBottomSheet
-import com.octopus.moviesapp.ui.base.BaseFragment
-import com.octopus.moviesapp.ui.dashboard.DashboardFragmentDirections
-import com.octopus.moviesapp.util.SettingsService
-import com.octopus.moviesapp.util.extensions.observeEvent
+import com.octopus.moviesapp.models.type.Language
+import com.octopus.moviesapp.models.type.Theme
+import com.octopus.moviesapp.models.util.SettingsService
+
+//import com.octopus.moviesapp.databinding.FragmentDashboardBinding
+//import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
+//import com.octopus.moviesapp.databinding.LayoutThemeSelectionBinding
+//import com.octopus.moviesapp.domain.types.Language
+//import com.octopus.moviesapp.ui.base.BaseBottomSheet
+//import com.octopus.moviesapp.ui.base.BaseFragment
+//import com.octopus.moviesapp.ui.dashboard.DashboardFragmentDirections
+//import com.octopus.moviesapp.util.SettingsService
+//import com.octopus.moviesapp.util.extensions.observeEvent
 
 
 @AndroidEntryPoint
