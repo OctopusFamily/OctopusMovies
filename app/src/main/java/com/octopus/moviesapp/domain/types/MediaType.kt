@@ -6,8 +6,8 @@ enum class MediaType(val mediaName: String) {
     PERSON("person");
 
     companion object {
-        fun fromMediaName(mediaName: String): MediaType {
-            return values().associateBy(MediaType::mediaName)[mediaName] ?: throw IllegalArgumentException("No enum constant!")
+        fun fromMediaName(mediaName: String): com.octopus.moviesapp.android.local.types.MediaType {
+            return values().associateBy(com.octopus.moviesapp.android.local.types.MediaType::mediaName)[mediaName] ?: throw IllegalArgumentException("No enum constant!")
         }
     }
 

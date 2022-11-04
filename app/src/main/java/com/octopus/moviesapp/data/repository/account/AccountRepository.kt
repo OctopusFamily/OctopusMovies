@@ -1,8 +1,8 @@
 package com.octopus.moviesapp.data.repository.account
 
-import com.octopus.moviesapp.data.remote.response.LogoutResponse
-import com.octopus.moviesapp.data.remote.response.dto.account.AccountDTO
-import com.octopus.moviesapp.data.remote.response.login.RequestTokenResponse
+import com.octopus.moviesapp.android.response.LogoutResponse
+import com.octopus.moviesapp.android.response.dto.account.AccountDTO
+import com.octopus.moviesapp.android.response.RequestTokenResponse
 import retrofit2.Response
 
 interface AccountRepository {

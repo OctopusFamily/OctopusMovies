@@ -1,10 +1,8 @@
 package com.octopus.moviesapp.data.repository.home
 
-import com.octopus.moviesapp.data.remote.response.dto.TrendingDTO
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
-import com.octopus.moviesapp.domain.mapper.TrendingMapper
-import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.response.dto.TrendingDTO
+import com.octopus.moviesapp.android.service.TMDBApiService
+import com.octopus.moviesapp.android.local.types.MediaType
 import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(

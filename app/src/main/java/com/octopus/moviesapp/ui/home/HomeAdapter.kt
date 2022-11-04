@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.types.RecyclerViewItemType
+import com.octopus.moviesapp.android.local.types.RecyclerViewItemType
 import com.octopus.moviesapp.ui.base.BaseDiffUtil
 import com.octopus.moviesapp.ui.movies.MoviesClicksListener
 import com.octopus.moviesapp.ui.tv_shows.TVShowsClicksListener

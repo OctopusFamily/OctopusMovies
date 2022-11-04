@@ -47,6 +47,9 @@ android {
 
 dependencies {
 
+    implementation project(":data:remote")
+    implementation project(":data:local")
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
     implementation 'com.google.android.material:material:1.7.0'
@@ -64,7 +67,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Navigation Component
-    def nav_version = '2.5.2'
+    def nav_version = '2.5.3'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 

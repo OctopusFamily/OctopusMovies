@@ -10,8 +10,8 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentDashboardBinding
 import com.octopus.moviesapp.databinding.LayoutLanguageSelectionBinding
 import com.octopus.moviesapp.databinding.LayoutThemeSelectionBinding
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.android.local.types.Language
+import com.octopus.moviesapp.android.local.types.Theme
 import com.octopus.moviesapp.ui.base.BaseBottomSheet
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.SettingsService

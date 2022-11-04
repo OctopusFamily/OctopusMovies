@@ -2,8 +2,8 @@ package com.octopus.moviesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.octopus.moviesapp.data.local.database.dao.MoviesDao
-import com.octopus.moviesapp.data.local.database.db.MoviesDatabase
+import com.octopus.moviesapp.android.database.dao.MoviesDao
+import com.octopus.moviesapp.android.database.db.MoviesDatabase
 import com.octopus.moviesapp.util.Constants
 import dagger.Module
 import dagger.Provides

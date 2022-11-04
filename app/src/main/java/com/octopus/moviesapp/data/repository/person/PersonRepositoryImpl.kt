@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.data.repository.person
 
-import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
-import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
-import com.octopus.moviesapp.data.remote.response.dto.TVShowDTO
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.response.dto.MovieDTO
+import com.octopus.moviesapp.android.response.dto.PersonDTO
+import com.octopus.moviesapp.android.response.dto.TVShowDTO
+import com.octopus.moviesapp.android.service.TMDBApiService
 import javax.inject.Inject
 
 class PersonRepositoryImpl @Inject constructor(

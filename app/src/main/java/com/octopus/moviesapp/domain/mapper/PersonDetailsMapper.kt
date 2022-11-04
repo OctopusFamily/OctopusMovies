@@ -2,7 +2,7 @@ package com.octopus.moviesapp.domain.mapper
 
 import android.content.Context
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.data.remote.response.dto.PersonDTO
+import com.octopus.moviesapp.android.response.dto.PersonDTO
 import com.octopus.moviesapp.domain.model.PersonDetails
 import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.getTextOrPlaceholder

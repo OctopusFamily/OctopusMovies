@@ -8,7 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.octopus.moviesapp.domain.model.TVShow
-import com.octopus.moviesapp.domain.types.TVShowsCategory
+import com.octopus.moviesapp.android.local.types.TVShowsCategory
 import com.octopus.moviesapp.domain.use_case.GetTVShowsPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.search.ChipGroupClickListener

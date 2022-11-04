@@ -2,9 +2,9 @@ package com.octopus.moviesapp.domain.mapper
 
 import android.content.Context
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.data.remote.response.dto.MovieDTO
+import com.octopus.moviesapp.android.response.dto.MovieDTO
 import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.convertStringToDate
 import com.octopus.moviesapp.util.getTextOrPlaceholder

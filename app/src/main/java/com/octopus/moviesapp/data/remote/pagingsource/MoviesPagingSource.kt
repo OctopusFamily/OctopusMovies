@@ -1,9 +1,9 @@
 package com.octopus.moviesapp.data.remote.pagingsource
 
-import com.octopus.moviesapp.data.remote.service.TMDBApiService
+import com.octopus.moviesapp.android.service.TMDBApiService
 import com.octopus.moviesapp.domain.mapper.MoviesMapper
 import com.octopus.moviesapp.domain.model.Movie
-import com.octopus.moviesapp.domain.types.MoviesCategory
+import com.octopus.moviesapp.android.local.types.MoviesCategory
 import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(

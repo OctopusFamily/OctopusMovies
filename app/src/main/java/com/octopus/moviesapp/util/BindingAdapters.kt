@@ -14,8 +14,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.types.Language
-import com.octopus.moviesapp.domain.types.Theme
+import com.octopus.moviesapp.android.local.types.Language
+import com.octopus.moviesapp.android.local.types.Theme
 import com.octopus.moviesapp.ui.base.BaseAdapter
 import com.octopus.moviesapp.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex

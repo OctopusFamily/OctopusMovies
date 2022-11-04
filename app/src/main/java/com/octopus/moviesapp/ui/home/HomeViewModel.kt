@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.model.Movie
 import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.domain.model.Trending
-import com.octopus.moviesapp.domain.types.MediaType
-import com.octopus.moviesapp.domain.types.MoviesCategory
-import com.octopus.moviesapp.domain.types.TVShowsCategory
+import com.octopus.moviesapp.android.local.types.MediaType
+import com.octopus.moviesapp.android.local.types.MoviesCategory
+import com.octopus.moviesapp.android.local.types.TVShowsCategory
 import com.octopus.moviesapp.domain.use_case.FetchMoviesByCategoryUseCase
 import com.octopus.moviesapp.domain.use_case.FetchTVShowsByCategoryUseCase
 import com.octopus.moviesapp.domain.use_case.GetTrendingMediaUseCase

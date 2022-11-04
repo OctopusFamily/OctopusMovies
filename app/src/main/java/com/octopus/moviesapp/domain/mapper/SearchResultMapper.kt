@@ -1,6 +1,6 @@
 package com.octopus.moviesapp.domain.mapper
 
-import com.octopus.moviesapp.data.remote.response.dto.SearchDTO
+import com.octopus.moviesapp.android.response.dto.SearchDTO
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.util.buildImageUrl
 import com.octopus.moviesapp.util.convertStringToDate
@@ -8,7 +8,7 @@ import com.octopus.moviesapp.util.getTextOrPlaceholder
 import dagger.hilt.android.qualifiers.ApplicationContext
 import android.content.Context
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.types.MediaType
+import com.octopus.moviesapp.android.local.types.MediaType
 import javax.inject.Inject
 
 class SearchResultMapper @Inject constructor(

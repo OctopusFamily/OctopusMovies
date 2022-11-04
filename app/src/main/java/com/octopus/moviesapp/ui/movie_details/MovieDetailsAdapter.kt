@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.domain.types.RecyclerViewItemType
+import com.octopus.moviesapp.android.local.types.RecyclerViewItemType
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
 import com.octopus.moviesapp.util.RecyclerViewHolder

@@ -8,7 +8,7 @@ import com.octopus.moviesapp.domain.model.Cast
 import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.domain.model.MovieDetails
 import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieCastUseCase
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieDetailsUseCase
 import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieTrailerUseCase
@@ -17,7 +17,6 @@ import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
 import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
 import com.octopus.moviesapp.ui.nested.NestedCastListener
 import com.octopus.moviesapp.ui.nested.NestedGenresListener
-import com.octopus.moviesapp.ui.person_details.uistate.PersonDetailsUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
@@ -27,7 +26,6 @@ import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 package com.octopus.moviesapp.ui.tv_shows.uistate
 
 import androidx.paging.PagingData
-import com.octopus.moviesapp.domain.types.TVShowsCategory
+import com.octopus.moviesapp.android.local.types.TVShowsCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

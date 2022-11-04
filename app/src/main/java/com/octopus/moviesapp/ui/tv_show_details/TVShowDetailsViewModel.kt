@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.model.*
-import com.octopus.moviesapp.domain.types.GenresType
+import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowCastUseCase
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowDetailsByIdUseCase
 import com.octopus.moviesapp.domain.use_case.tvshow_details_use_case.GetTVShowTrailerUseCase
