@@ -1,34 +1,26 @@
-package com.octopus.moviesapp.ui.movie_details
+package com.octopus.moviesapp.android.viewmodels.movie_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
-import com.octopus.moviesapp.domain.model.Cast
-import com.octopus.moviesapp.domain.model.MovieDetails
-import com.octopus.moviesapp.domain.model.Trailer
-import com.octopus.moviesapp.android.local.types.GenresType
-import com.octopus.moviesapp.domain.types.GenresType
-import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieCastUseCase
-import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieDetailsUseCase
-import com.octopus.moviesapp.domain.use_case.moviedetails_usecase.FetchMovieTrailerUseCase
-import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsMainUiState
-import com.octopus.moviesapp.ui.movie_details.uistate.MovieDetailsUiState
-import com.octopus.moviesapp.ui.nested.NestedCastListener
-import com.octopus.moviesapp.ui.nested.NestedGenresListener
+import com.octopus.moviesapp.android.mapper.buildImageUrl
+import com.octopus.moviesapp.android.usecases.movies.FetchMovieCastUseCase
+import com.octopus.moviesapp.android.usecases.movies.FetchMovieDetailsUseCase
+import com.octopus.moviesapp.android.usecases.movies.FetchMovieTrailerUseCase
+import com.octopus.moviesapp.android.viewmodels.movie_details.uistate.MovieDetailsMainUiState
+import com.octopus.moviesapp.android.viewmodels.movie_details.uistate.MovieDetailsUiState
+import com.octopus.moviesapp.android.viewmodels.movie_details.utiles.Event
+import com.octopus.moviesapp.models.model.Cast
+import com.octopus.moviesapp.models.model.Genre
+import com.octopus.moviesapp.models.model.MovieDetails
+import com.octopus.moviesapp.models.model.Trailer
+import com.octopus.moviesapp.models.type.GenresType
 import com.octopus.moviesapp.ui.tv_show_details.uistate.CastUiState
 import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
-import com.octopus.moviesapp.ui.tv_show_details.uistate.TrailerUiState
-import com.octopus.moviesapp.util.Event
-import com.octopus.moviesapp.util.buildImageUrl
-import com.octopus.moviesapp.util.extensions.postEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(

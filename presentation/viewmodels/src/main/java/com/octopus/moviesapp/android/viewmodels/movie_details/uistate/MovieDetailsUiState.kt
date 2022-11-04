@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.movie_details.uistate
+package com.octopus.moviesapp.android.viewmodels.movie_details.uistate
 
 import com.octopus.moviesapp.ui.tv_show_details.uistate.GenresUiState
 import java.util.*

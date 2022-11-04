@@ -1,6 +1,5 @@
 package com.octopus.moviesapp.ui.genres.mapper
 
-import com.octopus.moviesapp.domain.model.Genre
 import com.octopus.moviesapp.android.local.types.GenresType
 import com.octopus.moviesapp.ui.genres.uistate.GenresUiState
 import javax.inject.Inject
