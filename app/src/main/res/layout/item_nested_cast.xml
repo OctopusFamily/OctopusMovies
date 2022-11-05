@@ -10,7 +10,7 @@
 
         <variable
             name="listener"
-            type="com.octopus.moviesapp.ui.nested.NestedCastListener" />
+            type="com.octopus.moviesapp.android.viewmodels.nested.NestedCastListener" />
 
     </data>
 
