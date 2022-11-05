@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.ui.movies.uistate.MovieUiState" />
+            type="com.octopus.moviesapp.android.ui.movies.uistate.MovieUiState" />
         <variable
             name="listener"
             type="com.octopus.moviesapp.ui.movies.MoviesClicksListener" />
