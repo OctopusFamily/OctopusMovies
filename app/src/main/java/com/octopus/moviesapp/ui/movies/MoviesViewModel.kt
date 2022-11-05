@@ -12,7 +12,7 @@ import com.octopus.moviesapp.domain.use_case.GetMoviesPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
 import com.octopus.moviesapp.ui.movies.uistate.MovieUiState
 import com.octopus.moviesapp.ui.movies.uistate.MoviesMainUiState
-import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import com.octopus.moviesapp.android.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.util.Constants
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent

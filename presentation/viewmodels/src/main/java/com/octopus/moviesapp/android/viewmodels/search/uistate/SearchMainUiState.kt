@@ -1,7 +1,6 @@
-package com.octopus.moviesapp.ui.search.uistate
+package com.octopus.moviesapp.android.viewmodels.search.uistate
 
-import com.octopus.moviesapp.android.local.types.MediaType
-import com.octopus.moviesapp.android.viewmodels.search.uistate.SearchResultUiState
+import com.octopus.moviesapp.models.type.MediaType
 
 data class SearchMainUiState(
     val isLoading: Boolean = true,

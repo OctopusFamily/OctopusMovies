@@ -1,4 +1,4 @@
-package com.octopus.moviesapp.ui.search
+package com.octopus.moviesapp.android.ui.search
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.octopus.moviesapp.R
 import com.octopus.moviesapp.databinding.FragmentSearchBinding
 import com.octopus.moviesapp.android.local.types.MediaType
-import com.octopus.moviesapp.android.ui.search.SearchAdapter
-import com.octopus.moviesapp.android.ui.search.SearchViewModel
+import com.octopus.moviesapp.android.viewmodels.search.SearchViewModel
 import com.octopus.moviesapp.ui.base.BaseFragment
 import com.octopus.moviesapp.util.extensions.observeEvent
 import dagger.hilt.android.AndroidEntryPoint

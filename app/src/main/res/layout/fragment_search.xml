@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.octopus.moviesapp.ui.search.SearchViewModel" />
+            type="com.octopus.moviesapp.android.viewmodels.search.SearchViewModel" />
         <variable
             name="searchType"
             type="com.octopus.moviesapp.android.local.types.MediaType" />

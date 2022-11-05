@@ -11,7 +11,7 @@ import com.octopus.moviesapp.domain.model.TVShow
 import com.octopus.moviesapp.android.local.types.TVShowsCategory
 import com.octopus.moviesapp.domain.use_case.GetTVShowsPagingSourceUseCase
 import com.octopus.moviesapp.ui.base.BaseViewModel
-import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import com.octopus.moviesapp.android.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowUiState
 import com.octopus.moviesapp.ui.tv_shows.uistate.TVShowsMainUiState
 import com.octopus.moviesapp.util.*

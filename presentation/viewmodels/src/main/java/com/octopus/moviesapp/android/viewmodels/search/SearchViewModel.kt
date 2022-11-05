@@ -1,18 +1,22 @@
-package com.octopus.moviesapp.ui.search
+package com.octopus.moviesapp.android.viewmodels.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.octopus.moviesapp.domain.model.SearchResult
 import com.octopus.moviesapp.android.local.types.MediaType
-import com.octopus.moviesapp.android.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.android.ui.search.SearchClicksListener
-import com.octopus.moviesapp.domain.use_case.search.FilterSearchResultsUseCase
-import com.octopus.moviesapp.domain.use_case.search.SearchMediaUseCase
-import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.android.usecases.search.FilterSearchResultsUseCase
+import com.octopus.moviesapp.android.usecases.search.SearchMediaUseCase
 import com.octopus.moviesapp.android.viewmodels.search.mapper.asSearchResultUiState
 import com.octopus.moviesapp.android.viewmodels.search.uistate.SearchMainUiState
 import com.octopus.moviesapp.android.viewmodels.search.uistate.SearchResultUiState
+import com.octopus.moviesapp.models.model.SearchResult
+import com.octopus.moviesapp.models.type.MediaType
+import com.octopus.moviesapp.ui.base.BaseViewModel
+import com.octopus.moviesapp.ui.search.mapper.asSearchResultUiState
+import com.octopus.moviesapp.ui.search.uistate.SearchMainUiState
+import com.octopus.moviesapp.ui.search.uistate.SearchResultUiState
 import com.octopus.moviesapp.util.Event
 import com.octopus.moviesapp.util.extensions.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +30,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchMediaUseCase: SearchMediaUseCase,
     private val filterSearchUseCase: FilterSearchResultsUseCase,
-) : BaseViewModel(), SearchClicksListener, ChipGroupClickListener {
+) : BaseViewModel(), com.octopus.moviesapp.android.ui.search.SearchClicksListener, ChipGroupClickListener {
 
     private val _searchResultState = MutableStateFlow(SearchMainUiState())
     val searchResultState: StateFlow<SearchMainUiState> = _searchResultState

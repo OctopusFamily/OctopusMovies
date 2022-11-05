@@ -17,7 +17,7 @@ import com.octopus.moviesapp.R
 import com.octopus.moviesapp.android.local.types.Language
 import com.octopus.moviesapp.android.local.types.Theme
 import com.octopus.moviesapp.ui.base.BaseAdapter
-import com.octopus.moviesapp.ui.search.ChipGroupClickListener
+import com.octopus.moviesapp.android.ui.search.ChipGroupClickListener
 import com.octopus.moviesapp.util.extensions.getSelectedChipIndex
 import java.text.SimpleDateFormat
 import java.util.*

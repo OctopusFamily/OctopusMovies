@@ -6,10 +6,10 @@
     <data>
         <variable
             name="item"
-            type="com.octopus.moviesapp.ui.search.uistate.SearchResultUiState" />
+            type="com.octopus.moviesapp.android.viewmodels.search.uistate.SearchResultUiState" />
         <variable
             name="listener"
-            type="com.octopus.moviesapp.ui.search.SearchClicksListener" />
+            type="com.octopus.moviesapp.android.ui.search.SearchClicksListener" />
     </data>
 
     <androidx.cardview.widget.CardView

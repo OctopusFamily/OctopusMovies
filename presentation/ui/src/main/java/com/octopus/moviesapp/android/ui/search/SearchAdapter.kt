@@ -1,7 +1,6 @@
-package com.octopus.moviesapp.ui.search
+package com.octopus.moviesapp.android.ui.search
 
 import com.octopus.moviesapp.R
-import com.octopus.moviesapp.android.ui.search.SearchClicksListener
 import com.octopus.moviesapp.ui.base.BaseAdapter
 import com.octopus.moviesapp.android.viewmodels.search.uistate.SearchResultUiState
 
