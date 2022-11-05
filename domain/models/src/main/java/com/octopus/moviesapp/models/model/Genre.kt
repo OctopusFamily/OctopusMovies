@@ -6,5 +6,5 @@ import com.octopus.moviesapp.models.type.GenresType
 data class Genre(
     val id: Int,
     val name: String,
-    val type: GenresType,
+    val type: String,
 )
